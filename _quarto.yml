@@ -8,8 +8,8 @@ project:
   render: 
     - index.qmd
 website:
-  title: "Other Revenue"
-  favicon: img/logo-webseite.svg
+  title: "AK-OOe-Pensionen"
+  favicon: img/ak-logo.svg
   search: true
   page-footer: |
       [![](img/logo.svg){height=30px}](https://www.wifo.ac.at/) <br><br>
