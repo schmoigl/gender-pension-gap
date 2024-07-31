@@ -1,0 +1,31 @@
+project:
+  type: website
+  output-dir: website
+  preview:
+    port: 7777
+    browser: true
+    watch-inputs: true
+  render: 
+    - index.qmd
+website:
+  title: "Other Revenue"
+  favicon: img/logo-webseite.svg
+  search: true
+  page-footer: |
+      [![](img/logo.svg){height=30px}](https://www.wifo.ac.at/) <br><br>
+      © 2024 — <a href="mailto:data.science@wifo.ac.at">data.science@wifo.ac.at</a>
+  navbar:
+    title: | 
+      [![](img/ak-logo.svg){height="60px"}](/) &nbsp;
+    left: 
+      - index.qmd
+    tools:
+      - icon: github
+        href: https://github.com/schmoigl
+format:
+  html:
+    theme: [cosmo, style/styles.scss]
+    # css: style/styles.css # works only with simple .css not .scss
+    toc: false
+    page-layout: article
+    fontsize: 16px

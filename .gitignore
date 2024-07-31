@@ -1,0 +1,17 @@
+# R
+.Rhistory
+.vdoc.r
+.Rproj.user
+.RData
+.Ruserdata
+
+# VS Code
+.vscode/
+
+# Quarto
+.quarto
+
+website/
+site_libs/
+
+/.quarto/

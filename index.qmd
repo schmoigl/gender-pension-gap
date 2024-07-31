@@ -1,0 +1,58 @@
+---
+title: "AK-OOe-Pensionen-PN-23011"
+author: "Lukas Schmoigl / Stefan Weingärtner"
+execute: 
+  echo: false
+---
+
+
+## R
+
+```{r}
+#| echo: false
+#| warning: false
+library(tidyverse)
+library(arrow)
+library(kableExtra)
+options(scipen = 999999)
+
+path <- "//int.wsr.at/Nabu/ext_Projekte/AK-OOe-Pensionen_PN-23011/"
+```
+
+```{r}
+#| echo: false
+#| warning: false
+data <- read_csv("data/scenarios.csv")
+```
+
+```{r}
+#| echo: false
+#| warning: false
+data |> 
+  filter(row_number()<20) |>
+  kable("html")
+```
+
+
+## JavaScript
+
+{{< include src/config.qmd >}}
+
+```{ojs}
+// echo: false
+// warning: false
+import {vl} from "@vega/vega-lite-api-v5"
+import {aq, op} from '@uwdata/arquero'
+```
+
+```{ojs}
+// echo: false
+// warning: false
+data = FileAttachment("data/scenarios.csv").csv({ typed: true })
+```
+
+```{ojs}
+// echo: false
+// warning: false
+data
+```
