@@ -1,11 +1,30 @@
 /*-- scss:defaults --*/
 $font-family-sans-serif: "Montserrat";
+$link-color: #be0021;
+
 
 
 /*-- scss:rules --*/
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
+.navbar {
+    background: url(img/struktur-footer.png);
+}
+
+.nav-link.active {
+    color: #be0021 !important;
+}
+
+form {
+    padding: 10px 10px 10px 10px;
+}
+
+.mainText {
+    text-align: justify;
+    background: url(img/struktur-footer.png);
+    padding: 10px 10px 0px 10px;
+}
 
 /* tooltip:   */
 #vg-tooltip-element, .tooltip {
@@ -88,20 +107,3 @@ $font-family-sans-serif: "Montserrat";
     background: #4CAF50;
     cursor: poMontserrat;
 }
-/* buttons:   */
-// input[type=radio]{
-//     position: absolute;
-//     visibility: hidden;
-// }
-// input[type=radio] + div {
-//     padding: 1px 6px 1px 6px;
-//     border: 1px solid black;
-//     border-radius: 2px;
-//     background: linear-gradient(to top, #d3d3d3 -50%, #FCFCFC 110.00000000000001%);
-//     opacity: 0.50;
-//     cursor: poMontserrat;
-//     min-width: 50px;
-// }
-// input[type=radio]:checked + div {
-//     opacity: 1;
-// }

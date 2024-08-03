@@ -28,4 +28,4 @@ format:
     # css: style/styles.css # works only with simple .css not .scss
     toc: false
     page-layout: article
-    fontsize: 16px
+    fontsize: 15px

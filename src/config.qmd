@@ -1,9 +1,20 @@
 
 ```{ojs}
 colors = [
-  "#72bb6f", // 
-  "#559bd5", // 
-  "#f3d039", // 
+  "#be0021",
+  "#f3d039", 
+  "#c3423f", 
+  "#12a7e7",
+  "#96b428",
+  "#559e8f",
+  "#f3d039",
+  "#559e8f",
+  "#2d5b5e"
+]
+colorsWifo = [
+  "#72bb6f",
+  "#559bd5",
+  "#f3d039",
   "#c3423f", 
   "#12a7e7",
   "#96b428",
@@ -16,7 +27,7 @@ config = ({
   view: {stroke: null}, 
   padding: {
     left: 5, 
-    top: 5, 
+    top: 20, 
     right: 5, 
     bottom: 20
     },
