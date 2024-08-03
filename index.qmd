@@ -1,6 +1,6 @@
 ---
-title: "AK-OOe-Pensionen-PN-23011"
-# author: "Lukas Schmoigl / Stefan Weingärtner"
+title: "Pensionsszenarien im Überblick"
+# author: "Lukas Schmoigl / Stefan Weingärtner" AK-OOe-Pensionen-PN-23011
 execute: 
   echo: false
   warning: false
@@ -29,24 +29,6 @@ scenarios = aq.from(binsRaw)
   .array("variable")
 ```
 
-:::: {.columns .column-page}
-::: {.column width="33%"}
-```{ojs}
-viewof select = Inputs.select(scenarios, {label: "Szenario"})
-```
-:::
-::: {.column width="33%"}
-```{ojs}
-viewof radio = Inputs.radio(["Frauen", "Männer"], {label: "Geschlecht", value: "Frauen"})
-```
-:::
-::: {.column width="33%"}
-```{ojs}
-viewof range = Inputs.range([100, 4200], {label: "Bruttopension", step: 100})
-```
-:::
-::::
-
 ```{ojs}
 // echo: false
 // warning: false
@@ -55,9 +37,23 @@ info = descriptions
   .map(d => d.description)[0]
 ```
 
-::: {.columns .column-page .mainText}
-![](img/Infobox_info_icon.svg){height=18px} ${info}
+::: {.columns .column-body}
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
 :::
+
+:::: {.columns .column-page .selectionBox}
+::: {.column width="40%"}
+```{ojs}
+viewof select = Inputs.select(scenarios, {label: "Szenario"})
+viewof radio = Inputs.radio(["Frauen", "Männer"], {label: "Geschlecht", value: "Frauen"})
+viewof range = Inputs.range([100, 4200], {label: "Bruttopension", step: 100})
+```
+:::
+::: {.column width="60%" .infoText}
+![](img/Infobox_info_icon.svg){height=12px} ${info} <br><br>
+![](img/Infobox_info_icon.svg){height=12px} Ihre [genaue Pensionshöhe können Sie hier](https://pensionsrechner.arbeiterkammer.at/pkr-on2/) errechnen lassen
+:::
+::::
 
 ```{ojs}
 bins = aq.from(binsRaw)
@@ -75,8 +71,9 @@ distributions = {
 
   const area = vl
     .markArea({
-      interpolate: "step",
-      opacity: 0.44,
+      interpolate: "natural",
+      fillOpacity: 0.33,
+      strokeWidth: 2,
     })
     .encode(
       vl.x()
@@ -100,12 +97,24 @@ distributions = {
         .scale({
           range: colors,
         })
+        // .sort(radio == "Männer" ? 'descending' : 'ascending')
         .legend({
           orient: "top",
+          symbolOpacity: 1,
+          symbolType: "square",
           // legendX: 1000,
           // legendY: 500,
           title: null,
         }),
+      vl.stroke()
+        .fieldN("gesl")
+        .scale({
+          range: radio == "Männer" ? ["transparent", "black"] : ["black", "transparent"],
+        })
+        .legend(null),
+      // vl.order()
+      //   .fieldN("gesl")
+      //   .sort(radio == "Männer" ? 'descending' : 'ascending'),
       // vl.opacity()
       //   .fieldN("gesl")
       //   .scale({
@@ -116,11 +125,12 @@ distributions = {
 
   const areaLowTail = vl
     .markArea({
-      interpolate: "step",
-      opacity: 0.5,
+      interpolate: "natural",
+      opacity: 0.75,
     })
     .transform(
       vl.filter("datum.bin <= datum.range"),
+      vl.filter("datum.gesl == datum.radio"),
       // vl.filter("datum.gesl == datum.radio"),
     )
     .encode(
@@ -138,7 +148,8 @@ distributions = {
 
   const rule = vl
     .markRule({
-      stroke: "black"
+      stroke: "black",
+      strokeDash: [4, 2],
     })
     .transform(
       vl.filter("datum.bin == datum.range")
@@ -147,14 +158,33 @@ distributions = {
       vl.x()
         .fieldQ("bin")
     )
+
+  const text = vl
+    .markText({
+      clip: true,
+      size: 12,
+    })
+    .transform(
+      vl.filter("datum.bin == datum.range")
+    )
+    .encode(
+      vl.x()
+        .fieldQ("bin"),
+      vl.y()
+        .value(20),
+      vl.text()
+        .value("← kleiner⠀⠀⠀⠀größer →"), 
+    )
     
   return vl
     .layer(
       area,
       areaLowTail,
       rule,
+      text,
     )
-    .width(width * 0.16)
+    .height(340)
+    .width(width * 0.32)
     .facet({
       field: "variable", 
       type: "nominal", 
@@ -166,7 +196,7 @@ distributions = {
     })
     .data(
       bins
-        .filter(aq.escape(d => d.variable == select || d.variable == "Status quo"))
+        .filter(aq.escape(d => d.variable == "Status quo")) // d.variable == select || 
       )
     .config(config)
     .render({ renderer: "svg" })
@@ -177,7 +207,7 @@ distributions = {
 
 ```{ojs}
 cumPerc = bins
-  .derive({ 
+  .derive({
     tail: aq.escape(
       d => d.bin < range ? "lower" : 
       d.bin > range ? "higher" : "same"
@@ -191,36 +221,42 @@ cumPerc = bins
   })
   .groupby(["gesl", "variable", "tail"])
   .derive({ 
-    text: aq.escape(d => d3.format(",.1~%")(d.perc)),
+    text: aq.escape(d => d3.format(",.0~%")(d.perc)),
   })
   .objects()
 ```
 
-::: {.columns .column-page .mainText}
-Etwa ${cumPerc.filter(d => d.gesl == "Frauen" && d.tail == "lower" && d.variable == "Status quo").map(d => d.text)} aller Frauen und ${cumPerc.filter(d => d.gesl == "Männer" && d.tail == "lower" && d.variable == "Status quo").map(d => d.text)} haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat. Für das Szenario
+::: {.columns .column-body}
+Etwa ${cumPerc.filter(d => d.gesl == "Frauen" && d.tail == "lower" && d.variable == "Status quo").map(d => d.text)} aller Frauen und ${cumPerc.filter(d => d.gesl == "Männer" && d.tail == "lower" && d.variable == "Status quo").map(d => d.text)} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat. Im Szenario ${select} würde sich folgende Verschiebung der Verteilungen ergeben:
 :::
 
 ```{ojs}
 alleRaw = FileAttachment("data/alle.csv").csv({ typed: true })
+deciles = [
+  // "Gesamt",
+  "10. Dezil",
+  "20. Dezil",
+  "30. Dezil",
+  "40. Dezil",
+  "50. Dezil",
+  "60. Dezil",
+  "70. Dezil",
+  "80. Dezil",
+  "90. Dezil",
+]
 alle = aq.from(alleRaw)
   .derive({ 
     variable: d => op.replace(d.variable, /\r\n/g, " "),
     range: aq.escape(d => range),
     radio: aq.escape(d => radio),
+    diff: aq.escape(d => Math.abs(range-d.value)),
   })
-alle.objects()
-deciles = [
-  "Gesamt",
-  "10. Dezil",
-  "25. Dezil",
-  "50. Dezil",
-  "75. Dezil",
-  "90. Dezil",
-]
-alle
-  .select("D")
-  .dedupe()
-  .array("D")
+  .filter(aq.escape(d => d.variable == select && deciles.includes(d.D)))
+  .groupby(["gesl", "val", "variable"])
+  .derive({ 
+    closestDecile: d => op.min(d.diff) == d.diff && d.gesl == d.radio && d.val == "Status quo" ? "yes" : "no",
+  })
+  .ungroup()
 ```
 
 :::{.column-page}
@@ -229,8 +265,9 @@ bars = {
 
   const bar = vl
     .markBar({
-      stroke: "transparent",
-      opacity: 0.7,
+      fillOpacity: 0.75,
+      strokeWidth: 2,
+      strokeOpacity: 1,
     })
     .encode(
       vl.x()
@@ -247,16 +284,24 @@ bars = {
           title: "Bruttopension",
         }),
       vl.xOffset()
-        .fieldN("gesl"),
+        .fieldN("val"),
       vl.color()
-        .fieldN("gesl")
+        .fieldN("val")
         .scale({
           range: colors,
         })
         .legend({
           orient: "top",
+          symbolOpacity: 1,
+          symbolType: "square",
           title: null,
         }),
+      vl.stroke()
+        .fieldN("closestDecile")
+        .scale({
+          range: ["transparent", "black"]
+        })
+        .legend(null),
     )
 
   return vl 
@@ -265,7 +310,7 @@ bars = {
     )
     .width(width * 0.16)
     .facet({
-      field: "val", 
+      field: "gesl", 
       type: "nominal", 
       title: null,
       header: { 
@@ -273,13 +318,15 @@ bars = {
         orient: "top",
       },
     })
-    .data(
-      alle
-        .filter(aq.escape(d => d.variable == select && deciles.includes(d.D)))
-      )
+    .data(alle)
     .config(config)
     .render({ renderer: "svg" })
 
 }
 ```
 :::
+
+```{ojs}
+alle.objects()
+```
+
