@@ -46,7 +46,7 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 ```{ojs}
 viewof select = Inputs.select(scenarios, {label: "Szenario"})
 viewof radio = Inputs.radio(["Frauen", "Männer"], {label: "Geschlecht", value: "Frauen"})
-viewof range = Inputs.range([100, 4200], {label: "Bruttopension", step: 100})
+viewof range = Inputs.range([100, 4200], {label: "Bruttopension", step: 100, value: 1200})
 ```
 :::
 ::: {.column width="60%" .infoText}
@@ -99,7 +99,7 @@ distributions = {
         })
         // .sort(radio == "Männer" ? 'descending' : 'ascending')
         .legend({
-          orient: "top",
+          orient: "top", 
           symbolOpacity: 1,
           symbolType: "square",
           // legendX: 1000,
@@ -278,6 +278,9 @@ bars = {
         }),
       vl.y()
         .fieldQ("value")
+        .scale({
+          domain: [0, 4000],
+        })
         .axis({
           domain: false,
           grid: false,
