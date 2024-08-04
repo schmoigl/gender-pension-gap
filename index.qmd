@@ -126,7 +126,8 @@ distributions = {
   const areaLowTail = vl
     .markArea({
       interpolate: "natural",
-      opacity: 0.75,
+      fillOpacity: 0.75,
+      strokeWidth: 2,
     })
     .transform(
       vl.filter("datum.bin <= datum.range"),
@@ -228,6 +229,148 @@ cumPerc = bins
 
 ::: {.columns .column-body}
 Etwa ${cumPerc.filter(d => d.gesl == "Frauen" && d.tail == "lower" && d.variable == "Status quo").map(d => d.text)} aller Frauen und ${cumPerc.filter(d => d.gesl == "Männer" && d.tail == "lower" && d.variable == "Status quo").map(d => d.text)} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat. Im Szenario ${select} würde sich folgende Verschiebung der Verteilungen ergeben:
+:::
+
+
+:::{.column-page}
+```{ojs}
+distributionsChange = {
+
+  const area = vl
+    .markArea({
+      interpolate: "natural",
+      fillOpacity: 0.33,
+      strokeWidth: 2,
+    })
+    .encode(
+      vl.x()
+        .fieldQ("bin")
+        .axis({
+          grid: false,
+          title: "Bruttopension"
+        }),
+      vl.y()
+        .fieldQ("N")
+        .scale({
+          domain: [0, 18000],
+        })
+        .axis({
+          domain: false,
+          grid: false,
+          title: "Anzahl Personen"
+        }),
+      vl.color()
+        .fieldN("gesl")
+        .scale({
+          range: colors,
+        })
+        // .sort(radio == "Männer" ? 'descending' : 'ascending')
+        .legend({
+          orient: "top", 
+          symbolOpacity: 1,
+          symbolType: "square",
+          // legendX: 1000,
+          // legendY: 500,
+          title: null,
+        }),
+      vl.stroke()
+        .fieldN("gesl")
+        .scale({
+          range: radio == "Männer" ? ["transparent", "black"] : ["black", "transparent"],
+        })
+        .legend(null),
+      // vl.order()
+      //   .fieldN("gesl")
+      //   .sort(radio == "Männer" ? 'descending' : 'ascending'),
+      // vl.opacity()
+      //   .fieldN("gesl")
+      //   .scale({
+      //     range: radio == "Männer" ? [0.4, 0.7] : [0.7, 0.4],
+      //   })
+      //   .legend(null),
+    )
+
+  const areaLowTail = vl
+    .markArea({
+      interpolate: "natural",
+      fillOpacity: 0.75,
+      strokeWidth: 2,
+    })
+    .transform(
+      vl.filter("datum.bin <= datum.range"),
+      vl.filter("datum.gesl == datum.radio"),
+      // vl.filter("datum.gesl == datum.radio"),
+    )
+    .encode(
+      vl.x()
+        .fieldQ("bin"),
+      vl.y()
+        .fieldQ("N"),
+      vl.color()
+        .fieldN("gesl")
+        .scale({
+          range: colors,
+        })
+        .legend(null),
+    )
+
+  const rule = vl
+    .markRule({
+      stroke: "black",
+      strokeDash: [4, 2],
+    })
+    .transform(
+      vl.filter("datum.bin == datum.range")
+    )
+    .encode(
+      vl.x()
+        .fieldQ("bin")
+    )
+
+  const text = vl
+    .markText({
+      clip: true,
+      size: 12,
+    })
+    .transform(
+      vl.filter("datum.bin == datum.range")
+    )
+    .encode(
+      vl.x()
+        .fieldQ("bin"),
+      vl.y()
+        .value(20),
+      vl.text()
+        .value("← kleiner⠀⠀⠀⠀größer →"), 
+    )
+    
+  return vl
+    .layer(
+      area,
+      areaLowTail,
+      rule,
+      text,
+    )
+    .height(180)
+    .width(width * 0.16)
+    .facet({
+      field: "variable", 
+      type: "nominal", 
+      title: null,
+      header: { 
+        labelFontSize: 14, 
+        orient: "top",
+      },
+    })
+    .data(
+      bins
+        .filter(aq.escape(d => d.variable == select || d.variable == "Status quo")) // d.variable == select || 
+      )
+    .config(config)
+    .render({ renderer: "svg" })
+
+}
+```
 :::
 
 ```{ojs}
