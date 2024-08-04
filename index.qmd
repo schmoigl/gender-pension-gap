@@ -39,7 +39,7 @@ info = descriptions
 ```
 
 ::: {.columns .column-body .mainText}
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
+Die Berechnungen der AK OÖ und WIFO zeigen in verschiedenen Szenarien mögliche Stellschrauben für eine Angleichung der Frauenpensionen an Männerpensionen auf.
 :::
 
 :::: {.columns .column-page .selectionBox}
@@ -239,7 +239,7 @@ distributions = {
       textLeft,
       textRight,
     )
-    .height(340)
+    .height(300)
     .width(makeWidth(width))
     .facet({
       field: "variable", 
@@ -259,12 +259,6 @@ distributions = {
 
 }
 ```
-:::
-
-
-
-::: {.columns .column-body .mainText}
-Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat. Im Szenario ${select} würde sich folgende Verschiebung der Verteilungen ergeben:
 :::
 
 :::{.column-page}
@@ -361,7 +355,7 @@ distributionsChange = {
       areaLowTail,
       rule,
     )
-    .height(180)
+    .height(150)
     .width(makeWidth(width)/2)
     .facet({
       field: "variable", 
@@ -436,12 +430,13 @@ alle = alleMid
   .join_left(allePivot, [["gesl", "D"], ["gesl", "D"]])
   .objects()
 
-alle
-allePivot.objects()
+diffScenario = alle
+  .filter(d => d.gesl == radio && d.val == "Szenario" && d.D == d.closestDecileValue)
+  .map(d => d.diffScenario)
 ```
 
-::: {.columns .column-body}
-${radio} mit einer Pension von ${range} Euro befindet sich in etwa im ${closestDecile}. Im ${select} würden sie dort im Schnitt um ${alle.filter(d => d.gesl == radio)}
+::: {.columns .column-body .mainText}
+Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat. Im Szenario ${select} würde sich die Verteilung der ${radio} nach rechts verschieben. ${radio} mit einer Pension von ${range} Euro befindet sich in etwa im ${closestDecile}. Im ${select} würden ${radio} dort im Schnitt um ${Math.round(diffScenario)} mehr Pension erhalten. Für von dem Szenario betroffenen Frauen ist dieser Effekt im Schnitt sogar 
 :::
 
 :::{.column-page}
@@ -464,7 +459,7 @@ bars = {
       vl.y()
         .fieldQ("value")
         .scale({
-          domain: [0, 4000],
+          domain: [0, 4500],
         })
         .axis({
           domain: false,
@@ -585,7 +580,7 @@ bars = {
 :::
 
 ::: {.columns .column-body}
-Die Auswirkungen auf den Gender Pay Gap sind
+Die Auswirkungen auf den Gender Pay Gap betragen in diesem Sezanario
 :::
 
 ```{ojs}
