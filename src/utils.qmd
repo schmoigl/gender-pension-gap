@@ -1,0 +1,11 @@
+
+```{ojs}
+colors = ["#be0021", "#ffa500", "#800080", "#ffd700", "#808080"]
+function makeWidth(inputWidth) {
+  const outputWidth = 
+    inputWidth > 2000 ? inputWidth * 0.33 :
+    inputWidth > 1400 ? inputWidth * 0.5 :
+    inputWidth * 0.66
+  return outputWidth
+}
+```

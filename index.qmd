@@ -7,6 +7,7 @@ execute:
 ---
 
 {{< include src/config.qmd >}}
+{{< include src/utils.qmd >}}
 
 ```{ojs}
 import {vl} from "@vega/vega-lite-api-v5"
@@ -185,7 +186,7 @@ distributions = {
       text,
     )
     .height(340)
-    .width(width * 0.32)
+    .width(makeWidth(width))
     .facet({
       field: "variable", 
       type: "nominal", 
@@ -352,7 +353,7 @@ distributionsChange = {
       text,
     )
     .height(180)
-    .width(width * 0.16)
+    .width(makeWidth(width)/2)
     .facet({
       field: "variable", 
       type: "nominal", 
@@ -454,7 +455,7 @@ bars = {
     .layer(
       bar
     )
-    .width(width * 0.16)
+    .width(makeWidth(width)/2)
     .facet({
       field: "gesl", 
       type: "nominal", 

@@ -16,7 +16,7 @@ website:
       © 2024 — <a href="mailto:data.science@wifo.ac.at">data.science@wifo.ac.at</a>
   navbar:
     title: | 
-      [![](img/ak-logo.svg){height="60px"}](/) &nbsp;
+      [![](img/ak-logo.svg){height="70px"}](/) &nbsp;
     left: 
       - index.qmd
     tools:

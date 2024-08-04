@@ -1,18 +1,5 @@
 
 ```{ojs}
-colors = ["#be0021", "#ffa500", "#800080", "#ffd700", "#808080"]
-colorsWifo = [
-  "#72bb6f",
-  "#559bd5",
-  "#f3d039",
-  "#c3423f", 
-  "#12a7e7",
-  "#96b428",
-  "#559e8f",
-  "#f3d039",
-  "#559e8f",
-  "#2d5b5e"
-]
 config = ({
   view: {stroke: null}, 
   padding: {
