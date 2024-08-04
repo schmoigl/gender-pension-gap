@@ -38,7 +38,7 @@ info = descriptions
   .map(d => d.description)[0]
 ```
 
-::: {.columns .column-body}
+::: {.columns .column-body .mainText}
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
 :::
 
@@ -64,6 +64,38 @@ bins = aq.from(binsRaw)
     range: aq.escape(d => range),
     radio: aq.escape(d => radio),
   })
+```
+
+```{ojs}
+cumPerc = bins
+  .derive({
+    tail: aq.escape(
+      d => d.bin < range ? "lower" : 
+      d.bin > range ? "higher" : "same"
+      )
+  })
+  .groupby(["gesl", "variable", "tail"])
+  .rollup({ N: d => op.sum(d.N) })
+  .groupby(["gesl", "variable"])
+  .derive({ 
+    perc: d => d.N / op.sum(d.N),
+  })
+  .groupby(["gesl", "variable", "tail"])
+  .derive({ 
+    text: aq.escape(d => d3.format(",.0~%")(d.perc)),
+  })
+  .objects()
+
+function getCumPerc(gesl, tail) {
+  const out = cumPerc
+  .filter(d => 
+    d.gesl == gesl &&
+    d.tail == tail && 
+    d.variable == "Status quo"
+    )
+  .map(d => d.text)
+  return out
+}
 ```
 
 :::{.column-page}
@@ -161,29 +193,51 @@ distributions = {
         .fieldQ("bin")
     )
 
-  const text = vl
+  const textLeft = vl
     .markText({
       clip: true,
-      size: 12,
+      size: 14,
+      y: 14,
+      dx: -12,
+      align: "right"
     })
     .transform(
-      vl.filter("datum.bin == datum.range")
+      vl.filter("datum.gesl == datum.radio"),
+      vl.filter("datum.bin == datum.range"),
     )
     .encode(
       vl.x()
         .fieldQ("bin"),
-      vl.y()
-        .value(20),
       vl.text()
-        .value("← kleiner⠀⠀⠀⠀größer →"), 
+        .value("← " + getCumPerc(radio, "lower")), 
     )
-    
+
+  const textRight = vl
+    .markText({
+      clip: true,
+      size: 14,
+      y: 14,
+      dx: 12,
+      align: "left",
+    })
+    .transform(
+      vl.filter("datum.gesl == datum.radio"),
+      vl.filter("datum.bin == datum.range"),
+    )
+    .encode(
+      vl.x()
+        .fieldQ("bin"),
+      vl.text()
+        .value(getCumPerc(radio, "higher") + " →"), 
+    )
+
   return vl
     .layer(
       area,
       areaLowTail,
       rule,
-      text,
+      textLeft,
+      textRight,
     )
     .height(340)
     .width(makeWidth(width))
@@ -207,31 +261,11 @@ distributions = {
 ```
 :::
 
-```{ojs}
-cumPerc = bins
-  .derive({
-    tail: aq.escape(
-      d => d.bin < range ? "lower" : 
-      d.bin > range ? "higher" : "same"
-      )
-  })
-  .groupby(["gesl", "variable", "tail"])
-  .rollup({ N: d => op.sum(d.N) })
-  .groupby(["gesl", "variable"])
-  .derive({ 
-    perc: d => d.N / op.sum(d.N),
-  })
-  .groupby(["gesl", "variable", "tail"])
-  .derive({ 
-    text: aq.escape(d => d3.format(",.0~%")(d.perc)),
-  })
-  .objects()
-```
 
-::: {.columns .column-body}
-Etwa ${cumPerc.filter(d => d.gesl == "Frauen" && d.tail == "lower" && d.variable == "Status quo").map(d => d.text)} aller Frauen und ${cumPerc.filter(d => d.gesl == "Männer" && d.tail == "lower" && d.variable == "Status quo").map(d => d.text)} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat. Im Szenario ${select} würde sich folgende Verschiebung der Verteilungen ergeben:
+
+::: {.columns .column-body .mainText}
+Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat. Im Szenario ${select} würde sich folgende Verschiebung der Verteilungen ergeben:
 :::
-
 
 :::{.column-page}
 ```{ojs}
@@ -266,14 +300,7 @@ distributionsChange = {
           range: colors,
         })
         // .sort(radio == "Männer" ? 'descending' : 'ascending')
-        .legend({
-          orient: "top", 
-          symbolOpacity: 1,
-          symbolType: "square",
-          // legendX: 1000,
-          // legendY: 500,
-          title: null,
-        }),
+        .legend(null),
       vl.stroke()
         .fieldN("gesl")
         .scale({
@@ -327,30 +354,12 @@ distributionsChange = {
       vl.x()
         .fieldQ("bin")
     )
-
-  const text = vl
-    .markText({
-      clip: true,
-      size: 12,
-    })
-    .transform(
-      vl.filter("datum.bin == datum.range")
-    )
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.y()
-        .value(20),
-      vl.text()
-        .value("← kleiner⠀⠀⠀⠀größer →"), 
-    )
     
   return vl
     .layer(
       area,
       areaLowTail,
       rule,
-      text,
     )
     .height(180)
     .width(makeWidth(width)/2)
@@ -388,7 +397,7 @@ deciles = [
   "80. Dezil",
   "90. Dezil",
 ]
-alle = aq.from(alleRaw)
+alleMid = aq.from(alleRaw)
   .derive({ 
     variable: d => op.replace(d.variable, /\r\n/g, " "),
     range: aq.escape(d => range),
@@ -398,10 +407,31 @@ alle = aq.from(alleRaw)
   .filter(aq.escape(d => d.variable == select && deciles.includes(d.D)))
   .groupby(["gesl", "val", "variable"])
   .derive({ 
-    closestDecile: d => op.min(d.diff) == d.diff && d.gesl == d.radio && d.val == "Status quo" ? "yes" : "no",
+    closestDecile: d => op.min(d.diff) == d.diff && d.gesl == d.radio && d.val == "Status quo" ? 1 : 0,
+  })
+  .groupby(["gesl", "variable", "D"])
+  .derive({ 
+    closestDecile: d => op.sum(d.closestDecile) > 0 ? "yes" : "no",
   })
   .ungroup()
+
+allePivot = alleMid
+  .select("gesl", "D", "val", "value")
+  .groupby(["gesl", "D"])
+  .pivot("val", "value")
+  .derive({ 
+    diff: d => d["Szenario"] - d["Status quo"],
+    // diffText: aq.escape(d => d3.format(",.0~f")(d.diff)),
+  })
+alle = alleMid.objects()
+
+alleMid.objects()
+allePivot.objects()
 ```
+
+::: {.columns .column-body}
+${radio} mit einer Pension von ${range} Euro befindet sich in etwa im ${alle.filter(d => d.closestDecile == "yes").map(d => d.D)[0]}. Im ${select} würden sie dort im Schnitt um ${alle.filter(d => d.gesl == radio &&)}
+:::
 
 :::{.column-page}
 ```{ojs}
@@ -474,6 +504,13 @@ bars = {
 :::
 
 ```{ojs}
-alle.objects()
+alle
 ```
 
+::: {.columns .column-body}
+Die Auswirkungen auf den Gender Pay Gap sind
+:::
+
+```{ojs}
+alle
+```
