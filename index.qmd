@@ -21,9 +21,7 @@ descriptions = FileAttachment("data/descriptions.csv").csv({ typed: true })
 ```{ojs}
 binsRaw = FileAttachment("data/100bins.csv").csv({ typed: true })
 scenarios = aq.from(binsRaw)
-  .derive({ 
-    variable: d => op.replace(d.variable, /\r\n/g, " "),
-  })
+  .derive({ variable: d => op.replace(d.variable, /\r\n/g, " ") })
   .filter(aq.escape(d => d.variable != "Status quo"))
   .select("variable")
   .dedupe()
@@ -47,7 +45,7 @@ Die Berechnungen der AK OÖ und WIFO zeigen in verschiedenen Szenarien mögliche
 ```{ojs}
 viewof select = Inputs.select(scenarios, {label: "Szenario"})
 viewof radio = Inputs.radio(["Frauen", "Männer"], {label: "Geschlecht", value: "Frauen"})
-viewof range = Inputs.range([100, 4200], {label: "Bruttopension", step: 100, value: 1200})
+viewof range = Inputs.range([100, 4200], {label: "Bruttopension", step: 100, value: 1400})
 ```
 :::
 ::: {.column width="60%" .infoText}
@@ -57,7 +55,7 @@ viewof range = Inputs.range([100, 4200], {label: "Bruttopension", step: 100, val
 ::::
 
 ```{ojs}
-bins = aq.from(binsRaw)
+binsMid = aq.from(binsRaw)
   .derive({ 
     variable: d => op.replace(d.variable, /\r\n/g, " "),
     bin: d => d.bin * 100,
@@ -67,7 +65,7 @@ bins = aq.from(binsRaw)
 ```
 
 ```{ojs}
-cumPerc = bins
+cumPerc = binsMid
   .derive({
     tail: aq.escape(
       d => d.bin < range ? "lower" : 
@@ -77,13 +75,9 @@ cumPerc = bins
   .groupby(["gesl", "variable", "tail"])
   .rollup({ N: d => op.sum(d.N) })
   .groupby(["gesl", "variable"])
-  .derive({ 
-    perc: d => d.N / op.sum(d.N),
-  })
+  .derive({ perc: d => d.N / op.sum(d.N) })
   .groupby(["gesl", "variable", "tail"])
-  .derive({ 
-    text: aq.escape(d => d3.format(",.0~%")(d.perc)),
-  })
+  .derive({ text: aq.escape(d => d3.format(",.0~%")(d.perc)) })
   .objects()
 
 function getCumPerc(gesl, tail) {
@@ -96,6 +90,80 @@ function getCumPerc(gesl, tail) {
   .map(d => d.text)
   return out
 }
+```
+
+```{ojs}
+alleRaw = FileAttachment("data/alle.csv").csv({ typed: true })
+deciles = [
+  // "Gesamt",
+  "10. Dezil",
+  "20. Dezil",
+  "30. Dezil",
+  "40. Dezil",
+  "50. Dezil",
+  "60. Dezil",
+  "70. Dezil",
+  "80. Dezil",
+  "90. Dezil",
+]
+alleMid = aq.from(alleRaw)
+  .derive({ 
+    variable: d => op.replace(d.variable, /\r\n/g, " "),
+    select: aq.escape(d => select),
+    range: aq.escape(d => range),
+    radio: aq.escape(d => radio),
+    diff: aq.escape(d => Math.abs(range-d.value)),
+  })
+  .filter(aq.escape(d => deciles.includes(d.D)))
+  .groupby(["gesl", "val", "variable"])
+  .derive({ closestDecile: d => op.min(d.diff) == d.diff && d.gesl == d.radio && d.val == "Status quo" ? 1 : 0 })
+  .groupby(["gesl", "variable", "D"])
+  .derive({ closestDecile: d => op.sum(d.closestDecile) > 0 ? "yes" : "no" })
+  .ungroup()
+
+allePivot = alleMid
+  .filter(aq.escape(d => d.variable == select))
+  .select("gesl", "D", "val", "value")
+  .groupby(["gesl", "D"])
+  .pivot("val", "value")
+  .derive({ 
+    diffScenario: d => d["Szenario"] - d["Status quo"],
+    diffScenarioPerc: d => (d["Szenario"] - d["Status quo"]) / d["Status quo"],
+  })
+
+closestDecileValue = alleMid
+  .filter(aq.escape(d => d.variable == select))
+  .objects()
+  .filter(d => d.closestDecile == "yes")
+  .map(d => d.D)[0]
+
+alle = alleMid
+  .derive({ closestDecileValue: aq.escape(d => closestDecileValue) })
+  .join_left(allePivot, [["gesl", "D"], ["gesl", "D"]])
+  .objects()
+
+diffScenario = alle
+  .filter(d => d.variable == select)
+  .filter(d => d.gesl == radio && d.val == "Szenario" && d.D == d.closestDecileValue)
+  .map(d => d.diffScenario)
+
+medians = alleMid
+  .derive({ 
+    variable: d => d.val == "Szenario" ? d.variable : "Status quo",
+    median: d => d.value,
+    })
+  .filter(aq.escape(d => d.D == "50. Dezil"))
+  .select(["gesl", "variable", "median"])
+  .dedupe()
+
+bins = binsMid
+  .join_left(medians, [["gesl", "variable"], ["gesl", "variable"]])
+  .objects()
+
+alleMid.objects()
+// binsMid.objects()
+// medians.objects()
+// bins
 ```
 
 :::{.column-page}
@@ -118,7 +186,7 @@ distributions = {
       vl.y()
         .fieldQ("N")
         .scale({
-          domain: [0, 18000],
+          domain: [0, 19000],
         })
         .axis({
           domain: false,
@@ -130,13 +198,10 @@ distributions = {
         .scale({
           range: colors,
         })
-        // .sort(radio == "Männer" ? 'descending' : 'ascending')
         .legend({
           orient: "top", 
           symbolOpacity: 1,
           symbolType: "square",
-          // legendX: 1000,
-          // legendY: 500,
           title: null,
         }),
       vl.stroke()
@@ -145,15 +210,6 @@ distributions = {
           range: radio == "Männer" ? ["transparent", "black"] : ["black", "transparent"],
         })
         .legend(null),
-      // vl.order()
-      //   .fieldN("gesl")
-      //   .sort(radio == "Männer" ? 'descending' : 'ascending'),
-      // vl.opacity()
-      //   .fieldN("gesl")
-      //   .scale({
-      //     range: radio == "Männer" ? [0.4, 0.7] : [0.7, 0.4],
-      //   })
-      //   .legend(null),
     )
 
   const areaLowTail = vl
@@ -165,7 +221,6 @@ distributions = {
     .transform(
       vl.filter("datum.bin <= datum.range"),
       vl.filter("datum.gesl == datum.radio"),
-      // vl.filter("datum.gesl == datum.radio"),
     )
     .encode(
       vl.x()
@@ -193,11 +248,40 @@ distributions = {
         .fieldQ("bin")
     )
 
+  const ruleGray = vl
+    .markRule({
+      stroke: "gray",
+      strokeOpacity: 0.7,
+    })
+    .transform(vl.filter("datum.bin == 100")) // choose random bin
+    .encode(
+      vl.x()
+        .fieldQ("median")
+    )
+
+  const textGray = vl
+    .markText({
+      color: "gray",
+      opacity: 0.7,
+      size: 12,
+      y: 30,
+      dx: -10,
+      align: "right"
+    })
+    .transform(vl.filter("datum.bin == 100")) // choose random bin
+    .encode(
+      vl.x()
+        .fieldQ("median"),
+      vl.text()
+        .fieldQ("median")
+        .format(",.0f"),
+    )
+
   const textLeft = vl
     .markText({
       clip: true,
       size: 14,
-      y: 14,
+      y: 10,
       dx: -12,
       align: "right"
     })
@@ -216,7 +300,7 @@ distributions = {
     .markText({
       clip: true,
       size: 14,
-      y: 14,
+      y: 10,
       dx: 12,
       align: "left",
     })
@@ -233,6 +317,8 @@ distributions = {
 
   return vl
     .layer(
+      ruleGray,
+      textGray,
       area,
       areaLowTail,
       rule,
@@ -250,10 +336,7 @@ distributions = {
         orient: "top",
       },
     })
-    .data(
-      bins
-        .filter(aq.escape(d => d.variable == "Status quo")) // d.variable == select || 
-      )
+    .data(bins.filter(d => d.variable == "Status quo"))
     .config(config)
     .render({ renderer: "svg" })
 
@@ -356,7 +439,7 @@ distributionsChange = {
       rule,
     )
     .height(150)
-    .width(makeWidth(width)/2)
+    .width(makeWidth(width)/2.05)
     .facet({
       field: "variable", 
       type: "nominal", 
@@ -368,7 +451,7 @@ distributionsChange = {
     })
     .data(
       bins
-        .filter(aq.escape(d => d.variable == select || d.variable == "Status quo")) // d.variable == select || 
+        .filter(d => d.variable == select || d.variable == "Status quo") // d.variable == select || 
       )
     .config(config)
     .render({ renderer: "svg" })
@@ -376,68 +459,6 @@ distributionsChange = {
 }
 ```
 :::
-
-```{ojs}
-alleRaw = FileAttachment("data/alle.csv").csv({ typed: true })
-deciles = [
-  // "Gesamt",
-  "10. Dezil",
-  "20. Dezil",
-  "30. Dezil",
-  "40. Dezil",
-  "50. Dezil",
-  "60. Dezil",
-  "70. Dezil",
-  "80. Dezil",
-  "90. Dezil",
-]
-alleMid = aq.from(alleRaw)
-  .derive({ 
-    variable: d => op.replace(d.variable, /\r\n/g, " "),
-    select: aq.escape(d => select),
-    range: aq.escape(d => range),
-    radio: aq.escape(d => radio),
-    diff: aq.escape(d => Math.abs(range-d.value)),
-  })
-  .filter(aq.escape(d => deciles.includes(d.D)))
-  .groupby(["gesl", "val", "variable"])
-  .derive({ 
-    closestDecile: d => op.min(d.diff) == d.diff && d.gesl == d.radio && d.val == "Status quo" ? 1 : 0,
-  })
-  .groupby(["gesl", "variable", "D"])
-  .derive({ 
-    closestDecile: d => op.sum(d.closestDecile) > 0 ? "yes" : "no",
-  })
-  .ungroup()
-
-allePivot = alleMid
-  .filter(aq.escape(d => d.variable == select))
-  .select("gesl", "D", "val", "value")
-  .groupby(["gesl", "D"])
-  .pivot("val", "value")
-  .derive({ 
-    diffScenario: d => d["Szenario"] - d["Status quo"],
-    diffScenarioPerc: d => (d["Szenario"] - d["Status quo"]) / d["Status quo"],
-  })
-
-closestDecileValue = alleMid
-  .filter(aq.escape(d => d.variable == select))
-  .objects()
-  .filter(d => d.closestDecile == "yes")
-  .map(d => d.D)[0]
-
-alle = alleMid
-  .derive({
-    closestDecileValue: aq.escape(d => closestDecileValue),
-  })
-  .join_left(allePivot, [["gesl", "D"], ["gesl", "D"]])
-  .objects()
-
-diffScenario = alle
-  .filter(d => d.variable == select)
-  .filter(d => d.gesl == radio && d.val == "Szenario" && d.D == d.closestDecileValue)
-  .map(d => d.diffScenario)
-```
 
 ::: {.columns .column-body .mainText}
 Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat. Im Szenario ${select} würde sich die Verteilung der ${radio} nach rechts verschieben. ${radio} mit einer Pension von ${range} Euro befindet sich in etwa im ${closestDecile}. Im ${select} würden ${radio} dort im Schnitt um ${Math.round(diffScenario)} mehr Pension erhalten. Für von dem Szenario betroffenen Frauen ist dieser Effekt im Schnitt sogar 
@@ -565,7 +586,7 @@ bars = {
       textDiff,
       textDiffPerc,
     )
-    .width(makeWidth(width)/2)
+    .width(makeWidth(width)/2.05)
     .facet({
       field: "gesl", 
       type: "nominal", 
@@ -583,7 +604,7 @@ bars = {
 ```
 :::
 
-::: {.columns .column-body}
+::: {.columns .column-body .mainText}
 Die Auswirkungen auf den Gender Pay Gap betragen in diesem Sezanario Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
 :::
 
@@ -691,10 +712,6 @@ dumbbell = {
 ```
 :::
 
-::: {.columns .column-body}
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
+::: {.columns .column-body .mainText}
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
 :::
-
-```{ojs}
-alle
-```
