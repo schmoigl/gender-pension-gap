@@ -160,7 +160,7 @@ bins = binsMid
   .join_left(medians, [["gesl", "variable"], ["gesl", "variable"]])
   .objects()
 
-alleMid.objects()
+// alleMid.objects()
 // binsMid.objects()
 // medians.objects()
 // bins
