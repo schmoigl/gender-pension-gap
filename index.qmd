@@ -259,7 +259,7 @@ distributions = {
         .fieldQ("median")
     )
 
-  const textGray = vl
+  const textGray1 = vl
     .markText({
       color: "gray",
       opacity: 0.7,
@@ -292,6 +292,23 @@ distributions = {
         .fieldQ("median"),
       vl.text()
         .value("Median"),
+    )
+
+  const textGray3 = vl
+    .markText({
+      color: "gray",
+      opacity: 0.7,
+      size: 11,
+      y: 60,
+      dx: -10,
+      align: "right"
+    })
+    .transform(vl.filter("datum.bin == 100")) // choose random bin
+    .encode(
+      vl.x()
+        .fieldQ("median"),
+      vl.text()
+        .fieldN("gesl"),
     )
 
   const textLeft = vl
@@ -335,8 +352,9 @@ distributions = {
   return vl
     .layer(
       ruleGray,
-      textGray,
+      textGray1,
       textGray2,
+      textGray3,
       area,
       areaLowTail,
       rule,
