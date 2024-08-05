@@ -281,7 +281,7 @@ distributions = {
     .markText({
       color: "gray",
       opacity: 0.7,
-      size: 11,
+      size: 10,
       y: 45,
       dx: -10,
       align: "right"
@@ -298,8 +298,8 @@ distributions = {
     .markText({
       color: "gray",
       opacity: 0.7,
-      size: 11,
-      y: 60,
+      size: 10,
+      y: 55,
       dx: -10,
       align: "right"
     })
