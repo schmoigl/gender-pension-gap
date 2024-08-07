@@ -841,7 +841,7 @@ dumbbell = {
     .height(280)
     .width(makeWidth(width)/7)
     .facet({
-      field: "variable", 
+      field: "closestDecileValue", 
       type: "nominal", 
       title: null,
       header: { 
