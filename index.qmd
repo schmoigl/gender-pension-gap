@@ -541,9 +541,8 @@ distributionsChange = {
 :::
 ::::
 
-
 ::: {.columns .column-page .mainText}
-Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat. Im Szenario ${select} würde sich die Verteilung der ${radio} nach rechts verschieben. ${radio} mit einer Pension von ${range} Euro befindet sich in etwa im ${closestDecile}. Im ${select} würden ${radio} dort im Schnitt um ${Math.round(diffScenario)} mehr Pension erhalten. Für von dem Szenario betroffenen Frauen ist dieser Effekt im Schnitt sogar 
+Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat. Im Szenario ${select} würde sich die Verteilung der ${radio} nach rechts verschieben. ${radio} mit einer Pension von ${range} Euro befindet sich am nähesten am ${alle.map(d => d.closestDecileValue)[0] }. Im ${select} würden ${radio} dort im Schnitt um ${Math.round(diffScenario)} mehr Pension erhalten. Für von dem Szenario betroffenen Frauen ist dieser Effekt im Schnitt sogar 
 :::
 
 :::: {.columns .column-page }
@@ -705,8 +704,9 @@ dumbbell = {
 
   const points = vl
     .markPoint({
-      size: 32,
+      size: 50,
       opacity: 1,
+      shape: "square",
     })
     // .transform(vl.filter("datum.D == datum.closestDecileValue"))
     .encode(
@@ -778,17 +778,40 @@ dumbbell = {
         .legend(null),
     )
 
+    // ←→
+  const text = vl
+    .markText({
+      size: 13,
+      dx: 30
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value"),
+      vl.x()
+        .fieldO("val"),
+      vl.color()
+        .fieldN("gesl")
+        .scale({
+          range: ["black"],
+        })
+        .legend(null),
+      vl.text()
+        .fieldQ("value")
+        .format(",.0f"),
+    )
+
 
   return vl 
     .layer(
       lines,
       points,
+      text,
     )
     .resolve({
       scale: {color: "independent", fill: "independent"},
     })
     .height(280)
-    .width(makeWidth(width)/8)
+    .width(makeWidth(width)/7)
     .facet({
       field: "variable", 
       type: "nominal", 
@@ -807,5 +830,11 @@ dumbbell = {
 ```
 :::
 ::::
+
+::: {.columns .column-page .mainText}
+## Einfluss auf die Haushaltseinkommen
+Maecenas turpis velit, ultricies non elementum vel, luctus nec nunc. Nulla a diam interdum, faucibus sapien viverra, finibus metus. Donec non tortor diam. In ut elit aliquet, bibendum sem et, aliquam tortor. Donec congue, sem at rhoncus ultrices, nunc augue cursus erat, quis porttitor mauris libero ut ex. Nullam quis leo urna. Donec faucibus ligula eget pellentesque interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+:::
+
 
 :::::
