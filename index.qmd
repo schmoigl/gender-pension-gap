@@ -105,17 +105,17 @@ function getCumPerc(gesl, tail) {
 ```{ojs}
 alleRaw = FileAttachment("data/alle.csv").csv({ typed: true })
 deciles = [
-  // "Gesamt",
+  "Gesamt",
   "10. Dezil",
-  "25. Dezil",
-  // "20. Dezil",
-  // "30. Dezil",
-  // "40. Dezil",
+  // "25. Dezil",
+  "20. Dezil",
+  "30. Dezil",
+  "40. Dezil",
   "50. Dezil",
-  // "60. Dezil",
-  // "70. Dezil",
-  // "80. Dezil",
-  "75. Dezil",
+  "60. Dezil",
+  "70. Dezil",
+  "80. Dezil",
+  // "75. Dezil",
   "90. Dezil",
 ]
 alleMid = aq.from(alleRaw)
@@ -681,7 +681,7 @@ bars = {
       textDiffPerc,
     )
     .height(280)
-    .width(makeWidth(width)/3.5)
+    .width(makeWidth(width)/1.7)
     .facet({
       field: "gesl", 
       type: "nominal", 
@@ -691,7 +691,7 @@ bars = {
         orient: "top",
       },
     })
-    .data(alle.filter(d => d.variable == select))
+    .data(alle.filter(d => d.variable == select && d.gesl == radio))
     .config(config)
     .render({ renderer: "svg" })
 
