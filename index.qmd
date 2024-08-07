@@ -60,7 +60,7 @@ viewof interpolate = Inputs.select(["natural", "step"], {label: "Interpolation"}
 :::
 ::: {.column width="60%" .infoText}
 ![](img/Infobox_info_icon.svg){height=14px} Szenario: ${info} <br><br>
-![](img/Infobox_info_icon.svg){height=14px} [Ihre genaue Pensionshöhe können Sie hier errechnen lassen](https://pensionsrechner.arbeiterkammer.at/pkr-on2/) 
+![](img/Infobox_info_icon.svg){height=14px} [Ihre genaue Pensionshöhe können Sie hier errechnen lassen](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} 
 :::
 ::::
 
