@@ -188,7 +188,7 @@ distributions = {
   const area = vl
     .markArea({
       interpolate: interpolate,
-      fillOpacity: 0.33,
+      fillOpacity: 0.4,
       strokeWidth: 1.75,
       clip: true,
     })
@@ -416,7 +416,7 @@ distributionsChange = {
   const area = vl
     .markArea({
       interpolate: interpolate,
-      strokeWidth: 1.5,
+      strokeWidth: 1.25,
     })
     .encode(
       vl.x()
@@ -432,7 +432,7 @@ distributionsChange = {
       vl.y()
         .fieldQ("N")
         .scale({
-          domain: [0, 20000],
+          domain: [0, 19000],
         })
         .axis({
           domain: false,
@@ -440,6 +440,7 @@ distributionsChange = {
           title: null,
           ticks: false,
           labels: false,
+          nice: false,
          //  minExtent: 20,
         }),
       vl.color()
@@ -454,18 +455,18 @@ distributionsChange = {
           range: radio == "Männer" ? ["transparent", "black"] : ["black", "transparent"],
         })
         .legend(null), 
-      vl.opacity()
+      vl.fillOpacity()
         .fieldN("variable")
         .scale({
-          range: [0.3, 0.7]
+          range: [0.7, 0.4]
         })
-        .legend({
-          orient: "top",
-          direction: "vertical",
-          title: null,
-          labelLimit: 1111111,
+        .legend(null),
+      vl.strokeOpacity()
+        .fieldN("variable")
+        .scale({
+          range: [1, 0]
         })
-        .legend(null)
+        .legend(null),
     )
 
   const areaLowTail = vl
@@ -594,7 +595,7 @@ bars = {
       vl.opacity()
         .fieldN("closestDecile")
         .scale({
-          range: [0.33, 0.7]
+          range: [0.4, 0.7]
         })
         .legend(null),
     )
@@ -778,11 +779,10 @@ dumbbell = {
         .legend(null),
     )
 
-    // ←→
   const text = vl
     .markText({
-      size: 13,
-      dx: 30
+      size: 12,
+      dx: 25
     })
     .encode(
       vl.y()
@@ -800,12 +800,40 @@ dumbbell = {
         .format(",.0f"),
     )
 
+  const textGap = vl
+    .markText({
+      size: 12,
+      dx: 10,
+      dy: -16,
+      angle: -90,
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value"),
+      vl.x()
+        .fieldO("val"),
+      vl.color()
+        .fieldN("gesl")
+        .scale({
+          range: ["black"],
+        })
+        .legend(null),
+      vl.text()
+        .value("xx% →"),
+      vl.opacity()
+        .fieldN("gesl")
+        .scale({
+          range : [1, 0]
+        })
+        .legend(null),
+    )
 
   return vl 
     .layer(
       lines,
       points,
       text,
+      textGap,
     )
     .resolve({
       scale: {color: "independent", fill: "independent"},
