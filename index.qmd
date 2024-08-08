@@ -12,8 +12,8 @@ execute:
 {{< include src/utils.qmd >}}
 
 ```{ojs}
-import {vl} from "@vega/vega-lite-api-v5"
-import {aq, op} from '@uwdata/arquero'
+import {vl} from "@vega/vega-lite-api-v5" // apiVersion = '5.6.0' vlVersion = '5.6.0' vegaVersion = '5.23.0' tooltipVersion = '0.30.0'
+import {aq, op} from '@uwdata/arquero' // version "6.0.0"
 ```
 
 ```{ojs}
