@@ -558,11 +558,12 @@ bars = {
     })
     .encode(
       vl.x()
-        .fieldO("D")
+        .fieldN("D")
+        .sort("value") 
         .axis({
           grid: false,
           title: null,
-        }),
+        }), 
       vl.y()
         .fieldQ("value")
         .scale({
