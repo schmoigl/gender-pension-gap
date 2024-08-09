@@ -50,15 +50,17 @@ Die Berechnungen der AK OÖ und WIFO zeigen in verschiedenen Szenarien mögliche
 :::
 
 :::: {.columns .column-page }
-::: {.column width="40%"}
+::: {.column width="45%"}
 ```{ojs}
 viewof select = Inputs.select(scenarios, {label: "Szenario"})
-viewof radio = Inputs.radio(["Frauen", "Männer"], {label: "Geschlecht", value: "Frauen"})
 viewof range = Inputs.range([100, 4200], {label: "Bruttopension", step: 100, value: 1400})
+viewof radio = Inputs.radio(["Frauen", "Männer"], {label: "Geschlecht", value: "Frauen"})
+viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
+viewof check2 = Inputs.checkbox(["ALV-Zeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
 viewof interpolate = Inputs.select(["natural", "step"], {label: "Interpolation"})
 ```
 :::
-::: {.column width="60%" .infoText}
+::: {.column width="55%" .infoText}
 ![](img/Infobox_info_icon.svg){height=14px} Szenario: ${info} <br><br>
 ![](img/Infobox_info_icon.svg){height=14px} [Ihre genaue Pensionshöhe können Sie hier errechnen lassen](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} 
 :::
@@ -101,7 +103,12 @@ function getCumPerc(gesl, tail) {
 ```
 
 ```{ojs}
-alleRaw = FileAttachment("data/deciles.csv").csv({ typed: true }) 
+alleRaw = 
+  check1[0] == "Kindererziehungszeiten" ?
+  FileAttachment("data/deciles_betroffen_szen1.csv").csv({ typed: true }) :
+  check2[0] == "ALV-Zeiten" ?
+  FileAttachment("data/deciles_betroffen_szen1.csv").csv({ typed: true }) :
+  FileAttachment("data/deciles.csv").csv({ typed: true })
 
 deciles = [
   "Gesamt",
@@ -179,8 +186,6 @@ medians = alleMid
     })
   .select(["gesl", "variable", "val", "median"])
   .dedupe()
-
-medians.objects()
 
 bins = binsMid
   .join_left(medians, [["gesl", "variable"], ["gesl", "variable"]])
