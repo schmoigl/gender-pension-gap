@@ -1,0 +1,953 @@
+gesl,bin,variable,N
+Frauen,13,Status quo,14631
+Frauen,25,Status quo,3448
+Frauen,14,Status quo,13770
+Frauen,10,Status quo,15422
+Frauen,19,Status quo,7629
+Frauen,12,Status quo,15063
+Frauen,8,Status quo,13754
+Frauen,11,Status quo,15245
+Frauen,9,Status quo,14621
+Frauen,7,Status quo,12477
+Frauen,23,Status quo,4445
+Frauen,16,Status quo,11464
+Frauen,17,Status quo,10485
+Frauen,6,Status quo,11081
+Frauen,18,Status quo,8988
+Frauen,21,Status quo,5782
+Frauen,20,Status quo,6707
+Frauen,5,Status quo,8713
+Frauen,30,Status quo,1291
+Frauen,4,Status quo,5403
+Frauen,15,Status quo,12835
+Frauen,26,Status quo,2912
+Frauen,22,Status quo,4979
+Frauen,3,Status quo,2567
+Frauen,24,Status quo,3852
+Frauen,31,Status quo,957
+Männer,29,Status quo,6891
+Frauen,32,Status quo,672
+Frauen,29,Status quo,1610
+Frauen,2,Status quo,775
+Frauen,27,Status quo,2498
+Frauen,35,Status quo,123
+Frauen,28,Status quo,1997
+Männer,24,Status quo,9728
+Männer,33,Status quo,5219
+Männer,35,Status quo,3567
+Männer,28,Status quo,7140
+Männer,34,Status quo,4494
+Männer,37,Status quo,1757
+Männer,26,Status quo,8423
+Männer,25,Status quo,9034
+Männer,22,Status quo,9853
+Männer,16,Status quo,4205
+Männer,8,Status quo,2170
+Männer,21,Status quo,9371
+Männer,20,Status quo,8534
+Männer,14,Status quo,3548
+Männer,31,Status quo,6171
+Männer,9,Status quo,2464
+Männer,23,Status quo,9862
+Männer,5,Status quo,1191
+Männer,18,Status quo,6131
+Männer,27,Status quo,7740
+Männer,12,Status quo,3104
+Männer,32,Status quo,6021
+Männer,19,Status quo,7172
+Männer,36,Status quo,2723
+Männer,17,Status quo,5047
+Männer,41,Status quo,80
+Männer,30,Status quo,6485
+Männer,11,Status quo,2956
+Männer,15,Status quo,3617
+Männer,10,Status quo,2718
+Männer,13,Status quo,3266
+Männer,6,Status quo,1551
+Männer,38,Status quo,1112
+Männer,7,Status quo,1879
+Männer,39,Status quo,548
+Männer,40,Status quo,269
+Frauen,34,Status quo,231
+Frauen,33,Status quo,451
+Männer,3,Status quo,502
+Männer,4,Status quo,825
+Frauen,1,Status quo,103
+Frauen,36,Status quo,47
+Männer,2,Status quo,221
+Frauen,37,Status quo,18
+Frauen,38,Status quo,10
+Männer,42,Status quo,35
+Männer,43,Status quo,5
+Frauen,39,Status quo,4
+Frauen,41,Status quo,3
+Männer,1,Status quo,45
+Männer,46,Status quo,1
+Männer,44,Status quo,1
+Frauen,40,Status quo,1
+Frauen,14,"Szenario 1
+(Kindererziehung)",15004
+Frauen,26,"Szenario 1
+(Kindererziehung)",3360
+Frauen,16,"Szenario 1
+(Kindererziehung)",13448
+Frauen,11,"Szenario 1
+(Kindererziehung)",14768
+Frauen,20,"Szenario 1
+(Kindererziehung)",8207
+Frauen,12,"Szenario 1
+(Kindererziehung)",14910
+Frauen,9,"Szenario 1
+(Kindererziehung)",12654
+Frauen,10,"Szenario 1
+(Kindererziehung)",14066
+Frauen,19,"Szenario 1
+(Kindererziehung)",9437
+Frauen,25,"Szenario 1
+(Kindererziehung)",4068
+Frauen,17,"Szenario 1
+(Kindererziehung)",12019
+Frauen,8,"Szenario 1
+(Kindererziehung)",11478
+Frauen,13,"Szenario 1
+(Kindererziehung)",15118
+Frauen,22,"Szenario 1
+(Kindererziehung)",6084
+Frauen,21,"Szenario 1
+(Kindererziehung)",6975
+Frauen,5,"Szenario 1
+(Kindererziehung)",5229
+Frauen,30,"Szenario 1
+(Kindererziehung)",1487
+Frauen,7,"Szenario 1
+(Kindererziehung)",9942
+Frauen,6,"Szenario 1
+(Kindererziehung)",7711
+Frauen,15,"Szenario 1
+(Kindererziehung)",14199
+Frauen,18,"Szenario 1
+(Kindererziehung)",10800
+Frauen,4,"Szenario 1
+(Kindererziehung)",3419
+Frauen,3,"Szenario 1
+(Kindererziehung)",1901
+Frauen,24,"Szenario 1
+(Kindererziehung)",4423
+Frauen,31,"Szenario 1
+(Kindererziehung)",1101
+Männer,29,"Szenario 1
+(Kindererziehung)",6891
+Frauen,23,"Szenario 1
+(Kindererziehung)",5221
+Frauen,32,"Szenario 1
+(Kindererziehung)",829
+Frauen,2,"Szenario 1
+(Kindererziehung)",740
+Frauen,27,"Szenario 1
+(Kindererziehung)",2926
+Frauen,35,"Szenario 1
+(Kindererziehung)",154
+Frauen,29,"Szenario 1
+(Kindererziehung)",1940
+Frauen,28,"Szenario 1
+(Kindererziehung)",2383
+Männer,24,"Szenario 1
+(Kindererziehung)",9728
+Männer,33,"Szenario 1
+(Kindererziehung)",5219
+Männer,35,"Szenario 1
+(Kindererziehung)",3567
+Männer,28,"Szenario 1
+(Kindererziehung)",7140
+Männer,34,"Szenario 1
+(Kindererziehung)",4494
+Männer,37,"Szenario 1
+(Kindererziehung)",1757
+Männer,26,"Szenario 1
+(Kindererziehung)",8423
+Männer,25,"Szenario 1
+(Kindererziehung)",9034
+Männer,22,"Szenario 1
+(Kindererziehung)",9853
+Männer,16,"Szenario 1
+(Kindererziehung)",4205
+Männer,8,"Szenario 1
+(Kindererziehung)",2170
+Männer,21,"Szenario 1
+(Kindererziehung)",9371
+Männer,20,"Szenario 1
+(Kindererziehung)",8534
+Männer,14,"Szenario 1
+(Kindererziehung)",3548
+Männer,31,"Szenario 1
+(Kindererziehung)",6171
+Männer,9,"Szenario 1
+(Kindererziehung)",2464
+Männer,23,"Szenario 1
+(Kindererziehung)",9862
+Männer,5,"Szenario 1
+(Kindererziehung)",1191
+Männer,18,"Szenario 1
+(Kindererziehung)",6131
+Männer,27,"Szenario 1
+(Kindererziehung)",7740
+Männer,12,"Szenario 1
+(Kindererziehung)",3104
+Männer,32,"Szenario 1
+(Kindererziehung)",6021
+Männer,19,"Szenario 1
+(Kindererziehung)",7172
+Männer,36,"Szenario 1
+(Kindererziehung)",2723
+Männer,17,"Szenario 1
+(Kindererziehung)",5047
+Männer,41,"Szenario 1
+(Kindererziehung)",80
+Männer,30,"Szenario 1
+(Kindererziehung)",6485
+Männer,11,"Szenario 1
+(Kindererziehung)",2956
+Männer,15,"Szenario 1
+(Kindererziehung)",3617
+Männer,10,"Szenario 1
+(Kindererziehung)",2718
+Männer,13,"Szenario 1
+(Kindererziehung)",3266
+Männer,6,"Szenario 1
+(Kindererziehung)",1551
+Männer,38,"Szenario 1
+(Kindererziehung)",1112
+Männer,7,"Szenario 1
+(Kindererziehung)",1879
+Männer,39,"Szenario 1
+(Kindererziehung)",548
+Männer,40,"Szenario 1
+(Kindererziehung)",269
+Frauen,34,"Szenario 1
+(Kindererziehung)",318
+Frauen,33,"Szenario 1
+(Kindererziehung)",533
+Männer,3,"Szenario 1
+(Kindererziehung)",502
+Männer,4,"Szenario 1
+(Kindererziehung)",825
+Frauen,1,"Szenario 1
+(Kindererziehung)",103
+Frauen,36,"Szenario 1
+(Kindererziehung)",61
+Männer,2,"Szenario 1
+(Kindererziehung)",221
+Frauen,37,"Szenario 1
+(Kindererziehung)",29
+Frauen,38,"Szenario 1
+(Kindererziehung)",8
+Männer,42,"Szenario 1
+(Kindererziehung)",35
+Männer,43,"Szenario 1
+(Kindererziehung)",5
+Frauen,39,"Szenario 1
+(Kindererziehung)",7
+Frauen,41,"Szenario 1
+(Kindererziehung)",3
+Männer,1,"Szenario 1
+(Kindererziehung)",45
+Männer,46,"Szenario 1
+(Kindererziehung)",1
+Männer,44,"Szenario 1
+(Kindererziehung)",1
+Frauen,40,"Szenario 1
+(Kindererziehung)",1
+Frauen,13,"Szenario 2
+(Arbeitslosigkeit)",14531
+Frauen,25,"Szenario 2
+(Arbeitslosigkeit)",3615
+Frauen,15,"Szenario 2
+(Arbeitslosigkeit)",12867
+Frauen,10,"Szenario 2
+(Arbeitslosigkeit)",15061
+Frauen,19,"Szenario 2
+(Arbeitslosigkeit)",8025
+Frauen,12,"Szenario 2
+(Arbeitslosigkeit)",14933
+Frauen,8,"Szenario 2
+(Arbeitslosigkeit)",13322
+Frauen,11,"Szenario 2
+(Arbeitslosigkeit)",15050
+Frauen,9,"Szenario 2
+(Arbeitslosigkeit)",14311
+Frauen,7,"Szenario 2
+(Arbeitslosigkeit)",12154
+Frauen,23,"Szenario 2
+(Arbeitslosigkeit)",4634
+Frauen,16,"Szenario 2
+(Arbeitslosigkeit)",11742
+Frauen,17,"Szenario 2
+(Arbeitslosigkeit)",10688
+Frauen,6,"Szenario 2
+(Arbeitslosigkeit)",10657
+Frauen,18,"Szenario 2
+(Arbeitslosigkeit)",9437
+Frauen,22,"Szenario 2
+(Arbeitslosigkeit)",5302
+Frauen,14,"Szenario 2
+(Arbeitslosigkeit)",13839
+Frauen,20,"Szenario 2
+(Arbeitslosigkeit)",6959
+Frauen,5,"Szenario 2
+(Arbeitslosigkeit)",8344
+Frauen,30,"Szenario 2
+(Arbeitslosigkeit)",1295
+Frauen,21,"Szenario 2
+(Arbeitslosigkeit)",6086
+Frauen,4,"Szenario 2
+(Arbeitslosigkeit)",5074
+Frauen,26,"Szenario 2
+(Arbeitslosigkeit)",2996
+Frauen,3,"Szenario 2
+(Arbeitslosigkeit)",2391
+Frauen,24,"Szenario 2
+(Arbeitslosigkeit)",4039
+Frauen,31,"Szenario 2
+(Arbeitslosigkeit)",1001
+Männer,29,"Szenario 2
+(Arbeitslosigkeit)",7181
+Frauen,32,"Szenario 2
+(Arbeitslosigkeit)",683
+Frauen,29,"Szenario 2
+(Arbeitslosigkeit)",1652
+Frauen,2,"Szenario 2
+(Arbeitslosigkeit)",692
+Frauen,27,"Szenario 2
+(Arbeitslosigkeit)",2594
+Frauen,35,"Szenario 2
+(Arbeitslosigkeit)",128
+Frauen,28,"Szenario 2
+(Arbeitslosigkeit)",2072
+Männer,25,"Szenario 2
+(Arbeitslosigkeit)",9385
+Männer,33,"Szenario 2
+(Arbeitslosigkeit)",5389
+Männer,35,"Szenario 2
+(Arbeitslosigkeit)",3639
+Männer,28,"Szenario 2
+(Arbeitslosigkeit)",7539
+Männer,34,"Szenario 2
+(Arbeitslosigkeit)",4576
+Männer,37,"Szenario 2
+(Arbeitslosigkeit)",1799
+Männer,26,"Szenario 2
+(Arbeitslosigkeit)",8873
+Männer,22,"Szenario 2
+(Arbeitslosigkeit)",9750
+Männer,16,"Szenario 2
+(Arbeitslosigkeit)",4017
+Männer,9,"Szenario 2
+(Arbeitslosigkeit)",2327
+Männer,23,"Szenario 2
+(Arbeitslosigkeit)",9985
+Männer,21,"Szenario 2
+(Arbeitslosigkeit)",9137
+Männer,15,"Szenario 2
+(Arbeitslosigkeit)",3536
+Männer,31,"Szenario 2
+(Arbeitslosigkeit)",6317
+Männer,30,"Szenario 2
+(Arbeitslosigkeit)",6715
+Männer,24,"Szenario 2
+(Arbeitslosigkeit)",9963
+Männer,5,"Szenario 2
+(Arbeitslosigkeit)",1118
+Männer,19,"Szenario 2
+(Arbeitslosigkeit)",6947
+Männer,27,"Szenario 2
+(Arbeitslosigkeit)",8000
+Männer,12,"Szenario 2
+(Arbeitslosigkeit)",2989
+Männer,20,"Szenario 2
+(Arbeitslosigkeit)",8156
+Männer,32,"Szenario 2
+(Arbeitslosigkeit)",6141
+Männer,36,"Szenario 2
+(Arbeitslosigkeit)",2754
+Männer,18,"Szenario 2
+(Arbeitslosigkeit)",5797
+Männer,41,"Szenario 2
+(Arbeitslosigkeit)",82
+Männer,14,"Szenario 2
+(Arbeitslosigkeit)",3371
+Männer,17,"Szenario 2
+(Arbeitslosigkeit)",4682
+Männer,11,"Szenario 2
+(Arbeitslosigkeit)",2818
+Männer,10,"Szenario 2
+(Arbeitslosigkeit)",2621
+Männer,13,"Szenario 2
+(Arbeitslosigkeit)",3203
+Männer,6,"Szenario 2
+(Arbeitslosigkeit)",1476
+Männer,38,"Szenario 2
+(Arbeitslosigkeit)",1139
+Männer,8,"Szenario 2
+(Arbeitslosigkeit)",2067
+Männer,7,"Szenario 2
+(Arbeitslosigkeit)",1814
+Männer,39,"Szenario 2
+(Arbeitslosigkeit)",560
+Männer,40,"Szenario 2
+(Arbeitslosigkeit)",271
+Frauen,34,"Szenario 2
+(Arbeitslosigkeit)",243
+Frauen,33,"Szenario 2
+(Arbeitslosigkeit)",463
+Männer,3,"Szenario 2
+(Arbeitslosigkeit)",475
+Männer,4,"Szenario 2
+(Arbeitslosigkeit)",766
+Frauen,1,"Szenario 2
+(Arbeitslosigkeit)",100
+Frauen,36,"Szenario 2
+(Arbeitslosigkeit)",47
+Männer,2,"Szenario 2
+(Arbeitslosigkeit)",214
+Frauen,37,"Szenario 2
+(Arbeitslosigkeit)",19
+Frauen,38,"Szenario 2
+(Arbeitslosigkeit)",10
+Männer,42,"Szenario 2
+(Arbeitslosigkeit)",35
+Männer,43,"Szenario 2
+(Arbeitslosigkeit)",5
+Frauen,39,"Szenario 2
+(Arbeitslosigkeit)",4
+Frauen,41,"Szenario 2
+(Arbeitslosigkeit)",3
+Männer,1,"Szenario 2
+(Arbeitslosigkeit)",45
+Männer,46,"Szenario 2
+(Arbeitslosigkeit)",1
+Männer,44,"Szenario 2
+(Arbeitslosigkeit)",1
+Frauen,40,"Szenario 2
+(Arbeitslosigkeit)",1
+Frauen,14,"Szenario 3
+(GPG/Männer)",15658
+Frauen,25,"Szenario 3
+(GPG/Männer)",3863
+Frauen,16,"Szenario 3
+(GPG/Männer)",14787
+Frauen,11,"Szenario 3
+(GPG/Männer)",13562
+Frauen,21,"Szenario 3
+(GPG/Männer)",7520
+Frauen,13,"Szenario 3
+(GPG/Männer)",15263
+Frauen,12,"Szenario 3
+(GPG/Männer)",14434
+Frauen,8,"Szenario 3
+(GPG/Männer)",9993
+Frauen,7,"Szenario 3
+(GPG/Männer)",9108
+Frauen,19,"Szenario 3
+(GPG/Männer)",10778
+Frauen,9,"Szenario 3
+(GPG/Männer)",11324
+Frauen,23,"Szenario 3
+(GPG/Männer)",5208
+Frauen,18,"Szenario 3
+(GPG/Männer)",12561
+Frauen,6,"Szenario 3
+(GPG/Männer)",8004
+Frauen,22,"Szenario 3
+(GPG/Männer)",6208
+Frauen,15,"Szenario 3
+(GPG/Männer)",15714
+Frauen,20,"Szenario 3
+(GPG/Männer)",9156
+Frauen,10,"Szenario 3
+(GPG/Männer)",12205
+Frauen,5,"Szenario 3
+(GPG/Männer)",5678
+Frauen,30,"Szenario 3
+(GPG/Männer)",1359
+Frauen,26,"Szenario 3
+(GPG/Männer)",3275
+Frauen,17,"Szenario 3
+(GPG/Männer)",13791
+Frauen,4,"Szenario 3
+(GPG/Männer)",2876
+Frauen,24,"Szenario 3
+(GPG/Männer)",4385
+Frauen,31,"Szenario 3
+(GPG/Männer)",1029
+Männer,29,"Szenario 3
+(GPG/Männer)",6891
+Frauen,32,"Szenario 3
+(GPG/Männer)",741
+Frauen,29,"Szenario 3
+(GPG/Männer)",1757
+Frauen,3,"Szenario 3
+(GPG/Männer)",789
+Frauen,27,"Szenario 3
+(GPG/Männer)",2714
+Frauen,35,"Szenario 3
+(GPG/Männer)",137
+Frauen,28,"Szenario 3
+(GPG/Männer)",2182
+Männer,24,"Szenario 3
+(GPG/Männer)",9728
+Männer,33,"Szenario 3
+(GPG/Männer)",5219
+Männer,35,"Szenario 3
+(GPG/Männer)",3567
+Männer,28,"Szenario 3
+(GPG/Männer)",7140
+Männer,34,"Szenario 3
+(GPG/Männer)",4494
+Männer,37,"Szenario 3
+(GPG/Männer)",1757
+Männer,26,"Szenario 3
+(GPG/Männer)",8423
+Männer,25,"Szenario 3
+(GPG/Männer)",9034
+Männer,22,"Szenario 3
+(GPG/Männer)",9853
+Männer,16,"Szenario 3
+(GPG/Männer)",4205
+Männer,8,"Szenario 3
+(GPG/Männer)",2170
+Männer,21,"Szenario 3
+(GPG/Männer)",9371
+Männer,20,"Szenario 3
+(GPG/Männer)",8534
+Männer,14,"Szenario 3
+(GPG/Männer)",3548
+Männer,31,"Szenario 3
+(GPG/Männer)",6171
+Männer,9,"Szenario 3
+(GPG/Männer)",2464
+Männer,23,"Szenario 3
+(GPG/Männer)",9862
+Männer,5,"Szenario 3
+(GPG/Männer)",1191
+Männer,18,"Szenario 3
+(GPG/Männer)",6131
+Männer,27,"Szenario 3
+(GPG/Männer)",7740
+Männer,12,"Szenario 3
+(GPG/Männer)",3104
+Männer,32,"Szenario 3
+(GPG/Männer)",6021
+Männer,19,"Szenario 3
+(GPG/Männer)",7172
+Männer,36,"Szenario 3
+(GPG/Männer)",2723
+Männer,17,"Szenario 3
+(GPG/Männer)",5047
+Männer,41,"Szenario 3
+(GPG/Männer)",80
+Männer,30,"Szenario 3
+(GPG/Männer)",6485
+Männer,11,"Szenario 3
+(GPG/Männer)",2956
+Männer,15,"Szenario 3
+(GPG/Männer)",3617
+Männer,10,"Szenario 3
+(GPG/Männer)",2718
+Männer,13,"Szenario 3
+(GPG/Männer)",3266
+Männer,6,"Szenario 3
+(GPG/Männer)",1551
+Männer,38,"Szenario 3
+(GPG/Männer)",1112
+Männer,7,"Szenario 3
+(GPG/Männer)",1879
+Männer,39,"Szenario 3
+(GPG/Männer)",548
+Männer,40,"Szenario 3
+(GPG/Männer)",269
+Frauen,34,"Szenario 3
+(GPG/Männer)",259
+Frauen,33,"Szenario 3
+(GPG/Männer)",477
+Männer,3,"Szenario 3
+(GPG/Männer)",502
+Männer,4,"Szenario 3
+(GPG/Männer)",825
+Frauen,2,"Szenario 3
+(GPG/Männer)",153
+Frauen,36,"Szenario 3
+(GPG/Männer)",53
+Frauen,1,"Szenario 3
+(GPG/Männer)",26
+Männer,2,"Szenario 3
+(GPG/Männer)",221
+Frauen,37,"Szenario 3
+(GPG/Männer)",18
+Frauen,38,"Szenario 3
+(GPG/Männer)",11
+Männer,42,"Szenario 3
+(GPG/Männer)",35
+Männer,43,"Szenario 3
+(GPG/Männer)",5
+Frauen,39,"Szenario 3
+(GPG/Männer)",4
+Frauen,41,"Szenario 3
+(GPG/Männer)",3
+Männer,1,"Szenario 3
+(GPG/Männer)",45
+Männer,46,"Szenario 3
+(GPG/Männer)",1
+Männer,44,"Szenario 3
+(GPG/Männer)",1
+Frauen,40,"Szenario 3
+(GPG/Männer)",1
+Frauen,17,"Szenario 4
+(GPG/Frau)",17802
+Frauen,26,"Szenario 4
+(GPG/Frau)",4037
+Frauen,19,"Szenario 4
+(GPG/Frau)",16245
+Frauen,15,"Szenario 4
+(GPG/Frau)",16064
+Frauen,23,"Szenario 4
+(GPG/Frau)",7728
+Frauen,16,"Szenario 4
+(GPG/Frau)",17641
+Frauen,10,"Szenario 4
+(GPG/Frau)",8097
+Frauen,18,"Szenario 4
+(GPG/Frau)",17116
+Frauen,12,"Szenario 4
+(GPG/Frau)",10258
+Frauen,7,"Szenario 4
+(GPG/Frau)",5581
+Frauen,13,"Szenario 4
+(GPG/Frau)",12191
+Frauen,21,"Szenario 4
+(GPG/Frau)",12717
+Frauen,24,"Szenario 4
+(GPG/Frau)",6071
+Frauen,20,"Szenario 4
+(GPG/Frau)",15081
+Frauen,22,"Szenario 4
+(GPG/Frau)",9964
+Frauen,6,"Szenario 4
+(GPG/Frau)",3977
+Frauen,9,"Szenario 4
+(GPG/Frau)",7134
+Frauen,14,"Szenario 4
+(GPG/Frau)",14089
+Frauen,8,"Szenario 4
+(GPG/Frau)",6592
+Frauen,30,"Szenario 4
+(GPG/Frau)",1589
+Frauen,5,"Szenario 4
+(GPG/Frau)",1648
+Frauen,11,"Szenario 4
+(GPG/Frau)",9140
+Frauen,4,"Szenario 4
+(GPG/Frau)",160
+Frauen,32,"Szenario 4
+(GPG/Frau)",898
+Männer,29,"Szenario 4
+(GPG/Frau)",6891
+Frauen,25,"Szenario 4
+(GPG/Frau)",4990
+Frauen,31,"Szenario 4
+(GPG/Frau)",1161
+Frauen,29,"Szenario 4
+(GPG/Frau)",2064
+Frauen,27,"Szenario 4
+(GPG/Frau)",3211
+Frauen,35,"Szenario 4
+(GPG/Frau)",152
+Frauen,28,"Szenario 4
+(GPG/Frau)",2638
+Männer,24,"Szenario 4
+(GPG/Frau)",9728
+Männer,33,"Szenario 4
+(GPG/Frau)",5219
+Männer,35,"Szenario 4
+(GPG/Frau)",3567
+Männer,28,"Szenario 4
+(GPG/Frau)",7140
+Männer,34,"Szenario 4
+(GPG/Frau)",4494
+Männer,37,"Szenario 4
+(GPG/Frau)",1757
+Männer,26,"Szenario 4
+(GPG/Frau)",8423
+Männer,25,"Szenario 4
+(GPG/Frau)",9034
+Männer,22,"Szenario 4
+(GPG/Frau)",9853
+Männer,16,"Szenario 4
+(GPG/Frau)",4205
+Männer,8,"Szenario 4
+(GPG/Frau)",2170
+Männer,21,"Szenario 4
+(GPG/Frau)",9371
+Männer,20,"Szenario 4
+(GPG/Frau)",8534
+Männer,14,"Szenario 4
+(GPG/Frau)",3548
+Männer,31,"Szenario 4
+(GPG/Frau)",6171
+Männer,9,"Szenario 4
+(GPG/Frau)",2464
+Männer,23,"Szenario 4
+(GPG/Frau)",9862
+Männer,5,"Szenario 4
+(GPG/Frau)",1191
+Männer,18,"Szenario 4
+(GPG/Frau)",6131
+Männer,27,"Szenario 4
+(GPG/Frau)",7740
+Männer,12,"Szenario 4
+(GPG/Frau)",3104
+Männer,32,"Szenario 4
+(GPG/Frau)",6021
+Männer,19,"Szenario 4
+(GPG/Frau)",7172
+Männer,36,"Szenario 4
+(GPG/Frau)",2723
+Männer,17,"Szenario 4
+(GPG/Frau)",5047
+Männer,41,"Szenario 4
+(GPG/Frau)",80
+Männer,30,"Szenario 4
+(GPG/Frau)",6485
+Männer,11,"Szenario 4
+(GPG/Frau)",2956
+Männer,15,"Szenario 4
+(GPG/Frau)",3617
+Männer,10,"Szenario 4
+(GPG/Frau)",2718
+Männer,13,"Szenario 4
+(GPG/Frau)",3266
+Männer,6,"Szenario 4
+(GPG/Frau)",1551
+Männer,38,"Szenario 4
+(GPG/Frau)",1112
+Männer,7,"Szenario 4
+(GPG/Frau)",1879
+Männer,39,"Szenario 4
+(GPG/Frau)",548
+Männer,40,"Szenario 4
+(GPG/Frau)",269
+Frauen,33,"Szenario 4
+(GPG/Frau)",570
+Männer,3,"Szenario 4
+(GPG/Frau)",502
+Männer,4,"Szenario 4
+(GPG/Frau)",825
+Frauen,34,"Szenario 4
+(GPG/Frau)",344
+Frauen,36,"Szenario 4
+(GPG/Frau)",74
+Männer,2,"Szenario 4
+(GPG/Frau)",221
+Frauen,37,"Szenario 4
+(GPG/Frau)",18
+Frauen,38,"Szenario 4
+(GPG/Frau)",12
+Männer,42,"Szenario 4
+(GPG/Frau)",35
+Männer,43,"Szenario 4
+(GPG/Frau)",5
+Frauen,39,"Szenario 4
+(GPG/Frau)",6
+Frauen,41,"Szenario 4
+(GPG/Frau)",3
+Männer,1,"Szenario 4
+(GPG/Frau)",45
+Männer,46,"Szenario 4
+(GPG/Frau)",1
+Männer,44,"Szenario 4
+(GPG/Frau)",1
+Frauen,40,"Szenario 4
+(GPG/Frau)",1
+Frauen,16,"Szenario 5
+(Beste 15 Jahre)",10589
+Frauen,28,"Szenario 5
+(Beste 15 Jahre)",3918
+Frauen,11,"Szenario 5
+(Beste 15 Jahre)",10829
+Frauen,21,"Szenario 5
+(Beste 15 Jahre)",7531
+Frauen,14,"Szenario 5
+(Beste 15 Jahre)",11099
+Frauen,7,"Szenario 5
+(Beste 15 Jahre)",8888
+Frauen,12,"Szenario 5
+(Beste 15 Jahre)",10968
+Frauen,10,"Szenario 5
+(Beste 15 Jahre)",10627
+Frauen,5,"Szenario 5
+(Beste 15 Jahre)",7829
+Frauen,23,"Szenario 5
+(Beste 15 Jahre)",6244
+Frauen,8,"Szenario 5
+(Beste 15 Jahre)",9612
+Frauen,27,"Szenario 5
+(Beste 15 Jahre)",4405
+Frauen,20,"Szenario 5
+(Beste 15 Jahre)",8341
+Frauen,4,"Szenario 5
+(Beste 15 Jahre)",6545
+Frauen,17,"Szenario 5
+(Beste 15 Jahre)",10149
+Frauen,26,"Szenario 5
+(Beste 15 Jahre)",4749
+Frauen,25,"Szenario 5
+(Beste 15 Jahre)",5315
+Frauen,13,"Szenario 5
+(Beste 15 Jahre)",11158
+Frauen,30,"Szenario 5
+(Beste 15 Jahre)",3039
+Frauen,6,"Szenario 5
+(Beste 15 Jahre)",8227
+Frauen,36,"Szenario 5
+(Beste 15 Jahre)",1416
+Frauen,40,"Szenario 5
+(Beste 15 Jahre)",406
+Frauen,29,"Szenario 5
+(Beste 15 Jahre)",3457
+Frauen,31,"Szenario 5
+(Beste 15 Jahre)",2867
+Frauen,22,"Szenario 5
+(Beste 15 Jahre)",7060
+Frauen,19,"Szenario 5
+(Beste 15 Jahre)",9163
+Frauen,24,"Szenario 5
+(Beste 15 Jahre)",5693
+Frauen,18,"Szenario 5
+(Beste 15 Jahre)",9742
+Frauen,9,"Szenario 5
+(Beste 15 Jahre)",10291
+Frauen,15,"Szenario 5
+(Beste 15 Jahre)",10914
+Frauen,34,"Szenario 5
+(Beste 15 Jahre)",1877
+Frauen,3,"Szenario 5
+(Beste 15 Jahre)",3957
+Frauen,35,"Szenario 5
+(Beste 15 Jahre)",1598
+Frauen,2,"Szenario 5
+(Beste 15 Jahre)",1003
+Frauen,37,"Szenario 5
+(Beste 15 Jahre)",1080
+Männer,41,"Szenario 5
+(Beste 15 Jahre)",3370
+Frauen,32,"Szenario 5
+(Beste 15 Jahre)",2432
+Frauen,33,"Szenario 5
+(Beste 15 Jahre)",2148
+Frauen,39,"Szenario 5
+(Beste 15 Jahre)",612
+Frauen,38,"Szenario 5
+(Beste 15 Jahre)",864
+Männer,28,"Szenario 5
+(Beste 15 Jahre)",7720
+Männer,36,"Szenario 5
+(Beste 15 Jahre)",6041
+Männer,33,"Szenario 5
+(Beste 15 Jahre)",5661
+Männer,44,"Szenario 5
+(Beste 15 Jahre)",975
+Männer,42,"Szenario 5
+(Beste 15 Jahre)",2507
+Männer,40,"Szenario 5
+(Beste 15 Jahre)",2953
+Männer,29,"Szenario 5
+(Beste 15 Jahre)",7311
+Männer,27,"Szenario 5
+(Beste 15 Jahre)",8203
+Männer,24,"Szenario 5
+(Beste 15 Jahre)",8055
+Männer,25,"Szenario 5
+(Beste 15 Jahre)",8379
+Männer,21,"Szenario 5
+(Beste 15 Jahre)",5873
+Männer,9,"Szenario 5
+(Beste 15 Jahre)",1656
+Männer,22,"Szenario 5
+(Beste 15 Jahre)",6714
+Männer,34,"Szenario 5
+(Beste 15 Jahre)",6040
+Männer,15,"Szenario 5
+(Beste 15 Jahre)",2446
+Männer,37,"Szenario 5
+(Beste 15 Jahre)",4683
+Männer,32,"Szenario 5
+(Beste 15 Jahre)",6262
+Männer,35,"Szenario 5
+(Beste 15 Jahre)",5487
+Männer,38,"Szenario 5
+(Beste 15 Jahre)",4815
+Männer,31,"Szenario 5
+(Beste 15 Jahre)",6386
+Männer,5,"Szenario 5
+(Beste 15 Jahre)",1077
+Männer,43,"Szenario 5
+(Beste 15 Jahre)",2436
+Männer,20,"Szenario 5
+(Beste 15 Jahre)",5101
+Männer,30,"Szenario 5
+(Beste 15 Jahre)",6790
+Männer,16,"Szenario 5
+(Beste 15 Jahre)",2742
+Männer,23,"Szenario 5
+(Beste 15 Jahre)",7384
+Männer,26,"Szenario 5
+(Beste 15 Jahre)",8268
+Männer,7,"Szenario 5
+(Beste 15 Jahre)",1433
+Männer,39,"Szenario 5
+(Beste 15 Jahre)",4546
+Männer,18,"Szenario 5
+(Beste 15 Jahre)",3654
+Männer,19,"Szenario 5
+(Beste 15 Jahre)",4365
+Männer,14,"Szenario 5
+(Beste 15 Jahre)",2353
+Männer,12,"Szenario 5
+(Beste 15 Jahre)",2146
+Männer,11,"Szenario 5
+(Beste 15 Jahre)",1948
+Männer,10,"Szenario 5
+(Beste 15 Jahre)",1824
+Männer,17,"Szenario 5
+(Beste 15 Jahre)",3004
+Männer,6,"Szenario 5
+(Beste 15 Jahre)",1302
+Männer,8,"Szenario 5
+(Beste 15 Jahre)",1527
+Männer,4,"Szenario 5
+(Beste 15 Jahre)",754
+Männer,45,"Szenario 5
+(Beste 15 Jahre)",398
+Männer,13,"Szenario 5
+(Beste 15 Jahre)",2223
+Frauen,41,"Szenario 5
+(Beste 15 Jahre)",205
+Männer,2,"Szenario 5
+(Beste 15 Jahre)",258
+Männer,3,"Szenario 5
+(Beste 15 Jahre)",504
+Frauen,1,"Szenario 5
+(Beste 15 Jahre)",116
+Frauen,44,"Szenario 5
+(Beste 15 Jahre)",5
+Männer,46,"Szenario 5
+(Beste 15 Jahre)",49
+Frauen,42,"Szenario 5
+(Beste 15 Jahre)",72
+Männer,1,"Szenario 5
+(Beste 15 Jahre)",53
+Frauen,43,"Szenario 5
+(Beste 15 Jahre)",20
+Frauen,45,"Szenario 5
+(Beste 15 Jahre)",3
+Frauen,46,"Szenario 5
+(Beste 15 Jahre)",1

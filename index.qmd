@@ -21,7 +21,7 @@ descriptions = FileAttachment("data/descriptions.csv").csv({ typed: true })
 ```
 
 ```{ojs}
-binsRaw = FileAttachment("data/100bins.csv").csv({ typed: true })
+binsRaw = FileAttachment("data/bins.csv").csv({ typed: true })
 scenarios = aq.from(binsRaw)
   .derive({ variable: d => op.replace(d.variable, /\r\n/g, " ") })
   .filter(aq.escape(d => d.variable != "Status quo"))
@@ -72,9 +72,7 @@ binsMid = aq.from(binsRaw)
     range: aq.escape(d => range),
     radio: aq.escape(d => radio),
   })
-```
 
-```{ojs}
 cumPerc = binsMid
   .derive({
     tail: aq.escape(
@@ -103,7 +101,8 @@ function getCumPerc(gesl, tail) {
 ```
 
 ```{ojs}
-alleRaw = FileAttachment("data/alle.csv").csv({ typed: true })
+alleRaw = FileAttachment("data/deciles.csv").csv({ typed: true }) 
+
 deciles = [
   "Gesamt",
   "10. Dezil",
@@ -118,6 +117,7 @@ deciles = [
   // "75. Dezil",
   "90. Dezil",
 ]
+
 alleMid = aq.from(alleRaw)
   .derive({ 
     variable: d => op.replace(d.variable, /\r\n/g, " "),
@@ -133,10 +133,10 @@ alleMid = aq.from(alleRaw)
   .derive({ closestDecile: d => op.sum(d.closestDecile) > 0 ? "yes" : "no" })
   .ungroup()
 
-allePivot = alleMid
+alleDiffVal = alleMid
   .filter(aq.escape(d => d.variable == select))
-  .select("gesl", "D", "val", "value")
-  .groupby(["gesl", "D"])
+  .select(["gesl", "D", "variable", "val", "value"])
+  .groupby(["gesl", "D", "variable"])
   .pivot("val", "value")
   .derive({ 
     diffScenario: d => d["Szenario"] - d["Status quo"],
@@ -149,9 +149,21 @@ closestDecileValue = alleMid
   .filter(d => d.closestDecile == "yes")
   .map(d => d.D)[0]
 
+alleDiffGesl = alleMid
+  .derive({ closestDecileValue: aq.escape(d => closestDecileValue) })
+  .select(["gesl", "D", "variable", "val", "value"])
+  .groupby(["val", "D", "variable"])
+  .pivot("gesl", "value")
+  .derive({ 
+    gapValue: d => d.Frauen - d.Männer,
+    gapPerc: d => (d.Frauen - d.Männer) / (d.Männer),
+    gapRel: d => (d.Frauen) / (d.Männer),
+  })
+
 alle = alleMid
   .derive({ closestDecileValue: aq.escape(d => closestDecileValue) })
-  .join_left(allePivot, [["gesl", "D"], ["gesl", "D"]])
+  .join_left(alleDiffVal, [["gesl", "D", "variable"], ["gesl", "D", "variable"]])
+  .join_left(alleDiffGesl, [["val", "D", "variable"], ["val", "D", "variable"]])
   .objects()
 
 diffScenario = alle
@@ -160,22 +172,19 @@ diffScenario = alle
   .map(d => d.diffScenario)
 
 medians = alleMid
+  .filter(aq.escape(d => d.D == "50. Dezil"))
   .derive({ 
     variable: d => d.val == "Szenario" ? d.variable : "Status quo",
     median: d => d.value,
     })
-  .filter(aq.escape(d => d.D == "50. Dezil"))
-  .select(["gesl", "variable", "median"])
+  .select(["gesl", "variable", "val", "median"])
   .dedupe()
+
+medians.objects()
 
 bins = binsMid
   .join_left(medians, [["gesl", "variable"], ["gesl", "variable"]])
   .objects()
-
-// alleMid.objects()
-// binsMid.objects()
-// medians.objects()
-// bins
 ```
 
 
@@ -377,6 +386,27 @@ distributions = {
         .value(getCumPerc(radio, "higher") + " →"), 
     )
 
+  const textSame = vl
+    .markText({
+      clip: true,
+      size: 14,
+      y: 26,
+      dy: -12,
+      align: "right",
+      clip: true,
+      angle: -90,
+    })
+    .transform(
+      vl.filter("datum.gesl == datum.radio"),
+      vl.filter("datum.bin == datum.range"),
+    )
+    .encode(
+      vl.x()
+        .fieldQ("bin"),
+      vl.text()
+        .value("≈ " + getCumPerc(radio, "same")), 
+    )
+
   return vl
     .layer(
       ruleGray,
@@ -388,6 +418,7 @@ distributions = {
       rule,
       textLeft,
       textRight,
+      textSame,
     )
     .height(280)
     .width(makeWidth(width)/1.7)
@@ -757,7 +788,7 @@ dumbbell = {
 
   const lines = vl
     .markLine({
-      opacity: 1,
+      opacity: 0.15,
       size: 5,
     })
     // .transform(vl.filter("datum.D == datum.closestDecileValue"))
@@ -769,12 +800,6 @@ dumbbell = {
       vl.color()
         .fieldN("val")
         .scale({
-          range: ["#ededed", "#ededed"]
-        })
-        .legend(null),
-      vl.fill()
-        .fieldN("val")
-        .scale({
           range: ["black", "black"]
         })
         .legend(null),
@@ -783,7 +808,7 @@ dumbbell = {
   const text = vl
     .markText({
       size: 12,
-      dx: 25
+      dx: 25,
     })
     .encode(
       vl.y()
@@ -801,10 +826,39 @@ dumbbell = {
         .format(",.0f"),
     )
 
+  const textRel = vl
+    .markText({
+      size: 12,
+      dx: 25,
+      dy: 16,
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value"),
+      vl.x()
+        .fieldO("val"),
+      // vl.color()
+      //   .fieldN("gesl")
+      //   .scale({
+      //     range: ["black"],
+      //   })
+      //   .legend(null),
+      vl.text()
+        .fieldQ("gapRel")
+        .format(",.0~%"),
+        // .value("xx% →"),
+      vl.opacity()
+        .fieldN("gesl")
+        .scale({
+          range : [0.5, 0] 
+        })
+        .legend(null),
+    )
+
   const textGap = vl
     .markText({
       size: 12,
-      dx: 10,
+      dx: 26,
       dy: -16,
       angle: -90,
     })
@@ -813,14 +867,16 @@ dumbbell = {
         .fieldQ("value"),
       vl.x()
         .fieldO("val"),
-      vl.color()
-        .fieldN("gesl")
-        .scale({
-          range: ["black"],
-        })
-        .legend(null),
+      // vl.color()
+      //   .fieldN("gesl")
+      //   .scale({
+      //     range: ["black"],
+      //   })
+      //   .legend(null),
       vl.text()
-        .value("xx% →"),
+        .fieldQ("gapValue")
+        .format("+,.0~f"),
+        // .value("xx% →"),
       vl.opacity()
         .fieldN("gesl")
         .scale({
@@ -834,6 +890,7 @@ dumbbell = {
       lines,
       points,
       text,
+      textRel,
       textGap,
     )
     .resolve({
