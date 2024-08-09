@@ -103,14 +103,14 @@ function getCumPerc(gesl, tail) {
 ```
 
 ```{ojs}
-alleRaw = 
+decilesRaw = 
   check1[0] == "Kindererziehungszeiten" ?
   FileAttachment("data/deciles_betroffen_szen1.csv").csv({ typed: true }) :
   check2[0] == "ALV-Zeiten" ?
   FileAttachment("data/deciles_betroffen_szen1.csv").csv({ typed: true }) :
   FileAttachment("data/deciles.csv").csv({ typed: true })
 
-deciles = [
+decilesList = [
   "Gesamt",
   "10. Dezil",
   // "25. Dezil",
@@ -125,7 +125,7 @@ deciles = [
   "90. Dezil",
 ]
 
-alleMid = aq.from(alleRaw)
+decilesMid = aq.from(decilesRaw)
   .derive({ 
     variable: d => op.replace(d.variable, /\r\n/g, " "),
     select: aq.escape(d => select),
@@ -133,14 +133,14 @@ alleMid = aq.from(alleRaw)
     radio: aq.escape(d => radio),
     diff: aq.escape(d => Math.abs(range-d.value)),
   })
-  .filter(aq.escape(d => deciles.includes(d.D)))
+  .filter(aq.escape(d => decilesList.includes(d.D)))
   .groupby(["gesl", "val", "variable"])
   .derive({ closestDecile: d => op.min(d.diff) == d.diff && d.gesl == d.radio && d.val == "Status quo" ? 1 : 0 })
   .groupby(["gesl", "variable", "D"])
   .derive({ closestDecile: d => op.sum(d.closestDecile) > 0 ? "yes" : "no" })
   .ungroup()
 
-alleDiffVal = alleMid
+decilesDiffVal = decilesMid
   .filter(aq.escape(d => d.variable == select))
   .select(["gesl", "D", "variable", "val", "value"])
   .groupby(["gesl", "D", "variable"])
@@ -150,13 +150,13 @@ alleDiffVal = alleMid
     diffScenarioPerc: d => (d["Szenario"] - d["Status quo"]) / d["Status quo"],
   })
 
-closestDecileValue = alleMid
+closestDecileValue = decilesMid
   .filter(aq.escape(d => d.variable == select))
   .objects()
   .filter(d => d.closestDecile == "yes")
   .map(d => d.D)[0]
 
-alleDiffGesl = alleMid
+decilesDiffGesl = decilesMid
   .derive({ closestDecileValue: aq.escape(d => closestDecileValue) })
   .select(["gesl", "D", "variable", "val", "value"])
   .groupby(["val", "D", "variable"])
@@ -167,18 +167,18 @@ alleDiffGesl = alleMid
     gapRel: d => (d.Frauen) / (d.Männer),
   })
 
-alle = alleMid
+deciles = decilesMid
   .derive({ closestDecileValue: aq.escape(d => closestDecileValue) })
-  .join_left(alleDiffVal, [["gesl", "D", "variable"], ["gesl", "D", "variable"]])
-  .join_left(alleDiffGesl, [["val", "D", "variable"], ["val", "D", "variable"]])
+  .join_left(decilesDiffVal, [["gesl", "D", "variable"], ["gesl", "D", "variable"]])
+  .join_left(decilesDiffGesl, [["val", "D", "variable"], ["val", "D", "variable"]])
   .objects()
 
-diffScenario = alle
+diffScenario = deciles
   .filter(d => d.variable == select)
   .filter(d => d.gesl == radio && d.val == "Szenario" && d.D == d.closestDecileValue)
   .map(d => d.diffScenario)
 
-medians = alleMid
+medians = decilesMid
   .filter(aq.escape(d => d.D == "50. Dezil"))
   .derive({ 
     variable: d => d.val == "Szenario" ? d.variable : "Status quo",
@@ -574,12 +574,13 @@ distributionsChange = {
     .render({ renderer: "svg" })
 
 }
+checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen können," : ""
 ```
 :::
 ::::
 
 ::: {.columns .column-page .mainText}
-Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat. Im Szenario ${select} würde sich die Verteilung der ${radio} nach rechts verschieben. ${radio} mit einer Pension von ${range} Euro befindet sich am nähesten am ${alle.map(d => d.closestDecileValue)[0] }. Im ${select} würden ${radio} dort im Schnitt um ${Math.round(diffScenario)} mehr Pension erhalten. Für von dem Szenario betroffenen Frauen ist dieser Effekt im Schnitt sogar 
+Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat (gleich viel ${getCumPerc("Frauen", "same")}, bzw. ${getCumPerc("Männer", "same")} und mehr ${getCumPerc("Frauen", "higher")}, bzw. ${getCumPerc("Männer", "higher")}). Im Szenario ${select} würde sich die Verteilung der ${radio} nach rechts verschieben. ${radio} mit einer Pension von ${range} Euro befindet sich am nähesten am ${deciles.map(d => d.closestDecileValue)[0] }. Im ${select} würden ${radio + checkText1} dort im Schnitt um ${Math.round(diffScenario)} mehr Pension erhalten:
 :::
 
 :::: {.columns .column-page }
@@ -728,7 +729,7 @@ bars = {
         orient: "top",
       },
     })
-    .data(alle.filter(d => d.variable == select && d.gesl == radio))
+    .data(deciles.filter(d => d.variable == select && d.gesl == radio))
     .config(config)
     .render({ renderer: "svg" })
 
@@ -913,7 +914,7 @@ dumbbell = {
       },
     })
     // .columns(1)
-    .data(alle.filter(d => d.D == d.closestDecileValue && d.variable == select))
+    .data(deciles.filter(d => d.D == d.closestDecileValue && d.variable == select))
     .config(config)
     .render({ renderer: "svg" })
 
@@ -921,6 +922,10 @@ dumbbell = {
 ```
 :::
 ::::
+
+::: {.columns .column-page .mainText}
+Der Gender Pension Gap würde damit im ${deciles.map(d => d.closestDecileValue)[0]} von ${} Euro auf ${} Euro fallen. damit würde die Frauenpension hier ${} statt ${} relativ zur Männerpension ausmachen.
+:::
 
 ::: {.columns .column-page .mainText}
 ## Einfluss auf die Haushaltseinkommen
