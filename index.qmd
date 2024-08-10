@@ -162,8 +162,8 @@ decilesDiffGesl = decilesMid
   .groupby(["val", "D", "variable"])
   .pivot("gesl", "value")
   .derive({ 
-    gapValue: d => d.Frauen - d.Männer,
-    gapPerc: d => (d.Frauen - d.Männer) / (d.Männer),
+    gapValue: d => d.Männer - d.Frauen,
+    gapPerc: d => (d.Männer - d.Frauen) / (d.Männer),
     gapRel: d => (d.Frauen) / (d.Männer),
   })
 
@@ -843,16 +843,9 @@ dumbbell = {
         .fieldQ("value"),
       vl.x()
         .fieldO("val"),
-      // vl.color()
-      //   .fieldN("gesl")
-      //   .scale({
-      //     range: ["black"],
-      //   })
-      //   .legend(null),
       vl.text()
         .fieldQ("gapRel")
         .format(",.0~%"),
-        // .value("xx% →"),
       vl.opacity()
         .fieldN("gesl")
         .scale({
@@ -864,25 +857,42 @@ dumbbell = {
   const textGap = vl
     .markText({
       size: 12,
-      dx: 26,
+      dx: 35,
       dy: -16,
       angle: -90,
+      align: "right",
     })
     .encode(
       vl.y()
         .fieldQ("value"),
       vl.x()
         .fieldO("val"),
-      // vl.color()
-      //   .fieldN("gesl")
-      //   .scale({
-      //     range: ["black"],
-      //   })
-      //   .legend(null),
       vl.text()
         .fieldQ("gapValue")
-        .format("+,.0~f"),
-        // .value("xx% →"),
+        .format(",.0~f"),
+      vl.opacity()
+        .fieldN("gesl")
+        .scale({
+          range : [1, 0]
+        })
+        .legend(null),
+    )
+
+  const textArrow = vl
+    .markText({
+      size: 12,
+      dx: 40,
+      dy: -16,
+      angle: -90,
+      align: "left",
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value"),
+      vl.x()
+        .fieldO("val"),
+      vl.text()
+        .value(" →"),
       vl.opacity()
         .fieldN("gesl")
         .scale({
@@ -898,6 +908,7 @@ dumbbell = {
       text,
       textRel,
       textGap,
+      textArrow,
     )
     .resolve({
       scale: {color: "independent", fill: "independent"},
@@ -923,8 +934,13 @@ dumbbell = {
 :::
 ::::
 
+<!-- ```{ojs}
+deciles
+d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0])
+``` -->
+
 ::: {.columns .column-page .mainText}
-Der Gender Pension Gap würde damit im ${deciles.map(d => d.closestDecileValue)[0]} von ${} Euro auf ${} Euro fallen. damit würde die Frauenpension hier ${} statt ${} relativ zur Männerpension ausmachen.
+Der Gender Pension Gap würde damit im ${deciles.map(d => d.closestDecileValue)[0]} von ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0])} Euro auf ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0])} Euro fallen. Damit würde die Frauenpension hier ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0])} statt ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0])} relativ zur Männerpension ausmachen.
 :::
 
 ::: {.columns .column-page .mainText}
