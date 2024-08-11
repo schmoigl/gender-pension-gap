@@ -34,3 +34,10 @@ CD
     - Open Sans / Montserrat
     - 15px
     - #be0021
+
+
+HH Daten:
+
+household_income_detail.csv -> Übersicht 14 im Bericht
+household_betroffene.csv -> Übersicht 13 (Abbildung 11?)
+household_arop_detail.csv -> Übersicht 15

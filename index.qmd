@@ -558,10 +558,6 @@ distributionsChange = {
         orient: "top",
       },
     })
-    // .title({
-    //   text: " ",
-    //   subtitle: "Veränderung durch Szenario"
-    //   })
     .resolve({
       axis: {x: "independent"}
       })
@@ -578,10 +574,6 @@ checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen könne
 ```
 :::
 ::::
-
-::: {.columns .column-page .mainText}
-Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat (gleich viel ${getCumPerc("Frauen", "same")}, bzw. ${getCumPerc("Männer", "same")} und mehr ${getCumPerc("Frauen", "higher")}, bzw. ${getCumPerc("Männer", "higher")}). Im Szenario ${select} würde sich die Verteilung der ${radio} nach rechts verschieben. ${radio} mit einer Pension von ${range} Euro befindet sich am nähesten am ${deciles.map(d => d.closestDecileValue)[0] }. Im ${select} würden ${radio + checkText1} dort im Schnitt um ${Math.round(diffScenario)} mehr Pension erhalten:
-:::
 
 :::: {.columns .column-page }
 :::{.column width="70%"}
@@ -934,12 +926,9 @@ dumbbell = {
 :::
 ::::
 
-<!-- ```{ojs}
-deciles
-d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0])
-``` -->
-
 ::: {.columns .column-page .mainText}
+Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat (gleich viel ${getCumPerc("Frauen", "same")}, bzw. ${getCumPerc("Männer", "same")} und mehr ${getCumPerc("Frauen", "higher")}, bzw. ${getCumPerc("Männer", "higher")}). 
+Im Szenario ${select} würde sich die Verteilung der ${radio} nach rechts verschieben. ${radio} mit einer Pension von ${range} Euro befindet sich am nähesten am ${deciles.map(d => d.closestDecileValue)[0] }. Im ${select} würden ${radio + checkText1} dort im Schnitt um ${Math.round(diffScenario)} mehr Pension erhalten.
 Der Gender Pension Gap würde damit im ${deciles.map(d => d.closestDecileValue)[0]} von ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0])} Euro auf ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0])} Euro fallen. Damit würde die Frauenpension hier ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0])} statt ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0])} relativ zur Männerpension ausmachen.
 :::
 
@@ -948,5 +937,62 @@ Der Gender Pension Gap würde damit im ${deciles.map(d => d.closestDecileValue)[
 Maecenas turpis velit, ultricies non elementum vel, luctus nec nunc. Nulla a diam interdum, faucibus sapien viverra, finibus metus. Donec non tortor diam. In ut elit aliquet, bibendum sem et, aliquam tortor. Donec congue, sem at rhoncus ultrices, nunc augue cursus erat, quis porttitor mauris libero ut ex. Nullam quis leo urna. Donec faucibus ligula eget pellentesque interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 :::
 
+```{ojs}
+hhIncome = FileAttachment("data/household_income_detail.csv").csv({ typed: true })
+hhPoverty = FileAttachment("data/household_arop_detail.csv").csv({ typed: true })
+
+groups = aq.from(hhIncome)
+  .filter(aq.escape(d => d.group != "Gesamt"))
+  .select("group")
+  .dedupe()
+  .array("group")
+
+hhIncome
+```
+
+:::: {.columns .column-page }
+::: {.column width="45%"}
+```{ojs}
+viewof selectGroup = Inputs.select(groups, {label: "Merkmale"})
+```
+:::
+::: {.column width="55%" .infoText}
+
+:::
+::::
+
+:::: {.columns .column-page }
+:::{.column width="70%"}
+```{ojs}
+barsIncome = {
+
+  const text = vl
+    .markText()
+    .encode(
+      vl.x()
+        .fieldN("variable")
+    )
+
+  return vl 
+    .layer(
+      bars,    )
+    .width(makeWidth(width)/5)
+    // .facet({
+    //   field: "closestDecileValue", 
+    //   type: "nominal", 
+    //   title: null,
+    //   header: { 
+    //     labelFontSize: 14, 
+    //     orient: "top",
+    //   },
+    // })
+    // .columns(1)
+    .data(hhIncome)
+    .config(config)
+    .render({ renderer: "svg" })
+}
+```
+:::
+::::
 
 :::::
