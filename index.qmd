@@ -938,8 +938,8 @@ Maecenas turpis velit, ultricies non elementum vel, luctus nec nunc. Nulla a dia
 :::
 
 ```{ojs}
-hhIncome = FileAttachment("data/household_income_detail.csv").csv({ typed: true })
-hhPoverty = FileAttachment("data/household_arop_detail.csv").csv({ typed: true })
+hhIncomeRaw = FileAttachment("data/household_income_detail.csv").csv({ typed: true })
+hhPovertyRaw = FileAttachment("data/household_arop_detail.csv").csv({ typed: true })
 
 groups = aq.from(hhIncome)
   .filter(aq.escape(d => d.group != "Gesamt"))
@@ -947,7 +947,15 @@ groups = aq.from(hhIncome)
   .dedupe()
   .array("group")
 
-hhIncome
+hhIncome = aq.from(hhIncomeRaw)
+  .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
+  .derive({ value: d=> d.variable != "Status quo" ? d.value / 100 : d.value })
+  .objects()
+
+hhPoverty = aq.from(hhPovertyRaw)
+  .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
+  .derive({ value: d=> d.variable != "Status quo" ? d.value / 100 : d.value })
+  .objects()
 ```
 
 :::: {.columns .column-page }
@@ -957,25 +965,59 @@ viewof selectGroup = Inputs.select(groups, {label: "Merkmale"})
 ```
 :::
 ::: {.column width="55%" .infoText}
-
+Donec congue, sem at rhoncus ultrices, nunc augue cursus erat, quis porttitor mauris libero ut ex. Nullam quis leo urna. Donec faucibus ligula eget pellentesque interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 :::
 ::::
 
 :::: {.columns .column-page }
-:::{.column width="70%"}
+:::{.column width="50%"}
 ```{ojs}
 barsIncome = {
 
+  const bars = vl
+    .markBar({
+      fill: colors[0]
+    })
+    .encode( 
+      vl.x()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          // ticks: false,
+        }),
+      vl.y()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          // ticks: false,
+          minExtent: 200,
+          labelLimit: 111111,
+          labelFontSize: 12,
+        }), 
+    )
+
   const text = vl
-    .markText()
+    .markText({
+      dx: 20,
+      size: 12,
+    })
     .encode(
       vl.x()
-        .fieldN("variable")
+        .fieldQ("value"),
+      vl.y()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format(",.0f"),
     )
 
   return vl 
     .layer(
-      bars,    )
+      bars,
+      text,    
+      )
     .width(makeWidth(width)/5)
     // .facet({
     //   field: "closestDecileValue", 
@@ -987,12 +1029,68 @@ barsIncome = {
     //   },
     // })
     // .columns(1)
-    .data(hhIncome)
+    .data(hhIncome.filter(d => d.group == selectGroup && d.variable == "Status quo"))
+    .config(config)
+    .render({ renderer: "svg" })
+}
+```
+:::
+
+:::{.column width="50%"}
+```{ojs}
+changesIncome = {
+
+  const text = vl
+    .markText({
+      size: 12,
+    })
+    .encode(
+      vl.x()
+        .fieldN("variable")
+        .axis({
+          title: null,
+          labelLimit: 11111,
+          // domain: false,
+          // ticks: false,
+        }),
+      vl.y()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labels: false,
+        }),
+      vl.text()
+        .fieldQ("value")
+        .format("+,.1~%"),
+    )
+
+  return vl 
+    .layer(
+      text,    
+      )
+    .width(makeWidth(width)/2)
+    // .facet({
+    //   field: "closestDecileValue", 
+    //   type: "nominal", 
+    //   title: null,
+    //   header: { 
+    //     labelFontSize: 14, 
+    //     orient: "top",
+    //   },
+    // })
+    // .columns(1)
+    .data(hhIncome.filter(d => d.group == selectGroup&& d.variable != "Status quo"))
     .config(config)
     .render({ renderer: "svg" })
 }
 ```
 :::
 ::::
+
+::: {.columns .column-page .mainText}
+Maecenas turpis velit, ultricies non elementum vel, luctus nec nunc. Nulla a diam interdum, faucibus sapien viverra, finibus metus. Donec non tortor diam. In ut elit aliquet, bibendum sem et, aliquam tortor. Donec congue, sem at rhoncus ultrices, nunc augue cursus erat, quis porttitor mauris libero ut ex. Nullam quis leo urna. Donec faucibus ligula eget pellentesque interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+:::
 
 :::::
