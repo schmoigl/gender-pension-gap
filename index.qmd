@@ -195,7 +195,7 @@ bins = binsMid
 
 :::: {.columns .column-page }
 :::{.column width="70%"}
-Platzierung in Verteilung
+Verteilung der Pensionen im Status quo
 ```{ojs}
 distributions = {
 
@@ -577,6 +577,7 @@ checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen könne
 
 :::: {.columns .column-page }
 :::{.column width="70%"}
+Pensionen nach Dezil für ${radio}
 ```{ojs}
 bars = {
 
@@ -712,15 +713,15 @@ bars = {
     )
     .height(280)
     .width(makeWidth(width)/1.7)
-    .facet({
-      field: "gesl", 
-      type: "nominal", 
-      title: null,
-      header: { 
-        labelFontSize: 14, 
-        orient: "top",
-      },
-    })
+    // .facet({
+    //   field: "gesl", 
+    //   type: "nominal", 
+    //   title: null,
+    //   header: { 
+    //     labelFontSize: 14, 
+    //     orient: "top",
+    //   },
+    // })
     .data(deciles.filter(d => d.variable == select && d.gesl == radio))
     .config(config)
     .render({ renderer: "svg" })
@@ -730,6 +731,7 @@ bars = {
 :::
 
 :::{.column width="30%"}
+Pension Gap im ${deciles.map(d => d.closestDecileValue)[0]}
 ```{ojs}
 dumbbell = {
 
@@ -849,7 +851,7 @@ dumbbell = {
   const textGap = vl
     .markText({
       size: 12,
-      dx: 35,
+      dx: 20,
       dy: -16,
       angle: -90,
       align: "right",
@@ -873,7 +875,7 @@ dumbbell = {
   const textArrow = vl
     .markText({
       size: 12,
-      dx: 40,
+      dx: 25,
       dy: -16,
       angle: -90,
       align: "left",
@@ -906,16 +908,16 @@ dumbbell = {
       scale: {color: "independent", fill: "independent"},
     })
     .height(280)
-    .width(makeWidth(width)/7)
-    .facet({
-      field: "closestDecileValue", 
-      type: "nominal", 
-      title: null,
-      header: { 
-        labelFontSize: 14, 
-        orient: "top",
-      },
-    })
+    .width(makeWidth(width)/6)
+    // .facet({
+    //   field: "closestDecileValue", 
+    //   type: "nominal", 
+    //   title: null,
+    //   header: { 
+    //     labelFontSize: 14, 
+    //     orient: "top",
+    //   },
+    // })
     // .columns(1)
     .data(deciles.filter(d => d.D == d.closestDecileValue && d.variable == select))
     .config(config)
@@ -961,27 +963,30 @@ hhPoverty = aq.from(hhPovertyRaw)
 :::: {.columns .column-page }
 ::: {.column width="45%"}
 ```{ojs}
-viewof selectGroup = Inputs.select(groups, {label: "Merkmale"})
+viewof selectGroup = Inputs.select(groups, {label: "Merkmale", value: "Erwerbsstatus"})
 ```
 :::
 ::: {.column width="55%" .infoText}
-Donec congue, sem at rhoncus ultrices, nunc augue cursus erat, quis porttitor mauris libero ut ex. Nullam quis leo urna. Donec faucibus ligula eget pellentesque interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Hier soll eine Beschreibung und ein Hinweis zu lesen sein, der erklärt was äquivalente Haushaltseinkommen sind.
 :::
 ::::
 
 :::: {.columns .column-page }
 :::{.column width="50%"}
+Äquivalente Haushaltseinkommen im Status quo
 ```{ojs}
 barsIncome = {
 
   const bars = vl
     .markBar({
-      fill: colors[0]
+      fill: colors[0],
+      opacity: 0.8,
     })
     .encode( 
       vl.x()
         .fieldQ("value")
         .axis({
+          // orient: "top",
           title: null,
           grid: false,
           // ticks: false,
@@ -989,10 +994,11 @@ barsIncome = {
       vl.y()
         .fieldN("detail")
         .axis({
+          orient: "right",
           title: null,
           domain: false,
           // ticks: false,
-          minExtent: 200,
+          // minExtent: 200,
           labelLimit: 111111,
           labelFontSize: 12,
         }), 
@@ -1000,12 +1006,13 @@ barsIncome = {
 
   const text = vl
     .markText({
-      dx: 20,
+      dx: 10,
       size: 12,
+      align: "left",
     })
     .encode(
       vl.x()
-        .fieldQ("value"),
+        .value(0),
       vl.y()
         .fieldN("detail"),
       vl.text()
@@ -1019,16 +1026,6 @@ barsIncome = {
       text,    
       )
     .width(makeWidth(width)/5)
-    // .facet({
-    //   field: "closestDecileValue", 
-    //   type: "nominal", 
-    //   title: null,
-    //   header: { 
-    //     labelFontSize: 14, 
-    //     orient: "top",
-    //   },
-    // })
-    // .columns(1)
     .data(hhIncome.filter(d => d.group == selectGroup && d.variable == "Status quo"))
     .config(config)
     .render({ renderer: "svg" })
@@ -1037,6 +1034,7 @@ barsIncome = {
 :::
 
 :::{.column width="50%"}
+Veränderungen nach Szenario
 ```{ojs}
 changesIncome = {
 
@@ -1048,8 +1046,11 @@ changesIncome = {
       vl.x()
         .fieldN("variable")
         .axis({
+          // orient: "top",
           title: null,
           labelLimit: 11111,
+          labelExpr: "substring(datum.label, 9, 10)",
+          // labelAngle: 0,
           // domain: false,
           // ticks: false,
         }),
@@ -1066,21 +1067,28 @@ changesIncome = {
         .format("+,.1~%"),
     )
 
+  const rect = vl
+    .markRect()
+    .encode(
+      vl.x()
+        .fieldN("variable"),
+      vl.y()
+        .fieldN("detail"),
+      vl.fill()
+        .fieldQ("value")
+        .legend(null)
+        .scale({
+          range: ["white", colors[1]],
+          // domain: [-0.1, 0.05]
+        }),
+    )
+
   return vl 
     .layer(
+      rect,
       text,    
       )
-    .width(makeWidth(width)/2)
-    // .facet({
-    //   field: "closestDecileValue", 
-    //   type: "nominal", 
-    //   title: null,
-    //   header: { 
-    //     labelFontSize: 14, 
-    //     orient: "top",
-    //   },
-    // })
-    // .columns(1)
+    .width(makeWidth(width)/2.1)
     .data(hhIncome.filter(d => d.group == selectGroup&& d.variable != "Status quo"))
     .config(config)
     .render({ renderer: "svg" })
