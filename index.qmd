@@ -113,7 +113,6 @@ decilesRaw =
 decilesList = [
   "Gesamt",
   "10. Dezil",
-  // "25. Dezil",
   "20. Dezil",
   "30. Dezil",
   "40. Dezil",
@@ -121,7 +120,6 @@ decilesList = [
   "60. Dezil",
   "70. Dezil",
   "80. Dezil",
-  // "75. Dezil",
   "90. Dezil",
 ]
 
@@ -424,6 +422,7 @@ distributions = {
       textLeft,
       textRight,
       textSame,
+      logo,
     )
     .height(280)
     .width(makeWidth(width)/1.7)
@@ -477,7 +476,6 @@ distributionsChange = {
           ticks: false,
           labels: false,
           nice: false,
-         //  minExtent: 20,
         }),
       vl.color()
         .fieldN("gesl")
@@ -544,8 +542,6 @@ distributionsChange = {
   return vl
     .layer(
       area,
-      // areaLowTail,
-      // rule,
     )
     .height(114.5)
     .width(makeWidth(width)/4)
@@ -641,8 +637,6 @@ bars = {
     .encode(
       vl.x()
         .fieldO("D"),
-      // vl.y()
-      //   .fieldQ("value"),
       vl.xOffset()
         .fieldN("val"),
       vl.text()
@@ -710,8 +704,9 @@ bars = {
       text,
       textDiff,
       textDiffPerc,
+      logo,
     )
-    .height(280)
+    .height(280) 
     .width(makeWidth(width)/1.7)
     // .facet({
     //   field: "gesl", 
@@ -741,7 +736,6 @@ dumbbell = {
       opacity: 1,
       shape: "square",
     })
-    // .transform(vl.filter("datum.D == datum.closestDecileValue"))
     .encode(
       vl.y()
         .fieldQ("value")
@@ -756,11 +750,8 @@ dumbbell = {
         }),
       vl.x()
         .fieldO("val")
-        .axis({
-          title: null,
-          // domain: false,
-          // labels: false,
-          // ticks: false,
+        .axis({ 
+          title: null, 
         }),
       vl.fill()
         .fieldN("gesl")
@@ -791,7 +782,6 @@ dumbbell = {
       opacity: 0.15,
       size: 5,
     })
-    // .transform(vl.filter("datum.D == datum.closestDecileValue"))
     .encode(
       vl.y()
         .fieldQ("value"),
@@ -951,12 +941,18 @@ groups = aq.from(hhIncome)
 
 hhIncome = aq.from(hhIncomeRaw)
   .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
-  .derive({ value: d=> d.variable != "Status quo" ? d.value / 100 : d.value })
+  .derive({ 
+    value: d=> d.variable != "Status quo" ? d.value / 100 : d.value,
+    selectMark: aq.escape(d=> d.variable == select ? "yes" : "no"), 
+    })
   .objects()
 
 hhPoverty = aq.from(hhPovertyRaw)
   .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
-  .derive({ value: d=> d.variable != "Status quo" ? d.value / 100 : d.value })
+  .derive({ 
+    value: d=> d.variable == "Status quo" ? d.value / 100 : d.value,
+    selectMark: aq.escape(d=> d.variable == select ? "yes" : "no"), 
+    })
   .objects()
 ```
 
@@ -986,10 +982,8 @@ barsIncome = {
       vl.x()
         .fieldQ("value")
         .axis({
-          // orient: "top",
           title: null,
           grid: false,
-          // ticks: false,
         }),
       vl.y()
         .fieldN("detail")
@@ -997,8 +991,9 @@ barsIncome = {
           orient: "right",
           title: null,
           domain: false,
-          // ticks: false,
-          // minExtent: 200,
+          ticks: false,
+          labelAlign: "center",
+          labelPadding: 125,
           labelLimit: 111111,
           labelFontSize: 12,
         }), 
@@ -1044,15 +1039,11 @@ changesIncome = {
     })
     .encode(
       vl.x()
-        .fieldN("variable")
+        .fieldO("variable")
         .axis({
-          // orient: "top",
           title: null,
           labelLimit: 11111,
           labelExpr: "substring(datum.label, 9, 10)",
-          // labelAngle: 0,
-          // domain: false,
-          // ticks: false,
         }),
       vl.y()
         .fieldN("detail")
@@ -1071,7 +1062,7 @@ changesIncome = {
     .markRect()
     .encode(
       vl.x()
-        .fieldN("variable"),
+        .fieldO("variable"),
       vl.y()
         .fieldN("detail"),
       vl.fill()
@@ -1079,8 +1070,13 @@ changesIncome = {
         .legend(null)
         .scale({
           range: ["white", colors[1]],
-          // domain: [-0.1, 0.05]
         }),
+      vl.stroke()
+        .fieldN("selectMark")
+        .scale({
+          range: ["transparent", "black"]
+        })
+        .legend(null),
     )
 
   return vl 
@@ -1096,6 +1092,134 @@ changesIncome = {
 ```
 :::
 ::::
+
+
+:::: {.columns .column-page }
+:::{.column width="50%"}
+Armutsquote im Status quo
+```{ojs}
+barsPoverty = {
+
+  const bars = vl
+    .markBar({
+      fill: colors[0],
+      opacity: 0.8,
+    })
+    .encode( 
+      vl.x()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+        }),
+      vl.y()
+        .fieldN("detail")
+        .axis({
+          orient: "right",
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "center",
+          labelPadding: 125,
+          labelLimit: 111111,
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.x()
+        .value(0),
+      vl.y()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format(",.0~%"),
+    )
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width)/5)
+    .data(hhPoverty.filter(d => d.group == selectGroup && d.variable == "Status quo"))
+    .config(config)
+    .render({ renderer: "svg" })
+}
+```
+:::
+
+:::{.column width="50%"}
+Veränderungen nach Szenario
+```{ojs}
+changesPoverty = {
+
+  const text = vl
+    .markText({
+      size: 12,
+    })
+    .encode(
+      vl.x()
+        .fieldO("variable")
+        .axis({
+          title: null,
+          labelLimit: 11111,
+          labelExpr: "substring(datum.label, 9, 10)",
+        }),
+      vl.y()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labels: false,
+        }),
+      vl.text()
+        .fieldQ("value")
+        .format("+,.1~f"),
+    )
+
+  const rect = vl
+    .markRect()
+    .encode(
+      vl.x()
+        .fieldO("variable"),
+      vl.y()
+        .fieldN("detail"),
+      vl.fill()
+        .fieldQ("value")
+        .legend(null)
+        .scale({
+          range: [colors[1], "white", ],
+        }),
+      vl.stroke()
+        .fieldN("selectMark")
+        .scale({
+          range: ["transparent", "black"]
+        })
+        .legend(null),
+    )
+
+  return vl 
+    .layer(
+      rect,
+      text,    
+      )
+    .width(makeWidth(width)/2.1)
+    .data(hhPoverty.filter(d => d.group == selectGroup&& d.variable != "Status quo"))
+    .config(config)
+    .render({ renderer: "svg" })
+}
+```
+:::
+::::
+
 
 ::: {.columns .column-page .mainText}
 Maecenas turpis velit, ultricies non elementum vel, luctus nec nunc. Nulla a diam interdum, faucibus sapien viverra, finibus metus. Donec non tortor diam. In ut elit aliquet, bibendum sem et, aliquam tortor. Donec congue, sem at rhoncus ultrices, nunc augue cursus erat, quis porttitor mauris libero ut ex. Nullam quis leo urna. Donec faucibus ligula eget pellentesque interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.

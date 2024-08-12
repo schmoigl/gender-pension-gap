@@ -8,4 +8,42 @@ function makeWidth(inputWidth) {
     inputWidth * 0.66
   return outputWidth
 }
+
+logoAK = vl
+  .markImage({
+    x: makeWidth(width)/1.7 - 48,
+    x2: makeWidth(width)/1.7,
+    y: 20,
+    opacity: 0.2,
+    clip: true,
+    smooth: true,
+    height: 100,
+  })
+  .data([
+    {x: 1, y: 2}
+  ])
+  .encode(
+    vl.url()
+      .value("https://appetizingdata.com/wp-content/uploads/2024/08/ak-logo.svg"),
+  )
+
+logoWIFO = vl
+  .markImage({
+    x: makeWidth(width)/1.7 - 48,
+    x2: makeWidth(width)/1.7 - 2,
+    y: 50,
+    opacity: 0.2,
+    clip: true,
+    smooth: true,
+    height: 100,
+  })
+  .data([
+    {x: 1, y: 2}
+  ])
+  .encode(
+    vl.url()
+      .value("https://appetizingdata.com/wp-content/uploads/2024/08/WIFO_kurz_rechts.svg"),
+  )
+
+logo = vl.layer(logoAK, logoWIFO)
 ```
