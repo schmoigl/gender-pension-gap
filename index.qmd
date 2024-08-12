@@ -288,7 +288,10 @@ distributions = {
       strokeOpacity: 0.7,
       clip: true,
     })
-    .transform(vl.filter("datum.bin == 100")) // choose random bin
+    .data([
+      {gesl: "Frauen", median: 1215},
+      {gesl: "Männer", median: 2278},
+    ])
     .encode(
       vl.x()
         .fieldQ("median")
@@ -304,7 +307,10 @@ distributions = {
       align: "right",
       clip: true,
     })
-    .transform(vl.filter("datum.bin == 100")) // choose random bin
+    .data([
+      {gesl: "Frauen", median: 1215},
+      {gesl: "Männer", median: 2278},
+    ])
     .encode(
       vl.x()
         .fieldQ("median"),
@@ -323,7 +329,10 @@ distributions = {
       align: "right",
       clip: true,
     })
-    .transform(vl.filter("datum.bin == 100")) // choose random bin
+    .data([
+      {gesl: "Frauen", median: 1215},
+      {gesl: "Männer", median: 2278},
+    ])
     .encode(
       vl.x()
         .fieldQ("median"),
@@ -341,7 +350,10 @@ distributions = {
       align: "right",
       clip: true,
     })
-    .transform(vl.filter("datum.bin == 100")) // choose random bin
+    .data([
+      {gesl: "Frauen", median: 1215},
+      {gesl: "Männer", median: 2278},
+    ])
     .encode(
       vl.x()
         .fieldQ("median"),
