@@ -57,7 +57,7 @@ viewof range = Inputs.range([100, 4200], {label: "Bruttopension", step: 100, val
 viewof radio = Inputs.radio(["Frauen", "Männer"], {label: "Geschlecht", value: "Frauen"})
 viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
 viewof check2 = Inputs.checkbox(["ALV-Zeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
-viewof interpolate = Inputs.select(["natural", "step"], {label: "Interpolation"})
+viewof interpolate = Inputs.select(["step", "natural"], {label: "Interpolation"})
 ```
 :::
 ::: {.column width="55%" .infoText}
