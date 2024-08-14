@@ -13,8 +13,8 @@ website:
   search: false
   page-footer: |
       [![](img/logo.svg){height=30px}](https://www.wifo.ac.at/) <br><br>
-      © 2024 — AK OBERÖSTERREICH | VOLKSGARTENSTRASSE 40 4020 LINZ, +43 50 6906 0 — <a href="mailto:data.science@wifo.ac.at">data.science@wifo.ac.at</a>
-  navbar:
+      © 2024 — AK OBERÖSTERREICH | WIFO — <a href="mailto:data.science@wifo.ac.at">data.science@wifo.ac.at</a>
+  navbar: # just comment out to remove
     title: | 
       [![](img/ak-logo.svg){height="70px"}](/) &nbsp;
     left: 
