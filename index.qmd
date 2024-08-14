@@ -45,9 +45,17 @@ info = descriptions
 ::: {.columns .column-page .mainText}
 #### RECHNER
 # Szenarien von Pensionsreformen im Überblick
-## Einfluss auf die individuelle Pensionshöhe
-Die Berechnungen der AK OÖ und WIFO zeigen in verschiedenen Szenarien mögliche Stellschrauben für eine Angleichung der Frauenpensionen an Männerpensionen auf. Maecenas turpis velit, ultricies non elementum vel, luctus nec nunc. Nulla a diam interdum, faucibus sapien viverra, finibus metus. Donec non tortor diam. In ut elit aliquet, bibendum sem et, aliquam tortor. Donec congue, sem at rhoncus ultrices, nunc augue cursus erat, quis porttitor mauris libero ut ex. Nullam quis leo urna. Donec faucibus ligula eget pellentesque interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Vor dem Hintergrund anhaltend hoher geschlechtsspezifischer Unterschiede in der gesetzlichen
+Alterssicherung in Österreich untersucht [eine Studie des WIFO](res/AKOE_Pensionen_EB_070824.pdf){target="_blank"} 
+die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender
+Pension Gap. Basierend auf den ab dem Jahr 1972 vorhandenen Sozialversicherungsdaten
+und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohorten 2015 bis
+2021 insgesamt sieben Szenarien simuliert. Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
 :::
+
+<!-- ::: {.columns .column-page .mainText}
+## Einfluss auf die individuelle Pensionshöhe 
+::: -->
 
 :::: {.columns .column-page }
 ::: {.column width="45%"}
@@ -112,15 +120,15 @@ decilesRaw =
 
 decilesList = [
   "Gesamt",
-  "10. Dezil",
-  "20. Dezil",
-  "30. Dezil",
-  "40. Dezil",
-  "50. Dezil",
-  "60. Dezil",
-  "70. Dezil",
-  "80. Dezil",
-  "90. Dezil",
+  "10. Perzentil",
+  "20. Perzentil",
+  "30. Perzentil",
+  "40. Perzentil",
+  "50. Perzentil",
+  "60. Perzentil",
+  "70. Perzentil",
+  "80. Perzentil",
+  "90. Perzentil",
 ]
 
 decilesMid = aq.from(decilesRaw)
@@ -177,7 +185,7 @@ diffScenario = deciles
   .map(d => d.diffScenario)
 
 medians = decilesMid
-  .filter(aq.escape(d => d.D == "50. Dezil"))
+  .filter(aq.escape(d => d.D == "50. Perzentil"))
   .derive({ 
     variable: d => d.val == "Szenario" ? d.variable : "Status quo",
     median: d => d.value,
@@ -434,7 +442,7 @@ distributions = {
       textLeft,
       textRight,
       textSame,
-      logo,
+      // logo,
     )
     .height(280)
     .width(makeWidth(width)/1.7)
@@ -585,7 +593,7 @@ checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen könne
 
 :::: {.columns .column-page }
 :::{.column width="70%"}
-Pensionen nach Dezil für ${radio}
+Pensionen nach Perzentil für ${radio}
 ```{ojs}
 bars = {
 
@@ -643,8 +651,9 @@ bars = {
     .markText({
       clip: true,
       size: 12,
-      y: 280-18,
+      y: 292-18,
       angle: -90,
+      align: "left", 
     })
     .encode(
       vl.x()
@@ -716,7 +725,7 @@ bars = {
       text,
       textDiff,
       textDiffPerc,
-      logo,
+      // logo,
     )
     .height(280) 
     .width(makeWidth(width)/1.7)
@@ -932,14 +941,13 @@ dumbbell = {
 
 ::: {.columns .column-page .mainText}
 Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat (gleich viel ${getCumPerc("Frauen", "same")}, bzw. ${getCumPerc("Männer", "same")} und mehr ${getCumPerc("Frauen", "higher")}, bzw. ${getCumPerc("Männer", "higher")}). 
-Im Szenario ${select} würde sich die Verteilung der ${radio} nach rechts verschieben. ${radio} mit einer Pension von ${range} Euro befindet sich am nähesten am ${deciles.map(d => d.closestDecileValue)[0] }. Im ${select} würden ${radio + checkText1} dort im Schnitt um ${Math.round(diffScenario)} mehr Pension erhalten.
+Im Szenario ${select} würde sich die Verteilung der ${radio} nach rechts verschieben. ${radio} mit einer Pension von ${range} Euro befindet sich am nähesten am ${deciles.map(d => d.closestDecileValue)[0] }. Im ${select} würden ${radio + checkText1} dort im Schnitt um ${Math.round(diffScenario)} Euro mehr Pension erhalten.
 Der Gender Pension Gap würde damit im ${deciles.map(d => d.closestDecileValue)[0]} von ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0])} Euro auf ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0])} Euro fallen. Damit würde die Frauenpension hier ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0])} statt ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0])} relativ zur Männerpension ausmachen.
 :::
 
-::: {.columns .column-page .mainText}
+<!-- ::: {.columns .column-page}
 ## Einfluss auf die Haushaltseinkommen
-Maecenas turpis velit, ultricies non elementum vel, luctus nec nunc. Nulla a diam interdum, faucibus sapien viverra, finibus metus. Donec non tortor diam. In ut elit aliquet, bibendum sem et, aliquam tortor. Donec congue, sem at rhoncus ultrices, nunc augue cursus erat, quis porttitor mauris libero ut ex. Nullam quis leo urna. Donec faucibus ligula eget pellentesque interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-:::
+::: -->
 
 ```{ojs}
 hhIncomeRaw = FileAttachment("data/household_income_detail.csv").csv({ typed: true })
@@ -971,17 +979,21 @@ hhPoverty = aq.from(hhPovertyRaw)
 :::: {.columns .column-page }
 ::: {.column width="45%"}
 ```{ojs}
-viewof selectGroup = Inputs.select(groups, {label: "Merkmale", value: "Erwerbsstatus"})
+viewof selectOutcome = Inputs.select(["Haushaltseinkommen", "Armutsquote"], {label: "Outcome", value: "Haushaltseinkommen"})
+viewof selectGroup = Inputs.select(groups, {label: "Gruppe", value: "Erwerbsstatus"})
+infoPoverty = "Die relative Armutsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb einer bestimmten Grenze liegt. Diese Grenze wird in der Regel bei 60 % des mittleren (Median-) Einkommens der Bevölkerung festgelegt. Menschen, die weniger als diesen Betrag verdienen, gelten als relativ arm, da sie im Vergleich zum Durchschnitt deutlich weniger Mittel zur Verfügung haben."
+infoIncome = "Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen."
 ```
 :::
 ::: {.column width="55%" .infoText}
-Hier soll eine Beschreibung und ein Hinweis zu lesen sein, der erklärt was äquivalente Haushaltseinkommen sind.
+![](img/Infobox_info_icon.svg){height=14px} 
+${selectOutcome == "Armutsquote" ? infoPoverty : infoIncome}
 :::
 ::::
 
 :::: {.columns .column-page }
 :::{.column width="50%"}
-Äquivalente Haushaltseinkommen im Status quo
+${selectOutcome == "Armutsquote" ? "Armutsquote" : "Äquivalente Haushaltseinkommen"}  im Status quo
 ```{ojs}
 barsIncome = {
 
@@ -1035,8 +1047,65 @@ barsIncome = {
     .width(makeWidth(width)/5)
     .data(hhIncome.filter(d => d.group == selectGroup && d.variable == "Status quo"))
     .config(config)
-    .render({ renderer: "svg" })
 }
+```
+```{ojs}
+barsPoverty = {
+
+  const bars = vl
+    .markBar({
+      fill: colors[0],
+      opacity: 0.8,
+    })
+    .encode( 
+      vl.x()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+        }),
+      vl.y()
+        .fieldN("detail")
+        .axis({
+          orient: "right", 
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "center",
+          labelPadding: 125,
+          labelLimit: 111111,
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.x()
+        .value(0),
+      vl.y()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format(",.0~%"),
+    )
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width)/5)
+    .data(hhPoverty.filter(d => d.group == selectGroup && d.variable == "Status quo"))
+    .config(config)
+}
+```
+```{ojs}
+selectOutcome == "Haushaltseinkommen" ? barsIncome.render({renderer: "svg"}) : barsPoverty.render({renderer: "svg"})
 ```
 :::
 
@@ -1099,76 +1168,8 @@ changesIncome = {
     .width(makeWidth(width)/2.1)
     .data(hhIncome.filter(d => d.group == selectGroup&& d.variable != "Status quo"))
     .config(config)
-    .render({ renderer: "svg" })
 }
 ```
-:::
-::::
-
-
-:::: {.columns .column-page }
-:::{.column width="50%"}
-Armutsquote im Status quo
-```{ojs}
-barsPoverty = {
-
-  const bars = vl
-    .markBar({
-      fill: colors[0],
-      opacity: 0.8,
-    })
-    .encode( 
-      vl.x()
-        .fieldQ("value")
-        .axis({
-          title: null,
-          grid: false,
-        }),
-      vl.y()
-        .fieldN("detail")
-        .axis({
-          orient: "right",
-          title: null,
-          domain: false,
-          ticks: false,
-          labelAlign: "center",
-          labelPadding: 125,
-          labelLimit: 111111,
-          labelFontSize: 12,
-        }), 
-    )
-
-  const text = vl
-    .markText({
-      dx: 10,
-      size: 12,
-      align: "left",
-    })
-    .encode(
-      vl.x()
-        .value(0),
-      vl.y()
-        .fieldN("detail"),
-      vl.text()
-        .fieldQ("value")
-        .format(",.0~%"),
-    )
-
-  return vl 
-    .layer(
-      bars,
-      text,    
-      )
-    .width(makeWidth(width)/5)
-    .data(hhPoverty.filter(d => d.group == selectGroup && d.variable == "Status quo"))
-    .config(config)
-    .render({ renderer: "svg" })
-}
-```
-:::
-
-:::{.column width="50%"}
-Veränderungen nach Szenario
 ```{ojs}
 changesPoverty = {
 
@@ -1226,8 +1227,10 @@ changesPoverty = {
     .width(makeWidth(width)/2.1)
     .data(hhPoverty.filter(d => d.group == selectGroup&& d.variable != "Status quo"))
     .config(config)
-    .render({ renderer: "svg" })
 }
+```
+```{ojs}
+selectOutcome == "Haushaltseinkommen" ? changesIncome.render({renderer: "svg"}) : changesPoverty.render({renderer: "svg"})
 ```
 :::
 ::::
