@@ -115,7 +115,7 @@ decilesRaw =
   check1[0] == "Kindererziehungszeiten" ?
   FileAttachment("data/deciles_betroffen_szen1.csv").csv({ typed: true }) :
   check2[0] == "ALV-Zeiten" ?
-  FileAttachment("data/deciles_betroffen_szen1.csv").csv({ typed: true }) :
+  FileAttachment("data/deciles_betroffen_szen2.csv").csv({ typed: true }) :
   FileAttachment("data/deciles.csv").csv({ typed: true })
 
 decilesList = [
