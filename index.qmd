@@ -74,6 +74,12 @@ viewof interpolate = Inputs.select(["step", "natural"], {label: "Interpolation"}
 :::
 ::::
 
+<!-- ::: {.column-margin}
+These only work together with column-body
+:::
+
+[These only work together with column-body]{.aside} -->
+
 ```{ojs}
 binsMid = aq.from(binsRaw)
   .derive({ 
