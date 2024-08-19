@@ -1,3 +1,5 @@
+2024-31-07 Kick Off
+
 Wo soll die Webseite embeded werden?
 - costum backend bei AK
 - Zusammenreden mit technisch Verantwortlichen
@@ -41,3 +43,7 @@ CD
     - https://altersteilzeit.arbeiterkammer.at
     - https://bilanzrechner.arbeiterkammer.at
     - https://bruttonetto.arbeiterkammer.at
+
+
+2024-20-08 Embedding/Feedback Session
+
