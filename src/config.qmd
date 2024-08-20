@@ -5,7 +5,7 @@ config = ({
   background: "transparent",
   padding: {
     left: 5, 
-    top: 5, 
+    top: 15, 
     right: 5, 
     bottom: 5,
     },

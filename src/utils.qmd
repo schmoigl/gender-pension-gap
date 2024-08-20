@@ -3,9 +3,17 @@
 colors = ["#be0021", "#ffa500", "#0021be", "#be9a00", "#800080", "#ffd700", "#808080"]
 function makeWidth(inputWidth) {
   const outputWidth = 
-    inputWidth > 2000 ? inputWidth * 0.35 :
-    inputWidth > 1400 ? inputWidth * 0.5 :
-    inputWidth * 0.66
+    inputWidth > 2000 ? inputWidth * 0.4 :
+    inputWidth > 1400 ? inputWidth * 0.55 :
+    inputWidth * 0.7
+  return outputWidth
+}
+
+function makeWidthSmall(inputWidth) {
+  const outputWidth = 
+    inputWidth > 2000 ? inputWidth * 0.08 :
+    inputWidth > 1400 ? inputWidth * 0.1 :
+    inputWidth * 0.18
   return outputWidth
 }
 

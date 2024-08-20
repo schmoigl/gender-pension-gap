@@ -43,7 +43,39 @@ CD
     - https://altersteilzeit.arbeiterkammer.at
     - https://bilanzrechner.arbeiterkammer.at
     - https://bruttonetto.arbeiterkammer.at
+    - https://pensionsrechner.arbeiterkammer.at/pkr-on2/
 
 
 2024-20-08 Embedding/Feedback Session
+
+zu kären:
+- Einbettung Header und Footer
+- Mobil 
+- Technisch
+
+Karin Winpessl
+Nina Plank
+
+Wichtig für Coorporate Design:
+- ?
+
+Darstellung noch vereinfachen,
+Wunsch dass Aufbau nacheinander
+Detailliertere Infos
+
+Hauptfokus: auf den ersten Blick sieht: was bringt mir die Reform: ganz einfaches Balkendiagramm
+So verändert sich meine Pension. so Würde sich Pension Gap senken
+
+Mehr Erklärung und aufklappen.
+
+Interpolation weg.
+
+Perzentile
+
+Fokus immer auf einer Grafik.
+
+Änderungswunsch: Szenario als letztes auswählen
+-> kommt auf die Seite: gitb an Pension, Geschlecht, KInder Zeiten, ALV, Zeiten -> erst als letztes -> wirkt Vorschlag für mich. 
+
+sie stehen hier in der Verteilung in Grafik einbauen. 
 
