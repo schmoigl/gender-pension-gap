@@ -35,7 +35,7 @@ scenarios = aq.from(binsRaw)
 // warning: false
 info = descriptions
   .filter(d => d.variable == select)
-  .map(d => d.description)[0]
+  .map(d => d.description)[0] 
 ```
 
 
@@ -50,7 +50,7 @@ Alterssicherung in Österreich untersucht [eine Studie des WIFO](res/AKOE_Pensio
 die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender
 Pension Gap. Basierend auf den ab dem Jahr 1972 vorhandenen Sozialversicherungsdaten
 und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohorten 2015 bis
-2021 insgesamt sieben Szenarien simuliert. Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
+2021 mehrere Szenarien simuliert. Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
 :::
 
 <!-- ::: {.columns .column-body .mainText}
@@ -265,7 +265,7 @@ bars = {
           range: colors,
         })
         .legend({
-          orient: "top",
+          orient: "right",
           symbolOpacity: 1,
           symbolType: "square",
           title: null,
@@ -412,7 +412,6 @@ dumbbell = {
         .fieldQ("value")
         .axis({
           title: "Bruttopension",
-          title: null,
           domain: false,
           grid: false,
         })
@@ -430,21 +429,10 @@ dumbbell = {
           range: colors,
         })
         .legend({
-          orient: "top", 
+          orient: "right", 
           symbolOpacity: 1,
           symbolType: "square",
           title: null, 
-        }),
-      vl.fill()
-        .fieldN("gesl")
-        .scale({
-          range: colors,
-        })
-        .legend({
-          orient: "top", 
-          symbolOpacity: 1,
-          symbolType: "square",
-          title: null,
         }),
     )
 
@@ -513,7 +501,7 @@ dumbbell = {
     .markText({
       size: 14,
       dx: 24,
-      dy: -20,
+      dy: -16,
       angle: -90,
       align: "right",
       clip: true,
@@ -538,7 +526,7 @@ dumbbell = {
     .markText({
       size: 14,
       dx: 30,
-      dy: -20,
+      dy: -16,
       angle: -90,
       align: "left",
       clip: true,
@@ -637,10 +625,11 @@ distributions = {
         })
         .legend({
           orient: "none", 
-          legendX: makeWidth(width)/1.7 - 80,
-          legendY: 100,
+          legendX: makeWidth(width)/1.7 - 150,
+          legendY: 120,
           symbolOpacity: 1,
           symbolType: "square",
+          symbolStrokeColor: "transparent",
           title: null,
         }),
       vl.stroke()
@@ -697,8 +686,8 @@ distributions = {
       clip: true,
     })
     .data([
-      {gesl: "Frauen", median: 1215, y: 0, y2: 20000},
-      {gesl: "Männer", median: 2278, y: 0, y2: 20000},
+      {gesl: "Frauen", median: 1223, y: 0, y2: 20000}, //1215
+      {gesl: "Männer", median: 2286, y: 0, y2: 20000}, //2278
     ])
     .encode(
       vl.x()
@@ -720,8 +709,8 @@ distributions = {
       clip: true,
     })
     .data([
-      {gesl: "Frauen", median: 1215},
-      {gesl: "Männer", median: 2278},
+      {gesl: "Frauen", median: 1223},
+      {gesl: "Männer", median: 2286},
     ])
     .encode(
       vl.x()
@@ -742,8 +731,8 @@ distributions = {
       clip: true,
     })
     .data([
-      {gesl: "Frauen", median: 1215},
-      {gesl: "Männer", median: 2278},
+      {gesl: "Frauen", median: 1223},
+      {gesl: "Männer", median: 2286},
     ])
     .encode(
       vl.x()
@@ -763,8 +752,8 @@ distributions = {
       clip: true,
     })
     .data([
-      {gesl: "Frauen", median: 1215},
-      {gesl: "Männer", median: 2278},
+      {gesl: "Frauen", median: 1223},
+      {gesl: "Männer", median: 2286},
     ])
     .encode(
       vl.x()
@@ -928,7 +917,7 @@ distributions = {
 
 }
 ```
-Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat (mehr ${getCumPerc("Frauen", "higher")}, bzw. ${getCumPerc("Männer", "higher")}). Die mittlere Pension der Frauen beträgt 1215 Euro, jene der Männer 2278 Euro.
+Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat (mehr ${getCumPerc("Frauen", "higher")}, bzw. ${getCumPerc("Männer", "higher")}). Die mittlere Pension der Frauen beträgt 1223 Euro, jene der Männer 2286 Euro.
 :::
 ::::
 
@@ -947,6 +936,8 @@ distributionsChange = {
     .markArea({
       interpolate: interpolate,
       strokeWidth: 1.25,
+      stroke: "black",
+      opacity: 0.7,
     })
     .encode(
       vl.x()
@@ -970,89 +961,62 @@ distributionsChange = {
           title: "Anzahl Personen"
         }),
       vl.color()
-        .fieldN("gesl")
+        .fieldN("variable")
         .scale({
           range: colors,
         })
-        .legend(null),
-      vl.stroke()
-        .fieldN("gesl")
-        .scale({
-          range: radio == "Männer" ? ["transparent", "black"] : ["black", "transparent"],
-        })
-        .legend(null), 
-      vl.fillOpacity()
-        .fieldN("variable")
-        .scale({
-          range: [0.7, 0.4]
-        })
-        .legend(null),
-      vl.strokeOpacity()
-        .fieldN("variable")
-        .scale({
-          range: [1, 0]
-        })
-        .legend(null),
+        .legend({
+          orient: "none", 
+          legendX: makeWidth(width)/1.7 - 150,
+          legendY: 120,
+          symbolOpacity: 1,
+          symbolType: "square",
+          symbolStrokeColor: "transparent",
+          title: null,
+        }),
+        // .legend(null),
+      // vl.stroke()
+      //   .fieldN("gesl")
+      //   .scale({
+      //     range: radio == "Männer" ? ["transparent", "black"] : ["black", "transparent"],
+      //   })
+      //   .legend(null), 
+      // vl.fillOpacity()
+      //   .fieldN("variable")
+      //   .scale({
+      //     range: [0.7, 0.4]
+      //   })
+      //   .legend(null),
+      // vl.strokeOpacity()
+      //   .fieldN("variable")
+      //   .scale({
+      //     range: [1, 0]
+      //   })
+      //   .legend(null),
     )
 
-  const areaLowTail = vl
-    .markArea({
-      interpolate: interpolate,
-      fillOpacity: 0.75,
-      strokeWidth: 2,
-    })
-    .transform(
-      vl.filter("datum.bin <= datum.range"),
-      vl.filter("datum.gesl == datum.radio"),
-    )
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.y()
-        .fieldQ("N"),
-      vl.color()
-        .fieldN("gesl")
-        .scale({
-          range: colors,
-        })
-        .legend(null),
-    )
-
-  const rule = vl
-    .markRule({
-      stroke: "black",
-      strokeDash: [4, 2],
-    })
-    .transform(
-      vl.filter("datum.bin == datum.range")
-    )
-    .encode(
-      vl.x()
-        .fieldQ("bin")
-    )
-    
   return vl
     .layer(
       area,
     )
-    .height(114.5)
-    .width(makeWidth(width)/3.8)
-    .facet({
-      field: "gesl", 
-      type: "nominal", 
-      title: null,
-      header: { 
-        labelFontSize: 14, 
-        orient: "top",
-      },
-    })
-    .resolve({
-      axis: {x: "independent"}
-      })
-    .columns(2)
+    .height(240)
+    .width(makeWidth(width)/1.7) 
+    // .facet({
+    //   field: "gesl", 
+    //   type: "nominal", 
+    //   title: null,
+    //   header: { 
+    //     labelFontSize: 14, 
+    //     orient: "top",
+    //   },
+    // })
+    // .resolve({
+    //   axis: {x: "independent"}
+    //   })
+    // .columns(2)
     .data(
       bins
-        .filter(d => d.variable == select || d.variable == "Status quo")
+        .filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
       )
     .config(config)
     .render({ renderer: "svg" })
@@ -1101,6 +1065,10 @@ hhPoverty = aq.from(hhPovertyRaw)
   .objects()
 ```
 
+
+::: {.columns .column-body .mainText}
+----------------------------------------
+:::
 
 ::: {.columns .column-body .mainText}
 Die Szenarien haben außerdem einen Einfluss auf die Haushaltseinkommen und die Armutsquote. Wählen Sie eine Gruppe aus.
