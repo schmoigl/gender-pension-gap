@@ -115,7 +115,7 @@ CumPercSame = cumPercMid
 cumPerc = cumPercMid
   .join_left(CumPercSame, [["gesl", "variable"], ["gesl", "variable"]])
   .derive({
-    perc: d => d.tail != "same" ? d.perc + (0.5 * d.percSame) : d.perc,
+    perc: d => d.tail == "lower" ? d.perc + d.percSame : d.perc, // closest decile to the right! not left!!!!
   })
   .groupby(["gesl", "variable", "tail"])
   .derive({ text: aq.escape(d => d3.format(",.0~%")(d.perc)) })
@@ -160,8 +160,8 @@ decilesMid = aq.from(decilesRaw)
     select: aq.escape(d => select),
     range: aq.escape(d => range),
     radio: aq.escape(d => radio),
-    diff: aq.escape(d => Math.abs(range-d.value)),
-  })
+    diff: aq.escape(d => Math.abs(d.value-range)), // closest decile to the right! not left!!!!
+  }) 
   // .filter(aq.escape(d => decilesList.includes(d.D)))
   .groupby(["gesl", "val", "variable"])
   .derive({ closestDecile: d => op.min(d.diff) == d.diff && d.gesl == d.radio && d.val == "Status quo" ? 1 : 0 })
@@ -391,11 +391,11 @@ ${radio} mit einer Pension von ${range} Euro befindet sich am nähesten am ${dec
 :::: {.columns .column-body }
 
 <!-- Button to trigger the collapse -->
-<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent4" aria-expanded="true" aria-controls="collapseContent4">
+<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent4" aria-expanded="false" aria-controls="collapseContent4">
   Wie würde sich die Änderung auf den Gender Pension Gap auswirken?
 </button>
 
-::: {.panel .collapse .show #collapseContent4}
+::: {.panel .collapse #collapseContent4}
 <!-- Pension Gap im ${deciles.map(d => d.closestDecileValue)[0]} -->
 ```{ojs}
 dumbbell = {
@@ -405,7 +405,7 @@ dumbbell = {
       size: 100,
       opacity: 1,
       shape: "square",
-      stroke: "transparent",
+      stroke: "transparent", 
     })
     .encode(
       vl.y()
@@ -582,11 +582,11 @@ Der Gender Pension Gap würde im ${deciles.map(d => d.closestDecileValue)[0]} vo
 :::: {.columns .column-body }
 
 <!-- Button to trigger the collapse -->
-<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent1" aria-expanded="true" aria-controls="collapseContent1">
+<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent1" aria-expanded="false" aria-controls="collapseContent1">
   Wo befinde ich mich im Status Quo in der Verteilung der Pensionen?
 </button>
 
-::: {.panel .collapse .show #collapseContent1}
+::: {.panel .collapse #collapseContent1}
 ```{ojs}
 distributions = {
 
