@@ -405,7 +405,7 @@ dumbbell = {
       size: 100,
       opacity: 1,
       shape: "square",
-      stroke: "transparent", 
+      stroke: "transparent",
     })
     .encode(
       vl.y()
