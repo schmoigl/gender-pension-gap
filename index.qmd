@@ -348,7 +348,7 @@ bars = {
       textDiffPerc,
       // logo,
     ) 
-    .height(280) 
+    .height(280) // width > 825 ? 280 : 180
     .width(makeWidthSmall(width))
     .facet({
       field: "D", 

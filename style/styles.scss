@@ -29,6 +29,12 @@ form {
     padding: 0.2em 0 0.2em 0;
 }
 
+@media screen and (max-width: 826px) {
+    form {
+        padding: 0 0 0 0;
+    }
+}
+
 p {
     padding-bottom: 0;
 }
@@ -41,9 +47,16 @@ p {
 
 .column-margin {
     // text-align: justify;
-    font-size: 0.75em;
-    margin: 12px 6px 12px 6px;
+    font-size: 0.8em;
+    margin: 12px 12px 12px 12px;
 }
+
+@media screen and (max-width: 826px) {
+    .page-full {
+        --bs-gutter-x: 0;
+    }
+}
+
 
 .btn {
     margin: auto auto 12px auto;
