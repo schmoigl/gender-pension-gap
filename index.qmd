@@ -38,9 +38,7 @@ info = descriptions
   .map(d => d.description)[0] 
 ```
 
-
 :::::{.container}
-
 
 ::: {.columns .column-body .mainText}
 #### RECHNER
@@ -52,10 +50,6 @@ Pension Gap. Basierend auf den ab dem Jahr 1972 vorhandenen Sozialversicherungsd
 und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohorten 2015 bis
 2021 mehrere Szenarien simuliert. Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
 :::
-
-<!-- ::: {.columns .column-body .mainText}
-## Einfluss auf die individuelle Pensionshöhe 
-::: -->
 
 :::: {.columns .column-body }
 ::: {.column width="100%"}
@@ -80,8 +74,6 @@ checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen könne
 ![](img/Infobox_info_icon.svg){height=14px} [Ihre genaue Pensionshöhe können Sie hier errechnen lassen](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} <br><br>
 ![](img/Infobox_info_icon.svg){height=14px} Szenario: ${info}
 :::
-
-<!-- [These only work together with column-body]{.aside} -->
 
 ```{ojs}
 binsMid = aq.from(binsRaw)
@@ -221,10 +213,7 @@ bins = binsMid
   .objects()
 ```
 
-
 :::: {.columns .column-body }
-
-<!-- Button to trigger the collapse -->
 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent0" aria-expanded="true" aria-controls="collapseContent0">
   Wie würde sich das Szenario auf meine eigene Pension auswirken?
 </button>
@@ -265,7 +254,7 @@ bars = {
           range: colors,
         })
         .legend({
-          orient: "right",
+          orient: width > 1000 ? "right" : "top",
           symbolOpacity: 1,
           symbolType: "square",
           title: null,
@@ -387,16 +376,12 @@ ${radio} mit einer Pension von ${range} Euro befindet sich am nähesten am ${dec
 :::
 ::::
 
-
 :::: {.columns .column-body }
-
-<!-- Button to trigger the collapse -->
 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent4" aria-expanded="false" aria-controls="collapseContent4">
   Wie würde sich die Änderung auf den Gender Pension Gap auswirken?
 </button>
 
 ::: {.panel .collapse #collapseContent4}
-<!-- Pension Gap im ${deciles.map(d => d.closestDecileValue)[0]} -->
 ```{ojs}
 dumbbell = {
 
@@ -429,7 +414,7 @@ dumbbell = {
           range: colors,
         })
         .legend({
-          orient: "right", 
+          orient: width > 1000 ? "right" : "top", 
           symbolOpacity: 1,
           symbolType: "square",
           title: null, 
@@ -575,13 +560,11 @@ dumbbell = {
 
 }
 ```
-Der Gender Pension Gap würde im ${deciles.map(d => d.closestDecileValue)[0]} von ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0])} Euro auf ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0])} Euro fallen. Damit würde die Frauenpension hier ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0])} statt ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0])} relativ zur Männerpension ausmachen. 
+Der Gender Pension Gap würde sich in meiner Vergleichsgruppe (~${deciles.map(d => d.closestDecileValue)[0]}) von ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0])} Euro auf ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0])} Euro fallen. Damit würde die Frauenpension hier ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0])} statt ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0])} relativ zur Männerpension ausmachen. Insgesamt ...
 :::
 ::::
 
 :::: {.columns .column-body }
-
-<!-- Button to trigger the collapse -->
 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent1" aria-expanded="false" aria-controls="collapseContent1">
   Wo befinde ich mich im Status Quo in der Verteilung der Pensionen?
 </button>
@@ -605,7 +588,7 @@ distributions = {
           title: "Bruttopension"
         })
         .scale({
-          domain: [0, 4200],
+          domain: [0, 4500],
           nice: false,
         }),
       vl.y()
@@ -625,8 +608,8 @@ distributions = {
         })
         .legend({
           orient: "none", 
-          legendX: makeWidth(width)/1.7 - 150,
-          legendY: 120,
+          legendX: makeWidth(width)/1.7 - 240,
+          legendY: 150,
           symbolOpacity: 1,
           symbolType: "square",
           symbolStrokeColor: "transparent",
@@ -769,7 +752,6 @@ distributions = {
       y: 10,
       dx: -12,
       align: "right",
-      clip: true,
     })
     .transform(
       vl.filter("datum.gesl == datum.radio"),
@@ -789,7 +771,6 @@ distributions = {
       y: 25,
       dx: -12,
       align: "right",
-      clip: true,
     })
     .transform(
       vl.filter("datum.gesl == datum.radio"),
@@ -809,7 +790,6 @@ distributions = {
       y: 10,
       dx: 12,
       align: "left",
-      clip: true,
     })
     .transform(
       vl.filter("datum.gesl == datum.radio"),
@@ -829,7 +809,6 @@ distributions = {
       y: 25,
       dx: 12,
       align: "left",
-      clip: true,
     })
     .transform(
       vl.filter("datum.gesl == datum.radio"),
@@ -849,7 +828,6 @@ distributions = {
       y: 50,
       dx: -12,
       align: "right",
-      clip: true,
     })
     .transform(
       vl.filter("datum.gesl == datum.radio"),
@@ -922,8 +900,6 @@ Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "
 ::::
 
 :::: {.columns .column-body }
-
-<!-- Button to trigger the collapse -->
 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent2" aria-expanded="false" aria-controls="collapseContent2">
   Wie würden sich die Verteilungen im Szenario ändern?
 </button>
@@ -938,6 +914,7 @@ distributionsChange = {
       strokeWidth: 1.25,
       stroke: "black",
       opacity: 0.7,
+      clip: true,
     })
     .encode(
       vl.x()
@@ -947,7 +924,7 @@ distributionsChange = {
           title: "Bruttopension"
         })
         .scale({
-          domain: [0, 4200],
+          domain: [0, 4500],
           nice: false,
         }),
       vl.y()
@@ -967,13 +944,14 @@ distributionsChange = {
         })
         .legend({
           orient: "none", 
-          legendX: makeWidth(width)/1.7 - 150,
-          legendY: 120,
+          legendX: makeWidth(width)/1.7 - 240,
+          legendY: 100,
           symbolOpacity: 1,
           symbolType: "square",
           symbolStrokeColor: "transparent",
+          labelLimit: 1111,
           title: null,
-        }),
+        })
         // .legend(null),
       // vl.stroke()
       //   .fieldN("gesl")
@@ -995,9 +973,45 @@ distributionsChange = {
       //   .legend(null),
     )
 
+  const textOld = vl
+    .markText({
+      clip: true,
+      size: 14,
+      y: 50,
+      align: "center",
+    })
+    .data([
+      {bin: 600}
+    ])
+    .encode(
+      vl.x()
+        .fieldQ("bin"),
+      vl.text()
+        .value("alte Verteilung ↓"), 
+    )
+
+  const textNew = vl
+    .markText({
+      clip: true,
+      size: 14,
+      y: 140,
+      align: "center",
+    })
+    .data([
+      {bin: 2500}
+    ])
+    .encode(
+      vl.x()
+        .fieldQ("bin"),
+      vl.text()
+        .value("← neue Verteilung"), 
+    )
+
   return vl
     .layer(
       area,
+      // textOld,
+      // textNew,
     )
     .height(240)
     .width(makeWidth(width)/1.7) 
@@ -1024,19 +1038,19 @@ distributionsChange = {
 }
 
 ```
+```{ojs}
+distributionsChangeText = 
+  select == "Szenario 2 (Arbeitslosigkeit)" ?
+  "Durch die Aufwertung der Zeiten in Arbeitslosigkeit würden sich die Pension für " + radio + " leicht erhöhen." :
+  radio == "Frauen" && select != "Szenario 2 (Arbeitslosigkeit)" ?
+  "Für " + radio + " würden sich die Pensionen im " + select + " deutlich erhöhen." :
+  radio == "Männer" && select != "Szenario 5 (Beste 15 Jahre)" ?
+  radio + " profitieren nicht von " + select :
+  radio + " profitieren deutlich von " + select
+```
+${distributionsChangeText}
 :::
 ::::
-
-
-<!-- ::: {.columns .column-body .mainText}
-Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat (mehr ${getCumPerc("Frauen", "higher")}, bzw. ${getCumPerc("Männer", "higher")}). 
-Im Szenario ${select} würde sich die Verteilung der ${radio} nach rechts verschieben. ${radio} mit einer Pension von ${range} Euro befindet sich am nähesten am ${deciles.map(d => d.closestDecileValue)[0] }. Im ${select} würden ${radio + checkText1} dort im Schnitt um ${Math.round(diffScenario)} Euro mehr Pension erhalten.
-Der Gender Pension Gap würde damit im ${deciles.map(d => d.closestDecileValue)[0]} von ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0])} Euro auf ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0])} Euro fallen. Damit würde die Frauenpension hier ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0])} statt ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0])} relativ zur Männerpension ausmachen.
-::: -->
-
-<!-- ::: {.columns .column-body}
-## Einfluss auf die Haushaltseinkommen
-::: -->
 
 ```{ojs}
 hhIncomeRaw = FileAttachment("data/household_income_detail.csv").csv({ typed: true })
@@ -1065,7 +1079,6 @@ hhPoverty = aq.from(hhPovertyRaw)
   .objects()
 ```
 
-
 ::: {.columns .column-body .mainText}
 ----------------------------------------
 :::
@@ -1073,7 +1086,6 @@ hhPoverty = aq.from(hhPovertyRaw)
 ::: {.columns .column-body .mainText}
 Die Szenarien haben außerdem einen Einfluss auf die Haushaltseinkommen und die Armutsquote. Wählen Sie eine Gruppe aus.
 :::
-
 
 :::: {.columns .column-body }
 ::: {.column width="100%"}
@@ -1084,10 +1096,6 @@ infoPoverty = "Die relative Armutsquote misst den Anteil der Menschen in einer G
 infoIncome = "Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen."
 ```
 :::
-<!-- ::: {.column width="55%" .infoText}
-![](img/Infobox_info_icon.svg){height=14px} 
-${selectOutcome == "Armutsquote" ? infoPoverty : infoIncome}
-::: -->
 ::::
 
 ::: {.column-margin  .infoText}
@@ -1095,10 +1103,7 @@ ${selectOutcome == "Armutsquote" ? infoPoverty : infoIncome}
 ${selectOutcome == "Armutsquote" ? infoPoverty : infoIncome}
 :::
 
-
 :::: {.columns .column-body }
-
-<!-- Button to trigger the collapse -->
 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent5" aria-expanded="false" aria-controls="collapseContent5">
   Einfluss auf die Haushaltseinkommen
 </button>
@@ -1123,7 +1128,7 @@ barsIncome = {
       vl.y()
         .fieldN("detail")
         .axis({
-          orient: "right",
+          orient: width > 1000 ? "right" : "top",
           title: null,
           domain: false,
           ticks: false,
@@ -1178,7 +1183,7 @@ barsPoverty = {
       vl.y()
         .fieldN("detail")
         .axis({
-          orient: "right", 
+          orient: width > 1000 ? "right" : "top", 
           title: null,
           domain: false,
           ticks: false,
@@ -1222,8 +1227,6 @@ selectOutcome == "Haushaltseinkommen" ? barsIncome.render({renderer: "svg"}) : b
 ::::
 
 :::: {.columns .column-body }
-
-<!-- Button to trigger the collapse -->
 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent6" aria-expanded="false" aria-controls="collapseContent6">
   Einfluss auf die Armustquote der Haushalte
 </button>

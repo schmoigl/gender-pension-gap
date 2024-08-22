@@ -11,9 +11,11 @@ function makeWidth(inputWidth) {
 
 function makeWidthSmall(inputWidth) {
   const outputWidth = 
-    inputWidth > 2000 ? inputWidth * 0.06 :
-    inputWidth > 1400 ? inputWidth * 0.08 :
-    inputWidth * 0.18
+    inputWidth > 2000 ? inputWidth * 0.060 : // Home and or WIFO screen?
+    inputWidth > 1600 ? inputWidth * 0.080 : // ASCII screen (small)
+    inputWidth > 1400 ? inputWidth * 0.100 : // laptop
+    inputWidth > 1000 ? inputWidth * 0.145 : // 
+    inputWidth * 0.220
   return outputWidth
 }
 

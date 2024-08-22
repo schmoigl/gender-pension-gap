@@ -4,9 +4,9 @@ config = ({
   view: {stroke: null}, 
   background: "transparent",
   padding: {
-    left: 5, 
+    left: 0, 
     top: 15, 
-    right: 5, 
+    right: 0, 
     bottom: 5,
     },
   font: "Montserrat",
