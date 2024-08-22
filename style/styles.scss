@@ -13,7 +13,7 @@ h1, h2, h3 {
 
 h4 {
     font-size: 13px;
-    margin-top: 4px;
+    margin-top: 2em;
     font-weight: bold;
 }
 
@@ -26,12 +26,17 @@ h4 {
 }
 
 form {
-    padding: 0px 10px 10px 0px;
+    padding: 0.2em 0 0.2em 0;
+}
+
+p {
+    padding-bottom: 0;
 }
 
 .column-body {
     background: url(img/struktur-footer.png);
-    padding: 1em 30px 0em 30px;
+    padding: 0em 2em 1rem 2em;
+    // margin: 0 0 1rem 0;
 }
 
 .column-margin {
@@ -42,13 +47,6 @@ form {
 
 .btn {
     margin: auto auto 12px auto;
-}
-
-.mainText {
-    // text-align: justify;
-    padding-top: 26px; 
-    // background: url(img/struktur-footer.png);
-    // padding: 10px 10px 0px 10px;
 }
 
 /* tooltip:   */

@@ -46,12 +46,16 @@ info = descriptions
 Vor dem Hintergrund anhaltend hoher geschlechtsspezifischer Unterschiede in der gesetzlichen
 Alterssicherung in Österreich untersucht [eine Studie des WIFO](res/AKOE_Pensionen_EB_070824.pdf){target="_blank"} 
 die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender
-Pension Gap. Basierend auf den ab dem Jahr 1972 vorhandenen Sozialversicherungsdaten
+Pension Gap. Basierend auf Sozialversicherungsdaten
 und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohorten 2015 bis
 2021 mehrere Szenarien simuliert. Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
 :::
 
-:::: {.columns .column-body }
+<!-- ::: {.columns .column-body .separator}
+----------------------------------------
+::: -->
+
+:::: {.columns .column-body .menu}
 ::: {.column width="100%"}
 ```{ojs}
 viewof range = Inputs.range([100, 4200], {label: "Bruttopension", step: 100, value: 1400})
@@ -59,9 +63,7 @@ viewof radio = Inputs.radio(["Frauen", "Männer"], {label: "Geschlecht", value: 
 viewof select = Inputs.select(scenarios, {label: "Szenario"})
 viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
 viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
-// viewof interpolate = Inputs.select(["step", "natural"], {label: "Interpolation"})
 interpolate = "step"
-checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen können," : ""
 ```
 :::
 <!-- ::: {.column width="12%"}
@@ -73,6 +75,10 @@ checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen könne
 ::: {.column-margin  .infoText}
 ![](img/Infobox_info_icon.svg){height=14px} [Ihre genaue Pensionshöhe können Sie hier errechnen lassen](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} <br><br>
 ![](img/Infobox_info_icon.svg){height=14px} Szenario: ${info}
+:::
+
+::: {.columns .column-body .separator}
+----------------------------------------
 :::
 
 ```{ojs}
@@ -380,7 +386,12 @@ bars = {
 }
 ```
 ```{ojs}
-barsText = radio + " mit einer Pension von " + range + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + " dort im Schnitt um " + Math.round(diffScenario) + " Euro mehr Pension erhalten."
+checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen können," : ""
+checkText2 = check2.length == 1 ? ", die Ersatzzeiten durch Arbeistlosigkeit haben," : ""
+
+barsText = diffScenario != 0 ? 
+  radio + " mit einer Pension von " + range + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + checkText2 + " dort im Schnitt um " + Math.round(diffScenario) + " Euro mehr Pension erhalten." :
+  radio + " mit einer Pension von " + range + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + checkText2 + " dort gleich viel erhalten wie aktuell. " + "(Warum?)"
 ```
 ${barsText}
 :::
@@ -1080,15 +1091,15 @@ hhPoverty = aq.from(hhPovertyRaw)
   .objects()
 ```
 
-::: {.columns .column-body .mainText}
+::: {.columns .column-body .separator}
 ----------------------------------------
 :::
 
-::: {.columns .column-body .mainText}
+<!-- ::: {.columns .column-body .mainText}
 Die Szenarien haben außerdem einen Einfluss auf die Haushaltseinkommen und die Armutsquote. Wählen Sie eine Gruppe aus.
-:::
+::: -->
 
-:::: {.columns .column-body }
+:::: {.columns .column-body .menu}
 ::: {.column width="100%"}
 ```{ojs}
 viewof selectOutcome = Inputs.select(["Haushaltseinkommen", "Armutsquote"], {label: "Outcome", value: "Haushaltseinkommen"})
@@ -1104,8 +1115,19 @@ infoIncome = "Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung de
 ${selectOutcome == "Armutsquote" ? infoPoverty : infoIncome}
 :::
 
+::: {.columns .column-body .separator}
+----------------------------------------
+:::
+
 :::: {.columns .column-body }
-<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent5" aria-expanded="false" aria-controls="collapseContent5">
+<button 
+  class="btn btn-secondary" 
+  type="button" 
+  data-bs-toggle="collapse" 
+  data-bs-target="#collapseContent5" 
+  aria-expanded="false" 
+  aria-controls="collapseContent5"
+>
   Einfluss auf die Haushaltseinkommen
 </button>
 
