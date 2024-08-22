@@ -12,6 +12,8 @@ execute:
 {{< include src/utils.qmd >}}
 
 ```{ojs}
+// echo: false
+// warning: false
 import {vl} from "@vega/vega-lite-api-v5" // apiVersion = '5.6.0' vlVersion = '5.6.0' vegaVersion = '5.23.0' tooltipVersion = '0.30.0'
 import {aq, op} from '@uwdata/arquero' // version "6.0.0"
 ```
@@ -31,8 +33,6 @@ scenarios = aq.from(binsRaw)
 ```
 
 ```{ojs}
-// echo: false
-// warning: false
 info = descriptions
   .filter(d => d.variable == select)
   .map(d => d.description)[0] 
@@ -214,7 +214,14 @@ bins = binsMid
 ```
 
 :::: {.columns .column-body }
-<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent0" aria-expanded="true" aria-controls="collapseContent0">
+<button 
+  class="btn btn-secondary" 
+  type="button" 
+  data-bs-toggle="collapse" 
+  data-bs-target="#collapseContent0" 
+  aria-expanded="true" 
+  aria-controls="collapseContent0"
+>
   Wie würde sich das Szenario auf meine eigene Pension auswirken?
 </button>
 
@@ -372,12 +379,22 @@ bars = {
 
 }
 ```
-${radio} mit einer Pension von ${range} Euro befindet sich am nähesten am ${deciles.map(d => d.closestDecileValue)[0] }. Im ${select} würden ${radio + checkText1} dort im Schnitt um ${Math.round(diffScenario)} Euro mehr Pension erhalten.
+```{ojs}
+barsText = radio + " mit einer Pension von " + range + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + " dort im Schnitt um " + Math.round(diffScenario) + " Euro mehr Pension erhalten."
+```
+${barsText}
 :::
 ::::
 
 :::: {.columns .column-body }
-<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent4" aria-expanded="false" aria-controls="collapseContent4">
+<button 
+  class="btn btn-secondary" 
+  type="button" 
+  data-bs-toggle="collapse" 
+  data-bs-target="#collapseContent4" 
+  aria-expanded="false" 
+  aria-controls="collapseContent4"
+>
   Wie würde sich die Änderung auf den Gender Pension Gap auswirken?
 </button>
 
@@ -560,7 +577,10 @@ dumbbell = {
 
 }
 ```
-Der Gender Pension Gap würde sich in meiner Vergleichsgruppe (~${deciles.map(d => d.closestDecileValue)[0]}) von ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0])} Euro auf ${d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0])} Euro fallen. Damit würde die Frauenpension hier ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0])} statt ${d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0])} relativ zur Männerpension ausmachen. Insgesamt ...
+```{ojs}
+dumbbellText =  "Der Gender Pension Gap würde sich in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + ") von " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro fallen. Damit würde die Frauenpension hier " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt ..."
+```
+${dumbbellText}
 :::
 ::::
 
@@ -840,27 +860,6 @@ distributions = {
         .value("ich →"), 
     )
 
-  // const textSame = vl
-  //   .markText({
-  //     clip: true,
-  //     size: 14,
-  //     y: 26,
-  //     dy: -12,
-  //     align: "right",
-  //     clip: true,
-  //     angle: -90,
-  //   })
-  //   .transform(
-  //     vl.filter("datum.gesl == datum.radio"),
-  //     vl.filter("datum.bin == datum.range"),
-  //   )
-  //   .encode(
-  //     vl.x()
-  //       .fieldQ("bin"),
-  //     vl.text()
-  //       .value("≈ " + getCumPerc(radio, "same")), 
-  //   )
-
   return vl
     .layer(
       ruleGray,
@@ -875,7 +874,6 @@ distributions = {
       textLeft2,
       textRight2,
       textPosition,
-      // textSame,
       // logo, 
     )
     .height(300)
@@ -900,7 +898,14 @@ Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "
 ::::
 
 :::: {.columns .column-body }
-<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent2" aria-expanded="false" aria-controls="collapseContent2">
+<button 
+  class="btn btn-secondary" 
+  type="button" 
+  data-bs-toggle="collapse" 
+  data-bs-target="#collapseContent2" 
+  aria-expanded="false" 
+  aria-controls="collapseContent2"
+>
   Wie würden sich die Verteilungen im Szenario ändern?
 </button>
 
@@ -1024,10 +1029,6 @@ distributionsChange = {
     //     orient: "top",
     //   },
     // })
-    // .resolve({
-    //   axis: {x: "independent"}
-    //   })
-    // .columns(2)
     .data(
       bins
         .filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
@@ -1227,7 +1228,14 @@ selectOutcome == "Haushaltseinkommen" ? barsIncome.render({renderer: "svg"}) : b
 ::::
 
 :::: {.columns .column-body }
-<button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent6" aria-expanded="false" aria-controls="collapseContent6">
+<button 
+  class="btn btn-secondary" 
+  type="button" 
+  data-bs-toggle="collapse" 
+  data-bs-target="#collapseContent6" 
+  aria-expanded="false" 
+  aria-controls="collapseContent6"
+>
   Einfluss auf die Armustquote der Haushalte
 </button>
 
