@@ -129,6 +129,8 @@ function getCumPerc(gesl, tail) {
   .map(d => d.text)
   return out
 }
+
+notRadio = radio == "Frauen" ? "Männer" : "Frauen"
 ```
 
 ```{ojs}
@@ -139,19 +141,6 @@ decilesRaw =
   FileAttachment("data/deciles_betroffen_szen2.csv").csv({ typed: true }) :
   FileAttachment("data/deciles.csv").csv({ typed: true })
 
-decilesList = [
-  // "Gesamt",
-  "10. Perzentil",
-  "20. Perzentil",
-  "30. Perzentil",
-  "40. Perzentil",
-  "50. Perzentil",
-  "60. Perzentil",
-  "70. Perzentil",
-  "80. Perzentil",
-  "90. Perzentil",
-]
-
 decilesMid = aq.from(decilesRaw)
   .derive({ 
     variable: d => op.replace(d.variable, /\r\n/g, " "),
@@ -160,7 +149,6 @@ decilesMid = aq.from(decilesRaw)
     radio: aq.escape(d => radio),
     diff: aq.escape(d => Math.abs(d.value-range)), // closest decile to the right! not left!!!!
   }) 
-  // .filter(aq.escape(d => decilesList.includes(d.D)))
   .groupby(["gesl", "val", "variable"])
   .derive({ closestDecile: d => op.min(d.diff) == d.diff && d.gesl == d.radio && d.val == "Status quo" ? 1 : 0 })
   .groupby(["gesl", "variable", "D"])
@@ -199,11 +187,6 @@ deciles = decilesMid
   .join_left(decilesDiffVal, [["gesl", "D", "variable"], ["gesl", "D", "variable"]])
   .join_left(decilesDiffGesl, [["val", "D", "variable"], ["val", "D", "variable"]])
   .objects()
-
-diffScenario = deciles
-  .filter(d => d.variable == select)
-  .filter(d => d.gesl == radio && d.val == "Szenario" && d.D == d.closestDecileValue)
-  .map(d => d.diffScenario)
 
 medians = decilesMid
   .filter(aq.escape(d => d.D == "50. Perzentil"))
@@ -388,9 +371,25 @@ bars = {
 ```{ojs}
 checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen können," : ""
 checkText2 = check2.length == 1 ? ", die Ersatzzeiten durch Arbeistlosigkeit haben," : ""
+diffScenario = deciles
+  .filter(d => d.variable == select)
+  .filter(d => d.gesl == radio && d.val == "Szenario" && d.D == d.closestDecileValue)
+  .map(d => d.diffScenario)
+diffScenarioGesamt = deciles
+  .filter(d => d.variable == select)
+  .filter(d => d.gesl == radio && d.val == "Szenario" && d.D == "Gesamt")
+  .map(d => d.diffScenario)
+diffScenarioPerc = deciles
+  .filter(d => d.variable == select)
+  .filter(d => d.gesl == radio && d.val == "Szenario" && d.D == "Gesamt")
+  .map(d => d.diffScenarioPerc)
+diffScenarioPercGesamt = deciles
+  .filter(d => d.variable == select)
+  .filter(d => d.gesl == radio && d.val == "Szenario" && d.D == "Gesamt")
+  .map(d => d.diffScenarioPerc)
 
 barsText = diffScenario != 0 ? 
-  radio + " mit einer Pension von " + range + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + checkText2 + " dort im Schnitt um " + Math.round(diffScenario) + " Euro mehr Pension erhalten." :
+  "Im " + select + " würden mit mir vergleichabere " + radio + " mit einer Pension von " + range + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + ") " + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man alle Frauen, so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   radio + " mit einer Pension von " + range + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + checkText2 + " dort gleich viel erhalten wie aktuell. " + "(Warum?)"
 ```
 ${barsText}
@@ -589,7 +588,10 @@ dumbbell = {
 }
 ```
 ```{ojs}
-dumbbellText =  "Der Gender Pension Gap würde sich in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + ") von " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro fallen. Damit würde die Frauenpension hier " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt ..."
+mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0] ? " fallen." : " steigen."
+mehrWenigerGesamt = deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0] ? " sinken." : " steigen."
+
+dumbbellText =  "Der Gender Pension Gap würde sich in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + ") von " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
 ```
 ${dumbbellText}
 :::
@@ -597,7 +599,7 @@ ${dumbbellText}
 
 :::: {.columns .column-body }
 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent1" aria-expanded="false" aria-controls="collapseContent1">
-  Wo befinde ich mich im Status Quo in der Verteilung der Pensionen?
+  Wie viel Pension bekomme ich momentan im Vergleich zu anderen?
 </button>
 
 ::: {.panel .collapse #collapseContent1}
@@ -799,9 +801,10 @@ distributions = {
     .markText({
       clip: true,
       size: 12,
-      y: 25,
+      y: 42,
       dx: -12,
       align: "right",
+      opacity: 0.7,
     })
     .transform(
       vl.filter("datum.gesl == datum.radio"),
@@ -811,7 +814,27 @@ distributions = {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value("haben weniger"), 
+        .value("kleiner"), 
+    )
+
+  const textLeftOther = vl
+    .markText({
+      clip: true,
+      size: 12,
+      y: 26,
+      dx: -12,
+      align: "right",
+      opacity: 0.7,
+    })
+    .transform(
+      vl.filter("datum.gesl != datum.radio"),
+      vl.filter("datum.bin == datum.range"),
+    )
+    .encode(
+      vl.x()
+        .fieldQ("bin"),
+      vl.text()
+        .value(getCumPerc(notRadio, "lower")), 
     )
 
   const textRight = vl
@@ -837,9 +860,10 @@ distributions = {
     .markText({
       clip: true,
       size: 12,
-      y: 25,
+      y: 42,
       dx: 12,
       align: "left",
+      opacity: 0.7,
     })
     .transform(
       vl.filter("datum.gesl == datum.radio"),
@@ -849,15 +873,36 @@ distributions = {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value("haben mehr"),
+        .value("größer"),
+    )
+
+  const textRightOther = vl
+    .markText({
+      clip: true,
+      size: 12,
+      y: 26,
+      dx: 12,
+      align: "left",
+      opacity: 0.7
+    })
+    .transform(
+      vl.filter("datum.gesl != datum.radio"),
+      vl.filter("datum.bin == datum.range"),
+    )
+    .encode(
+      vl.x()
+        .fieldQ("bin"),
+      vl.text()
+        .value(getCumPerc(notRadio, "higher")), 
     )
 
   const textPosition = vl
     .markText({
       clip: true,
       size: 14,
-      y: 50,
-      dx: -12,
+      y: 55,
+      dy: -12,
+      angle: -90,
       align: "right",
     })
     .transform(
@@ -868,7 +913,7 @@ distributions = {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value("ich →"), 
+        .value("← ich"), 
     )
 
   return vl
@@ -885,6 +930,8 @@ distributions = {
       textLeft2,
       textRight2,
       textPosition,
+      textLeftOther,
+      textRightOther,
       // logo, 
     )
     .height(300)
@@ -917,7 +964,7 @@ Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "
   aria-expanded="false" 
   aria-controls="collapseContent2"
 >
-  Wie würden sich die Verteilungen im Szenario ändern?
+  Wie würden sich die Verteilungen dieser Pensionen im Szenario ändern?
 </button>
 
 ::: {.panel .collapse #collapseContent2}
