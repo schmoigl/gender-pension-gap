@@ -390,7 +390,7 @@ diffScenarioPercGesamt = deciles
   .map(d => d.diffScenarioPerc)
 
 barsText = diffScenario != 0 ? 
-  "Im " + select + " würden mit mir vergleichabere " + radio + " mit einer Pension von " + range + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + ") " + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man alle Frauen, so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
+  "Im " + select + " würden mit mir vergleichabere " + radio + " mit einer Pension von " + range + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + ") " + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man alle Frauen" + checkText1 + checkText2 + ", so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   radio + " mit einer Pension von " + range + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + checkText2 + " dort gleich viel erhalten wie aktuell. " + "(Warum?)"
 ```
 ${barsText}
