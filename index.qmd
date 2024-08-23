@@ -1137,6 +1137,8 @@ ${distributionsChangeText}
 :::
 ::::
 
+<!-- HH fragments @Stefan @Lydia -->
+
 ```{ojs}
 hhIncomeRaw = FileAttachment("data/household_income_detail.csv").csv({ typed: true })
 hhPovertyRaw = FileAttachment("data/household_arop_detail.csv").csv({ typed: true })
@@ -1167,8 +1169,6 @@ hhPoverty = aq.from(hhPovertyRaw)
 ::: {.columns .column-body .separator}
 ----------------------------------------
 :::
-
-<!-- HH fragments @Stefan @Lydia -->
 
 <!-- ::: {.columns .column-body .mainText}
 Die Szenarien haben außerdem einen Einfluss auf die Haushaltseinkommen und die Armutsquote. Wählen Sie eine Gruppe aus.
