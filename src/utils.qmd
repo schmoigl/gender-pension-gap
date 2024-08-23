@@ -5,8 +5,8 @@ function makeWidth(inputWidth) {
   const outputWidth = 
     inputWidth > 2000 ? inputWidth * 0.25 :
     inputWidth > 1600 ? inputWidth * 0.33 :
-    inputWidth > 1400 ? inputWidth * 0.4 :
-    inputWidth > 1000 ? inputWidth * 0.5 :
+    inputWidth > 1400 ? inputWidth * 0.40 :
+    inputWidth > 1000 ? inputWidth * 0.45 :
     inputWidth * 0.66
   return outputWidth
 }
