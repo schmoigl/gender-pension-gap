@@ -1168,11 +1168,13 @@ hhPoverty = aq.from(hhPovertyRaw)
 ----------------------------------------
 :::
 
+<!-- HH fragments @Stefan @Lydia -->
+
 <!-- ::: {.columns .column-body .mainText}
 Die Szenarien haben außerdem einen Einfluss auf die Haushaltseinkommen und die Armutsquote. Wählen Sie eine Gruppe aus.
 ::: -->
 
-:::: {.columns .column-body .menu}
+<!-- :::: {.columns .column-body .menu}
 ::: {.column width="100%"}
 ```{ojs}
 viewof selectOutcome = Inputs.select(["Haushaltseinkommen", "Armutsquote"], {label: "Outcome", value: "Haushaltseinkommen"})
@@ -1457,6 +1459,6 @@ changesPoverty = {
 selectOutcome == "Haushaltseinkommen" ? changesIncome.render({renderer: "svg"}) : changesPoverty.render({renderer: "svg"})
 ```
 :::
-::::
+:::: -->
 
 :::::
