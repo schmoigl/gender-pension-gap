@@ -1,5 +1,5 @@
 ---
-title: "Szenarien von Pensionsreformen im Überblick"
+title: "Szenarien von Pensionsreformen im Überblick" 
 filters: [remove_title.lua]
 anchor-sections: false
 # author: "Lukas Schmoigl / Stefan Weingärtner" AK-OOe-Pensionen-PN-23011
@@ -239,7 +239,7 @@ bars = {
         .axis({
           domain: false,
           grid: false,
-          title: "Bruttopension",
+          title: width > 825 ? "Bruttopension" : null, 
         }),
       vl.xOffset()
         .fieldN("val"),
@@ -349,7 +349,7 @@ bars = {
       // logo,
     ) 
     .height(280) // width > 825 ? 280 : 180
-    .width(makeWidthSmall(width))
+    .width(makeWidthSmall(width)*1.075)
     .facet({
       field: "D", 
       type: "nominal", 
@@ -424,7 +424,7 @@ dumbbell = {
       vl.y()
         .fieldQ("value")
         .axis({
-          title: "Bruttopension",
+          title: width > 825 ? "Bruttopension" : null,
           domain: false,
           grid: false,
         })
@@ -559,19 +559,23 @@ dumbbell = {
         .legend(null),
     )
 
-  return vl 
-    .layer(
-      lines,
-      points,
-      text,
-      textRel,
-      textGap,
-      textArrow,
-    )
-    // .resolve({
-    //   scale: {color: "independent", fill: "independent"},
-    // })
-    .height(280)
+    const layers = width > 825 ?
+      vl.layer(
+        lines,
+        points,
+        text,
+        textRel,
+        textGap,
+        textArrow,
+      ) :
+      vl.layer(
+        lines,
+        points,
+        text,
+      )
+
+  return layers
+    .height(width > 825 ? 280 : 180)
     .width(makeWidthSmall(width))
     .facet({
       field: "D", 
@@ -623,7 +627,7 @@ distributions = {
         .fieldQ("bin")
         .axis({
           grid: false,
-          title: "Bruttopension"
+          title: width > 825 ? "Bruttopension" : null,
         })
         .scale({
           domain: [0, 4500],
@@ -637,7 +641,7 @@ distributions = {
         .axis({
           domain: false,
           grid: false,
-          title: "Anzahl Personen"
+          title: width > 825 ? "Anzahl Personen" : null,
         }),
       vl.color()
         .fieldN("gesl")
@@ -645,9 +649,7 @@ distributions = {
           range: colors,
         })
         .legend({
-          orient: "none", 
-          legendX: makeWidth(width)/1.7 - 240,
-          legendY: 150,
+          orient: "top", 
           symbolOpacity: 1,
           symbolType: "square",
           symbolStrokeColor: "transparent",
@@ -921,26 +923,35 @@ distributions = {
         .value("← ich"), 
     )
 
-  return vl
-    .layer(
-      ruleGray,
-      textGray1,
-      textGray2,
-      textGray3,
-      area,
-      areaLowTail,
-      rule,
-      textLeft,
-      textRight,
-      textLeft2,
-      textRight2,
-      textPosition,
-      textLeftOther,
-      textRightOther,
-      // logo, 
-    )
-    .height(300)
-    .width(makeWidth(width)/1.7)
+    const layers = width > 825 ?
+      vl.layer(
+        ruleGray,
+        textGray1,
+        textGray2,
+        textGray3,
+        area,
+        areaLowTail,
+        rule,
+        textLeft,
+        textRight,
+        textLeft2,
+        textRight2,
+        textPosition,
+        textLeftOther,
+        textRightOther,
+        // logo, 
+      ):
+      vl.layer( 
+        area, 
+        areaLowTail,
+        rule,
+        textLeft,
+        textRight,
+      )
+
+  return layers
+    .height(width > 825 ? 300 : 220)
+    .width(makeWidth(width))
     // .facet({
     //   field: "variable", 
     //   type: "nominal", 
@@ -989,7 +1000,7 @@ distributionsChange = {
         .fieldQ("bin")
         .axis({
           grid: false,
-          title: "Bruttopension"
+          title: width > 825 ? "Bruttopension": null,
         })
         .scale({
           domain: [0, 4500],
@@ -1003,7 +1014,7 @@ distributionsChange = {
         .axis({
           domain: false,
           grid: false,
-          title: "Anzahl Personen"
+          title: width > 825 ? "Anzahl Personen" : null,
         }),
       vl.color()
         .fieldN("variable")
@@ -1011,10 +1022,7 @@ distributionsChange = {
           range: colors,
         })
         .legend({
-          orient: "none", 
-          legendX: makeWidth(width)/1.7 - 240,
-          legendY: 100,
-          symbolOpacity: 1,
+          orient: "top", 
           symbolType: "square",
           symbolStrokeColor: "transparent",
           labelLimit: 1111,
@@ -1077,12 +1085,12 @@ distributionsChange = {
 
   return vl
     .layer(
-      area,
+      area, 
       // textOld,
       // textNew,
     )
-    .height(240)
-    .width(makeWidth(width)/1.7) 
+    .height(240) 
+    .width(makeWidth(width)) 
     // .facet({
     //   field: "gesl", 
     //   type: "nominal", 

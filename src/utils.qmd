@@ -3,9 +3,11 @@
 colors = ["#be0021", "#ffa500", "#0021be", "#be9a00", "#800080", "#ffd700", "#808080"]
 function makeWidth(inputWidth) {
   const outputWidth = 
-    inputWidth > 2000 ? inputWidth * 0.4 :
-    inputWidth > 1400 ? inputWidth * 0.55 :
-    inputWidth * 0.7
+    inputWidth > 2000 ? inputWidth * 0.25 :
+    inputWidth > 1600 ? inputWidth * 0.33 :
+    inputWidth > 1400 ? inputWidth * 0.4 :
+    inputWidth > 1000 ? inputWidth * 0.5 :
+    inputWidth * 0.66
   return outputWidth
 }
 
@@ -15,7 +17,7 @@ function makeWidthSmall(inputWidth) {
     inputWidth > 1600 ? inputWidth * 0.080 : // ASCII screen (small)
     inputWidth > 1400 ? inputWidth * 0.100 : // laptop
     inputWidth > 1000 ? inputWidth * 0.145 : // 
-    inputWidth * 0.220
+    inputWidth * 0.225
   return outputWidth
 }
 
