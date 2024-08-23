@@ -51,16 +51,27 @@ und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohort
 2021 mehrere Szenarien simuliert. Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
 :::
 
-<!-- ::: {.columns .column-body .separator}
+::: {.columns .column-body .separator}
 ----------------------------------------
-::: -->
+:::
 
 :::: {.columns .column-body .menu}
 ::: {.column width="100%"}
+**Schritt 1**: Geben Sie Ihre Bruttopension ein ([→ Rechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"})
 ```{ojs}
-viewof range = Inputs.range([100, 4200], {label: "Bruttopension", step: 100, value: 1500})
-viewof radio = Inputs.radio(["Frauen", "Männer"], {label: "Geschlecht", value: "Frauen"})
-viewof select = Inputs.select(scenarios, {label: "Szenario"})
+viewof rangeRaw = Inputs.range([100, 4200], {step: 10, value: 1500 })
+range = Math.round(rangeRaw/100)*100
+```
+**Schritt 2**: Geben Sie Ihr Geschlecht ein:
+```{ojs}
+viewof radio = Inputs.radio(["Frauen", "Männer"], {value: "Frauen"})
+```
+**Schritt 3**: Wählen Sie ein Szenario:
+```{ojs}
+viewof select = Inputs.select(scenarios) // {value: ""} does not work
+```
+**Schritt 4**: Zutreffendes ankreuzen:
+```{ojs}
 viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
 viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
 interpolate = "step"
@@ -73,8 +84,8 @@ interpolate = "step"
 ::::
 
 ::: {.column-margin  .infoText}
-![](img/Infobox_info_icon.svg){height=14px} [Ihre genaue Pensionshöhe können Sie hier errechnen lassen](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} <br><br>
-![](img/Infobox_info_icon.svg){height=14px} Szenario: ${info}
+<!-- ![](img/Infobox_info_icon.svg){height=14px} [Ihre genaue Pensionshöhe können Sie hier errechnen lassen](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} <br><br> -->
+![](img/Infobox_info_icon.svg){height=14px} Informationen zu dem von Ihnen gewählten Szenario: ${info}
 :::
 
 ::: {.columns .column-body .separator}
@@ -249,7 +260,7 @@ bars = {
           range: colors,
         })
         .legend({
-          orient: width > 1000 ? "right" : "top",
+          orient: width > 1200 ? "right" : "top",
           symbolOpacity: 1,
           symbolType: "square",
           title: null,
@@ -349,7 +360,7 @@ bars = {
       // logo,
     ) 
     .height(280) // width > 825 ? 280 : 180
-    .width(makeWidthSmall(width)*1.075) 
+    .width(makeWidthSmall(width))
     .facet({
       field: "D", 
       type: "nominal", 
@@ -442,7 +453,7 @@ dumbbell = {
           range: colors,
         })
         .legend({
-          orient: width > 1000 ? "right" : "top", 
+          orient: width > 1200 ? "right" : "top", 
           symbolOpacity: 1,
           symbolType: "square",
           title: null, 
@@ -470,29 +481,31 @@ dumbbell = {
   const text = vl
     .markText({
       size: 14,
-      dx: 30,
+      dx: 27,
+      clip: true,
     })
     .encode(
       vl.y()
         .fieldQ("value"),
-      vl.x()
+      vl.x() 
         .fieldO("val"),
       vl.color()
         .fieldN("gesl")
         .scale({
           range: ["black"],
-        })
+        }) 
         .legend(null),
-      vl.text()
+      vl.text() 
         .fieldQ("value")
-        .format(",.0f"),
+        .format(",.0f"), 
     )
 
   const textRel = vl
     .markText({
       size: 14,
-      dx: 30,
+      dx: 27,
       dy: 18,
+      clip: true,
     })
     .encode(
       vl.y()
@@ -559,19 +572,19 @@ dumbbell = {
         .legend(null),
     )
 
-    const layers = width > 825 ?
+    const layers = width > 825 ? 
       vl.layer(
         lines,
         points,
         text,
-        textRel,
+        textRel, 
         textGap,
         textArrow,
       ) :
       vl.layer(
         lines,
         points,
-        text,
+        // text,
       )
 
   return layers
@@ -1200,7 +1213,7 @@ barsIncome = {
     .markBar({
       fill: colors[0],
       opacity: 0.8,
-    })
+    }) 
     .encode( 
       vl.x()
         .fieldQ("value")
@@ -1211,7 +1224,7 @@ barsIncome = {
       vl.y()
         .fieldN("detail")
         .axis({
-          orient: width > 1000 ? "right" : "top",
+          orient: width > 1200 ? "right" : "top",
           title: null,
           domain: false,
           ticks: false,
@@ -1266,7 +1279,7 @@ barsPoverty = {
       vl.y()
         .fieldN("detail")
         .axis({
-          orient: width > 1000 ? "right" : "top", 
+          orient: width > 1200 ? "right" : "top", 
           title: null,
           domain: false,
           ticks: false,

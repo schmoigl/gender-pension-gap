@@ -38,7 +38,7 @@ config = ({
   locale: {
     number: {
       decimal: ",", 
-      thousands: ".", 
+      thousands: "", 
       grouping: [3]
     },
     time: {
