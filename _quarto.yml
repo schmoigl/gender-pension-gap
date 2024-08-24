@@ -32,5 +32,5 @@ format:
       gutter-width: 0px
     # css: style/styles.css # works only with simple .css not .scss
     toc: false
-    page-layout: article
+    page-layout: full
     fontsize: 15px

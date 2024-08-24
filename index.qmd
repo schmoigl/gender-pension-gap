@@ -40,7 +40,7 @@ info = descriptions
 
 :::::{.container}
 
-::: {.columns .column-body .mainText}
+::: {.columns  .mainText}
 #### RECHNER
 # Szenarien von Pensionsreformen im Überblick
 Vor dem Hintergrund anhaltend hoher geschlechtsspezifischer Unterschiede in der gesetzlichen
@@ -51,11 +51,11 @@ und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohort
 2021 mehrere Szenarien simuliert. Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
 :::
 
-::: {.columns .column-body .separator}
+::: {.columns  .separator}
 ----------------------------------------
 :::
 
-:::: {.columns .column-body .menu}
+:::: {.columns  .menu}
 ::: {.column width="100%"}
 **Schritt 1**: Geben Sie Ihre Bruttopension ein ([→ Rechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"})
 ```{ojs}
@@ -88,7 +88,7 @@ interpolate = "step"
 ![](img/Infobox_info_icon.svg){height=14px} Informationen zu dem von Ihnen gewählten Szenario: ${info}
 :::
 
-::: {.columns .column-body .separator}
+::: {.columns  .separator}
 ----------------------------------------
 :::
 
@@ -212,7 +212,7 @@ bins = binsMid
   .objects()
 ```
 
-:::: {.columns .column-body }
+:::: {.columns  }
 <button 
   class="btn btn-secondary" 
   type="button" 
@@ -408,7 +408,7 @@ ${barsText}
 :::
 ::::
 
-:::: {.columns .column-body }
+:::: {.columns  }
 <button 
   class="btn btn-secondary" 
   type="button" 
@@ -619,7 +619,7 @@ ${dumbbellText}
 :::
 ::::
 
-:::: {.columns .column-body }
+:::: {.columns  }
 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseContent1" aria-expanded="false" aria-controls="collapseContent1">
   Wie viel Pension bekomme ich momentan im Vergleich zu anderen?
 </button>
@@ -984,7 +984,7 @@ Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "
 :::
 ::::
 
-:::: {.columns .column-body }
+:::: {.columns  }
 <button 
   class="btn btn-secondary" 
   type="button" 
@@ -1166,15 +1166,15 @@ hhPoverty = aq.from(hhPovertyRaw)
   .objects()
 ```
 
-::: {.columns .column-body .separator}
+::: {.columns  .separator}
 ----------------------------------------
 :::
 
-<!-- ::: {.columns .column-body .mainText}
+<!-- ::: {.columns  .mainText}
 Die Szenarien haben außerdem einen Einfluss auf die Haushaltseinkommen und die Armutsquote. Wählen Sie eine Gruppe aus.
 ::: -->
 
-<!-- :::: {.columns .column-body .menu}
+<!-- :::: {.columns  .menu}
 ::: {.column width="100%"}
 ```{ojs}
 viewof selectOutcome = Inputs.select(["Haushaltseinkommen", "Armutsquote"], {label: "Outcome", value: "Haushaltseinkommen"})
@@ -1190,11 +1190,11 @@ infoIncome = "Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung de
 ${selectOutcome == "Armutsquote" ? infoPoverty : infoIncome}
 :::
 
-::: {.columns .column-body .separator}
+::: {.columns  .separator}
 ----------------------------------------
 :::
 
-:::: {.columns .column-body }
+:::: {.columns  }
 <button 
   class="btn btn-secondary" 
   type="button" 
@@ -1324,7 +1324,7 @@ selectOutcome == "Haushaltseinkommen" ? barsIncome.render({renderer: "svg"}) : b
 :::
 ::::
 
-:::: {.columns .column-body }
+:::: {.columns  }
 <button 
   class="btn btn-secondary" 
   type="button" 

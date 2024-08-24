@@ -9,7 +9,7 @@ config = ({
     right: 0, 
     bottom: 5,
     },
-  font: "Montserrat",
+  font: "Open Sans",
   fontSize: 14, 
   title: {
     offset: 0, 
