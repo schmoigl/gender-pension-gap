@@ -2,7 +2,7 @@
 
 This repository contains the Quarto-based website for the Other Revenue project. The website is live at:
 
-[https://data-science.wifo.ac.at/AK-OOe-Pensionen-PN-23011/](https://data-science.wifo.ac.at/AK-OOe-Pensionen-PN-23011/)
+[https://data-science.wifo.ac.at/pensionen/](https://data-science.wifo.ac.at/pensionen/)
 
 ## Prerequisites
 
