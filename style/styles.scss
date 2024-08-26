@@ -1,15 +1,10 @@
 /*-- scss:defaults --*/
-$font-family-sans-serif: "Open Sans";
+$font-family-sans-serif: "Montserrat";
 $link-color: #be0021;
 
 
 /*-- scss:rules --*/
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
-body {
-    color: #464a56;
-    line-height: 1.6;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 h1, h2, h3 {
     color: #be0021;
@@ -22,13 +17,13 @@ h4 {
     font-weight: bold;
 }
 
-// .navbar {
-//     background: url(img/struktur-footer.png);
-// }
+.navbar {
+    background: url(img/struktur-footer.png);
+}
 
-// .nav-link.active {
-//     color: #be0021 !important;
-// }
+.nav-link.active {
+    color: #be0021 !important;
+}
 
 form {
     padding: 0.2em 0 0.2em 0;
@@ -41,15 +36,10 @@ form {
 }
 
 p {
-    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
-.page-layout-article {
-    background: #f7f8f9;
-}
-
-.container {
-    // background: #fff;
+.column-body {
     background: url(img/struktur-footer.png);
     padding: 0em 2em 1rem 2em;
     // margin: 0 0 1rem 0;
@@ -77,7 +67,7 @@ p {
     background-color: rgba(255,255,255,1);
     border-radius: 0px;
     border: 0px solid;
-    font-family: "Open Sans";
+    font-family: "Montserrat";
     font-Size: 13px;
     margin: 0px 0px 0px 0px;
 }
@@ -85,7 +75,7 @@ p {
     background-color: rgba(255,255,255,1);
     border-radius: 0px;
     border: 0px solid;
-    font-family: "Open Sans";
+    font-family: "Montserrat";
     font-Size: 13px;
     margin: 0px 0px 0px 0px;
     padding: 12px 12px 12px 12px;
