@@ -2,7 +2,6 @@
 title: "Haushalte" 
 filters: [remove_title.lua]
 anchor-sections: false
-author: "Lydia Grandner"
 execute: 
   echo: false
   warning: false
@@ -21,9 +20,41 @@ import {aq, op} from '@uwdata/arquero' // version "6.0.0"
 <!-- HH fragments @Stefan @Lydia -->
 
 ```{ojs}
+binsRaw = FileAttachment("data/bins.csv").csv({ typed: true })
+scenarios = aq.from(binsRaw)
+  .derive({ variable: d => op.replace(d.variable, /\r\n/g, " ") })
+  .filter(aq.escape(d => d.variable != "Status quo"))
+  .select("variable")
+  .dedupe()
+  .array("variable")
+```
+
+:::::{.container}
+
+::: {.columns .column-body .mainText}
+#### RECHNER
+# Szenarien von Pensionsreformen im Überblick
+Some Text
+:::
+
+::: {.columns .column-body .mainText}
+```{ojs}
+viewof select = Inputs.select(scenarios) // {value: ""} does not work
+```
+:::
+
+::: {.columns .column-body .separator}
+----------------------------------------
+:::
+
+
+
+```{ojs}
 hhIncomeRaw = FileAttachment("data/household_income_detail.csv").csv({ typed: true })
 hhPovertyRaw = FileAttachment("data/household_arop_detail.csv").csv({ typed: true })
+```
 
+```{ojs}
 groups = aq.from(hhIncome)
   .filter(aq.escape(d => d.group != "Gesamt"))
   .select("group")
@@ -50,9 +81,6 @@ hhPoverty
 hhIncome
 ```
 
-::: {.columns .column-body .separator}
-----------------------------------------
-:::
 
 <!-- ::: {.columns .column-body .mainText}
 Die Szenarien haben außerdem einen Einfluss auf die Haushaltseinkommen und die Armutsquote. Wählen Sie eine Gruppe aus.

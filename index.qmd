@@ -2,7 +2,6 @@
 title: "Szenarien von Pensionsreformen im Überblick" 
 filters: [remove_title.lua]
 anchor-sections: false
-# author: "Lukas Schmoigl / Stefan Weingärtner" AK-OOe-Pensionen-PN-23011
 execute: 
   echo: false
   warning: false
