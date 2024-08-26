@@ -13,5 +13,6 @@
 
 website/
 site_libs/
+households_files/
 
 /.quarto/
