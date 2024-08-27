@@ -20,9 +20,9 @@ website:
       [![](img/ak-logo.svg){height="70px"}](/) &nbsp;
     left: 
       - index.qmd
-    tools:
-      - icon: github
-        href: https://github.com/schmoigl
+    # tools:
+    #   - icon: github
+    #     href: https://github.com/schmoigl
 format:
   html:
     theme: [cosmo, style/styles.scss]

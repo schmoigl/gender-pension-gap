@@ -2,7 +2,7 @@
 title: "Szenarien von Pensionsreformen im Überblick" 
 filters: [remove_title.lua]
 anchor-sections: false
-execute: 
+execute:
   echo: false
   warning: false
 ---
@@ -18,7 +18,7 @@ import {aq, op} from '@uwdata/arquero' // version "6.0.0"
 ```
 
 ```{ojs}
-descriptions = FileAttachment("data/descriptions.csv").csv({ typed: true })
+descriptions = FileAttachment("data/descriptions.csv").csv({ typed: true }) 
 ```
 
 ```{ojs}
@@ -1120,6 +1120,9 @@ ${distributionsChangeText}
 
 ::::
 
+::: {.column-body .separator}
+----------------------------------------
+:::
 
 <script>
   const slides = document.querySelectorAll('.slide');

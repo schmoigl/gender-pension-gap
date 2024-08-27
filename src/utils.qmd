@@ -8,7 +8,7 @@ function makeWidth(inputWidth) {
     inputWidth > 1400 ? inputWidth * 0.380 :
     inputWidth > 1100 ? inputWidth * 0.400 :
     inputWidth > 825 ? inputWidth * 0.450 : // 
-    inputWidth * 0.7
+    inputWidth * 0.75
   return outputWidth
 }
 
@@ -19,7 +19,7 @@ function makeWidthSmall(inputWidth) {
     inputWidth > 1400 ? inputWidth * 0.150 : // laptop
     inputWidth > 1100 ? inputWidth * 0.166 : // 
     inputWidth > 825 ? inputWidth * 0.200 : // 
-    inputWidth * 0.35
+    inputWidth * 0.375
   return outputWidth
 }
 
