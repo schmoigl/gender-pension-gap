@@ -175,7 +175,7 @@ und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohort
 
 :::: {#slideshow-container .column-body}
 <button id="prevBtn" class="btn btn-secondary">zurück</button>
-<button id="nextBtn" class="btn btn-secondary">vorwärts</button>
+<button id="nextBtn" class="btn btn-secondary">weiter</button>
 
 ::: {.slide .slide-active}
 **Auswahl 1/4**: 
@@ -346,7 +346,7 @@ bars = {
         .fieldO("gesl"),
       vl.y()
         .fieldQ("value"),
-      vl.text()
+      vl.text() 
         .fieldQ("diffScenarioPerc")
         .format("+,.0~%"),
       vl.opacity()
