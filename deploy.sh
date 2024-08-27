@@ -1,2 +1,2 @@
 quarto render
-scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/pensionen
+scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/AK-Szenarienrechner
