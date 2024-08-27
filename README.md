@@ -25,7 +25,7 @@ To get started, clone the repository from Gitea to your local machine using Git.
 3. Navigate into the cloned repository:
 
    ```bash
-   cd pensionen
+   cd AK-OOe-Pensionen-PN-23011
    ```
 
 ## Running the Website Locally
