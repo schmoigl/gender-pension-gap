@@ -185,7 +185,7 @@ viewof rangeRaw = Inputs.range([100, 4200], {step: 10, value: 1500 })
 range = Math.round(rangeRaw/100)*100
 ```
 ![](img/Infobox_info_icon.svg){height=14px} 
-Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese mit dem ([AK-Pensionsrechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"}) ermitteln 
+Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese mit dem [AK-Pensionsrechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} ermitteln 
 <br>
 ![](img/Infobox_info_icon.svg){height=14px} 
 Ihre Bruttopension wird in weiterer Folge dazu verwendet Sie zu einer Bezugsgruppe einzuordnen.
@@ -412,9 +412,12 @@ diffScenarioPercGesamt = deciles
   .filter(d => d.variable == select)
   .filter(d => d.gesl == radio && d.val == "Szenario" && d.D == "Gesamt")
   .map(d => d.diffScenarioPerc)
+statusIncome = deciles
+  .filter(d => d.closestDecileValue == d.D && d.gesl == d.radio && d.val == "Status quo")
+  .map(d => d.value)[0]
 
 barsText = diffScenario != 0 ? 
-  "Im " + select + " würden mit mir vergleichabere " + radio + " mit einer Pension von " + range + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + ") " + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man alle Frauen" + checkText1 + checkText2 + ", so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
+  "Im " + select + " würden mit mir vergleichabere " + radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") " + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man alle Frauen" + checkText1 + checkText2 + ", so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   radio + " mit einer Pension von " + range + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + checkText2 + " dort gleich viel erhalten wie aktuell. " + "(Warum?)"
 ```
 ${barsText}
