@@ -1140,7 +1140,7 @@ ${distributionsChangeText}
       currentSlide = index;
       slides[currentSlide].classList.remove('fade-out');
       slides[currentSlide].classList.add('active', 'fade-in');
-    }, 300); // Adjust timing to match the fade-out duration
+    }, 200); // Adjust timing to match the fade-out duration
   }
 
   // Attach event listeners to buttons
