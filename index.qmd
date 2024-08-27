@@ -4,7 +4,7 @@ filters: [remove_title.lua]
 anchor-sections: false
 execute:
   echo: false
-  warning: false
+  warning: false 
 ---
 
 {{< include src/config.qmd >}}
@@ -234,6 +234,7 @@ bars = {
     .markBar({
       strokeWidth: 1.75,
       strokeOpacity: 1,
+      // size: 10 > ,
     })
     .encode(
       vl.x()
@@ -279,7 +280,7 @@ bars = {
       vl.opacity()
         .fieldN("closestDecile")
         .scale({
-          range: [0.4, 0.7]
+          range: [0.5, 0.7]
         })
         .legend(null),
     )
@@ -288,7 +289,7 @@ bars = {
     .markText({
       clip: true,
       size: 14,
-      y: 292-22,
+      y: width > 825 ? 270 : 170,
       angle: -90,
       align: "left", 
     })
@@ -356,14 +357,21 @@ bars = {
         .legend(null), 
     )
 
-  return vl 
-    .layer(
+  const layers = width > 600 ?
+    vl.layer(
       bar,
       text,
       textDiff,
       textDiffPerc,
-      // logo,
+    ) :
+    vl.layer(
+      bar,
+      text,
+      textDiff,
+      textDiffPerc,
     ) 
+
+  return layers
     .height(width > 825 ? 280 : 180) // width > 825 ? 280 : 180
     .width(makeWidthSmall(width))
     .facet({
@@ -500,7 +508,7 @@ dumbbell = {
   const textRel = vl
     .markText({
       size: 14,
-      dx: 27,
+      dx: width > 825 ? 27 : 10,
       dy: 18,
       clip: true,
     })
@@ -569,7 +577,7 @@ dumbbell = {
         .legend(null),
     )
 
-    const layers = width > 825 ? 
+    const layers = width > 600 ? 
       vl.layer(
         lines,
         points,
@@ -581,6 +589,9 @@ dumbbell = {
       vl.layer(
         lines,
         points,
+        textRel,
+        textGap,
+        textArrow,
         // text,
       )
 
