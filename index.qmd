@@ -234,7 +234,7 @@ bars = {
     .markBar({
       strokeWidth: 1.75,
       strokeOpacity: 1,
-      // size: 10 > ,
+      // size: width > 1600 ? 20 : null,
     })
     .encode(
       vl.x()
@@ -632,6 +632,11 @@ Wie viel Pension bekomme ich momentan im Vergleich zu anderen?
 ```{ojs}
 distributions = {
 
+  const dataDist = bins.filter(d => d.variable == "Status quo") //bins.filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
+  const dataRule = dataDist
+    .filter(d => d.range == d.bin)
+    .map(d => ({...d, y: 0, y2: 20000}))
+
   const area = vl
     .markArea({ 
       interpolate: interpolate,
@@ -731,10 +736,7 @@ distributions = {
       strokeOpacity: 0.7,
       clip: true,
     })
-    .data([
-      {gesl: "Frauen", median: 1223, y: 0, y2: 20000}, //1215
-      {gesl: "Männer", median: 2286, y: 0, y2: 20000}, //2278
-    ])
+    .data(dataRule)
     .encode(
       vl.x()
         .fieldQ("median"),
@@ -754,10 +756,7 @@ distributions = {
       align: "right",
       clip: true,
     })
-    .data([
-      {gesl: "Frauen", median: 1223},
-      {gesl: "Männer", median: 2286},
-    ])
+    .data(dataRule)
     .encode(
       vl.x()
         .fieldQ("median"),
@@ -776,10 +775,7 @@ distributions = {
       align: "right",
       clip: true,
     })
-    .data([
-      {gesl: "Frauen", median: 1223},
-      {gesl: "Männer", median: 2286},
-    ])
+    .data(dataRule)
     .encode(
       vl.x()
         .fieldQ("median"),
@@ -797,10 +793,7 @@ distributions = {
       align: "right",
       clip: true,
     })
-    .data([
-      {gesl: "Frauen", median: 1223},
-      {gesl: "Männer", median: 2286},
-    ])
+    .data(dataRule)
     .encode(
       vl.x()
         .fieldQ("median"),
@@ -984,7 +977,7 @@ distributions = {
     //     orient: "top",
     //   },
     // })
-    .data(bins.filter(d => d.variable == "Status quo"))
+    .data(dataDist)
     .config(config)
     .render({ renderer: "svg" }) 
 
@@ -999,12 +992,17 @@ Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "
 ```{ojs}
 distributionsChange = {
 
+  const dataDistChange = bins.filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
+  const dataRule = dataDistChange
+    .filter(d => d.range == d.bin && d.variable != "Status quo")
+    .map(d => ({...d, y: 0, y2: 20000}))
+
   const area = vl
     .markArea({
       interpolate: interpolate,
       strokeWidth: 1.25,
       stroke: "black",
-      opacity: 0.7,
+      opacity: 0.8,
       clip: true,
     })
     .encode(
@@ -1047,25 +1045,77 @@ distributionsChange = {
           labelLimit: width > 825 ? 1111 : 180,
           title: null,
         })
-        // .legend(null),
-      // vl.stroke()
-      //   .fieldN("gesl")
-      //   .scale({
-      //     range: radio == "Männer" ? ["transparent", "black"] : ["black", "transparent"],
-      //   })
-      //   .legend(null), 
-      // vl.fillOpacity()
-      //   .fieldN("variable")
-      //   .scale({
-      //     range: [0.7, 0.4]
-      //   })
-      //   .legend(null),
-      // vl.strokeOpacity()
-      //   .fieldN("variable")
-      //   .scale({
-      //     range: [1, 0]
-      //   })
-      //   .legend(null),
+    )
+
+  const ruleGray = vl
+    .markRule({
+      stroke: "gray",
+      strokeOpacity: 0.7,
+      clip: true,
+    })
+    .data(dataRule)
+    .encode(
+      vl.x()
+        .fieldQ("median"),
+      vl.y()
+        .fieldQ("y"),
+      vl.y2()
+        .fieldQ("y2"),
+    )
+
+  const textGray1 = vl
+    .markText({
+      color: "gray",
+      opacity: 0.7,
+      size: 13,
+      y: 70,
+      dx: -10,
+      align: "right",
+      clip: true,
+    })
+    .data(dataRule)
+    .encode(
+      vl.x()
+        .fieldQ("median"),
+      vl.text()
+        .fieldQ("median")
+        .format(",.0f"),
+    )
+
+  const textGray2 = vl
+    .markText({
+      color: "gray",
+      opacity: 0.7,
+      size: 10,
+      y: 85,
+      dx: -10,
+      align: "right",
+      clip: true,
+    })
+    .data(dataRule)
+    .encode(
+      vl.x()
+        .fieldQ("median"),
+      vl.text()
+        .value("Median"),
+    )
+
+  const textGray3 = vl
+    .markText({
+      color: "gray",
+      opacity: 0.7,
+      size: 10,
+      y: 95,
+      dx: -10,
+      align: "right",
+      clip: true,
+    })
+    .data(dataRule)
+    .encode(
+      vl.x()
+        .fieldQ("median"),
+      vl.text()
+        .fieldN("variable"),
     )
 
   const textOld = vl
@@ -1102,27 +1152,31 @@ distributionsChange = {
         .value("← neue Verteilung"), 
     )
 
-  return vl
-    .layer(
+  const layers = width > 825 ? 
+    vl.layer(
+      ruleGray,
+      textGray1,
+      textGray2,
+      textGray3,
+      textOld,
+      textNew,
       area, 
+    ) :
+    vl.layer(
+      // ruleGray,
+      // textGray1,
+      // textGray2,
+      // textGray3,
       // textOld,
       // textNew,
+      area, 
     )
+
+
+  return layers
     .height(width > 825 ? 300 : 200)
     .width(makeWidth(width)) 
-    // .facet({
-    //   field: "gesl", 
-    //   type: "nominal", 
-    //   title: null,
-    //   header: { 
-    //     labelFontSize: 14, 
-    //     orient: "top",
-    //   },
-    // })
-    .data(
-      bins
-        .filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
-      )
+    .data(dataDistChange)
     .config(config)
     .render({ renderer: "svg" })
 
@@ -1181,4 +1235,3 @@ ${distributionsChangeText} ${distributionsChangeText}
   // Initially show the first slide
   showSlide(currentSlide);
 </script>
-
