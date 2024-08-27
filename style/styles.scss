@@ -26,8 +26,13 @@ h4 {
     padding-top: 1em;
 }
 
+.navbar-toggler {
+    display: none;
+}
+
 .nav-link.active {
     color: #be0021 !important;
+    display: none;
 }
 
 .separator {

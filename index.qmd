@@ -1,5 +1,5 @@
 ---
-title: "Szenarien von Pensionsreformen im Überblick" 
+# title: "Szenarien von Pensionsreformen" 
 filters: [remove_title.lua]
 anchor-sections: false
 execute:
@@ -14,7 +14,7 @@ execute:
 // echo: false
 // warning: false
 import {vl} from "@vega/vega-lite-api-v5" // apiVersion = '5.6.0' vlVersion = '5.6.0' vegaVersion = '5.23.0' tooltipVersion = '0.30.0'
-import {aq, op} from '@uwdata/arquero' // version "6.0.0"
+import {aq, op} from '@uwdata/arquero' // version "6.0.0" 
 ```
 
 ```{ojs}
@@ -161,7 +161,7 @@ bins = binsMid
 
 ::: {.column-body .mainText}
 #### RECHNER
-# Szenarien von Pensionsreformen im Überblick
+# Szenarien von Pensionsreformen
 Vor dem Hintergrund anhaltend hoher geschlechtsspezifischer Unterschiede in der gesetzlichen
 Alterssicherung in Österreich untersucht [eine Studie des WIFO](res/AKOE_Pensionen_EB_070824.pdf){target="_blank"} 
 die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender
@@ -1002,7 +1002,7 @@ distributionsChange = {
       vl.y()
         .fieldQ("N")
         .scale({
-          domain: [0, 23000],
+          domain: [0, 25000],
         })
         .axis({
           domain: false,
@@ -1084,7 +1084,7 @@ distributionsChange = {
       // textOld,
       // textNew,
     )
-    .height(240) 
+    .height(width > 825 ? 300 : 220)
     .width(makeWidth(width)) 
     // .facet({
     //   field: "gesl", 

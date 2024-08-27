@@ -9,15 +9,23 @@ project:
     - index.qmd
     - households.qmd
 website:
-  title: "AK-OOe-Pensionen"
-  favicon: img/ak-logo.svg
+  title: "AK-Szenarienrechner"
+  favicon: img/favicon.ico
   search: false
   page-footer: |
-      [![](img/logo.svg){height=30px}](https://www.wifo.ac.at/) <br><br>
-      © 2024 — AK OBERÖSTERREICH | WIFO — <a href="mailto:data.science@wifo.ac.at">data.science@wifo.ac.at</a>
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <a href="https://ooe.arbeiterkammer.at/index.html" style="margin: 10px 10px 10px 10px;">
+        <img src="img/ak-logo.svg" height="64px" alt="AK Logo">
+      </a>
+      <a href="https://www.wifo.ac.at/" style="margin: 10px 10px 10px 10px;">
+        <img src="img/WIFO_kurz_rechts.svg" height="28px" alt="WIFO Logo">
+      </a>
+    </div>
+    <br>
+    © 2024 — AK OBERÖSTERREICH | WIFO — <a href="mailto:data.science@wifo.ac.at">data.science@wifo.ac.at</a>
   navbar: # just comment out to remove
     title: | 
-      [![](img/ak-logo.svg){height="70px"}](/) &nbsp;
+      [![](img/ak-logo.svg){height="70px"}](https://ooe.arbeiterkammer.at/index.html) &nbsp;
     left: 
       - index.qmd
     # tools:
