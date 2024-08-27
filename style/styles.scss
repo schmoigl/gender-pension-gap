@@ -26,7 +26,16 @@ h4 {
 }
 
 form {
-    padding: 0 0 0.2em 0;
+    padding: 0.2em 0 0.2em 0;
+}
+
+.slide {
+    display: none;
+  }
+
+.slide.active {
+    display: block;
+    height: 600px;
 }
 
 @media screen and (max-width: 826px) {
@@ -41,15 +50,15 @@ p {
 
 .column-body {
     background: url(img/struktur-footer.png);
-    padding: 0em 2em 1rem 2em;
+    padding: 0em 2em 0 2em;
     // margin: 0 0 1rem 0;
 }
 
-.column-margin {
-    // text-align: justify;
-    font-size: 0.8em;
-    margin: 12px 12px 12px 12px;
-}
+// .column-margin {
+//     // text-align: justify;
+//     font-size: 0.8em;
+//     margin: 12px 12px 12px 12px;
+// }
 
 @media screen and (max-width: 826px) {
     .page-full {

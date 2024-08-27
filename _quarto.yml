@@ -27,10 +27,10 @@ format:
   html:
     theme: [cosmo, style/styles.scss]
     grid:
-      sidebar-width: 300px
+      # sidebar-width: 300px
       body-width: 826px
-      margin-width: 280px
-      gutter-width: 0px
+      # margin-width: 280px
+      gutter-width: 4px
     # css: style/styles.css # works only with simple .css not .scss
     toc: false
     page-layout: full
