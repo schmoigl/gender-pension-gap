@@ -86,10 +86,10 @@ Once you have rendered the website for production, you'll need to deploy it to t
 
 ```bash
 # Clone the repository
-git clone https://gitea.wsr.ac.at/wa-projects/pensionen.git
+git clone https://gitea.wsr.ac.at/wa-projects/AK-OOe-Pensionen-PN-23011.git
 
 # Change directory into the project
-cd pensionen
+cd AK-OOe-Pensionen-PN-23011
 
 # Preview the website locally
 quarto preview
@@ -98,7 +98,7 @@ quarto preview
 quarto render
 
 # Deploy the rendered website
-scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/pensionen
+scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/AK-Szenarienrechner
 ```
 
 Happy coding!
