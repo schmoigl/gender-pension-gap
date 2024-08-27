@@ -1045,7 +1045,7 @@ distributionsChange = {
           symbolType: "square",
           symbolOpacity: 1,
           symbolStrokeColor: "transparent", 
-          labelLimit: width > 825 ? 1111 : 180,
+          labelLimit: width > 825 ? 1111 : 160,
           title: null,
         })
     )
