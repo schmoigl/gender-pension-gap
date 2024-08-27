@@ -37,7 +37,6 @@ info = descriptions
   .map(d => d.description)[0] 
 ```
 
-
 ```{ojs}
 binsMid = aq.from(binsRaw)
   .derive({ 
@@ -186,7 +185,10 @@ viewof rangeRaw = Inputs.range([100, 4200], {step: 10, value: 1500 })
 range = Math.round(rangeRaw/100)*100
 ```
 ![](img/Infobox_info_icon.svg){height=14px} 
-Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese mit dem ([AK-Pensionsrechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"}) ermitteln
+Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese mit dem ([AK-Pensionsrechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"}) ermitteln 
+<br>
+![](img/Infobox_info_icon.svg){height=14px} 
+Ihre Bruttopension wird in weiterer Folge dazu verwendet Sie zu einer Bezugsgruppe einzuordnen.
 :::
 
 ::: {.slide}
@@ -196,11 +198,11 @@ Geben Sie Ihr Geschlecht ein:
 viewof radio = Inputs.radio(["Frauen", "Männer"], {value: "Frauen"})
 ```
 ![](img/Infobox_info_icon.svg){height=14px}
-Manche der Szenarien wirken sich nur auf Frauen aus.
+Manche der berechneten Szenarien wirken sich nur auf Frauen aus. Daher können die Ergebnisse bei Männern in weiterer Folge auch keine Veränderungen zeigen.
 :::
 
 ::: {.slide}
-**Schritt 3/4**: 
+**Auswahl 3/4**: 
 Wählen Sie ein Szenario:
 ```{ojs}
 viewof select = Inputs.select(scenarios) // {value: ""} does not work
@@ -210,17 +212,20 @@ Informationen zu dem von Ihnen gewählten Szenario: ${info}
 :::
 
 ::: {.slide}
-**Schritt 4/4**: 
+**Auswahl 4/4**: 
 Zutreffendes ankreuzen:
 ```{ojs}
 viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
 viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
 interpolate = "step"
+check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten wären nur im Szenario 1 relevant" : radio != "Frauen" ? "Kindererziehungszeiten würden bei der Berechnung der Szenarien nur für Frauen berücksichtigt" : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen"
+check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten wären nur im Szenario 2 relevant" : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen"
 ```
+![](img/Infobox_info_icon.svg){height=14px} ${check1Info} <br> ![](img/Infobox_info_icon.svg){height=14px} ${check2Info}
 :::
 
 ::: {.slide}
-**Ergebnisse 1**: 
+**Ergebnisse 1/4**: 
 Wie würde sich das Szenario auf meine eigene Pension auswirken?
 ```{ojs}
 bars = {
@@ -242,7 +247,8 @@ bars = {
       vl.y()
         .fieldQ("value")
         .scale({
-          domain: [0, 4400],
+          domain: [0, 5000],
+          nice: false,
         })
         .axis({
           domain: false,
@@ -407,7 +413,7 @@ ${barsText}
 :::
 
 ::: {.slide}
-**Ergebnisse 2**:
+**Ergebnisse 2/4**:
 Wie würde sich die Änderung auf den Gender Pension Gap auswirken?
 ```{ojs}
 dumbbell = {
@@ -430,7 +436,8 @@ dumbbell = {
           grid: false,
         })
         .scale({
-          domain: [0, 4400]
+          domain: [0, 5000],
+          nice: false,
         }),
       vl.x()
         .fieldO("val")
@@ -609,7 +616,7 @@ ${dumbbellText}
 :::
 
 ::: {.slide}
-**Ergebnisse 3**:
+**Ergebnisse 3/4**:
 Wie viel Pension bekomme ich momentan im Vergleich zu anderen?
 ```{ojs}
 distributions = {
@@ -638,6 +645,7 @@ distributions = {
         .fieldQ("N")
         .scale({
           domain: [0, 25000],
+          nice: false,
         })
         .axis({
           domain: false,
@@ -645,6 +653,7 @@ distributions = {
           title: width > 825 ? "Anzahl Personen" : null,
           labels:  width > 825 ? true : false,
           ticks:  width > 825 ? true : false,
+          values: [0, 5000, 10000, 15000, 20000],
         }),
       vl.color()
         .fieldN("gesl")
@@ -975,7 +984,7 @@ Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "
 
 
 ::: {.slide}
-**Ergebnisse 4**: Wie würden sich die Verteilungen dieser Pensionen im Szenario ändern?
+**Ergebnisse 4/4**: Wie würden sich die Verteilungen dieser Pensionen im Szenario ändern?
 ```{ojs}
 distributionsChange = {
 
@@ -1004,6 +1013,7 @@ distributionsChange = {
         .fieldQ("N")
         .scale({
           domain: [0, 25000],
+          nice: false,
         })
         .axis({
           domain: false,
@@ -1011,6 +1021,7 @@ distributionsChange = {
           title: width > 825 ? "Anzahl Personen" : null,
           labels:  width > 825 ? true : false,
           ticks:  width > 825 ? true : false,
+          values: [0, 5000, 10000, 15000, 20000],
         }),
       vl.color()
         .fieldN("variable")
@@ -1020,6 +1031,7 @@ distributionsChange = {
         .legend({
           orient: "top", 
           symbolType: "square",
+          symbolOpacity: 1,
           symbolStrokeColor: "transparent", 
           labelLimit: width > 825 ? 1111 : 180,
           title: null,
@@ -1116,7 +1128,7 @@ distributionsChangeText =
   radio + " profitieren nicht von " + select :
   radio + " profitieren deutlich von " + select
 ```
-${distributionsChangeText}
+${distributionsChangeText} ${distributionsChangeText}
 :::
 
 ::::
