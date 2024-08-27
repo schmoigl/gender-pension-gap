@@ -159,10 +159,7 @@ bins = binsMid
 ```
 
 
-
-<div class="container">
-
-::: {.columns .column-body .mainText}
+::: {.column-body .mainText}
 #### RECHNER
 # Szenarien von Pensionsreformen im Überblick
 Vor dem Hintergrund anhaltend hoher geschlechtsspezifischer Unterschiede in der gesetzlichen
@@ -173,7 +170,7 @@ und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohort
 2021 mehrere Szenarien simuliert. Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
 :::
 
-::: {.columns .column-body .separator}
+::: {.column-body .separator}
 ----------------------------------------
 :::
 
@@ -181,7 +178,7 @@ und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohort
 <button id="prevBtn" class="btn btn-secondary">zurück</button>
 <button id="nextBtn" class="btn btn-secondary">vorwärts</button>
 
-:::{.slide .slide-active}
+::: {.slide .slide-active}
 **Schritt 1**: 
 Geben Sie Ihre Bruttopension an
 ```{ojs}
@@ -192,7 +189,7 @@ range = Math.round(rangeRaw/100)*100
 Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese mit dem ([AK-Pensionsrechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"}) ermitteln
 :::
 
-:::{.slide}
+::: {.slide}
 **Schritt 2**: 
 Geben Sie Ihr Geschlecht ein:
 ```{ojs}
@@ -201,7 +198,7 @@ viewof radio = Inputs.radio(["Frauen", "Männer"], {value: "Frauen"})
 Manche der Szenarien wirken sich nur auf Frauen aus.
 :::
 
-:::{.slide}
+::: {.slide}
 **Schritt 3**: 
 Wählen Sie ein Szenario:
 ```{ojs}
@@ -211,7 +208,7 @@ viewof select = Inputs.select(scenarios) // {value: ""} does not work
 Informationen zu dem von Ihnen gewählten Szenario: ${info}
 :::
 
-:::{.slide}
+::: {.slide}
 **Schritt 4**: 
 Zutreffendes ankreuzen:
 ```{ojs}
@@ -221,7 +218,7 @@ interpolate = "step"
 ```
 :::
 
-:::{.slide}
+::: {.slide}
 **Ergebnisse 1**: 
 Wie würde sich das Szenario auf meine eigene Pension auswirken?
 ```{ojs}
@@ -250,6 +247,8 @@ bars = {
           domain: false,
           grid: false,
           title: width > 825 ? "Bruttopension" : null, 
+          labels:  width > 825 ? true : false,
+          ticks:  width > 825 ? true : false,
         }),
       vl.xOffset()
         .fieldN("val"),
@@ -406,7 +405,7 @@ barsText = diffScenario != 0 ?
 ${barsText}
 :::
 
-:::{.slide}
+::: {.slide}
 **Ergebnisse 2**:
 Wie würde sich die Änderung auf den Gender Pension Gap auswirken?
 ```{ojs}
@@ -424,6 +423,8 @@ dumbbell = {
         .fieldQ("value")
         .axis({
           title: width > 825 ? "Bruttopension" : null,
+          labels:  width > 825 ? true : false,
+          ticks:  width > 825 ? true : false,
           domain: false,
           grid: false,
         })
@@ -606,7 +607,7 @@ dumbbellText =  "Der Gender Pension Gap würde sich in meiner Bezugsgruppe (" + 
 ${dumbbellText}
 :::
 
-:::{.slide}
+::: {.slide}
 **Ergebnisse 3**:
 Wie viel Pension bekomme ich momentan im Vergleich zu anderen?
 ```{ojs}
@@ -625,6 +626,8 @@ distributions = {
         .axis({
           grid: false,
           title: width > 825 ? "Bruttopension" : null,
+          labels:  width > 825 ? true : false,
+          ticks:  width > 825 ? true : false,
         })
         .scale({
           domain: [0, 4500],
@@ -639,6 +642,8 @@ distributions = {
           domain: false,
           grid: false,
           title: width > 825 ? "Anzahl Personen" : null,
+          labels:  width > 825 ? true : false,
+          ticks:  width > 825 ? true : false,
         }),
       vl.color()
         .fieldN("gesl")
@@ -968,7 +973,7 @@ Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "
 :::
 
 
-:::{.slide}
+::: {.slide}
 **Ergebnisse 4**: Wie würden sich die Verteilungen dieser Pensionen im Szenario ändern?
 ```{ojs}
 distributionsChange = {
@@ -987,6 +992,8 @@ distributionsChange = {
         .axis({
           grid: false,
           title: width > 825 ? "Bruttopension": null,
+          labels:  width > 825 ? true : false,
+          ticks:  width > 825 ? true : false,
         })
         .scale({
           domain: [0, 4500],
@@ -1001,6 +1008,8 @@ distributionsChange = {
           domain: false,
           grid: false,
           title: width > 825 ? "Anzahl Personen" : null,
+          labels:  width > 825 ? true : false,
+          ticks:  width > 825 ? true : false,
         }),
       vl.color()
         .fieldN("variable")
@@ -1010,8 +1019,8 @@ distributionsChange = {
         .legend({
           orient: "top", 
           symbolType: "square",
-          symbolStrokeColor: "transparent",
-          labelLimit: 1111,
+          symbolStrokeColor: "transparent", 
+          labelLimit: width > 825 ? 1111 : 180,
           title: null,
         })
         // .legend(null),
@@ -1111,7 +1120,6 @@ ${distributionsChangeText}
 
 ::::
 
-</div>
 
 <script>
   const slides = document.querySelectorAll('.slide');

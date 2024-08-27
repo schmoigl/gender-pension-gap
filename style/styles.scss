@@ -21,8 +21,17 @@ h4 {
     background: url(img/struktur-footer.png);
 }
 
+.nav-footer {
+    background: url(img/struktur-footer.png);
+    padding-top: 1em;
+}
+
 .nav-link.active {
     color: #be0021 !important;
+}
+
+.separator {
+    padding: 4em 0 4em 0
 }
 
 form {
@@ -35,7 +44,7 @@ form {
 
 .slide.active {
     display: block;
-    height: 600px;
+    // height: 600px;
 }
 
 @media screen and (max-width: 826px) {
