@@ -179,7 +179,7 @@ und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohort
 <button id="nextBtn" class="btn btn-secondary">vorwärts</button>
 
 ::: {.slide .slide-active}
-**Schritt 1**: 
+**Auswahl 1/4**: 
 Geben Sie Ihre Bruttopension an
 ```{ojs}
 viewof rangeRaw = Inputs.range([100, 4200], {step: 10, value: 1500 })
@@ -190,16 +190,17 @@ Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese m
 :::
 
 ::: {.slide}
-**Schritt 2**: 
+**Auswahl 2/4**: 
 Geben Sie Ihr Geschlecht ein:
 ```{ojs}
 viewof radio = Inputs.radio(["Frauen", "Männer"], {value: "Frauen"})
 ```
+![](img/Infobox_info_icon.svg){height=14px}
 Manche der Szenarien wirken sich nur auf Frauen aus.
 :::
 
 ::: {.slide}
-**Schritt 3**: 
+**Schritt 3/4**: 
 Wählen Sie ein Szenario:
 ```{ojs}
 viewof select = Inputs.select(scenarios) // {value: ""} does not work
@@ -209,7 +210,7 @@ Informationen zu dem von Ihnen gewählten Szenario: ${info}
 :::
 
 ::: {.slide}
-**Schritt 4**: 
+**Schritt 4/4**: 
 Zutreffendes ankreuzen:
 ```{ojs}
 viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
@@ -357,7 +358,7 @@ bars = {
       textDiffPerc,
       // logo,
     ) 
-    .height(280) // width > 825 ? 280 : 180
+    .height(width > 825 ? 280 : 180) // width > 825 ? 280 : 180
     .width(makeWidthSmall(width))
     .facet({
       field: "D", 
@@ -952,7 +953,7 @@ distributions = {
       )
 
   return layers
-    .height(width > 825 ? 300 : 220)
+    .height(width > 825 ? 300 : 200)
     .width(makeWidth(width))
     // .facet({
     //   field: "variable", 
@@ -1084,7 +1085,7 @@ distributionsChange = {
       // textOld,
       // textNew,
     )
-    .height(width > 825 ? 300 : 220)
+    .height(width > 825 ? 300 : 200)
     .width(makeWidth(width)) 
     // .facet({
     //   field: "gesl", 
