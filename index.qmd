@@ -185,7 +185,7 @@ viewof rangeRaw = Inputs.range([100, 4200], {step: 10, value: 1500 })
 range = Math.round(rangeRaw/100)*100
 ```
 ![](img/Infobox_info_icon.svg){height=14px} 
-Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese mit dem [AK-Pensionsrechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} ermitteln 
+Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese mit dem [AK-Pensionsrechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} ermitteln. 
 <br>
 ![](img/Infobox_info_icon.svg){height=14px} 
 Ihre Bruttopension wird in weiterer Folge dazu verwendet Sie zu einer Bezugsgruppe einzuordnen.
@@ -280,7 +280,7 @@ bars = {
       vl.opacity()
         .fieldN("closestDecile")
         .scale({
-          range: [0.5, 0.7]
+          range: [0.5, 0.8]
         })
         .legend(null),
     )
@@ -304,7 +304,7 @@ bars = {
       vl.opacity()
         .fieldN("closestDecile")
         .scale({
-          range: [0.5, 0.7] 
+          range: [0.5, 0.8] 
         })
         .legend(null),
     )
@@ -328,7 +328,7 @@ bars = {
       vl.opacity()
         .fieldN("closestDecile")
         .scale({
-          range: [0.5, 0.7]
+          range: [0.5, 0.8]
         })
         .legend(null),
     )
@@ -352,7 +352,7 @@ bars = {
       vl.opacity()
         .fieldN("closestDecile")
         .scale({
-          range: [0.5, 0.7]
+          range: [0.5, 0.8]
         })
         .legend(null), 
     )
@@ -638,7 +638,7 @@ distributions = {
   const dataDist = bins.filter(d => d.variable == "Status quo") //bins.filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
   const dataRule = dataDist
     .filter(d => d.range == d.bin)
-    .map(d => ({...d, y: 0, y2: 20000}))
+    .map(d => ({...d, y: 0, y2: 20500}))
 
   const area = vl
     .markArea({ 
@@ -754,7 +754,7 @@ distributions = {
       color: "gray",
       opacity: 0.7,
       size: 13,
-      y: 70,
+      y: 65,
       dx: -10,
       align: "right",
       clip: true,
@@ -773,7 +773,7 @@ distributions = {
       color: "gray",
       opacity: 0.7,
       size: 10,
-      y: 85,
+      y: 80,
       dx: -10,
       align: "right",
       clip: true,
@@ -791,7 +791,7 @@ distributions = {
       color: "gray",
       opacity: 0.7,
       size: 10,
-      y: 95,
+      y: 90,
       dx: -10,
       align: "right",
       clip: true,
@@ -926,10 +926,11 @@ distributions = {
     .markText({
       clip: true,
       size: 14,
-      y: 55,
-      dy: -12,
-      angle: -90,
-      align: "right",
+      y: 290,
+      dx: 22,
+      // angle: -0,
+      // align: "right",
+      strokeWidth: 1.25,
     })
     .transform(
       vl.filter("datum.gesl == datum.radio"),
@@ -939,8 +940,31 @@ distributions = {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value("← ich"), 
+        .value("↙ ich"), 
     )
+  const textPositionWhite = vl
+    .markText({
+      clip: true,
+      size: 14,
+      y: 290,
+      dx: 22,
+      // angle: -0,
+      // align: "right",
+      stroke: "white",
+      strokeWidth: 2.75,
+      // fontWeight: "bold",
+    })
+    .transform(
+      vl.filter("datum.gesl == datum.radio"),
+      vl.filter("datum.bin == datum.range"),
+    )
+    .encode(
+      vl.x()
+        .fieldQ("bin"),
+      vl.text()
+        .value("↙ ich"), 
+    )
+
 
     const layers = width > 825 ?
       vl.layer(
@@ -955,10 +979,10 @@ distributions = {
         textRight,
         textLeft2,
         textRight2,
+        textPositionWhite,
         textPosition,
         textLeftOther,
         textRightOther,
-        // logo, 
       ):
       vl.layer( 
         area, 
@@ -998,7 +1022,7 @@ distributionsChange = {
   const dataDistChange = bins.filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
   const dataRule = dataDistChange
     .filter(d => d.range == d.bin && d.variable != "Status quo")
-    .map(d => ({...d, y: 0, y2: 20000}))
+    .map(d => ({...d, y: 0, y2: 20500}))
 
   const area = vl
     .markArea({
@@ -1071,7 +1095,7 @@ distributionsChange = {
       color: "gray",
       opacity: 0.7,
       size: 13,
-      y: 70,
+      y: 65,
       dx: -10,
       align: "right",
       clip: true,
@@ -1090,7 +1114,7 @@ distributionsChange = {
       color: "gray",
       opacity: 0.7,
       size: 10,
-      y: 85,
+      y: 80,
       dx: -10,
       align: "right",
       clip: true,
@@ -1108,7 +1132,7 @@ distributionsChange = {
       color: "gray",
       opacity: 0.7,
       size: 10,
-      y: 95,
+      y: 90,
       dx: -10,
       align: "right",
       clip: true,
@@ -1129,7 +1153,7 @@ distributionsChange = {
       align: "center",
     })
     .data([
-      {bin: 600}
+      {bin: radio == "Männer" ? 1000 : 600}
     ])
     .encode(
       vl.x()
@@ -1146,7 +1170,7 @@ distributionsChange = {
       align: "center",
     })
     .data([
-      {bin: 2500}
+      {bin: radio == "Männer" ? 3500 : 2500}
     ])
     .encode(
       vl.x()
@@ -1155,26 +1179,38 @@ distributionsChange = {
         .value("← neue Verteilung"), 
     )
 
+  const textArrow = vl
+    .markText({
+      color: "gray",
+      clip: true,
+      size: radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? 16 : 0,
+      y: 102,
+      align: "right",
+      opacity: 0.7,
+      dx: -10,
+    })
+    .data(dataRule)
+    .encode(
+      vl.x()
+        .fieldQ("median"),
+      vl.text()
+        .value("⟶"),
+    ) 
+
   const layers = width > 825 ? 
     vl.layer(
       ruleGray,
       textGray1,
       textGray2,
       textGray3,
-      textOld,
-      textNew,
-      area, 
-    ) :
-    vl.layer(
-      // ruleGray,
-      // textGray1,
-      // textGray2,
-      // textGray3,
+      textArrow,
       // textOld,
       // textNew,
       area, 
+    ) :
+    vl.layer(
+      area, 
     )
-
 
   return layers
     .height(width > 825 ? 300 : 200)
@@ -1187,16 +1223,19 @@ distributionsChange = {
 
 ```
 ```{ojs}
-distributionsChangeText = 
+distributionsChangeText1 = 
   select == "Szenario 2 (Arbeitslosigkeit)" ?
   "Durch die Aufwertung der Zeiten in Arbeitslosigkeit würden sich die Pension für " + radio + " leicht erhöhen." :
   radio == "Frauen" && select != "Szenario 2 (Arbeitslosigkeit)" ?
   "Für " + radio + " würden sich die Pensionen im " + select + " deutlich erhöhen." :
   radio == "Männer" && select != "Szenario 5 (Beste 15 Jahre)" ?
-  radio + " profitieren nicht von " + select :
-  radio + " profitieren deutlich von " + select
+  radio + " profitieren nicht von " + select + "." :
+  radio + " profitieren deutlich von " + select + "."
+distributionsChangeText2 = radio == "Männer" && select != "Szenario 5 (Beste 15 Jahre)" && select != "Szenario 2 (Arbeitslosigkeit)" ? 
+"Die mittlere Pension der Männder würde sich nicht verändern und bei " + Math.round(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " verbleiben." :
+"Die mittlere Pension der " + radio + " würde sich auf " + Math.round(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " Euro steigern."
 ```
-${distributionsChangeText} ${distributionsChangeText}
+${distributionsChangeText1} ${distributionsChangeText2} 
 :::
 
 ::::
