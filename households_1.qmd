@@ -1,0 +1,710 @@
+---
+title: "Haushalte" 
+filters: [remove_title.lua]
+anchor-sections: false
+execute: 
+  echo: false
+  warning: false
+---
+
+{{< include src/config.qmd >}}
+{{< include src/utils.qmd >}}
+
+```{ojs}
+// echo: false
+// warning: false
+import {vl} from "@vega/vega-lite-api-v5" // apiVersion = '5.6.0' vlVersion = '5.6.0' vegaVersion = '5.23.0' tooltipVersion = '0.30.0'
+import {aq, op} from '@uwdata/arquero' // version "6.0.0"
+```
+
+<!-- HH fragments @Stefan @Lydia -->
+
+```{ojs}
+binsRaw = FileAttachment("data/bins.csv").csv({ typed: true })
+scenarios = aq.from(binsRaw)
+  .derive({ variable: d => op.replace(d.variable, /\r\n/g, " ") })
+  .filter(aq.escape(d => d.variable != "Status quo"))
+  .select("variable")
+  .dedupe()
+  .array("variable")
+```
+
+```{ojs}
+hhIncomeRaw = FileAttachment("data/household_income_detail.csv").csv({ typed: true })
+hhPovertyRaw = FileAttachment("data/household_arop_detail.csv").csv({ typed: true })
+```
+
+```{ojs}
+
+hhIncome = aq.from(hhIncomeRaw)
+  .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
+  .derive({ 
+    value: d=> d.variable != "Status quo" ? d.value / 100 : d.value,
+    selectMark: aq.escape(d=> d.variable == select ? "yes" : "no"), 
+    })
+  .objects()
+  
+groups = aq.from(hhIncome)
+  .filter(aq.escape(d => d.group != "Gesamt"))
+  .select("group")
+  .dedupe()
+  .array("group")
+
+
+hhPoverty = aq.from(hhPovertyRaw)
+  .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
+  .derive({ 
+    value: d=> d.variable == "Status quo" ? d.value / 100 : d.value,
+    selectMark: aq.escape(d=> d.variable == select ? "yes" : "no"), 
+    })
+  .objects()
+  
+hhPoverty
+hhIncome
+```
+
+
+::: {.columns .column-body .mainText}
+#### RECHNER
+# Szenarien von Pensionsreformen im Überblick
+Die Szenarien haben außerdem einen Einfluss auf die Haushaltseinkommen und die Armutsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
+:::
+
+::: {.columns .column-body .mainText}
+```{ojs}
+viewof select = Inputs.select(scenarios) // {value: ""} does not work
+```
+:::
+
+::: {.columns .column-body .separator}
+----------------------------------------
+:::
+
+
+:::: {#slideshow-container .column-body}
+<button id="prevBtn" class="btn btn-secondary">zurück</button>
+<button id="nextBtn" class="btn btn-secondary">weiter</button>
+
+::::
+
+::: {.slide .slide-active}
+### Geschlecht
+
+#### Äquivalisiertes Haushaltseinkommen
+
+```{ojs}
+barsIncomeG = {
+
+  const bars = vl
+    .markBar({
+      fill: colors[0],
+      opacity: 0.8,
+    }) 
+    .encode( 
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: "+.1%",  // Format for y-axis labels as percentages
+        }),
+      vl.x()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 5,  // Adjusted padding
+          labelLimit: 100,  // Adjusted label limit
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          format: "+.1%"  // Ensure format is set here for text
+        }),
+      vl.x()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format("+.1%"),  // Format the text as percentages
+    )
+
+  // Log filtered data for debugging
+  let filteredIncome = hhIncome.filter(d => d.group == "Geschlecht" && d.variable == select);
+  console.log(filteredIncome);
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width))
+    .data(filteredIncome)  // Use the filtered data
+    .config(config)
+    .render();  // Render the chart
+}
+
+```
+
+#### Armutsgefährdungsquote
+
+```{ojs}
+barsPovertyG = {
+
+  const bars = vl
+    .markBar({
+      fill: colors[0],
+      opacity: 0.8,
+    }) 
+    .encode( 
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: "+.1f",  // Format for y-axis labels as percentages
+        }),
+      vl.x()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 5,  // Adjusted padding
+          labelLimit: 100,  // Adjusted label limit
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          format: "+.1f"  // Ensure format is set here for text
+        }),
+      vl.x()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format(".1f")  // Format the text as fixed-point with one decimal
+    )
+    .transform(
+      vl.calculate("datum.value >= 0 ? '+' + format(datum.value, '.1f') + ' PP.' : format(datum.value, '.1f') + ' PP.'")
+        .as("formattedValue")
+    )
+    .encode(
+      vl.text()
+        .fieldN("formattedValue")  // Use the calculated field for text labels
+    );
+    
+  // Log filtered data for debugging
+  let filteredPoverty = hhPoverty.filter(d => d.group == "Geschlecht" && d.variable == select);
+  console.log(filteredPoverty);
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width))
+    .data(filteredPoverty)  // Use the filtered data
+    .config(config)
+    .render();  // Render the chart
+}
+
+```
+
+:::
+
+::: {.slide}
+### Altersgruppen
+
+#### Äquivalisiertes Haushaltseinkommen
+
+```{ojs}
+barsIncomeA = {
+
+  const bars = vl
+    .markBar({
+      fill: colors[0],
+      opacity: 0.8,
+    }) 
+    .encode( 
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: "+.1%",  // Format for y-axis labels as percentages
+        }),
+      vl.x()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 5,  // Adjusted padding
+          labelLimit: 100,  // Adjusted label limit
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          format: "+.1%"  // Ensure format is set here for text
+        }),
+      vl.x()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format("+.1%"),  // Format the text as percentages
+    )
+
+  // Log filtered data for debugging
+  let filteredIncome = hhIncome.filter(d => d.group == "Altersgruppen" && d.variable == select);
+  console.log(filteredIncome);
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width))
+    .data(filteredIncome)  // Use the filtered data
+    .config(config)
+    .render();  // Render the chart
+}
+
+```
+
+#### Armutsgefährdungsquote
+
+```{ojs}
+barsPovertyA = {
+
+  const bars = vl
+    .markBar({
+      fill: colors[0],
+      opacity: 0.8,
+    }) 
+    .encode( 
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: "+.1f",  // Format for y-axis labels as percentages
+        }),
+      vl.x()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 5,  // Adjusted padding
+          labelLimit: 100,  // Adjusted label limit
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          format: "+.1f"  // Ensure format is set here for text
+        }),
+      vl.x()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format(".1f")  // Format the text as fixed-point with one decimal
+    )
+    .transform(
+      vl.calculate("datum.value >= 0 ? '+' + format(datum.value, '.1f') + ' PP.' : format(datum.value, '.1f') + ' PP.'")
+        .as("formattedValue")
+    )
+    .encode(
+      vl.text()
+        .fieldN("formattedValue")  // Use the calculated field for text labels
+    );
+    
+  // Log filtered data for debugging
+  let filteredPoverty = hhPoverty.filter(d => d.group == "Altersgruppen" && d.variable == select);
+  console.log(filteredPoverty);
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width))
+    .data(filteredPoverty)  // Use the filtered data
+    .config(config)
+    .render();  // Render the chart
+}
+
+```
+
+:::
+
+
+<!-- ::: {.columns .column-body .mainText}
+Die Szenarien haben außerdem einen Einfluss auf die Haushaltseinkommen und die Armutsquote. Wählen Sie eine Gruppe aus.
+::: -->
+
+<!-- :::: {.columns .column-body .menu}
+::: {.column width="100%"}
+```{ojs}
+viewof selectOutcome = Inputs.select(["Haushaltseinkommen", "Armutsquote"], {label: "Outcome", value: "Haushaltseinkommen"})
+viewof selectGroup = Inputs.select(groups, {label: "Gruppe", value: "Erwerbsstatus"})
+infoPoverty = "Die relative Armutsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb einer bestimmten Grenze liegt. Diese Grenze wird in der Regel bei 60 % des mittleren (Median-) Einkommens der Bevölkerung festgelegt. Menschen, die weniger als diesen Betrag verdienen, gelten als relativ arm, da sie im Vergleich zum Durchschnitt deutlich weniger Mittel zur Verfügung haben."
+infoIncome = "Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen."
+```
+:::
+::::
+
+::: {.column-margin  .infoText}
+![](img/Infobox_info_icon.svg){height=14px} 
+${selectOutcome == "Armutsquote" ? infoPoverty : infoIncome}
+:::
+
+::: {.columns .column-body .separator}
+----------------------------------------
+:::
+
+:::: {.columns .column-body }
+<button 
+  class="btn btn-secondary" 
+  type="button" 
+  data-bs-toggle="collapse" 
+  data-bs-target="#collapseContent5" 
+  aria-expanded="false" 
+  aria-controls="collapseContent5"
+>
+  Einfluss auf die Haushaltseinkommen
+</button>
+
+::: {.panel .collapse #collapseContent5}
+${selectOutcome == "Armutsquote" ? "Armutsquote" : "Äquivalente Haushaltseinkommen"}  im Status quo
+```{ojs}
+barsIncome = {
+
+  const bars = vl
+    .markBar({
+      fill: colors[0],
+      opacity: 0.8,
+    }) 
+    .encode( 
+      vl.x()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+        }),
+      vl.y()
+        .fieldN("detail")
+        .axis({
+          orient: width > 1200 ? "right" : "top",
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "center",
+          labelPadding: 125,
+          labelLimit: 111111,
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.x()
+        .value(0),
+      vl.y()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format(",.0f"),
+    )
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width)/5)
+    .data(hhIncome.filter(d => d.group == selectGroup && d.variable == "Status quo"))
+    .config(config)
+}
+```
+```{ojs}
+barsPoverty = {
+
+  const bars = vl
+    .markBar({
+      fill: colors[0],
+      opacity: 0.8,
+    })
+    .encode( 
+      vl.x()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+        }),
+      vl.y()
+        .fieldN("detail")
+        .axis({
+          orient: width > 1200 ? "right" : "top", 
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "center",
+          labelPadding: 125,
+          labelLimit: 111111,
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.x()
+        .value(0),
+      vl.y()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format(",.0~%"),
+    )
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width)/5)
+    .data(hhPoverty.filter(d => d.group == selectGroup && d.variable == "Status quo"))
+    .config(config)
+}
+```
+```{ojs}
+selectOutcome == "Haushaltseinkommen" ? barsIncome.render({renderer: "svg"}) : barsPoverty.render({renderer: "svg"})
+```
+:::
+::::
+
+:::: {.columns .column-body }
+<button 
+  class="btn btn-secondary" 
+  type="button" 
+  data-bs-toggle="collapse" 
+  data-bs-target="#collapseContent6" 
+  aria-expanded="false" 
+  aria-controls="collapseContent6"
+>
+  Einfluss auf die Armustquote der Haushalte
+</button>
+
+::: {.panel .collapse #collapseContent6}
+```{ojs}
+changesIncome = {
+
+  const text = vl
+    .markText({
+      size: 12,
+    })
+    .encode(
+      vl.x()
+        .fieldO("variable")
+        .axis({
+          title: null,
+          labelLimit: 11111,
+          labelExpr: "substring(datum.label, 9, 10)",
+        }),
+      vl.y()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labels: false,
+        }),
+      vl.text()
+        .fieldQ("value")
+        .format("+,.1~%"),
+    )
+
+  const rect = vl
+    .markRect()
+    .encode(
+      vl.x()
+        .fieldO("variable"),
+      vl.y()
+        .fieldN("detail"),
+      vl.fill()
+        .fieldQ("value")
+        .legend(null)
+        .scale({
+          range: ["white", colors[1]],
+        }),
+      vl.stroke()
+        .fieldN("selectMark")
+        .scale({
+          range: ["transparent", "black"]
+        })
+        .legend(null),
+    )
+
+  return vl 
+    .layer(
+      rect,
+      text,    
+      )
+    .width(makeWidth(width)/2.1)
+    .data(hhIncome.filter(d => d.group == selectGroup&& d.variable != "Status quo"))
+    .config(config)
+}
+```
+```{ojs}
+changesPoverty = {
+
+  const text = vl
+    .markText({
+      size: 12,
+    })
+    .encode(
+      vl.x()
+        .fieldO("variable")
+        .axis({
+          title: null,
+          labelLimit: 11111,
+          labelExpr: "substring(datum.label, 9, 10)",
+        }),
+      vl.y()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labels: false,
+        }),
+      vl.text()
+        .fieldQ("value")
+        .format("+,.1~f"),
+    )
+
+  const rect = vl
+    .markRect()
+    .encode(
+      vl.x()
+        .fieldO("variable"),
+      vl.y()
+        .fieldN("detail"),
+      vl.fill()
+        .fieldQ("value")
+        .legend(null)
+        .scale({
+          range: [colors[1], "white", ],
+        }),
+      vl.stroke()
+        .fieldN("selectMark")
+        .scale({
+          range: ["transparent", "black"]
+        })
+        .legend(null),
+    )
+
+  return vl 
+    .layer(
+      rect,
+      text,    
+      )
+    .width(makeWidth(width)/2.1)
+    .data(hhPoverty.filter(d => d.group == selectGroup&& d.variable != "Status quo"))
+    .config(config)
+}
+```
+```{ojs}
+selectOutcome == "Haushaltseinkommen" ? changesIncome.render({renderer: "svg"}) : changesPoverty.render({renderer: "svg"})
+```
+:::
+:::: -->
+
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+
+  // Function to handle slide transitions
+  function showSlide(index) {
+    // Hide the current slide with fade-out effect
+    slides[currentSlide].classList.remove('fade-in');
+    slides[currentSlide].classList.add('fade-out');
+    
+    // After fade-out, update to the new slide and show it with fade-in
+    setTimeout(() => {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.remove('fade-out');
+      slides[currentSlide].classList.add('active', 'fade-in');
+    }, 200); // Adjust timing to match the fade-out duration
+  }
+
+  // Attach event listeners to buttons
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    const newSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(newSlide);
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    const newSlide = (currentSlide + 1) % slides.length;
+    showSlide(newSlide);
+  });
+
+  // Initially show the first slide
+  showSlide(currentSlide);
+</script>
+
