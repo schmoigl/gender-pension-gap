@@ -188,7 +188,7 @@ range = Math.round(rangeRaw/100)*100
 Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese mit dem [AK-Pensionsrechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} ermitteln. 
 <br>
 ![](img/Infobox_info_icon.svg){height=14px} 
-Ihre Bruttopension wird in weiterer Folge dazu verwendet Sie zu einer Bezugsgruppe einzuordnen.
+Ihre Bruttopension wird in weiterer Folge dazu verwendet Sie zu einer Vergleichsgruppe einzuordnen.
 :::
 
 ::: {.slide}
@@ -390,9 +390,9 @@ bars = {
     .data(
       deciles
         .filter(d => d.variable == select && (d.D == d.closestDecileValue || d.D == "Gesamt"))
-        .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Bezugsgruppe"}))
-        .filter(d => d.gesl == d.radio || d.D == "Bezugsgruppe")
-        .map(d => ({...d, gesl: d.gesl == d.radio && d.D == "Bezugsgruppe" ? "Bezugsgruppe" : "∅ " + d.gesl}))
+        .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Vergleichsgruppe"}))
+        .filter(d => d.gesl == d.radio || d.D == "Vergleichsgruppe")
+        .map(d => ({...d, gesl: d.gesl == d.radio && d.D == "Vergleichsgruppe" ? "Vergleichsgruppe" : "∅ " + d.gesl}))
     )
     .config(config)
     .render({ renderer: "svg" })
@@ -615,7 +615,7 @@ dumbbell = {
     .data(
       deciles
         .filter(d => (d.D == d.closestDecileValue || d.D == "Gesamt") && d.variable == select)
-        .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Bezugsgruppe"}))
+        .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Vergleichsgruppe"}))
       )
     .config(config)
     .render({ renderer: "svg" }) 
@@ -626,7 +626,7 @@ dumbbell = {
 mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0] ? " fallen." : " steigen."
 mehrWenigerGesamt = deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0] ? " sinken." : " steigen."
 
-dumbbellText =  "Der Gender Pension Gap würde sich in meiner Bezugsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") von " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
+dumbbellText =  "Der Gender Pension Gap würde sich in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") von " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
 ```
 ${dumbbellText}
 :::
