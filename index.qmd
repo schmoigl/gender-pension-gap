@@ -155,6 +155,8 @@ medians = decilesMid
 bins = binsMid
   .join_left(medians, [["gesl", "variable"], ["gesl", "variable"]])
   .objects()
+
+deciles
 ```
 
 
@@ -373,7 +375,7 @@ bars = {
 
   return layers
     .height(width > 600 ? 280 : 240) // width > 825 ? 280 : 180 
-    .width(width > 600 ? 310 : width * 0.8)
+    .width(width > 600 ? 300 : width * 0.8)
     // .facet({
     //   field: "D", 
     //   type: "nominal", 
