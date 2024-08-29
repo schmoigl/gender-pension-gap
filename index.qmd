@@ -254,9 +254,9 @@ bars = {
         .axis({
           domain: false,
           grid: false,
-          title: width > 825 ? "Bruttopension" : null, 
-          labels:  width > 825 ? true : false,
-          ticks:  width > 825 ? true : false,
+          title: width > 600 ? "Bruttopension" : null, 
+          labels:  width > 600 ? true : false,
+          ticks:  width > 600 ? true : false,
         }),
       vl.xOffset()
         .fieldN("val"),
@@ -266,7 +266,7 @@ bars = {
           range: colors,
         })
         .legend({
-          orient: width > 1200 ? "right" : "top",
+          orient: width > 600 ? "right" : "top",
           symbolOpacity: 1,
           symbolType: "square",
           title: null,
@@ -289,7 +289,7 @@ bars = {
     .markText({
       clip: true,
       size: 14,
-      y: width > 825 ? 270 : 170,
+      y: width > 600 ? 270 : 170,
       angle: -90,
       align: "left", 
     })
@@ -372,8 +372,8 @@ bars = {
     ) 
 
   return layers
-    .height(width > 825 ? 280 : 180) // width > 825 ? 280 : 180 
-    .width(width > 825 ? 320 : width * 0.8)
+    .height(width > 600 ? 280 : 180) // width > 825 ? 280 : 180 
+    .width(width > 600 ? 310 : width * 0.8)
     // .facet({
     //   field: "D", 
     //   type: "nominal", 
@@ -450,9 +450,9 @@ dumbbell = {
       vl.y()
         .fieldQ("value")
         .axis({
-          title: width > 825 ? "Bruttopension" : null,
-          labels:  width > 825 ? true : false,
-          ticks:  width > 825 ? true : false,
+          title: width > 600 ? "Bruttopension" : null,
+          labels:  width > 600 ? true : false,
+          ticks:  width > 600 ? true : false,
           domain: false,
           grid: false,
         })
@@ -471,7 +471,7 @@ dumbbell = {
           range: colors,
         })
         .legend({
-          orient: width > 1200 ? "right" : "top", 
+          orient: width > 600 ? "right" : "top", 
           symbolOpacity: 1,
           symbolType: "square",
           title: null, 
@@ -521,7 +521,7 @@ dumbbell = {
   const textRel = vl
     .markText({
       size: 14,
-      dx: width > 825 ? 27 : 10,
+      dx: width > 600 ? 27 : 10,
       dy: 18,
       clip: true,
     })
@@ -601,8 +601,8 @@ dumbbell = {
       )
 
   return layers
-    .height(width > 825 ? 280 : 180)
-    .width(width > 825 ? 250 : width * 0.8)
+    .height(width > 600 ? 280 : 180)
+    .width(width > 600 ? 230 : width * 0.38)
     .facet({
       field: "D", 
       type: "nominal", 
