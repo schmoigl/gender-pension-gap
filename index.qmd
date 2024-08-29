@@ -97,9 +97,7 @@ decilesRaw =
   FileAttachment("data/deciles.csv").csv({ typed: true })
 
 decilesMid = aq.from(decilesRaw)
-  .filter(d => d.D != "100. Perzentil")
   .derive({ 
-    variable: d => op.replace(d.variable, /\r\n/g, " "),
     select: aq.escape(d => select),
     range: aq.escape(d => range),
     radio: aq.escape(d => radio),
