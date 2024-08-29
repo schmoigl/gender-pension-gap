@@ -266,7 +266,7 @@ bars = {
           range: colors,
         })
         .legend({
-          orient: width > 600 ? "right" : "top",
+          orient: width > 825 ? "right" : "top",
           symbolOpacity: 1,
           symbolType: "square",
           title: null,
@@ -289,7 +289,7 @@ bars = {
     .markText({
       clip: true,
       size: 14,
-      y: width > 600 ? 270 : 170,
+      y: width > 600 ? 270 : 230,
       angle: -90,
       align: "left", 
     })
@@ -372,7 +372,7 @@ bars = {
     ) 
 
   return layers
-    .height(width > 600 ? 280 : 180) // width > 825 ? 280 : 180 
+    .height(width > 600 ? 280 : 240) // width > 825 ? 280 : 180 
     .width(width > 600 ? 310 : width * 0.8)
     // .facet({
     //   field: "D", 
@@ -471,7 +471,7 @@ dumbbell = {
           range: colors,
         })
         .legend({
-          orient: width > 600 ? "right" : "top", 
+          orient: width > 825 ? "right" : "top", 
           symbolOpacity: 1,
           symbolType: "square",
           title: null, 
@@ -601,7 +601,7 @@ dumbbell = {
       )
 
   return layers
-    .height(width > 600 ? 280 : 180)
+    .height(width > 600 ? 280 : 240)
     .width(width > 600 ? 230 : width * 0.38)
     .facet({
       field: "D", 
@@ -618,7 +618,7 @@ dumbbell = {
         .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Bezugsgruppe"}))
       )
     .config(config)
-    .render({ renderer: "svg" })
+    .render({ renderer: "svg" }) 
 
 }
 ```
