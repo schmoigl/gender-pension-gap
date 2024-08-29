@@ -130,7 +130,7 @@ closestDecileValue = decilesMid
 decilesDiffGesl = decilesMid
   .derive({ closestDecileValue: aq.escape(d => closestDecileValue) })
   .select(["gesl", "D", "variable", "val", "value"])
-  .groupby(["val", "D", "variable"]) 
+  .groupby(["val", "D", "variable"])
   .pivot("gesl", "value")
   .derive({ 
     gapValue: d => d.Männer - d.Frauen,
