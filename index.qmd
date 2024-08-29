@@ -218,7 +218,7 @@ Zutreffendes ankreuzen:
 viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
 viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
 interpolate = "step"
-check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten wären nur im Szenario 1 relevant" : radio != "Frauen" ? "Kindererziehungszeiten würden bei der Berechnung der Szenarien nur für Frauen berücksichtigt" : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen"
+check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten wären nur im Szenario 1 relevant" : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt" : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen"
 check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten wären nur im Szenario 2 relevant" : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen"
 ```
 ![](img/Infobox_info_icon.svg){height=14px} ${check1Info} <br> ![](img/Infobox_info_icon.svg){height=14px} ${check2Info}
@@ -372,21 +372,27 @@ bars = {
     ) 
 
   return layers
-    .height(width > 825 ? 280 : 180) // width > 825 ? 280 : 180
-    .width(makeWidthSmall(width))
-    .facet({
-      field: "D", 
-      type: "nominal", 
-      title: null,
-      header: { 
-        labelFontSize: 14, 
-        orient: "top",
-      },
-    })
+    .height(width > 825 ? 280 : 180) // width > 825 ? 280 : 180 
+    .width(width > 825 ? 320 : width * 0.8)
+    // .facet({
+    //   field: "D", 
+    //   type: "nominal", 
+    //   title: null,
+    //   header: { 
+    //     labelFontSize: 14, 
+    //     orient: "top",
+    //   },
+    // })
+    // .resolve({
+    //   "axis": {"x": "independent"},
+    //   "scale": {"x": "independent"},
+    //   })
     .data(
       deciles
         .filter(d => d.variable == select && (d.D == d.closestDecileValue || d.D == "Gesamt"))
-        .map(d => ({...d, D: d.D == "Gesamt" ? "Durchschnitt" : "Bezugsgruppe"}))
+        .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Bezugsgruppe"}))
+        .filter(d => d.gesl == d.radio || d.D == "Bezugsgruppe")
+        .map(d => ({...d, gesl: d.gesl == d.radio && d.D == "Bezugsgruppe" ? "Bezugsgruppe" : "∅ " + d.gesl}))
     )
     .config(config)
     .render({ renderer: "svg" })
@@ -396,6 +402,10 @@ bars = {
 ```{ojs}
 checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen können," : ""
 checkText2 = check2.length == 1 ? ", die Ersatzzeiten durch Arbeistlosigkeit haben," : ""
+// checkText3 = Szenario == "Szenario 1 (Kindererziehung)" ? 
+// "Das Szenario hätte keinen Effekt. " :
+
+
 diffScenario = deciles
   .filter(d => d.variable == select)
   .filter(d => d.gesl == radio && d.val == "Szenario" && d.D == d.closestDecileValue)
@@ -417,8 +427,8 @@ statusIncome = deciles
   .map(d => d.value)[0]
 
 barsText = diffScenario != 0 ? 
-  "Im " + select + " würden mit mir vergleichabere " + radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") " + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man alle Frauen" + checkText1 + checkText2 + ", so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
-  radio + " mit einer Pension von " + range + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + checkText2 + " dort gleich viel erhalten wie aktuell. " + "(Warum?)"
+  "Im " + select + " würden mit mir vergleichabere " + radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") " + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man den Durchschnitt aller Frauen" + checkText1 + checkText2 + ", so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
+  radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + checkText2 + " dort gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " 
 ```
 ${barsText}
 :::
@@ -526,7 +536,7 @@ dumbbell = {
       vl.opacity()
         .fieldN("gesl")
         .scale({
-          range : [0.5, 0] 
+          range : [0.55, 0] 
         })
         .legend(null), 
     )
@@ -549,11 +559,7 @@ dumbbell = {
         .fieldQ("gapValue")
         .format(",.0~f"),
       vl.opacity()
-        .fieldN("gesl")
-        .scale({
-          range : [1, 0]
-        })
-        .legend(null),
+        .fieldN("gesl"),
     )
 
   const textArrow = vl
@@ -573,11 +579,7 @@ dumbbell = {
       vl.text()
         .value(" →"),
       vl.opacity()
-        .fieldN("gesl")
-        .scale({
-          range : [1, 0] 
-        })
-        .legend(null),
+        .fieldN("gesl"),
     )
 
     const layers = width > 600 ? 
@@ -600,7 +602,7 @@ dumbbell = {
 
   return layers
     .height(width > 825 ? 280 : 180)
-    .width(makeWidthSmall(width))
+    .width(width > 825 ? 250 : width * 0.8)
     .facet({
       field: "D", 
       type: "nominal", 
@@ -613,7 +615,7 @@ dumbbell = {
     .data(
       deciles
         .filter(d => (d.D == d.closestDecileValue || d.D == "Gesamt") && d.variable == select)
-        .map(d => ({...d, D: d.D == "Gesamt" ? "Durchschnitt" : "Bezugsgruppe"}))
+        .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Bezugsgruppe"}))
       )
     .config(config)
     .render({ renderer: "svg" })
@@ -624,7 +626,7 @@ dumbbell = {
 mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0] ? " fallen." : " steigen."
 mehrWenigerGesamt = deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0] ? " sinken." : " steigen."
 
-dumbbellText =  "Der Gender Pension Gap würde sich in meiner Bezugsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + ") von " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
+dumbbellText =  "Der Gender Pension Gap würde sich in meiner Bezugsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") von " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
 ```
 ${dumbbellText}
 :::
@@ -735,8 +737,7 @@ distributions = {
 
   const ruleGray = vl
     .markRule({
-      stroke: "gray",
-      strokeOpacity: 0.7,
+      opacity: 0.55,
       clip: true,
     })
     .data(dataRule)
@@ -751,8 +752,7 @@ distributions = {
 
   const textGray1 = vl
     .markText({
-      color: "gray",
-      opacity: 0.7,
+      opacity: 0.55,
       size: 13,
       y: 65,
       dx: -10,
@@ -770,8 +770,7 @@ distributions = {
 
   const textGray2 = vl
     .markText({
-      color: "gray",
-      opacity: 0.7,
+      opacity: 0.55,
       size: 10,
       y: 80,
       dx: -10,
@@ -788,8 +787,7 @@ distributions = {
 
   const textGray3 = vl
     .markText({
-      color: "gray",
-      opacity: 0.7,
+      opacity: 0.55,
       size: 10,
       y: 90,
       dx: -10,
@@ -825,12 +823,12 @@ distributions = {
 
   const textLeft2 = vl
     .markText({
+      opacity: 0.55,
       clip: true,
       size: 12,
       y: 42,
       dx: -12,
       align: "right",
-      opacity: 0.7,
     })
     .transform(
       vl.filter("datum.gesl == datum.radio"),
@@ -845,12 +843,12 @@ distributions = {
 
   const textLeftOther = vl
     .markText({
+      opacity: 0.55,
       clip: true,
       size: 12,
       y: 26,
       dx: -12,
       align: "right",
-      opacity: 0.7,
     })
     .transform(
       vl.filter("datum.gesl != datum.radio"),
@@ -884,12 +882,12 @@ distributions = {
 
   const textRight2 = vl
     .markText({
+      opacity: 0.55,
       clip: true,
       size: 12,
       y: 42,
       dx: 12,
       align: "left",
-      opacity: 0.7,
     })
     .transform(
       vl.filter("datum.gesl == datum.radio"),
@@ -904,12 +902,12 @@ distributions = {
 
   const textRightOther = vl
     .markText({
+      opacity: 0.55,
       clip: true,
       size: 12,
       y: 26,
       dx: 12,
       align: "left",
-      opacity: 0.7
     })
     .transform(
       vl.filter("datum.gesl != datum.radio"),
@@ -1076,8 +1074,7 @@ distributionsChange = {
 
   const ruleGray = vl
     .markRule({
-      stroke: "gray",
-      strokeOpacity: 0.7,
+      opacity: 0.55,
       clip: true,
     })
     .data(dataRule)
@@ -1092,8 +1089,7 @@ distributionsChange = {
 
   const textGray1 = vl
     .markText({
-      color: "gray",
-      opacity: 0.7,
+      opacity: 0.55,
       size: 13,
       y: 65,
       dx: -10,
@@ -1111,8 +1107,7 @@ distributionsChange = {
 
   const textGray2 = vl
     .markText({
-      color: "gray",
-      opacity: 0.7,
+      opacity: 0.55,
       size: 10,
       y: 80,
       dx: -10,
@@ -1129,8 +1124,7 @@ distributionsChange = {
 
   const textGray3 = vl
     .markText({
-      color: "gray",
-      opacity: 0.7,
+      opacity: 0.55,
       size: 10,
       y: 90,
       dx: -10,
@@ -1159,14 +1153,15 @@ distributionsChange = {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value("alte Verteilung ↓"), 
+        .value("alte Verteilung ⤵"), 
     )
 
   const textNew = vl
     .markText({
+      opacity: 0.55,
       clip: true,
-      size: 14,
-      y: 140,
+      size: radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? 14 : 0,
+      y: 180,
       align: "center",
     })
     .data([
@@ -1176,12 +1171,12 @@ distributionsChange = {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value("← neue Verteilung"), 
+        .value("⤺ neue Verteilung"), 
     )
 
   const textArrow = vl
     .markText({
-      color: "gray",
+      opacity: 0.55,
       clip: true,
       size: radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? 16 : 0,
       y: 102,
@@ -1195,7 +1190,7 @@ distributionsChange = {
         .fieldQ("median"),
       vl.text()
         .value("⟶"),
-    ) 
+    )
 
   const layers = width > 825 ? 
     vl.layer(
@@ -1205,7 +1200,7 @@ distributionsChange = {
       textGray3,
       textArrow,
       // textOld,
-      // textNew,
+      textNew,
       area, 
     ) :
     vl.layer(

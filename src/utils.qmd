@@ -13,16 +13,27 @@ function makeWidth(inputWidth) {
   return outputWidth
 }
 
-function makeWidthSmall(inputWidth) {
-  const outputWidth = 
-    inputWidth > 2000 ? inputWidth * 0.080 : // Home and or WIFO screen?
-    inputWidth > 1600 ? inputWidth * 0.100 : // ASCII screen (small)
-    inputWidth > 1400 ? inputWidth * 0.150 : // laptop
-    inputWidth > 1100 ? inputWidth * 0.166 : // 
-    inputWidth > 825 ? inputWidth * 0.200 : // 
-    inputWidth * 0.380
-  return outputWidth
-}
+// function makeWidthSmall(inputWidth) {
+//   const outputWidth = 
+//     inputWidth > 2000 ? inputWidth * 0.080 : // Home and or WIFO screen?
+//     inputWidth > 1600 ? inputWidth * 0.100 : // ASCII screen (small)
+//     inputWidth > 1400 ? inputWidth * 0.150 : // laptop
+//     inputWidth > 1100 ? inputWidth * 0.166 : // 
+//     inputWidth > 825 ? inputWidth * 0.200 : // 
+//     inputWidth * 0.380
+//   return outputWidth
+// }
+
+// function makeWidthBars(inputWidth) {
+//   const outputWidth = 
+//     inputWidth > 2000 ? inputWidth * 0.100 : // Home and or WIFO screen?
+//     inputWidth > 1600 ? inputWidth * 0.125 : // ASCII screen (small)
+//     inputWidth > 1400 ? inputWidth * 0.150 : // laptop
+//     inputWidth > 1100 ? inputWidth * 0.200 : // 
+//     inputWidth > 825 ? inputWidth * 0.300 : // 
+//     inputWidth * 0.8
+//   return outputWidth
+// }
 
 logoAK = vl
   .markImage({
