@@ -188,22 +188,22 @@ range = Math.round(rangeRaw/100)*100
 Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese mit dem [AK-Pensionsrechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} ermitteln. 
 <br>
 ![](img/Infobox_info_icon.svg){height=14px} 
-Ihre Bruttopension wird in weiterer Folge dazu verwendet Sie zu einer Vergleichsgruppe einzuordnen.
+Ihre Bruttopension wird in weiterer Folge dazu verwendet Sie in eine Vergleichsgruppe einzuordnen.
 :::
 
 ::: {.slide}
 **Auswahl 2/4**: 
-Geben Sie Ihr Geschlecht ein:
+Geben Sie Ihr Geschlecht an
 ```{ojs}
 viewof radio = Inputs.radio(["Frauen", "Männer"], {value: "Frauen"})
 ```
 ![](img/Infobox_info_icon.svg){height=14px}
-Manche der berechneten Szenarien wirken sich nur auf Frauen aus. Daher können die Ergebnisse bei Männern in weiterer Folge auch keine Veränderungen zeigen.
+Manche der berechneten Szenarien wirken sich nur auf Frauen aus. Daher ist es möglich, dass die Ergebnisse bei Männern keine Veränderungen zeigen.
 :::
 
 ::: {.slide}
 **Auswahl 3/4**: 
-Wählen Sie ein Szenario:
+Wählen Sie ein Szenario aus
 ```{ojs}
 viewof select = Inputs.select(scenarios) // {value: ""} does not work
 ```
@@ -213,13 +213,13 @@ Informationen zu dem von Ihnen gewählten Szenario: ${info}
 
 ::: {.slide}
 **Auswahl 4/4**: 
-Zutreffendes ankreuzen:
+Zutreffendes ankreuzen (falls relevant)
 ```{ojs}
 viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
 viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
 interpolate = "step"
-check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten wären nur im Szenario 1 relevant" : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt" : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen"
-check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten wären nur im Szenario 2 relevant" : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen"
+check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten wären nur im Szenario 1 relevant." : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt." : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen."
+check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten wären nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
 ```
 ![](img/Infobox_info_icon.svg){height=14px} ${check1Info} <br> ![](img/Infobox_info_icon.svg){height=14px} ${check2Info}
 :::
@@ -427,7 +427,7 @@ statusIncome = deciles
   .map(d => d.value)[0]
 
 barsText = diffScenario != 0 ? 
-  "Im " + select + " würden mit mir vergleichabere " + radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") " + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man den Durchschnitt aller Frauen" + checkText1 + checkText2 + ", so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
+  "Im " + select + " würden mit mir vergleichbere " + radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") " + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man den Durchschnitt aller Frauen" + checkText1 + checkText2 + ", so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + checkText2 + " dort gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " 
 ```
 ${barsText}
