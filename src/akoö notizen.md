@@ -79,3 +79,69 @@ Fokus immer auf einer Grafik.
 
 sie stehen hier in der Verteilung in Grafik einbauen. 
 
+
+Termin 02.09.
+
+erste Seite:
+- Veranlassen auszuprobieren:
+    - Namen 
+    - Mögliche Szenarien für eine fairere Pensionsberechnungen
+    - ja nicht den Eindruck erwecken, man bekommt mehr
+    - Zielgruppe ist kein wissenschaftliches Publikum
+    - Im Einleitungstext auf Ungerechtigkeiten hinweisen, AK 
+    - Titelseite
+    - Headerbild
+
+Median erklären
+Stärker erklären / 
+Einleitungstext
+
+PK nur 1-3
+
+mehr Auswahl - 
+
+Animation schrittweise, 
+
+Verlinkung Studie am Anfang und am Ende. 
+Verlinkung Twitter 
+Teilen der Seite ermöglichen Twitter
+
+Zurück zum Start
+
+Große Übersichtsgrafik am Ende
+
+
+
+Umgesetzt:
+- einfacher / weniger
+- konkrete Wünsche:
+    - kleinere Häppchen
+    - sequentiell wie Ungleichbehandlungscheck
+    - zuerst Selbst, dann Gap, zuletzt eher kompliziert
+    - stärkere textliche Beschreibung
+    - Mobile View
+
+zu besprechende Punkte:
+- Welche Anliegen sind Ihnen besonders wichtig bis zur PK?
+- Name? Domain?
+- HH Teil 
+
+
+To DOs: 
+- Startseite
+    - Textvorschlag
+    - Header Bild
+    - "Guess the Gap"
+- Wechsel zwischen den "Slides" soll animiert sein
+- Selektionselemente für Interaktivität auch nach Basisauswahl ermöglichen
+    - Änderung der orignalen Eingaben ermöglichen wo sinnvoll
+    - Zusätzliche Selektionselemente wo sinnvoll
+- Letzte "Slide" mit Überblick ähnlich Originalentwurf
+- Teilen via Social Media ermöglichen
+- Anpassung der Buttons zurück / weiter 
+- Nur noch Szanrio 1-3 wählbar
+- Farben ändern?
+
+- Änderungen die nicht ausgemacht waren aber sinnvoll erschienen: 
+    - Ein ausgebesserter Fehler: der Durchschnitt der jeweils ausgewählten Männer oder Frauen wurde in den Balkendiagrammen falsch angezeigt
+    - Ich habe die Auswahl jetzt auf eine Seite gegeben, das verkürzt

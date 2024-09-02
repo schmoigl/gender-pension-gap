@@ -9,12 +9,15 @@ execute:
 
 {{< include src/config.qmd >}}
 {{< include src/utils.qmd >}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
 ```{ojs}
 // echo: false
 // warning: false
 import {vl} from "@vega/vega-lite-api-v5" // apiVersion = '5.6.0' vlVersion = '5.6.0' vegaVersion = '5.23.0' tooltipVersion = '0.30.0'
-import {aq, op} from '@uwdata/arquero' // version "6.0.0" 
+import {aq, op} from '@uwdata/arquero' // version "6.0.0"
+import {number} from "@jashkenas/inputs"
 ```
 
 ```{ojs}
@@ -26,6 +29,8 @@ binsRaw = FileAttachment("data/bins.csv").csv({ typed: true })
 scenarios = aq.from(binsRaw)
   .derive({ variable: d => op.replace(d.variable, /\r\n/g, " ") })
   .filter(aq.escape(d => d.variable != "Status quo"))
+  .filter(aq.escape(d => d.variable != "Szenario 4 (GPG/Frau)"))
+  .filter(aq.escape(d => d.variable != "Szenario 5 (Beste 15 Jahre)"))
   .select("variable")
   .dedupe()
   .array("variable")
@@ -181,7 +186,7 @@ und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohort
 **Auswahl 1/4**: 
 Geben Sie Ihre Bruttopension an
 ```{ojs}
-viewof rangeRaw = Inputs.range([100, 4200], {step: 10, value: 1500 })
+viewof rangeRaw = Inputs.range([400, 4000], {step: 50, value: 1500})
 range = Math.round(rangeRaw/100)*100
 ```
 ![](img/Infobox_info_icon.svg){height=14px} 
@@ -389,22 +394,22 @@ bars = {
     //   })
     .data(
       deciles
-        .filter(d => d.variable == select && (d.D == d.closestDecileValue || d.D == "Gesamt"))
+        .filter(d => d.variable == select)
+        .filter(d => d.D == d.closestDecileValue || d.D == "Gesamt")
+        .filter(d => d.gesl == d.radio || d.D == "Gesamt")
         .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Vergleichsgruppe"}))
-        .filter(d => d.gesl == d.radio || d.D == "Vergleichsgruppe")
         .map(d => ({...d, gesl: d.gesl == d.radio && d.D == "Vergleichsgruppe" ? "Vergleichsgruppe" : "∅ " + d.gesl}))
     )
     .config(config)
-    .render({ renderer: "svg" })
 
 }
+bars.render({ renderer: "svg" })
 ```
 ```{ojs}
 checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen können," : ""
 checkText2 = check2.length == 1 ? ", die Ersatzzeiten durch Arbeistlosigkeit haben," : ""
 // checkText3 = Szenario == "Szenario 1 (Kindererziehung)" ? 
 // "Das Szenario hätte keinen Effekt. " :
-
 
 diffScenario = deciles
   .filter(d => d.variable == select)
@@ -618,9 +623,9 @@ dumbbell = {
         .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Vergleichsgruppe"}))
       )
     .config(config)
-    .render({ renderer: "svg" }) 
 
 }
+dumbbell.render({ renderer: "svg" }) 
 ```
 ```{ojs}
 mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0] ? " fallen." : " steigen."
@@ -1004,11 +1009,16 @@ distributions = {
     // })
     .data(dataDist)
     .config(config)
-    .render({ renderer: "svg" }) 
-
 }
+distributions.render({ renderer: "svg" }) 
 ```
-Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat (mehr ${getCumPerc("Frauen", "higher")}, bzw. ${getCumPerc("Männer", "higher")}). Die mittlere Pension der Frauen beträgt 1223 Euro, jene der Männer 2286 Euro.
+Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat (mehr ${getCumPerc("Frauen", "higher")}, bzw. ${getCumPerc("Männer", "higher")}). Die mittlere Pension der Frauen beträgt 1223 Euro, jene der Männer 2286 Euro. <br><br> Eingaben ändern:
+```{ojs}
+Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw)
+```
+```{ojs}
+Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio)
+```
 :::
 
 
@@ -1212,10 +1222,10 @@ distributionsChange = {
     .width(makeWidth(width)) 
     .data(dataDistChange)
     .config(config)
-    .render({ renderer: "svg" })
 
 }
 
+distributionsChange.render({ renderer: "svg" })
 ```
 ```{ojs}
 distributionsChangeText1 = 
@@ -1230,7 +1240,29 @@ distributionsChangeText2 = radio == "Männer" && select != "Szenario 5 (Beste 15
 "Die mittlere Pension der Männder würde sich nicht verändern und bei " + Math.round(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " verbleiben." :
 "Die mittlere Pension der " + radio + " würde sich auf " + Math.round(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " Euro steigern."
 ```
-${distributionsChangeText1} ${distributionsChangeText2} 
+${distributionsChangeText1} ${distributionsChangeText2} <br><br> Eingaben ändern:
+```{ojs}
+Inputs.bind(Inputs.select(scenarios), viewof select)
+Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio) 
+```
+:::
+
+::: {.slide}
+
+**Ergebnisse auf einen Blick**
+```{ojs}
+Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw) 
+Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio) 
+Inputs.bind(Inputs.select(scenarios), viewof select) 
+Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true}), viewof check1) 
+Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true}), viewof check2) 
+```
+```{ojs}
+distributions.render({ renderer: "svg" })
+bars.render({ renderer: "svg" })
+dumbbell.render({ renderer: "svg" })
+```
+
 :::
 
 ::::
@@ -1239,8 +1271,29 @@ ${distributionsChangeText1} ${distributionsChangeText2}
 ----------------------------------------
 :::
 
+::: {.column-body .text-center}
+<div class="btn-group" role="group" aria-label="Social Media Share Buttons">
+  Teilen: &nbsp;
+  <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20page!&url=https://data-science.wifo.ac.at/AK-Szenarienrechner/" target="_blank" class="btn btn-secondary">
+    <i class="fab fa-twitter"></i> 
+  </a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://data-science.wifo.ac.at/AK-Szenarienrechner/" target="_blank" class="btn btn-secondary">
+    <i class="fab fa-facebook"></i> 
+  </a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://data-science.wifo.ac.at/AK-Szenarienrechner/" target="_blank" class="btn btn-secondary">
+    <i class="fab fa-linkedin"></i> 
+  </a>
+  <a href="mailto:?subject=Check%20this%20out&body=https://data-science.wifo.ac.at/AK-Szenarienrechner/" target="_blank" class="btn btn-secondary">
+    <i class="fas fa-envelope"></i> 
+  </a>
+</div>
+:::
+
+
 <script>
   const slides = document.querySelectorAll('.slide');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
   let currentSlide = 0;
 
   // Function to handle slide transitions
@@ -1248,27 +1301,52 @@ ${distributionsChangeText1} ${distributionsChangeText2}
     // Hide the current slide with fade-out effect
     slides[currentSlide].classList.remove('fade-in');
     slides[currentSlide].classList.add('fade-out');
-    
+
     // After fade-out, update to the new slide and show it with fade-in
     setTimeout(() => {
       slides[currentSlide].classList.remove('active');
       currentSlide = index;
       slides[currentSlide].classList.remove('fade-out');
       slides[currentSlide].classList.add('active', 'fade-in');
-    }, 200); // Adjust timing to match the fade-out duration
+
+      // Update button states
+      updateButtonStates();
+    }, 300); // Adjust timing to match the fade-out duration
+  }
+
+  // Function to update the state of the buttons
+  function updateButtonStates() {
+    // Disable Previous button on the first slide
+    if (currentSlide === 0) {
+      prevBtn.disabled = true;
+      prevBtn.classList.add('disabled');
+    } else {
+      prevBtn.disabled = false;
+      prevBtn.classList.remove('disabled');
+    }
+
+    // Change Next button text on the last slide
+    if (currentSlide === slides.length - 1) {
+      nextBtn.textContent = 'zum Anfang';
+    } else {
+      nextBtn.textContent = 'weiter';
+    }
   }
 
   // Attach event listeners to buttons
-  document.getElementById('prevBtn').addEventListener('click', () => {
-    const newSlide = (currentSlide - 1 + slides.length) % slides.length;
-    showSlide(newSlide);
+  prevBtn.addEventListener('click', () => {
+    if (currentSlide > 0) {
+      const newSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(newSlide);
+    } 
   });
 
-  document.getElementById('nextBtn').addEventListener('click', () => {
+  nextBtn.addEventListener('click', () => {
     const newSlide = (currentSlide + 1) % slides.length;
     showSlide(newSlide);
   });
 
-  // Initially show the first slide
+  // Initially show the first slide and update button states
   showSlide(currentSlide);
+  updateButtonStates();
 </script>

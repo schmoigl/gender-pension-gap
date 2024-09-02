@@ -22,7 +22,7 @@ website:
       </a>
     </div>
     <br>
-    © 2024 — AK OBERÖSTERREICH | WIFO — <a href="mailto:data.science@wifo.ac.at">data.science@wifo.ac.at</a>
+    © 2024 AK Oberösterreich | Volksgartenstrasse 40 4020 Linz, +43 50 6906 0
   navbar: # just comment out to remove
     title: | 
       [![](img/ak-logo.svg){height="70px"}](https://ooe.arbeiterkammer.at/index.html) &nbsp;
@@ -34,6 +34,8 @@ website:
 format:
   html:
     theme: [cosmo, style/styles.scss]
+    # include-in-header: |
+    #   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     grid:
       # sidebar-width: 300px
       body-width: 826px

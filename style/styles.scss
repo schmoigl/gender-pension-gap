@@ -44,16 +44,50 @@ h4 {
 }
 
 form {
-    padding: 0.2em 0 0 0;
+    padding: 0.3em 0 0.3em 0;
 }
 
 .slide {
     display: none;
-  }
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; /* Fade transition */
+}
 
 .slide.active {
     display: block;
-    // height: 600px;
+    opacity: 1;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in forwards; /* Fade in effect */
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-in forwards; /* Fade out effect */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+    }
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.btn.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+    display: none;
 }
 
 @media screen and (max-width: 826px) {
