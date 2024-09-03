@@ -131,7 +131,7 @@ Folgende Änderungen wurden durchgeführt:
 - Startseite
     - Textvorschlag
     - Header Bild
-    - "Guess the Gap"
+    - "Guess the Gap"-Quizfrage
 - Wechsel zwischen den "Slides" soll animiert sein
 - Selektionselemente für Interaktivität auch nach Basisauswahl ermöglichen
     - Änderung der orignalen Eingaben ermöglichen wo sinnvoll
@@ -140,7 +140,7 @@ Folgende Änderungen wurden durchgeführt:
 - Teilen via Social Media ermöglichen
 - Anpassung der Buttons zurück / weiter 
 - Nur noch Szanrio 1-3 wählbar
-- Farben geändert so dass sich GEschlecht von Szenario unterscheidet
+- Farben geändert so dass sich Geschlecht von Szenario unterscheidet
 
 - Änderungen die nicht ausgemacht waren aber sinnvoll erschienen: 
     - Ein ausgebesserter Fehler: der Durchschnitt der jeweils ausgewählten Männer oder Frauen wurde in den Balkendiagrammen falsch angezeigt

@@ -196,7 +196,7 @@ viewof guess = Inputs.radio(["18,9 % ", "40,1 %", "5,7 %"], {
   label: "", // Wählen Sie eine Antwort
 })
 // guess // is null
-answer = guess == "40,1 %" ? "Richtig!" : "Leider falsch, die Realität sieht schlechter aus."
+answer = guess == "40,1 %" ? "Richtig! Der Unterschied ist groß." : "Leider falsch, die Realität sieht anders aus."
 ```
 
 </div> 
@@ -266,7 +266,7 @@ Wählen Sie ein Szenario
 viewof select = Inputs.select(scenarios) // {value: ""} does not work
 ```
 ![](img/Infobox_info_icon.svg){height=14px}
-Informationen zu dem von Ihnen gewählten Szenario: ${info}
+Informationen zu dem von Ihnen gewählten Szenario: ${info} <br>
 Zutreffendes ankreuzen (falls relevant)
 ```{ojs}
 viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
@@ -294,11 +294,11 @@ check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicheru
 
 ::: {.slide}
 **Ergebnisse 1/4**: 
-Wie würde sich das Szenario auf meine eigene Pension auswirken?
+Wie würde sich das Szenario auf vergleichbare Personen auswirken?
 ```{ojs}
 Inputs.bind(
   Inputs.radio(
-    ["Vergleichsgruppe", "∅ Durchschnitt", "Beides"], 
+    ["Vergleichsgruppe", "∅ Durchschnitt", "Beides anzeigen"], 
     {value: "Vergleichsgruppe", label: ""}
     ),
   viewof radio2
@@ -537,7 +537,7 @@ ${barsText}
 Wie würde sich die Änderung auf den Gender Pension Gap auswirken?
 ```{ojs}
 viewof radio2 = Inputs.radio(
-  ["Vergleichsgruppe", "∅ Durchschnitt", "Beides"], 
+  ["Vergleichsgruppe", "∅ Durchschnitt", "Beides anzeigen"], 
   {value: "Vergleichsgruppe", label: ""}
   ) 
 
@@ -733,7 +733,7 @@ function dumbbell(inputData)  {
     .config(config)
 
 }
-dumbbell(radio2 == "Beides" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2)).render({ renderer: "svg" }) 
+dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2)).render({ renderer: "svg" }) 
 ```
 ```{ojs}
 mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0] ? " fallen." : " steigen."
@@ -896,7 +896,7 @@ distributions = {
       vl.x()
         .fieldQ("median"),
       vl.text()
-        .value("Median"),
+        .value("mittlere Pension"),
     )
 
   const textGray3 = vl
@@ -1039,7 +1039,7 @@ distributions = {
       clip: true,
       size: 18,
       y: 290,
-      dx: 8,
+      dx: 5,
       // angle: -0,
       align: "left",
       strokeWidth: 1.25,
@@ -1060,7 +1060,7 @@ distributions = {
       clip: true,
       size: 18,
       y: 290,
-      dx: 8,
+      dx: 5,
       // angle: -0,
       align: "left",
       stroke: "white",
@@ -1240,7 +1240,7 @@ distributionsChange = {
       vl.x()
         .fieldQ("median"),
       vl.text()
-        .value("Median"),
+        .value("mittlere Pension"),
     )
 
   const textGray3 = vl
@@ -1389,7 +1389,7 @@ bars.render({ renderer: "svg" })
 
 ::: {.column width="50%"}
 ```{ojs}
-dumbbell(radio2 == "Beides" ? decilesDumbbellFull.filter(d => d.D == "Vergleichsgruppe") : decilesDumbbellFull.filter(d => d.D == radio2)).render({ renderer: "svg" })
+dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull.filter(d => d.D == "Vergleichsgruppe") : decilesDumbbellFull.filter(d => d.D == radio2)).render({ renderer: "svg" })
 ```
 :::
 
@@ -1432,7 +1432,7 @@ viewof radio2
 ::: {.column-body .text-center}
 <div class="btn-group" role="group" aria-label="Social Media Share Buttons">
   <!-- Teilen: &nbsp; -->
-  <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20page!&url=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
+  <a href="https://twitter.com/intent/tweet?text=Schaut%20euch%20dase%20an&url=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
     <i class="fab fa-twitter"></i> 
   </a>
   <a href="https://www.facebook.com/sharer/sharer.php?u=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
@@ -1441,7 +1441,7 @@ viewof radio2
   <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
     <i class="fab fa-linkedin"></i> 
   </a>
-  <a href="mailto:?subject=Check%20this%20out&body=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
+  <a href="mailto:?subject=Schau%20dir%20das%20an&body=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
     <i class="fas fa-envelope"></i> 
   </a>
 </div>
