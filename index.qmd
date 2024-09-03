@@ -17,7 +17,8 @@ execute:
 // warning: false
 import {vl} from "@vega/vega-lite-api-v5" // apiVersion = '5.6.0' vlVersion = '5.6.0' vegaVersion = '5.23.0' tooltipVersion = '0.30.0'
 import {aq, op} from '@uwdata/arquero' // version "6.0.0"
-import {number} from "@jashkenas/inputs"
+import {number, slider} from "@jashkenas/inputs"
+import { rangeInput } from '@mootari/range-slider'
 ```
 
 ```{ojs}
@@ -165,26 +166,69 @@ bins = binsMid
 
 ::: {.column-body .mainText}
 #### RECHNER
-# Szenarien von Pensionsreformen
-Vor dem Hintergrund anhaltend hoher geschlechtsspezifischer Unterschiede in der gesetzlichen
+# AK-Pensionsreformrechner 
+<!-- Vor dem Hintergrund anhaltend hoher geschlechtsspezifischer Unterschiede in der gesetzlichen
 Alterssicherung in Österreich untersucht [eine Studie des WIFO](res/AKOE_Pensionen_EB_070824.pdf){target="_blank"} 
 die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender
 Pension Gap. Basierend auf Sozialversicherungsdaten
 und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohorten 2015 bis
-2021 mehrere Szenarien simuliert. Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
-:::
-
-::: {.column-body .separator}
-----------------------------------------
+2021 mehrere Szenarien simuliert. Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden. -->
 :::
 
 :::: {#slideshow-container .column-body}
-<button id="prevBtn" class="btn btn-secondary">zurück</button>
-<button id="nextBtn" class="btn btn-secondary">weiter</button>
 
 ::: {.slide .slide-active}
-**Auswahl 1/4**: 
-Geben Sie Ihre Bruttopension an
+
+**Um wieviel Prozent ist die durchschnittliche Pension von Frauen in Österreich geringer als die der Männer?** <br>
+
+<div style="width: 500px;">
+
+```{ojs}
+// viewof guess = slider({
+//   min: 0, 
+//   max: 1, 
+//   step: 0.01, 
+//   format: ".0%",
+//   display: false,
+//   description: "Wählen Sie eine Zahl"
+// })
+viewof guess = Inputs.radio(["18,9 % ", "40,1 %", "5,7 %"], {
+  label: "", // Wählen Sie eine Antwort
+})
+// guess // is null
+answer = guess == "40,1 %" ? "Richtig!" : "Leider falsch, die Realität sind schlechter aus."
+```
+
+</div> 
+
+:::
+
+::: {.slide}
+
+**${answer}**
+
+Der Gender Pension Gap, also der Unterschied zwischen Männer- und Frauenpensionen, liegt im Jahr 2024 in Österreich bei 40,1 % (Datenbasis: Pensionsversicherungs-Jahresstatistik (PJ), Dezember 2023 Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik der Stadt Wien). In Oberösterreich liegt er sogar bei 45,4 % und ist somit im Bundesländervergleich nach Vorarlberg an vorletzter Stelle. Gründe für die Schlechterstellung von Frauen sind die Hürden, mit denen sie bereits im Erwerbsleben konfrontiert sind: lange Teilzeitphasen, niedrigere Einkommen, Zeiten von Arbeitslosigkeit und Unterbrechungen aufgrund von Kindererziehungs- und Pflegezeiten.
+
+Die Arbeiterkammer Oberösterreich hält dies für eine große Ungerechtigkeit und setzt sich für Pensionsreformen ein, die tatsächlich Verbesserungen für die Menschen bringen und dieser enormen Schieflage entgegenwirken.
+
+Mit dem AK-Pensionsreformrechner sehen sie, was die einzelnen Reformen für die Pensionshöhen, bei der Reduktion des Gender Pension Gap und Verteilung bedeuten. Probieren sie das neue Tool aus, verbreiten sie es und geben sie uns Rückmeldung!
+
+## Pensionsreformen: AK-Vorschläge für eine faire Berechnung
+
+Dabei wurden drei Szenarien simuliert: <br>
+- Szenario 1: Höherbewertung von Kindererziehungszeiten <br>
+- Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit <br>
+- Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht. <br>
+
+:::
+
+<!-- ::: {.column-body .separator}
+----------------------------------------
+::: -->
+
+::: {.slide}
+**Auswahl 1/3**: 
+Geben Sie eine Bruttopension an
 ```{ojs}
 viewof rangeRaw = Inputs.range([400, 4000], {step: 50, value: 1500})
 range = Math.round(rangeRaw/100)*100
@@ -194,11 +238,20 @@ Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese m
 <br>
 ![](img/Infobox_info_icon.svg){height=14px} 
 Ihre Bruttopension wird in weiterer Folge dazu verwendet Sie in eine Vergleichsgruppe einzuordnen.
+
+<!-- **Auswahl 2/4**: 
+Geben Sie Ihr Geschlecht an
+```{ojs}
+viewof radio = Inputs.radio(["Frauen", "Männer"], {value: "Frauen"})
+```
+![](img/Infobox_info_icon.svg){height=14px}
+Manche der berechneten Szenarien wirken sich nur auf Frauen aus. Daher ist es möglich, dass die Ergebnisse bei Männern keine Veränderungen zeigen. -->
+
 :::
 
 ::: {.slide}
-**Auswahl 2/4**: 
-Geben Sie Ihr Geschlecht an
+**Auswahl 2/3**: 
+Geben Sie ein Geschlecht an
 ```{ojs}
 viewof radio = Inputs.radio(["Frauen", "Männer"], {value: "Frauen"})
 ```
@@ -207,16 +260,26 @@ Manche der berechneten Szenarien wirken sich nur auf Frauen aus. Daher ist es m�
 :::
 
 ::: {.slide}
-**Auswahl 3/4**: 
-Wählen Sie ein Szenario aus
+**Auswahl 3/3**: 
+Wählen Sie ein Szenario
 ```{ojs}
 viewof select = Inputs.select(scenarios) // {value: ""} does not work
 ```
 ![](img/Infobox_info_icon.svg){height=14px}
 Informationen zu dem von Ihnen gewählten Szenario: ${info}
+Zutreffendes ankreuzen (falls relevant)
+```{ojs}
+viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
+viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
+interpolate = "step"
+check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten wären nur im Szenario 1 relevant." : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt." : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen."
+check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten wären nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
+```
+![](img/Infobox_info_icon.svg){height=14px} ${check1Info} <br> ![](img/Infobox_info_icon.svg){height=14px} ${check2Info}
+
 :::
 
-::: {.slide}
+<!-- ::: {.slide}
 **Auswahl 4/4**: 
 Zutreffendes ankreuzen (falls relevant)
 ```{ojs}
@@ -227,12 +290,29 @@ check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten 
 check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten wären nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
 ```
 ![](img/Infobox_info_icon.svg){height=14px} ${check1Info} <br> ![](img/Infobox_info_icon.svg){height=14px} ${check2Info}
-:::
+::: -->
 
 ::: {.slide}
 **Ergebnisse 1/4**: 
 Wie würde sich das Szenario auf meine eigene Pension auswirken?
 ```{ojs}
+Inputs.bind(
+  Inputs.radio(
+    ["Vergleichsgruppe", "∅ Durchschnitt", "Beides"], 
+    {value: "Vergleichsgruppe", label: ""}
+    ),
+  viewof radio2
+  )
+
+decilesBar = 
+  deciles
+    .filter(d => d.variable == select)
+    .filter(d => d.D == d.closestDecileValue || d.D == "Gesamt")
+    .filter(d => d.gesl == d.radio || d.D == "Gesamt")
+    .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Vergleichsgruppe"}))
+    .map(d => ({...d, gesl: d.gesl == d.radio && d.D == "Vergleichsgruppe" ? "Vergleichsgruppe" : "∅ " + d.gesl}))
+    .map(d => ({...d, dummy: "⠀"}))
+
 bars = {
 
   const bar = vl
@@ -271,7 +351,8 @@ bars = {
           range: colors,
         })
         .legend({
-          orient: width > 825 ? "right" : "top",
+          // orient: width > 825 ? "right" : "top",
+          orient: "top",
           symbolOpacity: 1,
           symbolType: "square",
           title: null,
@@ -279,13 +360,21 @@ bars = {
       vl.stroke()
         .fieldN("closestDecile")
         .scale({
-          range: ["transparent", "black"]
+          range: radio2 == "Vergleichsgruppe" ? 
+            ["transparent", "black"] : 
+            radio2 == "∅ Durchschnitt" ? 
+            ["black", "transparent"] :
+            ["black", "black"]          
         })
         .legend(null),
       vl.opacity()
         .fieldN("closestDecile")
         .scale({
-          range: [0.5, 0.8]
+          range: radio2 == "Vergleichsgruppe" ? 
+            [0.5, 0.8] : 
+            radio2 == "∅ Durchschnitt" ? 
+            [0.8, 0.5] :
+            [0.8, 0.8]
         })
         .legend(null),
     )
@@ -309,7 +398,11 @@ bars = {
       vl.opacity()
         .fieldN("closestDecile")
         .scale({
-          range: [0.5, 0.8] 
+          range: radio2 == "Vergleichsgruppe" ? 
+            [0.5, 0.8] : 
+            radio2 == "∅ Durchschnitt" ? 
+            [0.8, 0.5] :
+            [0.8, 0.8]
         })
         .legend(null),
     )
@@ -333,7 +426,11 @@ bars = {
       vl.opacity()
         .fieldN("closestDecile")
         .scale({
-          range: [0.5, 0.8]
+          range: radio2 == "Vergleichsgruppe" ? 
+            [0.5, 0.8] : 
+            radio2 == "∅ Durchschnitt" ? 
+            [0.8, 0.5] :
+            [0.8, 0.8]
         })
         .legend(null),
     )
@@ -357,7 +454,11 @@ bars = {
       vl.opacity()
         .fieldN("closestDecile")
         .scale({
-          range: [0.5, 0.8]
+          range: radio2 == "Vergleichsgruppe" ? 
+            [0.5, 0.8] : 
+            radio2 == "∅ Durchschnitt" ? 
+            [0.8, 0.5] :
+            [0.8, 0.8]
         })
         .legend(null), 
     )
@@ -378,28 +479,21 @@ bars = {
 
   return layers
     .height(width > 600 ? 280 : 240) // width > 825 ? 280 : 180 
-    .width(width > 600 ? 300 : width * 0.8)
-    // .facet({
-    //   field: "D", 
-    //   type: "nominal", 
-    //   title: null,
-    //   header: { 
-    //     labelFontSize: 14, 
-    //     orient: "top",
-    //   },
-    // })
+    .width(width > 600 ? 250 : width * 0.8)
+    .facet({
+      field: "dummy", 
+      type: "nominal", 
+      title: null,
+      header: { 
+        labelFontSize: 14, 
+        orient: "top",
+      },
+    })
     // .resolve({
     //   "axis": {"x": "independent"},
     //   "scale": {"x": "independent"},
     //   })
-    .data(
-      deciles
-        .filter(d => d.variable == select)
-        .filter(d => d.D == d.closestDecileValue || d.D == "Gesamt")
-        .filter(d => d.gesl == d.radio || d.D == "Gesamt")
-        .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Vergleichsgruppe"}))
-        .map(d => ({...d, gesl: d.gesl == d.radio && d.D == "Vergleichsgruppe" ? "Vergleichsgruppe" : "∅ " + d.gesl}))
-    )
+    .data(decilesBar)
     .config(config)
 
 }
@@ -442,7 +536,17 @@ ${barsText}
 **Ergebnisse 2/4**:
 Wie würde sich die Änderung auf den Gender Pension Gap auswirken?
 ```{ojs}
-dumbbell = {
+viewof radio2 = Inputs.radio(
+  ["Vergleichsgruppe", "∅ Durchschnitt", "Beides"], 
+  {value: "Vergleichsgruppe", label: ""}
+  ) 
+
+decilesDumbbellFull = deciles
+    .filter(d => (d.D == d.closestDecileValue || d.D == "Gesamt") && d.variable == select)
+    .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Vergleichsgruppe"}))
+```
+```{ojs}
+function dumbbell(inputData)  {
 
   const points = vl
     .markPoint({
@@ -473,10 +577,11 @@ dumbbell = {
       vl.fill()
         .fieldN("gesl")
         .scale({
-          range: colors,
+          range: colors2,
         })
         .legend({
-          orient: width > 825 ? "right" : "top", 
+          // orient: width > 825 ? "right" : "top", 
+          orient: "top",
           symbolOpacity: 1,
           symbolType: "square",
           title: null, 
@@ -612,20 +717,23 @@ dumbbell = {
       field: "D", 
       type: "nominal", 
       title: null,
+      // header: { 
+      //   labelFontSize: 0, 
+      // },
+      // header: { 
+      //   labelFontSize: 14, 
+      //   orient: "bottom",
+      // },
       header: { 
         labelFontSize: 14, 
-        orient: "top",
+        labelOrient: "top",
       },
     })
-    .data(
-      deciles
-        .filter(d => (d.D == d.closestDecileValue || d.D == "Gesamt") && d.variable == select)
-        .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Vergleichsgruppe"}))
-      )
+    .data(inputData)
     .config(config)
 
 }
-dumbbell.render({ renderer: "svg" }) 
+dumbbell(radio2 == "Beides" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2)).render({ renderer: "svg" }) 
 ```
 ```{ojs}
 mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0] ? " fallen." : " steigen."
@@ -684,15 +792,16 @@ distributions = {
       vl.color()
         .fieldN("gesl")
         .scale({
-          range: colors,
+          range: colors2,
         })
-        .legend({
-          orient: "top", 
-          symbolOpacity: 1,
-          symbolType: "square",
-          symbolStrokeColor: "transparent",
-          title: null,
-        }),
+        .legend(null),
+        // .legend({
+        //   orient: "top", 
+        //   symbolOpacity: 1,
+        //   symbolType: "square",
+        //   symbolStrokeColor: "transparent",
+        //   title: null,
+        // }),
       vl.stroke()
         .fieldN("gesl")
         .scale({
@@ -720,7 +829,7 @@ distributions = {
       vl.color()
         .fieldN("gesl")
         .scale({
-          range: colors,
+          range: colors2,
         })
         .legend(null),
     )
@@ -928,11 +1037,11 @@ distributions = {
   const textPosition = vl
     .markText({
       clip: true,
-      size: 14,
+      size: 18,
       y: 290,
-      dx: 22,
+      dx: 8,
       // angle: -0,
-      // align: "right",
+      align: "left",
       strokeWidth: 1.25,
     })
     .transform(
@@ -943,16 +1052,17 @@ distributions = {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value("↙ ich"), 
+        .value("↙"), 
     )
+
   const textPositionWhite = vl
     .markText({
       clip: true,
-      size: 14,
+      size: 18,
       y: 290,
-      dx: 22,
+      dx: 8,
       // angle: -0,
-      // align: "right",
+      align: "left",
       stroke: "white",
       strokeWidth: 2.75,
       // fontWeight: "bold",
@@ -965,7 +1075,7 @@ distributions = {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value("↙ ich"), 
+        .value("↙"), 
     )
 
 
@@ -980,9 +1090,9 @@ distributions = {
         rule,
         textLeft,
         textRight,
-        textLeft2,
-        textRight2,
-        textPositionWhite,
+        // textLeft2,
+        // textRight2,
+        // textPositionWhite,
         textPosition,
         textLeftOther,
         textRightOther,
@@ -1072,14 +1182,15 @@ distributionsChange = {
         .scale({
           range: colors,
         })
-        .legend({
-          orient: "top", 
-          symbolType: "square",
-          symbolOpacity: 1,
-          symbolStrokeColor: "transparent", 
-          labelLimit: width > 825 ? 1111 : 160,
-          title: null,
-        })
+        .legend(null)
+        // .legend({
+        //   orient: "top", 
+        //   symbolType: "square",
+        //   symbolOpacity: 1,
+        //   symbolStrokeColor: "transparent", 
+        //   labelLimit: width > 825 ? 1111 : 160,
+        //   title: null,
+        // })
     )
 
   const ruleGray = vl
@@ -1170,7 +1281,7 @@ distributionsChange = {
     .markText({
       opacity: 0.55,
       clip: true,
-      size: radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? 14 : 0,
+      size: radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? 12 : 0,
       y: 180,
       align: "center",
     })
@@ -1224,7 +1335,6 @@ distributionsChange = {
     .config(config)
 
 }
-
 distributionsChange.render({ renderer: "svg" })
 ```
 ```{ojs}
@@ -1249,41 +1359,89 @@ Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio
 
 ::: {.slide}
 
-**Ergebnisse auf einen Blick**
+**Ergebnisse auf einen Blick** <br>
+Hier können Sie Ihre Eingaben noch einmal ändern und die Studienergebnisse gesammelt betrachten 
+
 ```{ojs}
 Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw) 
 Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio) 
 Inputs.bind(Inputs.select(scenarios), viewof select) 
 Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true}), viewof check1) 
 Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true}), viewof check2) 
-```
-```{ojs}
+Inputs.bind(
+Inputs.radio(
+["Vergleichsgruppe", "∅ Durchschnitt"], 
+{value: "Vergleichsgruppe", label: ""}
+),
+viewof radio2
+)
+
 distributions.render({ renderer: "svg" })
-bars.render({ renderer: "svg" })
-dumbbell.render({ renderer: "svg" })
 ```
 
+:::: {.columns}
+
+::: {.column width="50%"}
+```{ojs}
+bars.render({ renderer: "svg" })
+```
 :::
+
+::: {.column width="50%"}
+```{ojs}
+dumbbell(radio2 == "Beides" ? decilesDumbbellFull.filter(d => d.D == "Vergleichsgruppe") : decilesDumbbellFull.filter(d => d.D == radio2)).render({ renderer: "svg" })
+```
+:::
+
+<!-- ```{ojs}
+distributionsChange.render({ renderer: "svg" })
+``` -->
 
 ::::
 
-::: {.column-body .separator}
-----------------------------------------
 :::
+
+<button id="prevBtn" class="btn btn-secondary">zurück</button>
+<button id="nextBtn" class="btn btn-secondary">weiter</button>
+
+::::
+
+<!-- ::: {.column-margin .fade-element #conditionalInputs}
+Eingaben ändern: 
+```{ojs}
+Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw) 
+Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio) 
+Inputs.bind(Inputs.select(scenarios), viewof select) 
+Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true}), viewof check1) 
+Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true}), viewof check2) 
+Inputs.bind(
+Inputs.radio(
+["Vergleichsgruppe", "∅ Durchschnitt"], 
+{value: "Vergleichsgruppe", label: ""}
+),
+viewof radio2
+)
+```
+::: -->
+
+
+<!-- ::: {.column-body .separator}
+----------------------------------------
+::: -->
 
 ::: {.column-body .text-center}
 <div class="btn-group" role="group" aria-label="Social Media Share Buttons">
-  Teilen: &nbsp;
-  <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20page!&url=https://data-science.wifo.ac.at/AK-Szenarienrechner/" target="_blank" class="btn btn-secondary">
+  <!-- Teilen: &nbsp; -->
+  <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20page!&url=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
     <i class="fab fa-twitter"></i> 
   </a>
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https://data-science.wifo.ac.at/AK-Szenarienrechner/" target="_blank" class="btn btn-secondary">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
     <i class="fab fa-facebook"></i> 
   </a>
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://data-science.wifo.ac.at/AK-Szenarienrechner/" target="_blank" class="btn btn-secondary">
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
     <i class="fab fa-linkedin"></i> 
   </a>
-  <a href="mailto:?subject=Check%20this%20out&body=https://data-science.wifo.ac.at/AK-Szenarienrechner/" target="_blank" class="btn btn-secondary">
+  <a href="mailto:?subject=Check%20this%20out&body=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
     <i class="fas fa-envelope"></i> 
   </a>
 </div>
@@ -1294,6 +1452,7 @@ dumbbell.render({ renderer: "svg" })
   const slides = document.querySelectorAll('.slide');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
+  const conditionalInputs = document.getElementById('conditionalInputs');
   let currentSlide = 0;
 
   // Function to handle slide transitions
@@ -1309,6 +1468,13 @@ dumbbell.render({ renderer: "svg" })
       slides[currentSlide].classList.remove('fade-out');
       slides[currentSlide].classList.add('active', 'fade-in');
 
+      // // Show or hide conditional inputs based on the slide number
+      // if (currentSlide >= 9) { 
+      //   conditionalInputs.classList.add('active');
+      // } else {
+      //   conditionalInputs.classList.remove('active');
+      // }
+
       // Update button states
       updateButtonStates();
     }, 300); // Adjust timing to match the fade-out duration
@@ -1317,7 +1483,7 @@ dumbbell.render({ renderer: "svg" })
   // Function to update the state of the buttons
   function updateButtonStates() {
     // Disable Previous button on the first slide
-    if (currentSlide === 0) {
+    if (currentSlide < 2) {
       prevBtn.disabled = true;
       prevBtn.classList.add('disabled');
     } else {
@@ -1328,6 +1494,10 @@ dumbbell.render({ renderer: "svg" })
     // Change Next button text on the last slide
     if (currentSlide === slides.length - 1) {
       nextBtn.textContent = 'zum Anfang';
+    } else if(currentSlide === 0) {
+      nextBtn.textContent = 'Antwort bestätigen';
+    } else if(currentSlide === 1) {
+      nextBtn.textContent = 'Start';
     } else {
       nextBtn.textContent = 'weiter';
     }
@@ -1338,7 +1508,7 @@ dumbbell.render({ renderer: "svg" })
     if (currentSlide > 0) {
       const newSlide = (currentSlide - 1 + slides.length) % slides.length;
       showSlide(newSlide);
-    } 
+    }
   });
 
   nextBtn.addEventListener('click', () => {

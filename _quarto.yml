@@ -9,7 +9,7 @@ project:
     - index.qmd
     - households.qmd
 website:
-  title: "AK-Szenarienrechner"
+  title: "AK-Pensionsreformrechner "
   favicon: img/favicon.ico
   search: false
   page-footer: |
@@ -39,7 +39,7 @@ format:
     grid:
       # sidebar-width: 300px
       body-width: 826px
-      # margin-width: 280px
+      # margin-width: 360px
       gutter-width: 0px
     # css: style/styles.css # works only with simple .css not .scss
     toc: false

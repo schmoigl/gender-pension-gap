@@ -2,7 +2,7 @@
 
 This repository contains the Quarto-based website for the Other Revenue project. The website is live at:
 
-[https://data-science.wifo.ac.at/AK-Szenarienrechner/](https://data-science.wifo.ac.at/AK-Szenarienrechner/)
+[https://data-science.wifo.ac.at/AK-Pensionsreformrechner /](https://data-science.wifo.ac.at/AK-Pensionsreformrechner /)
 
 ## Prerequisites
 
@@ -98,7 +98,7 @@ quarto preview
 quarto render
 
 # Deploy the rendered website
-scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/AK-Szenarienrechner
+scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/AK-Pensionsreformrechner 
 ```
 
 Happy coding!

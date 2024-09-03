@@ -1,6 +1,10 @@
 
 ```{ojs}
-colors = ["#be0021", "#ffa500", "#0021be", "#be9a00", "#800080", "#ffd700", "#808080"]
+colors2 = ["#be0021", "#ffa500"] // ["#be0021", "#ffa500"]
+colors = ["#d3d3d3", "#0063b1"] // ["#0063b1", "#008000"] 
+colors3 = ["#4b0082", "#00ced1"]
+colors4 = ["#008080", "#800080"]
+colors5 = ["#00ff00", "#0000ff"]
 
 function makeWidth(inputWidth) {
   const outputWidth = 

@@ -15,6 +15,10 @@ h1, h2, h3 {
     border-bottom: none;
 }
 
+h1 {
+    margin-bottom: 1em;
+}
+
 h4 {
     font-size: 13px;
     margin-top: 2em;
@@ -40,7 +44,7 @@ h4 {
 }
 
 .separator {
-    padding: 1.25em 1em 1.25em 1em !important;
+    padding: 0em 1em 0em 1em !important;
 }
 
 form {
@@ -51,44 +55,56 @@ form {
     display: none;
     opacity: 0;
     transition: opacity 0.3s ease-in-out; /* Fade transition */
-}
+  }
 
-.slide.active {
+  .slide.active {
     display: block;
     opacity: 1;
-}
+  }
 
-.fade-in {
+  .fade-in {
     animation: fadeIn 0.3s ease-in forwards; /* Fade in effect */
-}
+  }
 
-.fade-out {
+  .fade-out {
     animation: fadeOut 0.3s ease-in forwards; /* Fade out effect */
-}
+  }
 
-@keyframes fadeIn {
+  @keyframes fadeIn {
     from {
-        opacity: 0;
+      opacity: 0;
     }
     to {
-        opacity: 1;
+      opacity: 1;
     }
-    }
+  }
 
-@keyframes fadeOut {
+  @keyframes fadeOut {
     from {
-        opacity: 1;
+      opacity: 1;
     }
     to {
-        opacity: 0;
+      opacity: 0;
     }
-}
+  }
 
-.btn.disabled {
+  .fade-element {
+    opacity: 0; /* Start hidden by default */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for fading */
+    height: 0;
+    overflow: hidden;
+  }
+  
+  .fade-element.active {
+    opacity: 1;
+    height: auto;
+  }
+
+  .btn.disabled {
     pointer-events: none;
-    opacity: 0.6;
     display: none;
-}
+    opacity: 0.6;
+  }
 
 @media screen and (max-width: 826px) {
     form {
@@ -106,11 +122,10 @@ p {
     // margin: 0 0 1rem 0;
 }
 
-// .column-margin {
-//     // text-align: justify;
-//     font-size: 0.8em;
-//     margin: 12px 12px 12px 12px;
-// }
+.column-margin {
+    // text-align: justify;
+    margin: 12px 12px 12px 12px;
+}
 
 @media screen and (max-width: 826px) {
     .page-full {
@@ -120,7 +135,7 @@ p {
 
 
 .btn {
-    margin: auto auto 12px auto;
+    margin: 12px auto 12px auto;
 }
 
 /* tooltip:   */
@@ -159,14 +174,13 @@ input[type="radio"]:checked {
 input[type="range"] {
     -webkit-appearance: none;  /* Hides the slider so that custom slider can be made */
     appearance: none;
-    width: 100%;
+    width: 90%;
     background: transparent;   /* Otherwise white in Chrome */
     margin-right: 10px;
 }
 
 /* Slider track */
 input[type="range"]::-webkit-slider-runnable-track {
-    width: 100%;
     height: 5px;
     cursor: pointer;
     background: #ddd;
@@ -175,7 +189,6 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 input[type="range"]::-moz-range-track {
-    width: 100%;
     height: 5px;
     cursor: pointer;
     background: #ddd;
@@ -184,7 +197,6 @@ input[type="range"]::-moz-range-track {
 }
 
 input[type="range"]::-ms-track {
-    width: 100%;
     height: 5px;
     cursor: pointer;
     background: transparent;
@@ -221,4 +233,9 @@ input[type="range"]::-ms-thumb {
     border-radius: 50%;
     background: #be0021;
     cursor: pointer;
+}
+
+output {
+    font-family: "Montserrat" !important;
+    font-size: 15px !important;
 }

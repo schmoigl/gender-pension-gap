@@ -127,7 +127,7 @@ zu besprechende Punkte:
 - HH Teil 
 
 
-To DOs: 
+Folgende Änderungen wurden durchgeführt:
 - Startseite
     - Textvorschlag
     - Header Bild
@@ -140,7 +140,7 @@ To DOs:
 - Teilen via Social Media ermöglichen
 - Anpassung der Buttons zurück / weiter 
 - Nur noch Szanrio 1-3 wählbar
-- Farben ändern?
+- Farben geändert so dass sich GEschlecht von Szenario unterscheidet
 
 - Änderungen die nicht ausgemacht waren aber sinnvoll erschienen: 
     - Ein ausgebesserter Fehler: der Durchschnitt der jeweils ausgewählten Männer oder Frauen wurde in den Balkendiagrammen falsch angezeigt
