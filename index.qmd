@@ -196,7 +196,7 @@ viewof guess = Inputs.radio(["18,9 % ", "40,1 %", "5,7 %"], {
   label: "", // Wählen Sie eine Antwort
 })
 // guess // is null
-answer = guess == "40,1 %" ? "Richtig!" : "Leider falsch, die Realität sind schlechter aus."
+answer = guess == "40,1 %" ? "Richtig!" : "Leider falsch, die Realität sieht schlechter aus."
 ```
 
 </div> 
