@@ -1432,16 +1432,16 @@ viewof radio2
 ::: {.column-body .text-center}
 <div class="btn-group" role="group" aria-label="Social Media Share Buttons">
   <!-- Teilen: &nbsp; -->
-  <a href="https://twitter.com/intent/tweet?text=Schaut%20euch%20dase%20an&url=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
+  <a href="https://twitter.com/intent/tweet?text=AK%20Pensionsreformrechner&url=https://data-science.wifo.ac.at/AK-Pensionsreformrechner/" target="_blank" class="btn btn-secondary">
     <i class="fab fa-twitter"></i> 
   </a>
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://data-science.wifo.ac.at/AK-Pensionsreformrechner/" target="_blank" class="btn btn-secondary">
     <i class="fab fa-facebook"></i> 
   </a>
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://data-science.wifo.ac.at/AK-Pensionsreformrechner/" target="_blank" class="btn btn-secondary">
     <i class="fab fa-linkedin"></i> 
   </a>
-  <a href="mailto:?subject=Schau%20dir%20das%20an&body=https://data-science.wifo.ac.at/AK-Pensionsreformrechner /" target="_blank" class="btn btn-secondary">
+  <a href="mailto:?subject=AK%20Pensionsreformrechner&body=https://data-science.wifo.ac.at/AK-Pensionsreformrechner/" target="_blank" class="btn btn-secondary">
     <i class="fas fa-envelope"></i> 
   </a>
 </div>
