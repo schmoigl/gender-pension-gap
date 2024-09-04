@@ -10,6 +10,21 @@ $link-color: #be0021;
 //     display: none;
 // }
 
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Set the height to 500px */
+    overflow: hidden; /* Hide the rest of the image */
+}
+  
+.image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
 h1, h2, h3 {
     color: #be0021;
     border-bottom: none;
@@ -104,6 +119,10 @@ form {
     pointer-events: none;
     display: none;
     opacity: 0.6;
+  }
+
+#jumpToLastBtn {
+    float: right; /* Push the button to the right */
   }
 
 @media screen and (max-width: 826px) {

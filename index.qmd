@@ -164,6 +164,8 @@ bins = binsMid
 ```
 
 
+<div class="image-container"> <img src="img/WIFO_6333.jpg"> </div>
+
 ::: {.column-body .mainText}
 #### RECHNER
 # AK-Pensionsreformrechner 
@@ -1404,6 +1406,8 @@ distributionsChange.render({ renderer: "svg" })
 <button id="prevBtn" class="btn btn-secondary">zurück</button>
 <button id="nextBtn" class="btn btn-secondary">weiter</button>
 
+<button id="jumpToLastBtn" class="btn btn-secondary">Überspringen und zum vollen Tool</button>
+
 ::::
 
 <!-- ::: {.column-margin .fade-element #conditionalInputs}
@@ -1486,9 +1490,11 @@ viewof radio2
     if (currentSlide < 2) {
       prevBtn.disabled = true;
       prevBtn.classList.add('disabled');
+      jumpToLastBtn.style.display = 'inline-block'; // Show "Jump to last page" button
     } else {
       prevBtn.disabled = false;
       prevBtn.classList.remove('disabled');
+      jumpToLastBtn.style.display = 'none'; // Hide "Jump to last page" button
     }
 
     // Change Next button text on the last slide
@@ -1514,6 +1520,10 @@ viewof radio2
   nextBtn.addEventListener('click', () => {
     const newSlide = (currentSlide + 1) % slides.length;
     showSlide(newSlide);
+  });
+
+  jumpToLastBtn.addEventListener('click', () => {
+    showSlide(slides.length - 1);
   });
 
   // Initially show the first slide and update button states
