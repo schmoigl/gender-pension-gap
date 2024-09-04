@@ -1503,7 +1503,7 @@ viewof radio2
     } else if(currentSlide === 0) {
       nextBtn.textContent = 'Antwort bestätigen';
     } else if(currentSlide === 1) {
-      nextBtn.textContent = 'Start';
+      nextBtn.textContent = 'Rechner starten';
     } else {
       nextBtn.textContent = 'weiter';
     }

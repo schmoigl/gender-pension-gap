@@ -47,6 +47,17 @@ h4 {
 .nav-footer {
     background: url(img/struktur-footer.png);
     padding-top: 1em;
+    line-height: 1;
+    border: none;
+    outline: none;
+}
+
+.nav-footer a {
+    text-decoration: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block; /* or 'block' if you need block-level */
 }
 
 .navbar-toggler {

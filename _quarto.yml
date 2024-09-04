@@ -14,31 +14,28 @@ website:
   search: false
   page-footer: |
     <div style="display: flex; justify-content: center; align-items: center;">
-      <a href="https://www.wifo.ac.at/" style="margin: 4px 4px 4px 4px;">
+      <a href="https://ooe.arbeiterkammer.at/index.html">
+        <img src="img/ak-logo.svg" height="64px" alt="AK Logo">
+      </a>
+      <a href="https://www.wifo.ac.at/">
         <img src="img/WIFO_kurz_rechts.svg" height="28px" alt="WIFO Logo">
       </a>
     </div>
     <br>
     © 2024 AK Oberösterreich | Volksgartenstrasse 40 4020 Linz, +43 50 6906 0
-  navbar: # just comment out to remove
+  navbar: 
     title: | 
       [![](img/ak-logo.svg){height="70px"}](https://ooe.arbeiterkammer.at/index.html) &nbsp;
     left: 
       - index.qmd
-    # tools:
-    #   - icon: github
-    #     href: https://github.com/schmoigl
 format:
   html:
     theme: [cosmo, style/styles.scss]
-    # include-in-header: |
-    #   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     grid:
       # sidebar-width: 300px
       body-width: 826px
       # margin-width: 360px
       gutter-width: 0px
-    # css: style/styles.css # works only with simple .css not .scss
     toc: false
     page-layout: article
     fontsize: 15px
