@@ -1,6 +1,6 @@
-# Other Revenue Website
+# AK-Pensionsreformrechner Website
 
-This repository contains the Quarto-based website for the Other Revenue project. The website is live at:
+This repository contains the Quarto-based website for the AK-OOe-Pensionen project. The website is live at:
 
 [https://data-science.wifo.ac.at/AK-Pensionsreformrechner/](https://data-science.wifo.ac.at/AK-Pensionsreformrechner/)
 
