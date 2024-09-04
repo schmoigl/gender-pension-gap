@@ -13,8 +13,8 @@ $link-color: #be0021;
 .image-container {
     position: relative;
     width: 100%;
-    height: 300px; /* Set the height to 500px */
-    overflow: hidden; /* Hide the rest of the image */
+    height: 22vh;
+    overflow: hidden;
 }
   
 .image-container img {
@@ -123,7 +123,17 @@ form {
 
 #jumpToLastBtn {
     float: right; /* Push the button to the right */
+    padding: 5px 10px;    /* Smaller padding */
+    font-size: 0.85rem;   /* Smaller font size */
+    /* Optional: you can also control width and height */
+    width: auto;          /* Adjust width if needed */
+    height: auto;   
   }
+
+.small-btn {
+    padding: 5px 10px;    /* Smaller padding */
+    font-size: 0.85rem;   /* Smaller font size */
+}
 
 @media screen and (max-width: 826px) {
     form {

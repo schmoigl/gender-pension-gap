@@ -315,7 +315,7 @@ decilesBar =
     .map(d => ({...d, gesl: d.gesl == d.radio && d.D == "Vergleichsgruppe" ? "Vergleichsgruppe" : "∅ " + d.gesl}))
     .map(d => ({...d, dummy: "⠀"}))
 
-bars = {
+function bars(inputWidth) {
 
   const bar = vl
     .markBar({
@@ -481,7 +481,7 @@ bars = {
 
   return layers
     .height(width > 600 ? 280 : 240) // width > 825 ? 280 : 180 
-    .width(width > 600 ? 250 : width * 0.8)
+    .width(inputWidth)
     .facet({
       field: "dummy", 
       type: "nominal", 
@@ -499,7 +499,7 @@ bars = {
     .config(config)
 
 }
-bars.render({ renderer: "svg" })
+bars(width > 600 ? 250 : width * 0.8).render({ renderer: "svg" })
 ```
 ```{ojs}
 checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen können," : ""
@@ -1385,7 +1385,7 @@ distributions.render({ renderer: "svg" })
 
 ::: {.column width="50%"}
 ```{ojs}
-bars.render({ renderer: "svg" })
+bars(width > 600 ? 250 : width * 0.4).render({ renderer: "svg" })
 ```
 :::
 
@@ -1406,7 +1406,7 @@ distributionsChange.render({ renderer: "svg" })
 <button id="prevBtn" class="btn btn-secondary">zurück</button>
 <button id="nextBtn" class="btn btn-secondary">weiter</button>
 
-<button id="jumpToLastBtn" class="btn btn-secondary">Überspringen und zum vollen Tool</button>
+<button id="jumpToLastBtn" class="btn btn-secondary small-btn">Überspringen und zum vollen Tool</button>
 
 ::::
 
