@@ -586,9 +586,7 @@ ${barsText} <br><br> Eingaben ändern:
 
 ```{ojs}
 Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw)
-```
-
-```{ojs}
+Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio)
 Inputs.bind(Inputs.select(scenarios), viewof select)
 ```
 
@@ -812,9 +810,6 @@ ${dumbbellText} <br><br> Eingaben ändern:
 
 ```{ojs}
 Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw)
-```
-
-```{ojs}
 Inputs.bind(Inputs.select(scenarios), viewof select)
 ```
 
@@ -1206,9 +1201,6 @@ Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "
 
 ```{ojs}
 Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw)
-```
-
-```{ojs}
 Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio)
 ```
 
@@ -1440,8 +1432,8 @@ distributionsChangeText2 = radio == "Männer" && select != "Szenario 5 (Beste 15
 ${distributionsChangeText1} ${distributionsChangeText2} <br><br> Eingaben ändern:
 
 ```{ojs}
-Inputs.bind(Inputs.select(scenarios), viewof select)
 Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio) 
+Inputs.bind(Inputs.select(scenarios), viewof select)
 ```
 
 :::
