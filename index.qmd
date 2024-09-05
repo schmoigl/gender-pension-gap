@@ -181,19 +181,12 @@ und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohort
 
 ::: {.slide .slide-active}
 
-**Um wieviel Prozent ist die durchschnittliche Pension von Frauen in Österreich geringer als die der Männer?** <br>
-
+#### Einstiegsfrage
+**Um wieviel Prozent ist die durchschnittliche Pension von Frauen in Österreich geringer als die der Männer?** 
+<br>
 <div style="width: 500px;">
 
 ```{ojs}
-// viewof guess = slider({
-//   min: 0, 
-//   max: 1, 
-//   step: 0.01, 
-//   format: ".0%",
-//   display: false,
-//   description: "Wählen Sie eine Zahl"
-// })
 viewof guess = Inputs.radio(["18,9 % ", "40,1 %", "5,7 %"], {
   label: "", // Wählen Sie eine Antwort
 })
@@ -207,6 +200,8 @@ answer = guess == "40,1 %" ? "Richtig! Der Unterschied ist groß." : "Leider fal
 
 ::: {.slide}
 
+#### Auflösung
+
 **${answer}**
 
 Der Gender Pension Gap, also der Unterschied zwischen Männer- und Frauenpensionen, liegt im Jahr 2024 in Österreich bei 40,1 % (Datenbasis: Pensionsversicherungs-Jahresstatistik (PJ), Dezember 2023 Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik der Stadt Wien). In Oberösterreich liegt er sogar bei 45,4 % und ist somit im Bundesländervergleich nach Vorarlberg an vorletzter Stelle. Gründe für die Schlechterstellung von Frauen sind die Hürden, mit denen sie bereits im Erwerbsleben konfrontiert sind: lange Teilzeitphasen, niedrigere Einkommen, Zeiten von Arbeitslosigkeit und Unterbrechungen aufgrund von Kindererziehungs- und Pflegezeiten.
@@ -215,12 +210,13 @@ Die Arbeiterkammer Oberösterreich hält dies für eine große Ungerechtigkeit u
 
 Mit dem AK-Pensionsreformrechner sehen sie, was die einzelnen Reformen für die Pensionshöhen, bei der Reduktion des Gender Pension Gap und Verteilung bedeuten. Probieren sie das neue Tool aus, verbreiten sie es und geben sie uns Rückmeldung!
 
-## Pensionsreformen: AK-Vorschläge für eine faire Berechnung
+### Pensionsreformen: AK-Vorschläge für eine faire Berechnung
 
-Dabei wurden drei Szenarien simuliert: <br>
-- Szenario 1: Höherbewertung von Kindererziehungszeiten <br>
-- Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit <br>
-- Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht. <br>
+<ul>
+  <li>Szenario 1: Höherbewertung von Kindererziehungszeiten</li>
+  <li>Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit</li>
+  <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht.</li>
+</ul>
 
 :::
 
@@ -229,17 +225,20 @@ Dabei wurden drei Szenarien simuliert: <br>
 ::: -->
 
 ::: {.slide}
-**Auswahl 1/3**: 
-Geben Sie eine Bruttopension an
+#### Auswahl 1/3
+<span>Geben Sie eine Bruttopension an</span>
 ```{ojs}
 viewof rangeRaw = Inputs.range([400, 4000], {step: 50, value: 1500})
 range = Math.round(rangeRaw/100)*100
 ```
+
+:::{.infoText}
 ![](img/Infobox_info_icon.svg){height=14px} 
 Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese mit dem [AK-Pensionsrechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} ermitteln. 
 <br>
 ![](img/Infobox_info_icon.svg){height=14px} 
 Ihre Bruttopension wird in weiterer Folge dazu verwendet Sie in eine Vergleichsgruppe einzuordnen.
+:::
 
 <!-- **Auswahl 2/4**: 
 Geben Sie Ihr Geschlecht an
@@ -252,24 +251,35 @@ Manche der berechneten Szenarien wirken sich nur auf Frauen aus. Daher ist es m�
 :::
 
 ::: {.slide}
-**Auswahl 2/3**: 
-Geben Sie ein Geschlecht an
+#### Auswahl 2/3
+<span>Geben Sie ein Geschlecht an</span>
 ```{ojs}
 viewof radio = Inputs.radio(["Frauen", "Männer"], {value: "Frauen"})
 ```
+
+:::{.infoText}
 ![](img/Infobox_info_icon.svg){height=14px}
 Manche der berechneten Szenarien wirken sich nur auf Frauen aus. Daher ist es möglich, dass die Ergebnisse bei Männern keine Veränderungen zeigen.
 :::
 
+:::
+
+
 ::: {.slide}
-**Auswahl 3/3**: 
-Wählen Sie ein Szenario
+#### Auswahl 3/3
+<span>Wählen Sie ein Szenario</span>
+
 ```{ojs}
-viewof select = Inputs.select(scenarios) // {value: ""} does not work
+viewof select = Inputs.select(scenarios)
 ```
+
+:::{.infoText}
 ![](img/Infobox_info_icon.svg){height=14px}
 Informationen zu dem von Ihnen gewählten Szenario: ${info} <br>
-Zutreffendes ankreuzen (falls relevant)
+:::
+
+<span>Zutreffendes ankreuzen (falls relevant)</span>
+
 ```{ojs}
 viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
 viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
@@ -277,7 +287,10 @@ interpolate = "step"
 check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten wären nur im Szenario 1 relevant." : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt." : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen."
 check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten wären nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
 ```
+
+:::{.infoText}
 ![](img/Infobox_info_icon.svg){height=14px} ${check1Info} <br> ![](img/Infobox_info_icon.svg){height=14px} ${check2Info}
+:::
 
 :::
 
@@ -295,17 +308,10 @@ check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicheru
 ::: -->
 
 ::: {.slide}
-**Ergebnisse 1/4**: 
-Wie würde sich das Szenario auf vergleichbare Personen auswirken?
-```{ojs}
-Inputs.bind(
-  Inputs.radio(
-    ["Vergleichsgruppe", "∅ Durchschnitt", "Beides anzeigen"], 
-    {value: "Vergleichsgruppe", label: ""}
-    ),
-  viewof radio2
-  )
+#### Ergebnisse 1/4
+<span>Wie würde sich das Szenario auf vergleichbare Personen auswirken?</span>
 
+```{ojs}
 decilesBar = 
   deciles
     .filter(d => d.variable == select)
@@ -465,12 +471,47 @@ function bars(inputWidth) {
         .legend(null), 
     )
 
+  const textPosition = vl
+    .markText({
+      clip: true,
+      size: 18,
+      dy: -10,
+      dx: -28,
+      // angle: -0,
+      align: "left",
+      strokeWidth: 1.25,
+    })
+    .transform(
+      vl.filter("datum.D == 'Vergleichsgruppe'"),
+      vl.filter("datum.val == 'Status quo'"), 
+    )
+    .encode(
+      vl.x()
+        .fieldN("gesl")
+        .sort("value"), 
+      vl.y()
+        .fieldQ("value"),
+      vl.text()
+        .value("↘"),
+      vl.opacity()
+        .fieldN("closestDecile")
+        .scale({
+          range: radio2 == "Vergleichsgruppe" ? 
+            [0.5, 0.8] : 
+            radio2 == "∅ Durchschnitt" ? 
+            [0.8, 0.5] :
+            [0.8, 0.8]
+        })
+        .legend(null),  
+    )
+
   const layers = width > 600 ?
     vl.layer(
       bar,
       text,
       textDiff,
       textDiffPerc,
+      textPosition,
     ) :
     vl.layer(
       bar,
@@ -499,13 +540,21 @@ function bars(inputWidth) {
     .config(config)
 
 }
+
 bars(width > 600 ? 250 : width * 0.8).render({ renderer: "svg" })
+
+Inputs.bind(
+  Inputs.radio(
+    ["Vergleichsgruppe", "∅ Durchschnitt", "Beides anzeigen"], 
+    {value: "Vergleichsgruppe", label: ""}
+    ),
+  viewof radio2
+  )
 ```
+
 ```{ojs}
 checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen können," : ""
 checkText2 = check2.length == 1 ? ", die Ersatzzeiten durch Arbeistlosigkeit haben," : ""
-// checkText3 = Szenario == "Szenario 1 (Kindererziehung)" ? 
-// "Das Szenario hätte keinen Effekt. " :
 
 diffScenario = deciles
   .filter(d => d.variable == select)
@@ -531,22 +580,29 @@ barsText = diffScenario != 0 ?
   "Im " + select + " würden mit mir vergleichbere " + radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ")" + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man den Durchschnitt aller "+ radio + checkText1 + checkText2 + ", so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + checkText2 + " dort gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " 
 ```
-${barsText}
+
+${barsText} <br><br> Eingaben ändern:
+
+```{ojs}
+Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw)
+```
+
+```{ojs}
+Inputs.bind(Inputs.select(scenarios), viewof select)
+```
+
 :::
 
 ::: {.slide}
-**Ergebnisse 2/4**:
-Wie würde sich die Änderung auf den Gender Pension Gap auswirken?
-```{ojs}
-viewof radio2 = Inputs.radio(
-  ["Vergleichsgruppe", "∅ Durchschnitt", "Beides anzeigen"], 
-  {value: "Vergleichsgruppe", label: ""}
-  ) 
+#### Ergebnisse 2/4
+<span>Wie würde sich die Änderung auf den Gender Pension Gap auswirken?</span>
 
+```{ojs}
 decilesDumbbellFull = deciles
     .filter(d => (d.D == d.closestDecileValue || d.D == "Gesamt") && d.variable == select)
     .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Durchschnitt" : "Vergleichsgruppe"}))
 ```
+
 ```{ojs}
 function dumbbell(inputData)  {
 
@@ -735,20 +791,38 @@ function dumbbell(inputData)  {
     .config(config)
 
 }
+
 dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2)).render({ renderer: "svg" }) 
+
+viewof radio2 = Inputs.radio(
+  ["Vergleichsgruppe", "∅ Durchschnitt", "Beides anzeigen"], 
+  {value: "Vergleichsgruppe", label: ""}
+  ) 
 ```
+
 ```{ojs}
 mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0] ? " fallen." : " steigen."
 mehrWenigerGesamt = deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0] ? " sinken." : " steigen."
 
 dumbbellText =  "Der Gender Pension Gap würde sich in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") von " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
 ```
-${dumbbellText}
+
+${dumbbellText} <br><br> Eingaben ändern:
+
+```{ojs}
+Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw)
+```
+
+```{ojs}
+Inputs.bind(Inputs.select(scenarios), viewof select)
+```
+
 :::
 
 ::: {.slide}
-**Ergebnisse 3/4**:
-Wie viel Pension bekomme ich momentan im Vergleich zu anderen?
+#### Ergebnisse 3/4
+<span>Wie viel Pension bekomme ich momentan im Vergleich zu anderen?</span>
+
 ```{ojs}
 distributions = {
 
@@ -1057,28 +1131,28 @@ distributions = {
         .value("↙"), 
     )
 
-  const textPositionWhite = vl
-    .markText({
-      clip: true,
-      size: 18,
-      y: 290,
-      dx: 5,
-      // angle: -0,
-      align: "left",
-      stroke: "white",
-      strokeWidth: 2.75,
-      // fontWeight: "bold",
-    })
-    .transform(
-      vl.filter("datum.gesl == datum.radio"),
-      vl.filter("datum.bin == datum.range"),
-    )
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value("↙"), 
-    )
+  // const textPositionWhite = vl
+  //   .markText({
+  //     clip: true,
+  //     size: 18,
+  //     y: 290,
+  //     dx: 5,
+  //     // angle: -0,
+  //     align: "left",
+  //     stroke: "white",
+  //     strokeWidth: 2.75,
+  //     // fontWeight: "bold",
+  //   })
+  //   .transform(
+  //     vl.filter("datum.gesl == datum.radio"),
+  //     vl.filter("datum.bin == datum.range"),
+  //   )
+  //   .encode(
+  //     vl.x()
+  //       .fieldQ("bin"),
+  //     vl.text()
+  //       .value("↙"), 
+  //   )
 
 
     const layers = width > 825 ?
@@ -1122,20 +1196,28 @@ distributions = {
     .data(dataDist)
     .config(config)
 }
+
 distributions.render({ renderer: "svg" }) 
+
 ```
+
 Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat (mehr ${getCumPerc("Frauen", "higher")}, bzw. ${getCumPerc("Männer", "higher")}). Die mittlere Pension der Frauen beträgt 1223 Euro, jene der Männer 2286 Euro. <br><br> Eingaben ändern:
+
 ```{ojs}
 Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw)
 ```
+
 ```{ojs}
 Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio)
 ```
+
 :::
 
 
 ::: {.slide}
-**Ergebnisse 4/4**: Wie würden sich die Verteilungen dieser Pensionen im Szenario ändern?
+#### Ergebnisse 4/4 
+<span>Wie würden sich die Verteilungen dieser Pensionen im Szenario ändern?</span>
+
 ```{ojs}
 distributionsChange = {
 
@@ -1339,6 +1421,7 @@ distributionsChange = {
 }
 distributionsChange.render({ renderer: "svg" })
 ```
+
 ```{ojs}
 distributionsChangeText1 = 
   select == "Szenario 2 (Arbeitslosigkeit)" ?
@@ -1352,32 +1435,22 @@ distributionsChangeText2 = radio == "Männer" && select != "Szenario 5 (Beste 15
 "Die mittlere Pension der Männder würde sich nicht verändern und bei " + Math.round(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " verbleiben." :
 "Die mittlere Pension der " + radio + " würde sich auf " + Math.round(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " Euro steigern."
 ```
+
 ${distributionsChangeText1} ${distributionsChangeText2} <br><br> Eingaben ändern:
+
 ```{ojs}
 Inputs.bind(Inputs.select(scenarios), viewof select)
 Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio) 
 ```
+
 :::
 
 ::: {.slide}
 
-**Ergebnisse auf einen Blick** <br>
-Hier können Sie Ihre Eingaben noch einmal ändern und die Studienergebnisse gesammelt betrachten 
+#### Ergebnisse auf einen Blick
+<span>Hier können Sie die Studienergebnisse gesammelt betrachten und Ihre Eingaben ändern</span>
 
 ```{ojs}
-Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw) 
-Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio) 
-Inputs.bind(Inputs.select(scenarios), viewof select) 
-Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true}), viewof check1) 
-Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true}), viewof check2) 
-Inputs.bind(
-Inputs.radio(
-["Vergleichsgruppe", "∅ Durchschnitt"], 
-{value: "Vergleichsgruppe", label: ""}
-),
-viewof radio2
-)
-
 distributions.render({ renderer: "svg" })
 ```
 
@@ -1395,6 +1468,23 @@ dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull.filter(d => d.D == "V
 ```
 :::
 
+<!-- <br><br> Eingaben ändern: -->
+
+```{ojs}
+Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500}), viewof rangeRaw) 
+Inputs.bind(Inputs.radio(["Frauen", "Männer"], {value: "Frauen"}), viewof radio) 
+Inputs.bind(Inputs.select(scenarios), viewof select) 
+Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true}), viewof check1) 
+Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true}), viewof check2) 
+Inputs.bind(
+Inputs.radio(
+["Vergleichsgruppe", "∅ Durchschnitt"], 
+{value: "Vergleichsgruppe", label: ""}
+),
+viewof radio2
+)
+```
+
 <!-- ```{ojs}
 distributionsChange.render({ renderer: "svg" })
 ``` -->
@@ -1403,10 +1493,12 @@ distributionsChange.render({ renderer: "svg" })
 
 :::
 
+<div class="btn-container">
 <button id="prevBtn" class="btn btn-secondary">zurück</button>
 <button id="nextBtn" class="btn btn-secondary">weiter</button>
-
+<br>
 <button id="jumpToLastBtn" class="btn btn-secondary small-btn">Überspringen und zum vollen Tool</button>
+</div>
 
 ::::
 

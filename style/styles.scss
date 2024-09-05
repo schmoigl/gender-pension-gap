@@ -31,12 +31,12 @@ h1, h2, h3 {
 }
 
 h1 {
-    margin-bottom: 1em;
+    margin-bottom: 0;
 }
 
 h4 {
     font-size: 13px;
-    margin-top: 2em;
+    margin-top: 2.25em;
     font-weight: bold;
 }
 
@@ -75,6 +75,11 @@ h4 {
 
 form {
     padding: 0.3em 0 0.3em 0;
+}
+
+.infoText {
+    font-size: 0.8rem;
+    margin: 0.5rem 0 1rem 0;
 }
 
 .slide {
@@ -133,7 +138,7 @@ form {
   }
 
 #jumpToLastBtn {
-    float: right; /* Push the button to the right */
+    // float: right; /* Push the button to the right */
     padding: 5px 10px;    /* Smaller padding */
     font-size: 0.85rem;   /* Smaller font size */
     /* Optional: you can also control width and height */
@@ -142,8 +147,8 @@ form {
   }
 
 .small-btn {
-    padding: 5px 10px;    /* Smaller padding */
-    font-size: 0.85rem;   /* Smaller font size */
+    padding: 4px 8px;    /* Smaller padding */
+    font-size: 0.8rem;   /* Smaller font size */
 }
 
 @media screen and (max-width: 826px) {
@@ -153,7 +158,7 @@ form {
 }
 
 p {
-    margin-bottom: 1em;
+    margin: 0 0 0.5em 0;
 }
 
 .column-body {
@@ -173,9 +178,8 @@ p {
     }
 }
 
-
-.btn {
-    margin: 12px auto 12px auto;
+.btn-container {
+    margin: 1.5em 0 2em 0;
 }
 
 /* tooltip:   */
