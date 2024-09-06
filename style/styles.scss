@@ -123,6 +123,28 @@ form {
     }
   }
 
+  .fold-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .column {
+    flex: 1;
+    min-width: 300px; /* Adjust the minimum width */
+    padding: 10px;
+  }
+  
+  .column ojs {
+    display: inline-block; /* Make sure the OJS elements follow the column layout */
+    width: 100%; /* Ensure the input spans the full width */
+  }
+  
+  @media (max-width: 826px) {
+    .column {
+      flex: 100%; /* Stack the columns vertically below 826px */
+    }
+  }
+
   .fade-element {
     opacity: 0; /* Start hidden by default */
     transition: opacity 0.3s ease-in-out; /* Smooth transition for fading */
