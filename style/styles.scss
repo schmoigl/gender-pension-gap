@@ -166,17 +166,17 @@ form {
 
 #jumpToLastBtn {
     // float: right; /* Push the button to the right */
-    padding: 5px 10px;    /* Smaller padding */
-    font-size: 0.85rem;   /* Smaller font size */
-    /* Optional: you can also control width and height */
-    width: auto;          /* Adjust width if needed */
+    padding-top: 4px;    
+    padding-bottom: 4px;
+    font-size: 0.75rem; 
+    width: auto;
     height: auto;   
   }
 
-.small-btn {
-    padding: 4px 8px;    /* Smaller padding */
-    font-size: 0.8rem;   /* Smaller font size */
-}
+// .small-btn {
+//     padding: 2px 4px;    /* Smaller padding */
+//     font-size: 0.1rem;   /* Smaller font size */
+// }
 
 @media screen and (max-width: 826px) {
     form {
