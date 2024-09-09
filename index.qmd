@@ -824,9 +824,14 @@ Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
 distributions = {
 
   const dataDist = bins.filter(d => d.variable == "Status quo") //bins.filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
-  const dataRule = dataDist
-    .filter(d => d.range == d.bin)
-    .map(d => ({...d, y: 0, y2: 20000}))
+  // const dataRule = dataDist
+  //   .filter(d => d.range == d.bin)
+  //   .map(d => ({...d, y: 0, y2: 20000}))
+
+const dataRule = [
+      {gesl: "Frauen", median: 1223, y: 0, y2: 20000}, //1215
+      {gesl: "Männer", median: 2286, y: 0, y2: 20000}, //2278
+    ]
 
   const area = vl
     .markArea({ 
