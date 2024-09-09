@@ -164,7 +164,7 @@ bins = binsMid
 ```
 
 
-<div class="image-container"> <img src="img/WIFO_6333.jpg"> </div>
+<div class="image-container"> <img src="img/WIFO_6340.jpg"> </div>
 
 ::: {.column-body .mainText}
 #### RECHNER
@@ -192,7 +192,7 @@ viewof guess = Inputs.radio(["18,9% ", "40,1%", "5,7%"], {
   label: "", // Wählen Sie eine Antwort
 })
 // guess // is null
-answer = guess == "40,1%" ? "Richtig! Der Unterschied ist groß." : "Leider falsch, die Realität sieht anders aus."
+answer = guess == "40,1%" ? "Richtig! Der Unterschied ist groß." : "Leider falsch, die Realität sieht schlimmer aus."
 ```
 
 </div> 
@@ -818,7 +818,7 @@ Inputs.bind(Inputs.select(scenarios), viewof select)
 
 ::: {.slide}
 #### Ergebnisse 3/4
-<span>Wie viel Pension bekomme ich momentan im Vergleich zu anderen?</span>
+<span>Wie viel Pension erhalte ich momentan im Vergleich zu anderen?</span>
 
 ```{ojs}
 distributions = {
@@ -1290,6 +1290,8 @@ distributionsChange = {
     .filter(d => d.range == d.bin && d.variable != "Status quo")
     .map(d => ({...d, y: 0, y2: 22000}))
 
+  const colorsArea = radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? colors : [colors[0], "transparent"]
+
   const area = vl
     .markArea({
       interpolate: interpolate,
@@ -1328,7 +1330,7 @@ distributionsChange = {
       vl.color()
         .fieldN("variable")
         .scale({
-          range: colors,
+          range: colorsArea,
         })
         .legend(null)
         // .legend({
@@ -1374,6 +1376,8 @@ distributionsChange = {
         .format(",.0f"),
     )
 
+  const textGrayVar = radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? "neue mittlere Pension" : "mittlere Pension"
+
   const textGray2 = vl
     .markText({
       // opacity: 0.51,
@@ -1388,7 +1392,7 @@ distributionsChange = {
       vl.x()
         .fieldQ("median"),
       vl.text()
-        .value("neue mittlere Pension"),
+        .value(textGrayVar),
     )
 
   const textGray3 = vl
@@ -1425,11 +1429,13 @@ distributionsChange = {
         .value("alte Verteilung ⤵"), 
     )
 
+  const textNewVar = radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? "⤺ neue Pensionen" : "⤺ keine Veränderung"
+
   const textNew = vl
     .markText({
       // opacity: 0.51,
       clip: true,
-      size: radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? 11 : 0,
+      size: 11,
       y: 180,
       align: "left",
     })
@@ -1440,7 +1446,7 @@ distributionsChange = {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value(["⤺ neue Pensionen", select]), 
+        .value([textNewVar, select]), 
     )
 
   const textArrow = vl
@@ -1513,24 +1519,6 @@ Inputs.bind(Inputs.select(scenarios), viewof select)
 #### Ergebnisse auf einen Blick
 <span>Hier können Sie die Studienergebnisse gesammelt betrachten und Ihre Eingaben ändern</span>
 
-```{ojs}
-distributions.render({ renderer: "svg" })
-```
-
-:::: {.columns}
-
-::: {.column width="50%"}
-```{ojs}
-bars(width > 600 ? 250 : width * 0.4).render({ renderer: "svg" })
-```
-:::
-
-::: {.column width="50%"}
-```{ojs}
-dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull.filter(d => d.D == "Vergleichsgruppe") : decilesDumbbellFull.filter(d => d.D == radio2)).render({ renderer: "svg" })
-```
-:::
-
 <div class="fold-container">
   <div class="column">
 
@@ -1550,6 +1538,24 @@ dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull.filter(d => d.D == "V
       ```
   </div>
 </div>
+
+```{ojs}
+distributions.render({ renderer: "svg" })
+```
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{ojs}
+bars(width > 600 ? 250 : width * 0.4).render({ renderer: "svg" })
+```
+:::
+
+::: {.column width="50%"}
+```{ojs}
+dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull.filter(d => d.D == "Vergleichsgruppe") : decilesDumbbellFull.filter(d => d.D == radio2)).render({ renderer: "svg" })
+```
+:::
 
 ```{ojs}
 distributionsChange.render({ renderer: "svg" })

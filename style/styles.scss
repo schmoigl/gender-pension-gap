@@ -19,10 +19,11 @@ $link-color: #be0021;
   
 .image-container img {
     position: absolute;
-    top: 0;
     left: 0;
     width: 100%;
     height: auto;
+    // top: -10%; /* Move the image up by 10% to crop some from the top */
+    // bottom: -10%; /* Optionally move it down to control the bottom cropping */
 }
 
 h1, h2, h3 {
