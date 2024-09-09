@@ -580,7 +580,7 @@ statusIncome = deciles
 
 barsText = diffScenario != 0 ? 
   "Im " + select + " würden vergleichbere " + radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ")" + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man den Durchschnitt aller "+ radio + checkText1 + checkText2 + ", so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
-  radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro befindet sich am nähesten am " + deciles.map(d => d.closestDecileValue)[0] + ". Im " + select + " würden " + radio + checkText1 + checkText2 + " dort gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " 
+  "Im " + select + " würden " + radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + checkText1 + checkText2 + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " 
 ```
 
 ${barsText} <br><br> Eingaben ändern:
