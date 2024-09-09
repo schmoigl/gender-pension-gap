@@ -604,7 +604,7 @@ decilesDumbbellFull = deciles
 ```
 
 ```{ojs}
-function dumbbell(inputData)  {
+function dumbbell(inputData, inputWidth)  {
 
   const points = vl
     .markPoint({
@@ -770,7 +770,7 @@ function dumbbell(inputData)  {
 
   return layers
     .height(width > 600 ? 280 : 240)
-    .width(width > 600 ? 230 : width * 0.38)
+    .width(inputWidth)
     .facet({
       field: "D", 
       type: "nominal", 
@@ -792,7 +792,7 @@ function dumbbell(inputData)  {
 
 }
 
-dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2)).render({ renderer: "svg" }) 
+dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2), width > 600 ? 230 : width * 0.38).render({ renderer: "svg" }) 
 
 viewof radio2 = Inputs.radio(
   ["Vergleichsgruppe", "∅ Durchschnitt", "Beides anzeigen"], 
@@ -840,9 +840,9 @@ distributions = {
         .fieldQ("bin")
         .axis({
           grid: false,
-          title: width > 825 ? "Bruttopension" : null,
-          labels:  width > 825 ? true : false,
-          ticks:  width > 825 ? true : false,
+          title: "Bruttopension",
+          // labels:  width > 825 ? true : false,
+          // ticks:  width > 825 ? true : false,
         })
         .scale({
           domain: [0, 4500],
@@ -1188,7 +1188,7 @@ distributions = {
       opacity: radio == "Männer" ? 1 : 0.51,
       clip: true,
       size: 11,
-      y: 200,
+      y: width > 600 ? 200 : 105,
       align: "center",
     })
     .data([
@@ -1206,11 +1206,11 @@ distributions = {
       opacity: radio == "Frauen" ? 1 : 0.51,
       clip: true,
       size: 11,
-      y: 110,
+      y: width > 600 ? 110 : 35,
       align: "center",
     })
     .data([
-      {bin: 400}
+      {bin: width > 600 ? 400 : 600}
     ])
     .encode(
       vl.x()
@@ -1246,6 +1246,8 @@ distributions = {
         rule,
         textLeft,
         textRight,
+        textMen,
+        textWomen,
       )
 
   return layers
@@ -1305,9 +1307,9 @@ distributionsChange = {
         .fieldQ("bin")
         .axis({
           grid: false,
-          title: width > 825 ? "Bruttopension": null,
-          labels:  width > 825 ? true : false,
-          ticks:  width > 825 ? true : false,
+          title: "Bruttopension",
+          // labels:  width > 825 ? true : false,
+          // ticks:  width > 825 ? true : false,
         })
         .scale({
           domain: [0, 4500],
@@ -1436,11 +1438,11 @@ distributionsChange = {
       // opacity: 0.51,
       clip: true,
       size: 11,
-      y: 180,
+      y: width > 600 ? 180 : 100,
       align: "left",
     })
     .data([
-      {bin: radio == "Männer" ? 3200 : 2200}
+      {bin: radio == "Männer" ? 2800 : 2200}
     ])
     .encode(
       vl.x()
@@ -1479,6 +1481,7 @@ distributionsChange = {
     ) :
     vl.layer(
       area, 
+      textNew,
     )
 
   return layers
@@ -1539,6 +1542,8 @@ Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
   </div>
 </div>
 
+<br>
+
 ```{ojs}
 distributions.render({ renderer: "svg" })
 ```
@@ -1547,13 +1552,13 @@ distributions.render({ renderer: "svg" })
 
 ::: {.column width="50%"}
 ```{ojs}
-bars(width > 600 ? 250 : width * 0.4).render({ renderer: "svg" })
+bars(width > 600 ? 250 : width * 0.66).render({ renderer: "svg" })
 ```
 :::
 
 ::: {.column width="50%"}
 ```{ojs}
-dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull.filter(d => d.D == "Vergleichsgruppe") : decilesDumbbellFull.filter(d => d.D == radio2)).render({ renderer: "svg" })
+dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull.filter(d => d.D == "Vergleichsgruppe") : decilesDumbbellFull.filter(d => d.D == radio2), width > 600 ? 230 : width * 0.66).render({ renderer: "svg" })
 ```
 :::
 
