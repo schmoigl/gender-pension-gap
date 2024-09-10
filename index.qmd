@@ -226,7 +226,7 @@ Pension Gap.²
 Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
 
 :::{.infoText}
-¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik der Stadt Wien. <br>
+¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik. <br>
 ²Datenbasis: Sozialversicherungsdaten zu und den Erwerbs- und Einkommensverläufen der Pensionsantrittskohorten 2015 bis 2021. 
 :::
 
@@ -292,11 +292,11 @@ Informationen zu dem von Ihnen gewählten Szenario: ${info} <br>
 <span>Zutreffendes ankreuzen</span>
 
 ```{ojs}
-viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
-viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
+viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true})
+viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? false : true})
 interpolate = "step"
-check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten sind nur im Szenario 1 relevant." : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt." : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen."
-check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten sind nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
+check1Info = select != "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ? "Kindererziehungszeiten sind nur im Szenario 1 relevant." : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt." : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen."
+check2Info = select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten sind nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
 ```
 
 :::{.infoText}
@@ -309,11 +309,11 @@ check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicheru
 **Auswahl 4/4**: 
 Zutreffendes ankreuzen (falls relevant)
 ```{ojs}
-viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
-viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
+viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true})
+viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? false : true})
 interpolate = "step"
-check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten wären nur im Szenario 1 relevant." : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt." : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen."
-check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten wären nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
+check1Info = select != "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ? "Kindererziehungszeiten wären nur im Szenario 1 relevant." : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt." : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen."
+check2Info = select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten wären nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
 ```
 ![](img/Infobox_info_icon.svg){height=14px} ${check1Info} <br> ![](img/Infobox_info_icon.svg){height=14px} ${check2Info}
 ::: -->
@@ -1309,7 +1309,7 @@ distributionsChange = {
     .filter(d => d.range == d.bin && d.variable != "Status quo")
     .map(d => ({...d, y: 0, y2: 21500}))
 
-  const colorsArea = radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? colors : [colors[0], "transparent"]
+  const colorsArea = radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? colors : [colors[0], "transparent"]
 
   const area = vl
     .markArea({
@@ -1395,7 +1395,7 @@ distributionsChange = {
         .format(",.0f"),
     )
 
-  const textGrayVar = radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? "neue mittlere Pension " + radio : "mittlere Pension " + radio 
+  const textGrayVar = radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? "neue mittlere Pension " + radio : "mittlere Pension " + radio 
 
   const textGray2 = vl
     .markText({
@@ -1448,7 +1448,7 @@ distributionsChange = {
         .value("alte Verteilung ⤵"), 
     )
 
-  const textNewVar = radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? "⤺ neue Pensionen" : "⤺ keine Veränderung"
+  const textNewVar = radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? "⤺ neue Pensionen" : "⤺ keine Veränderung"
 
   const textNew = vl
     .markText({
@@ -1472,7 +1472,7 @@ distributionsChange = {
     .markText({
       // opacity: 0.51,
       clip: true,
-      size: radio == "Frauen" || select == "Szenario 2 (Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? 16 : 0,
+      size: radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? 16 : 0,
       y: 30,
       align: "right",
       opacity: 0.7,
@@ -1513,14 +1513,14 @@ distributionsChange.render({ renderer: "svg" })
 
 ```{ojs}
 distributionsChangeText1 = 
-  select == "Szenario 2 (Arbeitslosigkeit)" ?
+  select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
   "Durch die Aufwertung der Zeiten in Arbeitslosigkeit würden sich die Pension für " + radio + " leicht erhöhen." :
-  radio == "Frauen" && select != "Szenario 2 (Arbeitslosigkeit)" ?
+  radio == "Frauen" && select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
   "Für " + radio + " würden sich die Pensionen im " + select + " deutlich erhöhen." :
   radio == "Männer" && select != "Szenario 5 (Beste 15 Jahre)" ?
   radio + " profitieren nicht von " + select + "." :
   radio + " profitieren deutlich von " + select + "."
-distributionsChangeText2 = radio == "Männer" && select != "Szenario 5 (Beste 15 Jahre)" && select != "Szenario 2 (Arbeitslosigkeit)" ? 
+distributionsChangeText2 = radio == "Männer" && select != "Szenario 5 (Beste 15 Jahre)" && select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? 
 "Die mittlere Pension der Männer würde sich nicht verändern und bei " + germanLocale.format(",.0~f")(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " verbleiben." :
 "Die mittlere Pension der " + radio + " würde sich auf " + germanLocale.format(",.0~f")(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " Euro steigern."
 ```
@@ -1553,8 +1553,8 @@ Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
 
       ```{ojs}
       Inputs.bind(Inputs.radio(["Meine Vergleichsgruppe", "∅ Gesamtdurchschnitt"], {value: "Meine Vergleichsgruppe", label: "Zeige"}), viewof radio2)
-      Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true}), viewof check1) 
-      Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true}), viewof check2)
+      Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true}), viewof check1) 
+      Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? false : true}), viewof check2)
       ```
   </div>
 </div>
