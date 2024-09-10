@@ -227,7 +227,7 @@ Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können S
 
 :::{.infoText}
 ¹Datenbasis: Pensionsversicherungs-Jahresstatistik (PJ), Dezember 2023 Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik der Stadt Wien. <br>
-²Datenbasis: Basierend auf Sozialversicherungsdaten und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohorten 2015 bis 2021.. 
+²Datenbasis: Sozialversicherungsdaten zu und den Erwerbs- und Einkommensverläufen der Pensionsantrittskohorten 2015 bis 2021. 
 :::
 
 :::
