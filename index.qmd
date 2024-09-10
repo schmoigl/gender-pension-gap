@@ -1428,7 +1428,7 @@ distributionsChange = {
       vl.x()
         .fieldQ("median"),
       vl.text()
-        .fieldN("variable"),
+        .value(select.substr(0, 10)),
     )
 
   const textOld = vl
@@ -1465,7 +1465,7 @@ distributionsChange = {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value([textNewVar, select]), 
+        .value([textNewVar, select.substr(0, 10)]), 
     )
 
   const textArrow = vl
