@@ -77,7 +77,7 @@ cumPerc = cumPercMid
     perc: d => d.tail == "lower" ? d.perc + d.percSame : d.perc, // closest decile to the right! not left!!!!
   })
   .groupby(["gesl", "variable", "tail"])
-  .derive({ text: aq.escape(d => d3.format(",.0~%")(d.perc)) })
+  .derive({ text: aq.escape(d => germanLocale.format(",.0~%")(d.perc)) })
   .objects()
 
 function getCumPerc(gesl, tail) {
@@ -226,7 +226,7 @@ Pension Gap.²
 Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
 
 :::{.infoText}
-¹Datenbasis: Pensionsversicherungs-Jahresstatistik (PJ), Dezember 2023 Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik der Stadt Wien. <br>
+¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik der Stadt Wien. <br>
 ²Datenbasis: Sozialversicherungsdaten zu und den Erwerbs- und Einkommensverläufen der Pensionsantrittskohorten 2015 bis 2021. 
 :::
 
@@ -589,10 +589,10 @@ statusIncome = deciles
 
 barsText = 
   diffScenario > 0 && diffScenarioGesamt > 0 ? 
-  "Im " + select + " würden vergleichbere " + radio + " mit einer Pension von " + d3.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ")" + checkText1 + checkText2 + " im Schnitt um " + d3.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + checkText1 + checkText2 + " so würden diese im Schnitt " + d3.format(",.0f")(diffScenarioGesamt) + " Euro oder " + d3.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
+  "Im " + select + " würden vergleichbere " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ")" + checkText1 + checkText2 + " im Schnitt um " + germanLocale.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + germanLocale.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + checkText1 + checkText2 + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   diffScenarioGesamt < 0 ?
-  "Im " + select + " würden vergleichbere " + radio + " mit einer Pension von " + d3.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ")" + checkText1 + checkText2 + " im Schnitt um " + d3.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + checkText1 + checkText2 + " so würden diese im Schnitt " + d3.format(",.0f")(-diffScenarioGesamt) + " Euro oder " + d3.format(",.0%")(-diffScenarioPercGesamt) + " weniger Pension bekommen." : 
-  "Im " + select + " würden " + radio + " mit einer Pension von " + d3.format(",.0f")(statusIncome) + " Euro" + checkText2 + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " 
+  "Im " + select + " würden vergleichbere " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ")" + checkText1 + checkText2 + " im Schnitt um " + germanLocale.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + germanLocale.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + checkText1 + checkText2 + " so würden diese im Schnitt " + germanLocale.format(",.0f")(-diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(-diffScenarioPercGesamt) + " weniger Pension bekommen." : 
+  "Im " + select + " würden " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro" + checkText2 + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " 
 ```
 
 ${barsText} <br><br> Eingaben ändern:
@@ -816,7 +816,7 @@ viewof radio2 = Inputs.radio(
 mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0] ? " fallen." : " steigen."
 mehrWenigerGesamt = deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0] ? " sinken." : " steigen."
 
-dumbbellText =  "Der Gender Pension Gap würde in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") von " + d3.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + d3.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + d3.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + d3.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
+dumbbellText =  "Der Gender Pension Gap würde in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
 ```
 
 ${dumbbellText} <br><br> Eingaben ändern:
@@ -1284,10 +1284,10 @@ const dataRule = [
 }
 
 distributions.render({ renderer: "svg" }) 
-
+textDistributions = "Etwa " + getCumPerc(radio, "lower") + " aller " + radio + " erhalten im Status quo eine niedrigere Pension als " + range + " Euro pro Monat. Umgekehrt erhalten " +  getCumPerc(radio, "higher") + " aller " + radio + " mehr Pension."
 ```
 
-Etwa ${getCumPerc("Frauen", "lower")} aller Frauen und ${getCumPerc("Männer", "lower")} aller Männer haben im Status quo eine niedrigere Pension als ${range} Euro pro Monat (mehr ${getCumPerc("Frauen", "higher")}, bzw. ${getCumPerc("Männer", "higher")}). Die mittlere Pension der Frauen beträgt 1223 Euro, jene der Männer 2286 Euro. <br><br> Eingaben ändern:
+${textDistributions} <br><br> Eingaben ändern:
 
 ```{ojs}
 Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension"}), viewof rangeRaw)
@@ -1521,8 +1521,8 @@ distributionsChangeText1 =
   radio + " profitieren nicht von " + select + "." :
   radio + " profitieren deutlich von " + select + "."
 distributionsChangeText2 = radio == "Männer" && select != "Szenario 5 (Beste 15 Jahre)" && select != "Szenario 2 (Arbeitslosigkeit)" ? 
-"Die mittlere Pension der Männer würde sich nicht verändern und bei " + d3.format(",.0~f")(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " verbleiben." :
-"Die mittlere Pension der " + radio + " würde sich auf " + d3.format(",.0~f")(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " Euro steigern."
+"Die mittlere Pension der Männer würde sich nicht verändern und bei " + germanLocale.format(",.0~f")(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " verbleiben." :
+"Die mittlere Pension der " + radio + " würde sich auf " + germanLocale.format(",.0~f")(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " Euro steigern."
 ```
 
 ${distributionsChangeText1} ${distributionsChangeText2} <br><br> Eingaben ändern:

@@ -17,6 +17,13 @@ function makeWidth(inputWidth) {
   return outputWidth
 }
 
+germanLocale = d3.formatLocale({
+  decimal: ",", // Decimal separator
+  thousands: ".", // Thousands separator
+  grouping: [3],  // Grouping for thousands
+  currency: ["€", ""],  // Currency format (optional)
+});
+
 // function makeWidthSmall(inputWidth) {
 //   const outputWidth = 
 //     inputWidth > 2000 ? inputWidth * 0.080 : // Home and or WIFO screen?
