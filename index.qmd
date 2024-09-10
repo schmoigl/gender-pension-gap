@@ -188,7 +188,7 @@ und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohort
 <div style="width: 500px;">
 
 ```{ojs}
-viewof guess = Inputs.radio(["0% ", "18,9% ", "40,1%", "5,7%"], {
+viewof guess = Inputs.radio(["0%", "18,9% ", "40,1%", "5,7%"], {
   label: "", value: "0%", // Wählen Sie eine Antwort
 })
 // guess // is null
@@ -586,10 +586,10 @@ statusIncome = deciles
 
 barsText = 
   diffScenario > 0 && diffScenarioGesamt > 0 ? 
-  "Im " + select + " würden vergleichbere " + radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ")" + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man den Durchschnitt aller "+ radio + checkText1 + checkText2 + " so würden diese im Schnitt " + d3.format(".0f")(diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
+  "Im " + select + " würden vergleichbere " + radio + " mit einer Pension von " + d3.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ")" + checkText1 + checkText2 + " im Schnitt um " + d3.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Durchschnitt aller "+ radio + checkText1 + checkText2 + " so würden diese im Schnitt " + d3.format(",.0f")(diffScenarioGesamt) + " Euro oder " + d3.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   diffScenarioGesamt < 0 ?
-  "Im " + select + " würden vergleichbere " + radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ")" + checkText1 + checkText2 + " im Schnitt um " + d3.format(".0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(".0%")(diffScenarioPerc) + " mehr. Betrachtet man den Durchschnitt aller "+ radio + checkText1 + checkText2 + " so würden diese im Schnitt " + d3.format(".0f")(-diffScenarioGesamt) + " Euro oder " + d3.format(".0%")(-diffScenarioPercGesamt) + " weniger Pension bekommen." : 
-  "Im " + select + " würden " + radio + " mit einer Pension von " + d3.format(".0f")(statusIncome) + " Euro" + checkText2 + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " 
+  "Im " + select + " würden vergleichbere " + radio + " mit einer Pension von " + d3.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ")" + checkText1 + checkText2 + " im Schnitt um " + d3.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + d3.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Durchschnitt aller "+ radio + checkText1 + checkText2 + " so würden diese im Schnitt " + d3.format(",.0f")(-diffScenarioGesamt) + " Euro oder " + d3.format(",.0%")(-diffScenarioPercGesamt) + " weniger Pension bekommen." : 
+  "Im " + select + " würden " + radio + " mit einer Pension von " + d3.format(",.0f")(statusIncome) + " Euro" + checkText2 + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " 
 ```
 
 ${barsText} <br><br> Eingaben ändern:
@@ -813,7 +813,7 @@ viewof radio2 = Inputs.radio(
 mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0] ? " fallen." : " steigen."
 mehrWenigerGesamt = deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0] ? " sinken." : " steigen."
 
-dumbbellText =  "Der Gender Pension Gap würde sich in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") von " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + d3.format(".0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(".0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
+dumbbellText =  "Der Gender Pension Gap würde sich in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ") von " + d3.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + d3.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + d3.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + d3.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + d3.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
 ```
 
 ${dumbbellText} <br><br> Eingaben ändern:
