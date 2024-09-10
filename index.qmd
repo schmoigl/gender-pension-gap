@@ -164,17 +164,13 @@ bins = binsMid
 ```
 
 
+<!-- kommunikation@akooe.at [undefined:kommunikation@akooe.at] -->
+
 <div class="image-container"> <img src="img/AdobeStock_670701322.jpeg"> </div>
 
 ::: {.column-body .mainText}
 #### RECHNER
 # AK-Pensionsreformrechner 
-<!-- Vor dem Hintergrund anhaltend hoher geschlechtsspezifischer Unterschiede in der gesetzlichen
-Alterssicherung in Österreich untersucht [eine Studie des WIFO](res/AKOE_Pensionen_EB_070824.pdf){target="_blank"} 
-die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender
-Pension Gap. Basierend auf Sozialversicherungsdaten
-und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohorten 2015 bis
-2021 mehrere Szenarien simuliert. Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden. -->
 :::
 
 :::: {#slideshow-container .column-body}
