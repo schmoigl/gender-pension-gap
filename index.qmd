@@ -211,18 +211,24 @@ Die Arbeiterkammer Oberösterreich hält dies für eine große Ungerechtigkeit u
 
 Mit dem AK-Pensionsreformrechner sehen sie, was die einzelnen Reformen für die Pensionshöhen, bei der Reduktion des Gender Pension Gap und Verteilung bedeuten. Probieren sie das neue Tool aus, verbreiten sie es und geben sie uns Rückmeldung!
 
-:::{.infoText}
-<!-- ![](img/Infobox_info_icon.svg){height=14px}  -->
-¹Datenbasis: Pensionsversicherungs-Jahresstatistik (PJ), Dezember 2023 Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik der Stadt Wien
-:::
-
 ### Pensionsreformen: AK-Vorschläge für eine faire Berechnung
+
+Eine [Studie des WIFO](res/AKOE_Pensionen_EB_070824.pdf){target="_blank"} 
+im Auftrag der AK OÖ untersucht die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender
+Pension Gap.²
 
 <ul>
   <li>Szenario 1: Höherbewertung von Kindererziehungszeiten</li>
   <li>Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit</li>
   <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht.</li>
 </ul>
+
+Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
+
+:::{.infoText}
+¹Datenbasis: Pensionsversicherungs-Jahresstatistik (PJ), Dezember 2023 Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik der Stadt Wien. <br>
+²Datenbasis: Basierend auf Sozialversicherungsdaten und den Erwerbs- und Einkommensverläufen werden für die Pensionsantrittskohorten 2015 bis 2021.. 
+:::
 
 :::
 
@@ -280,14 +286,14 @@ viewof select = Inputs.select(scenarios)
 Informationen zu dem von Ihnen gewählten Szenario: ${info} <br>
 :::
 
-<span>Zutreffendes ankreuzen (falls relevant)</span>
+<span>Zutreffendes ankreuzen</span>
 
 ```{ojs}
 viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Kindererziehung)" && radio == "Frauen" ? false : true})
 viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Arbeitslosigkeit)" ? false : true})
 interpolate = "step"
-check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten wären nur im Szenario 1 relevant." : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt." : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen."
-check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten wären nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
+check1Info = select != "Szenario 1 (Kindererziehung)" ? "Kindererziehungszeiten sind nur im Szenario 1 relevant." : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt." : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen."
+check2Info = select != "Szenario 2 (Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten sind nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
 ```
 
 :::{.infoText}
@@ -1644,7 +1650,7 @@ distributionsChange.render({ renderer: "svg" })
     if (currentSlide < 2) {
       prevBtn.disabled = true;
       prevBtn.classList.add('disabled');
-      jumpToLastBtn.style.display = 'inline-block'; // Show "Jump to last page" button
+      jumpToLastBtn.style.display = 'none'; // 'inline-block'
     } else {
       prevBtn.disabled = false;
       prevBtn.classList.remove('disabled');
