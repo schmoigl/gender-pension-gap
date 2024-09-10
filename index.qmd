@@ -1280,7 +1280,7 @@ const dataRule = [
 }
 
 distributions.render({ renderer: "svg" }) 
-textDistributions = "Etwa " + getCumPerc(radio, "lower") + " aller " + radio + " erhalten im Status quo eine niedrigere Pension als " + range + " Euro pro Monat. Umgekehrt erhalten " +  getCumPerc(radio, "higher") + " aller " + radio + " mehr Pension."
+textDistributions = "Etwa " + getCumPerc(radio, "lower") + " aller " + radio + " erhalten im Status quo eine niedrigere Pension als " + germanLocale.format(",.0f")(range) + " Euro pro Monat. Umgekehrt erhalten " +  getCumPerc(radio, "higher") + " aller " + radio + " mehr Pension."
 ```
 
 ${textDistributions} <br><br> Eingaben ändern:
