@@ -23,6 +23,7 @@ pre, code, .callout, .sourceCode {
     // left: 0;
     width: 100%;
     height: 100%;
+    object-fit: contain; 
     // top: -10%; /* Move the image up by 10% to crop some from the top */
     // bottom: -10%; /* Optionally move it down to control the bottom cropping */
 }
