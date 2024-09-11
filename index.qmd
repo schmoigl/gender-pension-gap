@@ -166,16 +166,18 @@ bins = binsMid
 
 <!-- kommunikation@akooe.at [undefined:kommunikation@akooe.at] -->
 
-<div class="image-container"> <img src="img/AdobeStock_670701322.jpeg"> </div>
+<div class="image-container"> <img src="img/header.jpeg"> </div>
 
-::: {.column-body .mainText}
-#### RECHNER
-# AK-Pensionsreformrechner 
+::: {.column-body .mainText .scroll-target}
+<h4 class="headlineRechner">RECHNER</h4>
+<!-- # AK-Pensionsreformrechner  -->
 :::
 
 :::: {#slideshow-container .column-body}
 
 ::: {.slide .slide-active}
+
+## Pensionsreformen: AK-Vorschläge für eine faire Berechnung
 
 #### Einstiegsfrage
 
@@ -197,6 +199,8 @@ answer = guess == "40,1%" ? "Richtig! Der Unterschied ist groß." : "Leider fals
 
 ::: {.slide}
 
+## Pensionsreformen: AK-Vorschläge für eine faire Berechnung
+
 #### Auflösung
 
 **${answer}**
@@ -205,9 +209,9 @@ Der Gender Pension Gap, also der Unterschied zwischen Männer- und Frauenpension
 
 Die Arbeiterkammer Oberösterreich hält dies für eine große Ungerechtigkeit und setzt sich für Pensionsreformen ein, die tatsächlich Verbesserungen für die Menschen bringen und dieser enormen Schieflage entgegenwirken.
 
-Mit dem AK-Pensionsreformrechner sehen sie, was die einzelnen Reformen für die Pensionshöhen, bei der Reduktion des Gender Pension Gap und Verteilung bedeuten. Probieren sie das neue Tool aus, verbreiten sie es und geben sie uns Rückmeldung!
+Mit dem AK-Pensionsreformrechner sehen Sie, was die einzelnen Reformen für die Pensionshöhen, bei der Reduktion des Gender Pension Gap und Verteilung bedeuten. Probieren Sie das neue Tool aus, verbreiten Sie es und geben Sie uns Rückmeldung!
 
-### Pensionsreformen: AK-Vorschläge für eine faire Berechnung
+### Machen Sie mit! Wie viel Pension würden Sie bekommen?
 
 Eine [Studie des WIFO](res/AKOE_Pensionen_EB_070824.pdf){target="_blank"} 
 im Auftrag der AK OÖ untersucht die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender
@@ -229,8 +233,9 @@ Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können S
 :::
 
 ::: {.slide}
+## Geben Sie eine Bruttopension an
 #### Auswahl 1/3
-<span>Geben Sie eine Bruttopension an</span>
+<!-- <span>Geben Sie eine Bruttopension an</span> -->
 ```{ojs}
 viewof rangeRaw = Inputs.range([400, 4000], {step: 50, value: 1500})
 range = Math.round(rangeRaw/100)*100
@@ -255,8 +260,9 @@ Manche der berechneten Szenarien wirken sich nur auf Frauen aus. Daher ist es m�
 :::
 
 ::: {.slide}
+## Geben Sie ein Geschlecht an
 #### Auswahl 2/3
-<span>Geben Sie ein Geschlecht an</span>
+<!-- <span>Geben Sie ein Geschlecht an</span> -->
 ```{ojs}
 viewof radioRaw = Inputs.radio(["Frau", "Mann"], {value: "Frau"})
 radio = radioRaw == "Frau" ? "Frauen" : "Männer"
@@ -273,9 +279,9 @@ Datenbasis der Kohorten basiert auf einer einen nicht-binären Geschlechtseintra
 
 
 ::: {.slide}
+## Wählen Sie ein Szenario
 #### Auswahl 3/3
-<span>Wählen Sie ein Szenario</span>
-
+<!-- <span>Wählen Sie ein Szenario</span> -->
 ```{ojs}
 viewof select = Inputs.select(scenarios)
 ```
@@ -315,9 +321,9 @@ check2Info = select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)
 ::: -->
 
 ::: {.slide}
+## Das sind Ihre Ergebnisse
 #### Ergebnisse 1/4
 <span>Wie würde sich das ${select} auf vergleichbare Personen auswirken?</span>
-
 ```{ojs}
 decilesBar = 
   deciles
@@ -602,6 +608,7 @@ Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
 :::
 
 ::: {.slide}
+## Das sind Ihre Ergebnisse
 #### Ergebnisse 2/4
 <span>Wie würde sich das ${select} auf den Gender Pension Gap auswirken?</span>
 
@@ -800,7 +807,7 @@ function dumbbell(inputData, inputWidth)  {
 
 }
 
-dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2), width > 600 ? 230 : width * 0.38).render({ renderer: "svg" }) 
+dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2), width > 600 ? 230 : width * 0.36).render({ renderer: "svg" }) 
 
 viewof radio2 = Inputs.radio(
   ["Meine Vergleichsgruppe", "∅ Gesamtdurchschnitt", "Beides anzeigen"], 
@@ -825,6 +832,7 @@ Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
 :::
 
 ::: {.slide}
+## Das sind Ihre Ergebnisse
 #### Ergebnisse 3/4
 <span>Wie viel Pension erhalte ich momentan im Vergleich zu anderen?</span>
 
@@ -1294,6 +1302,7 @@ Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"
 
 
 ::: {.slide}
+## Das sind Ihre Ergebnisse
 #### Ergebnisse 4/4 
 <span>Wie würden sich die Verteilungen dieser Pensionen im ${select} ändern?</span>
 
@@ -1532,7 +1541,8 @@ Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
 
 ::: {.slide}
 
-#### Ergebnisse auf einen Blick
+## Ergebnisse auf einen Blick
+<!-- #### Ergebnisse auf einen Blick -->
 <span>Hier können Sie die Ergebnisse gesammelt betrachten und Ihre Eingaben ändern</span>
 
 <div class="fold-container">
@@ -1565,7 +1575,7 @@ distributions.render({ renderer: "svg" })
 
 ::: {.column width="50%"}
 ```{ojs}
-bars(width > 600 ? 250 : width * 0.66).render({ renderer: "svg" })
+bars(width > 600 ? 250 : width * 0.65).render({ renderer: "svg" })
 ```
 :::
 
@@ -1618,6 +1628,7 @@ distributionsChange.render({ renderer: "svg" })
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   const conditionalInputs = document.getElementById('conditionalInputs');
+  const topHeader = document.querySelector('.scroll-target'); // Get the header element
   let currentSlide = 0;
 
   // Function to handle slide transitions
@@ -1639,6 +1650,8 @@ distributionsChange.render({ renderer: "svg" })
       // } else {
       //   conditionalInputs.classList.remove('active');
       // }
+
+      topHeader.scrollIntoView({ behavior: 'smooth' });
 
       // Update button states
       updateButtonStates();

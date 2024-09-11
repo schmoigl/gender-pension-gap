@@ -22,8 +22,9 @@ website:
       </a>
     </div>
     <br>
-    © 2024 AK Oberösterreich | Volksgartenstrasse 40 4020 Linz, +43 50 6906 0
+    © 2024 AK Oberösterreich | Volksgartenstrasse 40, 4020 Linz | [+43 50 6906 0](tel:+435069060) | [wsg@akooe.at](mailto:wsg@akooe.at)
   navbar: 
+    # sticky: false
     title: | 
       [![](img/ak-logo.svg){height="70px"}](https://ooe.arbeiterkammer.at/index.html) &nbsp;
     left: 
