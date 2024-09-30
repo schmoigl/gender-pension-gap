@@ -1,0 +1,78 @@
+
+```{=html}
+<form name="multiple_topics_subscription" method="post" action="https://ooe.arbeiterkammer.at/newsletter">
+
+    <div class="row art-box-white art-box-icon">
+        <div class="col-md-4 nl-choose">
+            <h2>Meine Newsletter</h2>
+            <div class="fg-element">
+                <div class="floating-label">
+                    <div class="form-group">
+                        <div id="multiple_topics_subscription_topics">
+                            <div>
+                                <div class="form-check">        
+                                    <input type="checkbox" id="multiple_topics_subscription_topics_0" name="multiple_topics_subscription[topics][]" class="filled-in form-check-input" value="1002453">
+                                    <label class="form-check-label" for="multiple_topics_subscription_topics_0">Arbeitswelt</label>
+                                </div>
+                            </div>
+                            <!-- Repeat for other checkboxes -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <h2>Meine Daten</h2>
+            <div class="fg-element">
+                <div class="floating-label">
+                    <div class="form-group focused">
+                        <label class="salutation control-label required" for="multiple_topics_subscription_salutation">Anrede <span class="mandatory">*</span></label>
+                        <select id="multiple_topics_subscription_salutation" name="multiple_topics_subscription[salutation]" class="form-control" required>
+                            <option value="0" selected>Bitte wählen</option>
+                            <option value="1">Frau</option>
+                            <option value="2">Herr</option>
+                            <option value="3">Inter/Divers</option>
+                            <option value="4">Keine Angabe</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fg-element">
+                <div class="floating-label">
+                    <div class="form-group">
+                        <label class="control-label required" for="multiple_topics_subscription_firstname">Vorname <span class="mandatory">*</span></label>
+                        <input type="text" id="multiple_topics_subscription_firstname" name="multiple_topics_subscription[firstname]" required class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="fg-element">
+                <div class="floating-label">
+                    <div class="form-group">
+                        <label class="control-label required" for="multiple_topics_subscription_lastname">Nachname <span class="mandatory">*</span></label>
+                        <input type="text" id="multiple_topics_subscription_lastname" name="multiple_topics_subscription[lastname]" required class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="fg-element">
+                <div class="floating-label">
+                    <div class="form-group">
+                        <label class="control-label required" for="multiple_topics_subscription_email">E-Mail <span class="mandatory">*</span></label>
+                        <input type="email" id="multiple_topics_subscription_email" name="multiple_topics_subscription[email]" required class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <p><small><span class="mandatory">*</span> Pflichtfeld</small></p>
+            <p><small>Ihre E-Mail-Adresse wird nicht an Dritte weitergegeben und zu keinem anderen Zweck verwendet...</small></p>
+
+            <div class="form-group">
+                <button type="submit" id="multiple_topics_subscription_subscribe" name="multiple_topics_subscription[subscribe]" class="btn-primary btn">Anmelden</button>
+            </div>
+        </div>
+    </div>
+</form>
+```

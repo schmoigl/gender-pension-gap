@@ -1622,6 +1622,11 @@ distributionsChange.render({ renderer: "svg" })
 </div>
 :::
 
+<div id="spacer" style="height: 50px"></div>
+
+<div id="iframe-container" style="height: 1340px; overflow: hidden; padding-top: 660px; ">
+<iframe src="https://ooe.arbeiterkammer.at/newsletter" title="Newsletteranmeldung" width="100%" height="1340" scrolling="no" style="transform: translateY(-900px);"></iframe> 
+</div>
 
 <script>
   const slides = document.querySelectorAll('.slide');
@@ -1629,6 +1634,7 @@ distributionsChange.render({ renderer: "svg" })
   const nextBtn = document.getElementById('nextBtn');
   const conditionalInputs = document.getElementById('conditionalInputs');
   const topHeader = document.querySelector('.scroll-target'); // Get the header element
+  const iframeContainer = document.getElementById('iframe-container');
   let currentSlide = 0;
 
   // Function to handle slide transitions
@@ -1651,7 +1657,9 @@ distributionsChange.render({ renderer: "svg" })
       //   conditionalInputs.classList.remove('active');
       // }
 
+    if (currentSlide > 0) { 
       topHeader.scrollIntoView({ behavior: 'smooth' });
+    }
 
       // Update button states
       updateButtonStates();
@@ -1664,11 +1672,17 @@ distributionsChange.render({ renderer: "svg" })
     if (currentSlide < 2) {
       prevBtn.disabled = true;
       prevBtn.classList.add('disabled');
-      jumpToLastBtn.style.display = 'none'; // 'inline-block'
+      jumpToLastBtn.style.display = 'inline-block'; // 'inline-block'
     } else {
       prevBtn.disabled = false;
       prevBtn.classList.remove('disabled');
       jumpToLastBtn.style.display = 'none'; // Hide "Jump to last page" button
+    }
+
+    if (currentSlide === slides.length - 1) {
+      iframeContainer.style.display = 'inline-block';
+    } else {
+      iframeContainer.style.display = 'none';
     }
 
     // Change Next button text on the last slide
@@ -1679,7 +1693,7 @@ distributionsChange.render({ renderer: "svg" })
     } else if(currentSlide === 1) {
       nextBtn.textContent = 'Rechner starten';
     } else {
-      nextBtn.textContent = 'weiter';
+      nextBtn.textContent = 'weiter'; 
     }
   }
 
