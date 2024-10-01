@@ -324,6 +324,7 @@ check2Info = select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)
 ## Das sind Ihre Ergebnisse
 #### Ergebnisse 1/4
 <span>Wie würde sich das ${select} auf vergleichbare Personen auswirken?</span>
+
 ```{ojs}
 decilesBar = 
   deciles
@@ -844,7 +845,7 @@ distributions = {
   //   .filter(d => d.range == d.bin)
   //   .map(d => ({...d, y: 0, y2: 20000}))
 
-const dataRule = [
+  const dataRule = [
       {gesl: "Frauen", median: 1223, y: 0, y2: 20000}, //1215
       {gesl: "Männer", median: 2286, y: 0, y2: 20000}, //2278
     ]
@@ -1593,10 +1594,29 @@ distributionsChange.render({ renderer: "svg" })
 
 :::
 
+
+::: {.slide}
+## Geben Sie eine Bruttopension an
+#### Auswahl 1/3
+<!-- <span>Geben Sie eine Bruttopension an</span> -->
+```{ojs}
+2 + 2 
+```
+
+:::{.infoText}
+![](img/Infobox_info_icon.svg){height=14px} 
+Info
+:::
+
+:::
+
+
 <div class="btn-container">
 <button id="prevBtn" class="btn btn-secondary">zurück</button>
 <button id="nextBtn" class="btn btn-secondary">weiter</button>
 <br>
+<button id="jumpToSlide0" class="btn btn-secondary" onclick="jumpToSlide(2)">zum Anfang</button>
+<button id="jumpToSlide10" class="btn btn-secondary" onclick="jumpToSlide(10)">Haushaltsrechner starten</button>
 <button id="jumpToLastBtn" class="btn btn-secondary small-btn">Überspringen und zur Vollversion (ohne Erläuterungen)</button>
 </div>
 
@@ -1632,6 +1652,8 @@ distributionsChange.render({ renderer: "svg" })
   const slides = document.querySelectorAll('.slide');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
+  const jumpToSlide0 = document.getElementById('jumpToSlide0');
+  const jumpToSlide10 = document.getElementById('jumpToSlide10');
   const conditionalInputs = document.getElementById('conditionalInputs');
   const topHeader = document.querySelector('.scroll-target'); // Get the header element
   const iframeContainer = document.getElementById('iframe-container');
@@ -1679,22 +1701,31 @@ distributionsChange.render({ renderer: "svg" })
       jumpToLastBtn.style.display = 'none'; // Hide "Jump to last page" button
     }
 
-    if (currentSlide === slides.length - 1) {
+    if (currentSlide === 9) {
       iframeContainer.style.display = 'inline-block';
+      jumpToSlide0.style.display = 'inline-block';
     } else {
       iframeContainer.style.display = 'none';
+      jumpToSlide0.style.display = 'none';
     }
 
     // Change Next button text on the last slide
-    if (currentSlide === slides.length - 1) {
-      nextBtn.textContent = 'zum Anfang';
+    if (currentSlide === 9) {
+      nextBtn.textContent = 'zum Haushaltsrechner';
     } else if(currentSlide === 0) {
       nextBtn.textContent = 'weiter'; //  'Antwort bestätigen';
     } else if(currentSlide === 1) {
-      nextBtn.textContent = 'Rechner starten';
+      nextBtn.textContent = 'Pensionsreformrechner starten';
     } else {
       nextBtn.textContent = 'weiter'; 
     }
+
+    if (currentSlide === 1) {
+      jumpToSlide10.style.display = 'inline-block';
+    } else {
+      jumpToSlide10.style.display = 'none';
+    }
+
   }
 
   // Attach event listeners to buttons
@@ -1713,6 +1744,12 @@ distributionsChange.render({ renderer: "svg" })
   jumpToLastBtn.addEventListener('click', () => {
     showSlide(slides.length - 1);
   });
+
+  function jumpToSlide(slideIndex) {
+    if (slideIndex >= 0 && slideIndex < slides.length) {
+      showSlide(slideIndex);
+    }
+  }
 
   // Initially show the first slide and update button states
   showSlide(currentSlide);
