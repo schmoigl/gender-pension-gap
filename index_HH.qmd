@@ -9,6 +9,7 @@ execute:
 
 {{< include src/config.qmd >}}
 {{< include src/utils.qmd >}}
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 
@@ -196,6 +197,7 @@ hhPoverty = aq.from(hhPovertyRaw)
 ```
 
 
+
 <!-- kommunikation@akooe.at [undefined:kommunikation@akooe.at] -->
 
 <div class="image-container"> <img src="img/header.jpeg"> </div>
@@ -210,8 +212,9 @@ hhPoverty = aq.from(hhPovertyRaw)
 ::: {.slide .slide-active}
 
 ## Pensionsreformen: AK-Vorschläge für eine faire Berechnung
-
+ 
 #### Einstiegsfrage
+
 
 **Um wieviel Prozent ist die durchschnittliche Pension von Frauen in Österreich geringer als die der Männer?** 
 
@@ -356,7 +359,6 @@ check2Info = select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)
 ## Das sind Ihre Ergebnisse
 #### Ergebnisse 1/4
 <span>Wie würde sich das ${select} auf vergleichbare Personen auswirken?</span>
-
 ```{ojs}
 decilesBar = 
   deciles
@@ -877,7 +879,7 @@ distributions = {
   //   .filter(d => d.range == d.bin)
   //   .map(d => ({...d, y: 0, y2: 20000}))
 
-  const dataRule = [
+const dataRule = [
       {gesl: "Frauen", median: 1223, y: 0, y2: 20000}, //1215
       {gesl: "Männer", median: 2286, y: 0, y2: 20000}, //2278
     ]
@@ -1581,20 +1583,20 @@ Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
 <div class="fold-container">
   <div class="column">
 
-      ```{ojs}
-      Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension"}), viewof rangeRaw) 
-      Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"}), viewof radioRaw)
-      Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)  
-      ```
+```{ojs}
+Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension"}), viewof rangeRaw) 
+Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"}), viewof radioRaw)
+Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)  
+```
   </div>
 
   <div class="column">
 
-      ```{ojs}
-      Inputs.bind(Inputs.radio(["Meine Vergleichsgruppe", "∅ Gesamtdurchschnitt"], {value: "Meine Vergleichsgruppe", label: "Zeige"}), viewof radio2)
-      Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true}), viewof check1) 
-      Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? false : true}), viewof check2)
-      ```
+```{ojs}
+Inputs.bind(Inputs.radio(["Meine Vergleichsgruppe", "∅ Gesamtdurchschnitt"], {value: "Meine Vergleichsgruppe", label: "Zeige"}), viewof radio2)
+Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true}), viewof check1) 
+Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? false : true}), viewof check2)
+```
   </div>
 </div>
 
@@ -1626,206 +1628,12 @@ distributionsChange.render({ renderer: "svg" })
 
 :::
 
-<!-- Ab hier Haushalte -->
-
-::: {.slide}
-## Geben Sie ein Geschlecht an
-#### Auswahl 1/4
-```{ojs}
-Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"}), viewof radioRaw)
-```
-
-:::
-
-::: {.slide}
-## Geben Sie eine Altersgruppe an
-#### Auswahl 2/4
-```{ojs}
-viewof radioAltersgruppe = Inputs.radio(["0-14", "15-24", "25-49", "50-64", "65-79", "80+"], {label: "Altersgruppe", value: "0-14"})
-altersgruppe = radioAltersgruppe
-```
-
-:::
-
-::: {.slide}
-## Was ist Ihr Erwerbsstatus?
-#### Auswahl 3/4
-```{ojs}
-viewof selectStatus = Inputs.select(["Im Vorschulalter", "Landwirtschaft", "Selbständig beschäftigt", "Unselbständig beschäftigt", "In Pension", "Arbeitsuchend, arbeitslos", "In Ausbildung", "Inaktiv", "Dauerhaft arbeitsunfähig", "Sonstige Inaktivität"], {label: "Erwerbsstatus", value: "Unselbständig beschäftigt"})
-Status = selectStatus
-```
-:::
-
-::: {.slide}
-## Wer lebt in Ihrem Haushalt?
-#### Auswahl 4/4
-```{ojs}
-viewof radioErwachsene = Inputs.radio(["Ein Erwachsener", "Zwei Erwachsene", "Drei Erwachsene oder mehr"], {label: "Erwachsene", value: "Ein Erwachsener"})
-erwachsene = radioErwachsene
-```
-
-```{ojs}
-viewof radioKinder = Inputs.radio(["Kein Kind", "Ein Kind", "Zwei Kinder", "Drei Kinder oder mehr"], {label: "Kinder", value: "Kein Kind"})
-kinder = radioKinder
-```
-:::
-
-
-<!-- Plots -->
-```{ojs}
-// Functions für HH-Einkommen und Armutsgefährdungsquote
-
-function generateIncomeChart(group) {
-  // Filter data
-  let filteredIncome = hhIncome.filter(d => d.group == group && d.variable == select);
-  console.log(filteredIncome);
-
-  const bars = vl
-    .markBar({
-      opacity: 0.8,
-      fill: colors[1],
-    }) 
-    .encode( 
-      vl.y()
-        .fieldQ("value")
-        .axis({
-          title: null,
-          grid: false,
-          format: "+.2%",  // Format for y-axis labels as percentages
-        }),
-      vl.x()
-        .fieldN("detail")
-        .axis({
-          title: null,
-          domain: false,
-          ticks: false,
-          labelAlign: "right",
-          labelPadding: 20,
-          labelLimit: 100,  
-          labelFontSize: 12,
-        })
-    );
-
-  const text = vl
-    .markText({
-      dy: -10,
-      size: 12,
-      align: "center",
-    })
-  .transform(
-     vl.filter('datum.value !== 0'),
-  )
-    .encode(
-      vl.y()
-        .fieldQ("value")
-        .axis({
-          format: "+.2%"
-        }),
-      vl.x()
-        .fieldN("detail"),
-      vl.text()
-        .fieldQ("value")
-        .format("+.2%"),
-    );
-
-  return vl 
-    .layer(
-      bars,
-      text,    
-    )
-    .width(makeWidth(width) * 0.5)
-    .data(filteredIncome)  // Use the filtered data
-    .config(config)
-    .render();  // Render the chart
-}
-
-
-
-function generatePovertyChart(group) {
-  let filteredPoverty = hhPoverty.filter(d => d.group == group && d.variable == select);
-  console.log(filteredPoverty);
-
-  const bars = vl
-    .markBar({
-      fill: colors2[0],
-      opacity: 0.8,
-    }) 
-    .encode( 
-      vl.y()
-        .fieldQ("value")
-        .axis({
-          title: null,
-          grid: false,
-          format: "+.2f",
-        }),
-      vl.x()
-        .fieldN("detail")
-        .axis({
-          title: null,
-          domain: false,
-          ticks: false,
-          labelAlign: "right",
-          labelPadding: 20,  
-          labelLimit: 100,  
-          labelFontSize: 12,
-        }),
-    )
-
-  const text = vl
-    .markText({
-      dy: 10,
-      size: 12,
-      align: "center",
-    })
-    .encode(
-      vl.y()
-        .fieldQ("value")
-        .axis({
-          format: "+.2f"  // Ensure format is set here for text
-        }),
-      vl.x()
-        .fieldN("detail"),
-      vl.text()
-        .fieldQ("value")
-        .format(".2f")  // Format the text as fixed-point with one decimal
-    )
-    .transform(
-      vl.filter('datum.value !== 0'),
-      vl.calculate("datum.value >= 0 ? '+' + format(datum.value, '.2f') + ' PP.' : format(datum.value, '.2f') + ' PP.'")
-        .as("formattedValue")
-    )
-    .encode(
-      vl.text()
-        .fieldN("formattedValue")  // Use the calculated field for text labels
-    );
-
-  return vl 
-    .layer(
-      bars,
-      text,    
-      )
-    .width(makeWidth(width) * 0.5)
-    .data(filteredPoverty)  // Use the filtered data
-    .config(config)
-    .render();  // Render the chart
-}
-
-```
-
 
 ::: {.slide}
 
-## Haushaltsrechner - Ergebnisse
+## Weitere Ergebnisse
 
-Die Szenarien haben einen Einfluss auf die äquivalenten Haushaltseinkommen und die Armutsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
-
-:::{.infoText}
-![](img/Infobox_info_icon.svg){height=14px}
-Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen. 
-
-![](img/Infobox_info_icon.svg){height=14px}
-Armutsquote: Die relative Armutsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb einer bestimmten Grenze liegt. Diese Grenze wird in der Regel bei 60 % des mittleren (Median-) Einkommens der Bevölkerung festgelegt. Menschen, die weniger als diesen Betrag verdienen, gelten als relativ arm, da sie im Vergleich zum Durchschnitt deutlich weniger Mittel zur Verfügung haben.
-:::
+Die Szenarien haben außerdem einen Einfluss auf die Haushaltseinkommen und die Armutsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
 
 <div class="fold-container">
   <div class="column">
@@ -1844,10 +1652,69 @@ Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
 #### Äquivalisiertes Haushaltseinkommen
 
 ```{ojs}
-generateIncomeChart("Geschlecht")
-```
+barsIncomeG = {
 
-Text Text Text
+  const bars = vl
+    .markBar({
+      fill: colors[1],
+      opacity: 0.8,
+    }) 
+    .encode( 
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: "+.2%",  // Format for y-axis labels as percentages
+        }),
+      vl.x()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 20,  // Adjusted padding
+          labelLimit: 100,  // Adjusted label limit
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          format: "+.2%"  // Ensure format is set here for text
+        }),
+      vl.x()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format("+.2%"),  // Format the text as percentages
+    )
+
+  // Log filtered data for debugging
+  let filteredIncome = hhIncome.filter(d => d.group == "Geschlecht" && d.variable == select);
+  console.log(filteredIncome);
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width) * 0.5)
+    .data(filteredIncome)  // Use the filtered data
+    .config(config)
+    .render();  // Render the chart
+}
+
+```
 :::
 
 ::: {.column width="50%"}
@@ -1855,37 +1722,80 @@ Text Text Text
 #### Armutsgefährdungsquote
 
 ```{ojs}
-generatePovertyChart("Geschlecht")
-```
+barsPovertyG = {
 
-Text Text Text
+  const bars = vl
+    .markBar({
+      fill: colors2[0],
+      opacity: 0.8,
+    }) 
+    .encode( 
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: "+.2f",  // Format for y-axis labels as percentages
+        }),
+      vl.x()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 5,  // Adjusted padding
+          labelLimit: 100,  // Adjusted label limit
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          format: "+.2f"  // Ensure format is set here for text
+        }),
+      vl.x()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format(".2f")  // Format the text as fixed-point with one decimal
+    )
+    .transform(
+      vl.calculate("datum.value >= 0 ? '+' + format(datum.value, '.2f') + ' PP.' : format(datum.value, '.2f') + ' PP.'")
+        .as("formattedValue")
+    )
+    .encode(
+      vl.text()
+        .fieldN("formattedValue")  // Use the calculated field for text labels
+    );
+    
+  // Log filtered data for debugging
+  let filteredPoverty = hhPoverty.filter(d => d.group == "Geschlecht" && d.variable == select);
+  console.log(filteredPoverty);
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width) * 0.5)
+    .data(filteredPoverty)  // Use the filtered data
+    .config(config)
+    .render();  // Render the chart
+}
+
+```
 
 :::
 ::::
-:::
-
-::: {.slide}
-
-## Haushaltsrechner - Ergebnisse
-
-Die Szenarien haben einen Einfluss auf die äquivalenten Haushaltseinkommen und die Armutsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
-
-:::{.infoText}
-![](img/Infobox_info_icon.svg){height=14px}
-Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen. 
-
-![](img/Infobox_info_icon.svg){height=14px}
-Armutsquote: Die relative Armutsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb einer bestimmten Grenze liegt. Diese Grenze wird in der Regel bei 60 % des mittleren (Median-) Einkommens der Bevölkerung festgelegt. Menschen, die weniger als diesen Betrag verdienen, gelten als relativ arm, da sie im Vergleich zum Durchschnitt deutlich weniger Mittel zur Verfügung haben.
-:::
-
-<div class="fold-container">
-  <div class="column">
-
-```{ojs}
-Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)  
-```
-  </div>
-</div>
 
 ### Altersgruppen
 
@@ -1895,10 +1805,69 @@ Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
 #### Äquivalisiertes Haushaltseinkommen
 
 ```{ojs}
-generateIncomeChart("Altersgruppen")
-```
+barsIncomeA = {
 
-Text Text Text
+  const bars = vl
+    .markBar({
+      fill: colors[1],
+      opacity: 0.8,
+    }) 
+    .encode( 
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: "+.2%",  // Format for y-axis labels as percentages
+        }),
+      vl.x()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 5,  // Adjusted padding
+          labelLimit: 100,  // Adjusted label limit
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          format: "+.2%"  // Ensure format is set here for text
+        }),
+      vl.x()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format("+.2%"),  // Format the text as percentages
+    )
+
+  // Log filtered data for debugging
+  let filteredIncome = hhIncome.filter(d => d.group == "Altersgruppen" && d.variable == select);
+  console.log(filteredIncome);
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width) * 0.5)
+    .data(filteredIncome)  // Use the filtered data
+    .config(config)
+    .render();  // Render the chart
+}
+
+```
 :::
 
 ::: {.column width="50%"}
@@ -1906,128 +1875,87 @@ Text Text Text
 #### Armutsgefährdungsquote
 
 ```{ojs}
-generatePovertyChart("Altersgruppen")
-```
+barsPovertyA = {
 
-Text Text Text
+  const bars = vl
+    .markBar({
+      fill: colors2[0],
+      opacity: 0.8,
+    }) 
+    .encode( 
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: "+.2f",  // Format for y-axis labels as percentages
+        }),
+      vl.x()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 5,  // Adjusted padding
+          labelLimit: 100,  // Adjusted label limit
+          labelFontSize: 12,
+        }), 
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          format: "+.2f"  // Ensure format is set here for text
+        }),
+      vl.x()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format(".2f")  // Format the text as fixed-point with one decimal
+    )
+    .transform(
+      vl.calculate("datum.value >= 0 ? '+' + format(datum.value, '.2f') + ' PP.' : format(datum.value, '.2f') + ' PP.'")
+        .as("formattedValue")
+    )
+    .encode(
+      vl.text()
+        .fieldN("formattedValue")  // Use the calculated field for text labels
+    );
+    
+  // Log filtered data for debugging
+  let filteredPoverty = hhPoverty.filter(d => d.group == "Altersgruppen" && d.variable == select);
+  console.log(filteredPoverty);
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width) * 0.5)
+    .data(filteredPoverty)  // Use the filtered data
+    .config(config)
+    .render();  // Render the chart
+}
+
+```
 
 :::
 ::::
-:::
-
-
-::: {.slide}
-
-## Haushaltsrechner - Ergebnisse
-
-Die Szenarien haben einen Einfluss auf die äquivalenten Haushaltseinkommen und die Armutsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
-
-:::{.infoText}
-![](img/Infobox_info_icon.svg){height=14px}
-Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen. 
-
-![](img/Infobox_info_icon.svg){height=14px}
-Armutsquote: Die relative Armutsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb einer bestimmten Grenze liegt. Diese Grenze wird in der Regel bei 60 % des mittleren (Median-) Einkommens der Bevölkerung festgelegt. Menschen, die weniger als diesen Betrag verdienen, gelten als relativ arm, da sie im Vergleich zum Durchschnitt deutlich weniger Mittel zur Verfügung haben.
-:::
-
-<div class="fold-container">
-  <div class="column">
-
-```{ojs}
-Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)  
-```
-  </div>
-</div>
-
-### Erwerbsstatus
-
-:::: {.columns}
-
-::: {.column width="50%"}
-#### Äquivalisiertes Haushaltseinkommen
-
-```{ojs}
-generateIncomeChart("Erwerbsstatus")
-```
-
-Text Text Text
-:::
-
-::: {.column width="50%"}
-
-#### Armutsgefährdungsquote
-
-```{ojs}
-generatePovertyChart("Erwerbsstatus")
-```
-
-Text Text Text
 
 :::
-::::
-:::
-
-
-
-::: {.slide}
-
-## Haushaltsrechner - Ergebnisse
-
-Die Szenarien haben einen Einfluss auf die äquivalenten Haushaltseinkommen und die Armutsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
-
-:::{.infoText}
-![](img/Infobox_info_icon.svg){height=14px}
-Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen. 
-
-![](img/Infobox_info_icon.svg){height=14px}
-Armutsquote: Die relative Armutsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb einer bestimmten Grenze liegt. Diese Grenze wird in der Regel bei 60 % des mittleren (Median-) Einkommens der Bevölkerung festgelegt. Menschen, die weniger als diesen Betrag verdienen, gelten als relativ arm, da sie im Vergleich zum Durchschnitt deutlich weniger Mittel zur Verfügung haben.
-:::
-
-<div class="fold-container">
-  <div class="column">
-
-```{ojs}
-Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)  
-```
-  </div>
-</div>
-
-### Haushaltstyp
-
-:::: {.columns}
-
-::: {.column width="100%"}
-#### Äquivalisiertes Haushaltseinkommen
-
-```{ojs}
-generateIncomeChart("Haushaltstyp - detailiert")
-```
-
-Text Text Text
-:::
-
-::: {.column width="100%"}
-
-#### Armutsgefährdungsquote
-
-```{ojs}
-generatePovertyChart("Haushaltstyp - detailiert")
-```
-
-Text Text Text
-
-:::
-::::
-:::
-
-
 
 <div class="btn-container">
 <button id="prevBtn" class="btn btn-secondary">zurück</button>
 <button id="nextBtn" class="btn btn-secondary">weiter</button>
 <br>
-<button id="jumpToSlide0" class="btn btn-secondary" onclick="jumpToSlide(2)">zum Anfang</button>
-<button id="jumpToSlide10" class="btn btn-secondary" onclick="jumpToSlide(10)">Haushaltsrechner starten</button>
 <button id="jumpToLastBtn" class="btn btn-secondary small-btn">Überspringen und zur Vollversion (ohne Erläuterungen)</button>
 </div>
 
@@ -2053,21 +1981,13 @@ Text Text Text
 </div>
 :::
 
-<div id="spacer" style="height: 50px"></div>
-
-<div id="iframe-container" style="height: 1340px; overflow: hidden; padding-top: 660px; ">
-<iframe src="https://ooe.arbeiterkammer.at/newsletter" title="Newsletteranmeldung" width="100%" height="1340" scrolling="no" style="transform: translateY(-900px);"></iframe> 
-</div>
 
 <script>
   const slides = document.querySelectorAll('.slide');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
-  const jumpToSlide0 = document.getElementById('jumpToSlide0');
-  const jumpToSlide10 = document.getElementById('jumpToSlide10');
   const conditionalInputs = document.getElementById('conditionalInputs');
   const topHeader = document.querySelector('.scroll-target'); // Get the header element
-  const iframeContainer = document.getElementById('iframe-container');
   let currentSlide = 0;
 
   // Function to handle slide transitions
@@ -2090,9 +2010,7 @@ Text Text Text
       //   conditionalInputs.classList.remove('active');
       // }
 
-    if (currentSlide > 0) { 
       topHeader.scrollIntoView({ behavior: 'smooth' });
-    }
 
       // Update button states
       updateButtonStates();
@@ -2105,38 +2023,23 @@ Text Text Text
     if (currentSlide < 2) {
       prevBtn.disabled = true;
       prevBtn.classList.add('disabled');
-      jumpToLastBtn.style.display = 'inline-block'; // 'inline-block'
+      jumpToLastBtn.style.display = 'none'; // 'inline-block'
     } else {
       prevBtn.disabled = false;
       prevBtn.classList.remove('disabled');
       jumpToLastBtn.style.display = 'none'; // Hide "Jump to last page" button
     }
 
-    if (currentSlide === 9) {
-      iframeContainer.style.display = 'inline-block';
-      jumpToSlide0.style.display = 'inline-block';
-    } else {
-      iframeContainer.style.display = 'none';
-      jumpToSlide0.style.display = 'none';
-    }
-
     // Change Next button text on the last slide
-    if (currentSlide === 9) {
-      nextBtn.textContent = 'zum Haushaltsrechner';
+    if (currentSlide === slides.length - 1) {
+      nextBtn.textContent = 'zum Anfang';
     } else if(currentSlide === 0) {
       nextBtn.textContent = 'weiter'; //  'Antwort bestätigen';
     } else if(currentSlide === 1) {
-      nextBtn.textContent = 'Pensionsreformrechner starten';
+      nextBtn.textContent = 'Rechner starten';
     } else {
-      nextBtn.textContent = 'weiter'; 
+      nextBtn.textContent = 'weiter';
     }
-
-    if (currentSlide === 1) {
-      jumpToSlide10.style.display = 'inline-block';
-    } else {
-      jumpToSlide10.style.display = 'none';
-    }
-
   }
 
   // Attach event listeners to buttons
@@ -2156,13 +2059,80 @@ Text Text Text
     showSlide(slides.length - 1);
   });
 
-  function jumpToSlide(slideIndex) {
-    if (slideIndex >= 0 && slideIndex < slides.length) {
-      showSlide(slideIndex);
-    }
-  }
-
   // Initially show the first slide and update button states
   showSlide(currentSlide);
   updateButtonStates();
 </script>
+
+
+
+
+
+
+```{ojs}
+barsIncomeG = {
+
+  const bars = vl
+    .markBar({
+      opacity: 0.8,
+    }) 
+    .encode( 
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: "+.2%",  // Format for y-axis labels as percentages
+        }),
+      vl.x()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 20,  // Adjusted padding
+          labelLimit: 100,  // Adjusted label limit
+          labelFontSize: 12,
+        }), 
+      vl.color()
+        .condition(
+          { test: (datum) => datum.detail === radioRaw, value: colors[1] },  // Prüft, ob die Detailspalte mit der Auswahl übereinstimmt
+          { value: "grey" }  // Standardfarbe für nicht ausgewählte Gruppen
+        )
+    )
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 12,
+      align: "left",
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          format: "+.2%"
+        }),
+      vl.x()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format("+.2%"),
+    )
+
+  let filteredIncome = hhIncome.filter(d => d.group == "Geschlecht" && d.variable == select);
+  console.log(filteredIncome);
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(makeWidth(width) * 0.5)
+    .data(filteredIncome)  // Use the filtered data
+    .config(config)
+    .render();  // Render the chart
+}
+
+```
