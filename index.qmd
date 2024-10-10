@@ -175,26 +175,28 @@ hhPovertyRaw = FileAttachment("data/household_arop_detail.csv").csv({ typed: tru
 hhIncome = aq.from(hhIncomeRaw)
   .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
   .derive({ 
-    value: d=> d.variable != "Status quo" ? d.value / 100 : d.value,
-    selectMark: aq.escape(d=> d.variable == select ? "yes" : "no"), 
+    value: d => d.variable != "Status quo" ? d.value / 100 : d.value,
+    selectMark: aq.escape(d => d.variable == select ? "yes" : "no"), 
+    group2: d => d.group != "Haushaltstyp - detailiert" ? "irrelevant" : (d.detail.includes("kein Kind") ? "kein Kind" : "ein Kind"),
     })
   .objects()
-
-  
+  .map(d => ({...d, detail: removeAfterLastComma(d.detail) }))
   
 groups = aq.from(hhIncome)
   .filter(aq.escape(d => d.group != "Gesamt"))
   .select("group")
   .dedupe()
-  .array("group")
+  <!-- .array("group") -->
 
 hhPoverty = aq.from(hhPovertyRaw)
   .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
   .derive({ 
     value: d=> d.variable == "Status quo" ? d.value / 100 : d.value,
     selectMark: aq.escape(d=> d.variable == select ? "yes" : "no"), 
+    group2: d => d.group != "Haushaltstyp - detailiert" ? "irrelevant" : (d.detail.includes("kein Kind") ? "kein Kind" : "ein Kind"),
     })
   .objects()
+  .map(d => ({...d, detail: removeAfterLastComma(d.detail) }))
 ```
 
 
@@ -1632,25 +1634,30 @@ distributionsChange.render({ renderer: "svg" })
 <!-- Ab hier Haushalte -->
 <!-- Plots -->
 ```{ojs}
+
+// highlights do not work!!
+// TODO: highlights, haushaltstyp mit Kinder/ohne Kinder filtern, +/- 0 PP. in povertyChart
+
+
 // Functions für HH-Einkommen und Armutsgefährdungsquote
 
-function generateIncomeChart(group) {
-  // Filter data
-  let filteredIncome = hhIncome.filter(d => d.group == group && d.variable == select);
-  console.log(filteredIncome);
-
+function generateIncomeChart(group, highlight) {
+  // Filter data based on the provided group and a variable that should be defined or passed in
+  let filteredIncome = hhIncome.filter(d => d.group == group && d.variable == select); // Ensure 'select' is correctly defined or passed in
+  
   const bars = vl
     .markBar({
       opacity: 0.8,
-      fill: colors[1],
+      fill: colors[1], // Make sure colors[1] is defined
     }) 
     .encode( 
       vl.y()
         .fieldQ("value")
         .axis({
-          title: "In Prozent",
+          title: null,
           grid: false,
           format: "+.2%",  // Format for y-axis labels as percentages
+          labelFontSize: 10
         }),
       vl.x()
         .fieldN("detail")
@@ -1660,20 +1667,22 @@ function generateIncomeChart(group) {
           ticks: false,
           labelAlign: "right",
           labelPadding: 20,
-          labelLimit: 100,  
+          labelLimit: 200,  
           labelFontSize: 10,
-        })
-    );
+        }),
+//    vl.stroke(detail == highlight ? vl.value('black') : vl.value('transparent'))
+  );
 
+  
   const text = vl
     .markText({
       dy: -10,
       size: 10,
       align: "center",
     })
-  .transform(
-     vl.filter('datum.value !== 0'),
-  )
+    .transform(
+      vl.filter('datum.value !== 0'),
+    )
     .encode(
       vl.y()
         .fieldQ("value")
@@ -1684,7 +1693,7 @@ function generateIncomeChart(group) {
         .fieldN("detail"),
       vl.text()
         .fieldQ("value")
-        .format("+.2%"),
+        .format("+.2~%"),
     );
 
   return vl 
@@ -1692,16 +1701,16 @@ function generateIncomeChart(group) {
       bars,
       text,    
     )
-    .width(makeWidth(width) * 0.6)
+    .width(group == "Geschlecht" ? makeWidth(width) * 0.3 : makeWidth(width) * 0.6) // Dynamically set width based on group
     .data(filteredIncome)  // Use the filtered data
-    .config(config)
+    .config(config) // Ensure 'config' is defined
     .render();
 }
 
 function generateIncomeChartStatusquo(group) {
   // Filter data
   let filteredIncomeStatusquo = hhIncome.filter(d => d.group == group && d.variable == "Status quo");
-  console.log(filteredIncomeStatusquo);
+  // // console.log(filteredIncomeStatusquo);
 
   const bars = vl
     .markBar({
@@ -1714,6 +1723,7 @@ function generateIncomeChartStatusquo(group) {
         .axis({
           title: null,
           grid: false,
+          labelFontSize: 10
         }),
       vl.y()
         .fieldN("detail")
@@ -1758,7 +1768,7 @@ function generateIncomeChartStatusquo(group) {
 
 function generatePovertyChart(group) {
   let filteredPoverty = hhPoverty.filter(d => d.group == group && d.variable == select);
-  console.log(filteredPoverty);
+  // console.log(filteredPoverty);
 
   const bars = vl
     .markBar({
@@ -1769,9 +1779,10 @@ function generatePovertyChart(group) {
       vl.y()
         .fieldQ("value")
         .axis({
-          title: "In Prozentpunkten",
+          title: null,
           grid: false,
           format: "+.2f",
+          labelFontSize: 10
         }),
       vl.x()
         .fieldN("detail")
@@ -1781,7 +1792,7 @@ function generatePovertyChart(group) {
           ticks: false,
           labelAlign: "right",
           labelPadding: 20,  
-          labelLimit: 100,  
+          labelLimit: 200,  
           labelFontSize: 10,
         }),
     )
@@ -1819,7 +1830,7 @@ function generatePovertyChart(group) {
       bars,
       text,    
       )
-    .width(makeWidth(width) * 0.6)
+    .width(group == "Geschlecht" ? makeWidth(width) * 0.3: makeWidth(width) * 0.6)
     .data(filteredPoverty)  // Use the filtered data
     .config(config)
     .render();
@@ -1829,7 +1840,7 @@ function generatePovertyChart(group) {
 function generatePovertyChartStatusquo(group) {
   // Filter data
   let filteredPovertyStatusquo = hhPoverty.filter(d => d.group == group && d.variable == "Status quo");
-  console.log(filteredPovertyStatusquo);
+  // console.log(filteredPovertyStatusquo);
 
   const bars = vl
     .markBar({
@@ -1843,6 +1854,7 @@ function generatePovertyChartStatusquo(group) {
           title: null,
           grid: false,
           format: ".0%",
+          labelFontSize: 10
         }),
       vl.y()
         .fieldN("detail")
@@ -1893,7 +1905,7 @@ function generatePovertyChartStatusquo(group) {
 ## Geben Sie ein Geschlecht an
 #### Auswahl 1/4
 ```{ojs}
-Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"}), viewof radioRaw)
+Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frau", label: "Geschlecht"}), viewof radioRaw)
 ```
 
 :::
@@ -1937,15 +1949,8 @@ kinder = radioKinder
 
 ## Haushaltsrechner - Ergebnisse
 
-Die Szenarien haben einen Einfluss auf die äquivalenten Haushaltseinkommen und die Armutsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
+Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
 
-:::{.infoText}
-![](img/Infobox_info_icon.svg){height=14px}
-Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen. 
-
-![](img/Infobox_info_icon.svg){height=14px}
-Armutsquote: Die relative Armutsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb einer bestimmten Grenze liegt. Diese Grenze wird in der Regel bei 60 % des mittleren (Median-) Einkommens der Bevölkerung festgelegt. Menschen, die weniger als diesen Betrag verdienen, gelten als relativ arm, da sie im Vergleich zum Durchschnitt deutlich weniger Mittel zur Verfügung haben.
-:::
 
 <div class="fold-container">
   <div class="column">
@@ -1955,7 +1960,7 @@ Armutsquote: Die relative Armutsquote misst den Anteil der Menschen in einer Ges
 ```{ojs}
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select) 
 
-viewof haushaltseffekt = Inputs.radio(["Haushaltseinkommen", "Armutsquote"], {label: "Effekte auf", value: "Haushaltseinkommen"})
+viewof haushaltseffekt = Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {label: "Effekte auf", value: "Haushaltseinkommen"})
 ```
 
 
@@ -1967,42 +1972,105 @@ viewof haushaltseffekt = Inputs.radio(["Haushaltseinkommen", "Armutsquote"], {la
 ```{ojs}
 html`
   <div>
-    <h3>${haushaltseffekt === "Haushaltseinkommen" ? "Haushaltseinkommen" : "Armutsquote"}</h3>
+    <h3>${haushaltseffekt === "Haushaltseinkommen" ? "Haushaltseinkommen" : "Armutsgefährdungsquote"}</h3>
+    ${
+      haushaltseffekt === "Haushaltseinkommen" ? 
+      html`
+        <div class="infoText">
+          <img src="img/Infobox_info_icon.svg" height="14px">
+          Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen.
+        </div>
+      ` 
+      : 
+      html`
+        <div class="infoText">
+          <img src="img/Infobox_info_icon.svg" height="14px">
+          Armutsgefährdungsquote: Armutsgefährdung bezeichnet das Risiko, in Armut zu geraten. Die relative Armutsgefährdungsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb der Armutsgefährdungsschwelle liegt. Diese Grenze wird hier (nach Eurostat-Definition) bei 60% des mittleren äquivalente Haushaltseinkommen festgelegt.
+        </div>
+      `
+    }
   </div>
 `
 ```
 
 :::: {.columns}
 
-::: {.column width="60%"}
+::: {.column width="40%"}
 
 #### Änderung
 
 ```{ojs}
 {
   return haushaltseffekt === "Haushaltseinkommen" ?
-  generateIncomeChart("Geschlecht") : generatePovertyChart("Geschlecht");
+  generateIncomeChart("Geschlecht", "highlight") : generatePovertyChart("Geschlecht");
 }
 ```
 
 :::
 
-::: {.column width="40%"}
+::: {.column width="60%"}
 
 #### Status Quo
 
 ```{ojs}
+highlight = radioRaw == "Frau" ? "Frauen" : "Männer"
+
 {
   return haushaltseffekt === "Haushaltseinkommen" ?
-  generateIncomeChartStatusquo("Geschlecht") : generatePovertyChartStatusquo("Geschlecht");
+  generateIncomeChartStatusquo("Geschlecht", highlight) : generatePovertyChartStatusquo("Geschlecht");
 }
+html`<div style="height: 20px;"></div>`
+
+//highlight
 ```
 
-Text Text Text
+
+
+```{ojs}
+hhIncomeGeschlechttext = 
+  radioRaw == "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
+  "Das durchschnittliche äquivalisierte Haushaltseinkommen von Frauen liegt mit 2.470€ leicht unter dem der Männer (2.528€). Sie würden von Szenario 1 mehr profitieren (+0,47%) als Männer (+0,26%)." : 
+  radioRaw != "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
+   "Das durchschnittliche äquivalisierte Haushaltseinkommen von Männern liegt mit 2.528€ leicht unter dem der Frauen (2.470€). Sie würden von Szenario 1 weniger profitieren (+0,26%) als Frauen (+0,47%)." : 
+  radioRaw == "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
+  "Das durchschnittliche äquivalisierte Haushaltseinkommen von Frauen liegt mit 2.470€ leicht unter dem der Männer (2.528€). Sie würden von Szenario 2 gleich viel wie Männer profitieren (+0,09%)." : 
+  radioRaw != "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
+   "Das durchschnittliche äquivalisierte Haushaltseinkommen von Männern liegt mit 2.528€ leicht unter dem der Frauen (2.470€). Sie würden von Szenario 2 gleich viel wie Frauen profitieren (+0,09%)." : 
+  radioRaw == "Frau" && select == "Szenario 3 (Einführung Gender-Pay-Gap-Faktor)" ?
+  "Das durchschnittliche äquivalisierte Haushaltseinkommen von Frauen liegt mit 2.470€ leicht unter dem der Männer (2.528€). Sie würden von Szenario 3 mehr profitieren (+0,5%) als Männer (+0,28%)." : 
+   "Das durchschnittliche äquivalisierte Haushaltseinkommen von Männern liegt mit 2.528€ leicht unter dem der Frauen (2.470€). Sie würden von Szenario 3 weniger profitieren (+0,28%) als Frauen (+0,5%)." 
+   
+   
+hhPovertyGeschlechttext = 
+  radioRaw == "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
+  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt mit 14,4% leicht unter der der Männer (14,97%). Sie würden von Szenario 1 mehr profitieren (-0,22 Prozentpunkte) als Männer (-0,02 Prozentpunkte)." : 
+  radioRaw != "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
+   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt mit 14,97% leicht über der der Frauen (14,4%). Sie würden von Szenario 1 weniger profitieren (-0,02 Prozentpunkte) als Frauen (-0,22 Prozentpunkte)." : 
+  radioRaw == "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
+  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt mit 14,4% leicht unter der der Männer (14,97%). Sie würden von Szenario 2 mehr profitieren (-0,05 Prozentpunkte) als Männer (-0,02 Prozentpunkte)." : 
+  radioRaw != "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
+   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt mit 14,97% leicht über der der Frauen (14,4%). Sie würden von Szenario 2 weniger profitieren (-0,02 Prozentpunkte) als Frauen (-0,05 Prozentpunkte)." : 
+  radioRaw == "Frau" && select == "Szenario 3 (Einführung Gender-Pay-Gap-Faktor)" ?
+  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt mit 14,4% leicht unter der der Männer (14,97%). Sie würden von Szenario 3 mehr profitieren (-0,42 Prozentpunkte) als Männer (-0,13 Prozentpunkte)." : 
+   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt mit 14,97% leicht über der der Frauen (14,4%). Sie würden von Szenario 3 weniger profitieren (-0,13 Prozentpunkte) als Frauen (-0,42 Prozentpunkte)." 
+
+html`
+  <div>
+    <span>${haushaltseffekt === "Haushaltseinkommen" ? hhIncomeGeschlechttext : hhPovertyGeschlechttext}</span>
+  </div>
+`
+html`<div style="height: 20px;"></div>`
+```
+
 
 :::
 
 ::::
+
+Eingabe ändern:
+```{ojs}
+Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frau", label: "Geschlecht"}), viewof radioRaw)
+```
 
 :::
 
@@ -2010,24 +2078,18 @@ Text Text Text
 
 ## Haushaltsrechner - Ergebnisse
 
-Die Szenarien haben einen Einfluss auf die äquivalenten Haushaltseinkommen und die Armutsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
+Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
 
-:::{.infoText}
-![](img/Infobox_info_icon.svg){height=14px}
-Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen. 
 
-![](img/Infobox_info_icon.svg){height=14px}
-Armutsquote: Die relative Armutsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb einer bestimmten Grenze liegt. Diese Grenze wird in der Regel bei 60 % des mittleren (Median-) Einkommens der Bevölkerung festgelegt. Menschen, die weniger als diesen Betrag verdienen, gelten als relativ arm, da sie im Vergleich zum Durchschnitt deutlich weniger Mittel zur Verfügung haben.
-:::
 
 <div class="fold-container">
   <div class="column">
 
 ```{ojs}
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
+Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
 ```
-  
+
   </div>
 </div>
 
@@ -2036,7 +2098,23 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsquote"], {value: "Haushal
 ```{ojs}
 html`
   <div>
-    <h3>${haushaltseffekt === "Haushaltseinkommen" ? "Haushaltseinkommen" : "Armutsquote"}</h3>
+    <h3>${haushaltseffekt === "Haushaltseinkommen" ? "Haushaltseinkommen" : "Armutsgefährdungsquote"}</h3>
+    ${
+      haushaltseffekt === "Haushaltseinkommen" ? 
+      html`
+        <div class="infoText">
+          <img src="img/Infobox_info_icon.svg" height="14px">
+          Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen.
+        </div>
+      ` 
+      : 
+      html`
+        <div class="infoText">
+          <img src="img/Infobox_info_icon.svg" height="14px">
+          Armutsgefährdungsquote: Armutsgefährdung bezeichnet das Risiko, in Armut zu geraten. Die relative Armutsgefährdungsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb der Armutsgefährdungsschwelle liegt. Diese Grenze wird hier (nach Eurostat-Definition) bei 60% des mittleren äquivalente Haushaltseinkommen festgelegt.
+        </div>
+      `
+    }
   </div>
 `
 ```
@@ -2065,13 +2143,82 @@ html`
   return haushaltseffekt === "Haushaltseinkommen" ?
   generateIncomeChartStatusquo("Altersgruppen") : generatePovertyChartStatusquo("Altersgruppen");
 }
+html`<div style="height: 20px;"></div>`
 ```
 
-Text Text Text
+
+```{ojs}
+AltersgruppeIncome = 
+  radioAltersgruppe == "0-14" ?  "2.200€" :
+  radioAltersgruppe == "15-24" ? "2.300€" : 
+  radioAltersgruppe == "25-49" ? "2.500€" : 
+  radioAltersgruppe == "50-64" ? "2.800€" : 
+  radioAltersgruppe == "65-79" ? "2.500€" : 
+  "2.400€"
+
+BaseIncomeAge = 
+  radioAltersgruppe == "50-64" ?
+  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppeIncome + ". Im Vergleich mit anderen Altersgruppen ist dies der höchste Wert. ") : 
+  radioAltersgruppe == "0-14" ?
+  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppeIncome + ". Im Vergleich mit anderen Altersgruppen ist dies der niedrigste Wert. ") :   
+  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppeIncome + ". ")
+   
+SzenarioIncomeAge = 
+  select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
+  "Von Szenario 1 würden Personen zwischen 50 und 79 überdurchschnittlich profitieren." :
+  select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
+  "Von Szenario 2 würden Personen zwischen 50 und 79 überdurchschnittlich profitieren." :
+  "Von Szenario 3 würden Personen zwischen 50 und 79 überdurchschnittlich profitieren."
+
+AltersgruppePoverty = 
+  radioAltersgruppe == "0-14" ?  "17%" :
+  radioAltersgruppe == "15-24" ? "18%" : 
+  radioAltersgruppe == "25-49" ? "15%" : 
+  radioAltersgruppe == "50-64" ? "12%" : 
+  radioAltersgruppe == "65-79" ? "14%" : 
+  "13%" 
+  
+BasePovertyAge = 
+  radioAltersgruppe == "15-24" ?
+  ("Die durchschnittliche Armutsgefährdungsquote der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppePoverty + ". Im Vergleich mit anderen Altersgruppen ist dies der höchste Wert. ") : 
+  radioAltersgruppe == "50-64" ?
+  ("Die durchschnittliche Armutsgefährdungsquote der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppePoverty + ". Im Vergleich mit anderen Altersgruppen ist dies der niedrigste Wert. ") :   
+  ("Die durchschnittliche Armutsgefährdungsquote der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppePoverty + ". ")
+   
+SzenarioPovertyAge = 
+  select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
+  "Von Szenario 1 würden Personen zwischen 50 und 79 überdurchschnittlich profitieren." :
+  select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
+  "Von Szenario 2 würden ausschließlich Personen zwischen 50 und 79 profitieren." :
+  "Von Szenario 3 würden Personen zwischen 15 und 24 am meisten profitieren."
+
+   
+hhIncomeAltersgruppetext = BaseIncomeAge + SzenarioIncomeAge
+hhPovertyAltersgruppetext = BasePovertyAge + SzenarioPovertyAge
+
+html`
+  <div>
+    <span>${haushaltseffekt === "Haushaltseinkommen" ? hhIncomeAltersgruppetext : hhPovertyAltersgruppetext}</span>
+  </div>
+`
+html`<div style="height: 20px;"></div>`
+```
+
 
 :::
 
 ::::
+<div class="fold-container">
+  <div class="column">
+  
+Eingabe ändern:
+
+```{ojs}
+Inputs.bind(Inputs.radio(["0-14", "15-24", "25-49", "50-64", "65-79", "80+"], {value: "0-14", label: "Altersgruppe"}), viewof radioAltersgruppe)
+```
+
+  </div>
+</div>
 
 :::
 
@@ -2081,24 +2228,17 @@ Text Text Text
 
 ## Haushaltsrechner - Ergebnisse
 
-Die Szenarien haben einen Einfluss auf die äquivalenten Haushaltseinkommen und die Armutsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
+Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
 
-:::{.infoText}
-![](img/Infobox_info_icon.svg){height=14px}
-Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen. 
-
-![](img/Infobox_info_icon.svg){height=14px}
-Armutsquote: Die relative Armutsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb einer bestimmten Grenze liegt. Diese Grenze wird in der Regel bei 60 % des mittleren (Median-) Einkommens der Bevölkerung festgelegt. Menschen, die weniger als diesen Betrag verdienen, gelten als relativ arm, da sie im Vergleich zum Durchschnitt deutlich weniger Mittel zur Verfügung haben.
-:::
 
 <div class="fold-container">
   <div class="column">
 
 ```{ojs}
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
+Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
 ```
-  
+
   </div>
 </div>
 
@@ -2107,14 +2247,30 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsquote"], {value: "Haushal
 ```{ojs}
 html`
   <div>
-    <h3>${haushaltseffekt === "Haushaltseinkommen" ? "Haushaltseinkommen" : "Armutsquote"}</h3>
+    <h3>${haushaltseffekt === "Haushaltseinkommen" ? "Haushaltseinkommen" : "Armutsgefährdungsquote"}</h3>
+    ${
+      haushaltseffekt === "Haushaltseinkommen" ? 
+      html`
+        <div class="infoText">
+          <img src="img/Infobox_info_icon.svg" height="14px">
+          Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen.
+        </div>
+      ` 
+      : 
+      html`
+        <div class="infoText">
+          <img src="img/Infobox_info_icon.svg" height="14px">
+          Armutsgefährdungsquote: Armutsgefährdung bezeichnet das Risiko, in Armut zu geraten. Die relative Armutsgefährdungsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb der Armutsgefährdungsschwelle liegt. Diese Grenze wird hier (nach Eurostat-Definition) bei 60% des mittleren äquivalente Haushaltseinkommen festgelegt.
+        </div>
+      `
+    }
   </div>
 `
 ```
 
 :::: {.columns}
 
-::: {.column width="60%"}
+::: {.column width="52%"}
 
 #### Änderung
 
@@ -2127,7 +2283,7 @@ html`
 
 :::
 
-::: {.column width="40%"}
+::: {.column width="48%"}
 
 #### Status Quo
 
@@ -2136,42 +2292,114 @@ html`
   return haushaltseffekt === "Haushaltseinkommen" ?
   generateIncomeChartStatusquo("Erwerbsstatus") : generatePovertyChartStatusquo("Erwerbsstatus");
 }
+html`<div style="height: 20px;"></div>`
 ```
 
-Text Text Text
+
+```{ojs}
+
+
+// Achtung Arbeitsuchend, arbeitslos wird geändert durch , lösch-Function -> noch ändern!
+StatusIncome = 
+  Status == "Arbeitsuchend, arbeitslos" ?  "1.700€" :
+  Status == "Dauerhaft arbeitsunfähig" ? "1.900€" : 
+  Status == "Im Vorschulalter" ? "2.100€" : 
+  Status == "In Ausbildung" ? "2.300€" : 
+  Status == "In Pension" ? "2.400€" : 
+  Status == "Inaktiv" ? "2.500€" : 
+  Status == "Landwirtschaft" ? "2.600€" : 
+  Status == "Selbständig beschäftigt" ? "3.100€" : 
+  Status == "Sonstige Inaktivität" ? "1.900€" : 
+  "2.700€"
+
+BaseIncomeStatus = 
+  Status == "Selbständig beschäftigt" ?
+  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Gruppe '" + Status + "' liegt bei etwa " + StatusIncome + ". Im Vergleich mit anderen Gruppen ist dies der höchste Wert. ") : 
+  Status == "Arbeitsuchend, arbeitslos" ?
+  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Gruppe '" + Status + "' liegt bei etwa " + StatusIncome + ". Im Vergleich mit anderen Gruppen ist dies der niedrigste Wert. ") :   
+  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Gruppe '" + Status + "' liegt bei etwa " + StatusIncome + ". ")
+   
+SzenarioIncomeStatus = 
+  "In allen gezeigten Szenarien würden Pensionist:innen überdurchschnittlich profitieren."
+
+
+StatusPoverty = 
+  Status == "Arbeitsuchend, arbeitslos" ?  "46%" :
+  Status == "Dauerhaft arbeitsunfähig" ? "34%" : 
+  Status == "Im Vorschulalter" ? "18%" : 
+  Status == "In Ausbildung" ? "18%" : 
+  Status == "In Pension" ? "15%" : 
+  Status == "Inaktiv" ? "18%" : 
+  Status == "Landwirtschaft" ? "6%" : 
+  Status == "Selbständig beschäftigt" ? "17%" : 
+  Status == "Sonstige Inaktivität" ? "32%" : 
+  "8%"
+
+
+BasePovertyStatus = 
+  Status == "Arbeitsuchend, arbeitslos" ?
+  ("Die durchschnittliche Armutsgefährdungsquote der Gruppe '" + Status + "' liegt bei etwa " + StatusPoverty + ". Im Vergleich mit anderen Gruppen ist dies der höchste Wert. ") : 
+  Status == "Landwirtschaft" ?
+  ("Die durchschnittliche Armutsgefährdungsquote der Gruppe '" + Status + "' liegt bei etwa " + StatusPoverty + ". Im Vergleich mit anderen Gruppen ist dies der niedrigste Wert. ") :   
+  ("Die durchschnittliche Armutsgefährdungsquote der Gruppe '" + Status + "' liegt bei etwa " + StatusPoverty + ". ")
+
+SzenarioPovertyStatus = 
+  select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
+  "Von Szenario 1 würden Pensionist:innen überdurchschnittlich profitieren. Weiters gäbe es positive Effekte auf arbeitssuchende Personen, Personen in Ausbildung sowie kleine positive Effekte für unselbständig Beschäftigte." :
+  select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
+  "Von Szenario 2 würden Personen der Gruppe 'Sonstige Inaktivität' am meisten profitieren. Weiters gibt es positive Effekte bei Pensionist:innen und dauerhaft arbeitsunfähigen Personen." :
+  "Von Szenario 3 würden arbeitssuchende Personen am meisten profitieren. Weiters gibt es positive Effekte bei Pensionist:innen, Personen in Ausbildung und unselbständig beschäftigte Personen."
+
+   
+hhIncomeStatustext = BaseIncomeStatus + SzenarioIncomeStatus
+hhPovertyStatustext = BasePovertyStatus + SzenarioPovertyStatus
+
+html`
+  <div>
+    <span>${haushaltseffekt === "Haushaltseinkommen" ? hhIncomeStatustext : hhPovertyStatustext}</span>
+  </div>
+`
+html`<div style="height: 20px;"></div>`
+```
 
 :::
 
 ::::
 
+Eingabe ändern: 
+
+```{ojs}
+Inputs.bind(Inputs.select(["Im Vorschulalter", "Landwirtschaft", "Selbständig beschäftigt", "Unselbständig beschäftigt", "In Pension", "Arbeitsuchend, arbeitslos", "In Ausbildung", "Inaktiv", "Dauerhaft arbeitsunfähig", "Sonstige Inaktivität"], {label: "Erwerbsstatus"}), viewof selectStatus)
+```
 :::
 
 ::: {.slide}
 
 ## Haushaltsrechner - Ergebnisse
 
-Die Szenarien haben einen Einfluss auf die äquivalenten Haushaltseinkommen und die Armutsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
+Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
 
-:::{.infoText}
-![](img/Infobox_info_icon.svg){height=14px}
-Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen. 
-
-![](img/Infobox_info_icon.svg){height=14px}
-Armutsquote: Die relative Armutsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb einer bestimmten Grenze liegt. Diese Grenze wird in der Regel bei 60 % des mittleren (Median-) Einkommens der Bevölkerung festgelegt. Menschen, die weniger als diesen Betrag verdienen, gelten als relativ arm, da sie im Vergleich zum Durchschnitt deutlich weniger Mittel zur Verfügung haben.
-:::
 
 <div class="fold-container">
   <div class="column">
 
 ```{ojs}
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
+Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
 ```
-  
+
   </div>
 </div>
 
-## Haushaltstyp
+
+
+```{ojs}
+html`
+  <div>
+    <h2>${radioKinder === "Kein Kind" ? "Haushalte ohne Kinder" : "Haushalte mit Kindern"}</h3>
+  </div>
+`
+```
 
 ```{ojs}
 html`
