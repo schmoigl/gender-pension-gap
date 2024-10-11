@@ -1,6 +1,7 @@
 
 ```{ojs}
 config = ({
+  // autosize: "none",
   view: {stroke: null}, 
   background: "transparent",
   padding: {

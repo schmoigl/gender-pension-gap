@@ -10,6 +10,8 @@ function generateIncomeChart(group, highlight) {
   const filteredIncome = hhIncome
       .filter(d => d.group == group && d.variable == select) // Ensure 'select' is correctly defined or passed in
   
+  const widthHH = group == "Geschlecht" ? makeWidth(width) * 0.2 : group == "Altersgruppen" ? makeWidth(width) * 0.45 : makeWidth(width) * 0.5;
+  
   // const filteredIncome = radioKinder == "Kein Kind" ?
   //   hhIncome
   //     .filter(d => d.group == group && d.variable == select) // Ensure 'select' is correctly defined or passed in
@@ -77,7 +79,7 @@ function generateIncomeChart(group, highlight) {
       bars,
       text,    
     )
-    .width(group == "Geschlecht" ? makeWidth(width) * 0.3 : group != "Haushaltstyp - detailiert" ? makeWidth(width) * 0.6 : makeWidth(width) * 0.6) // Dynamically set width based on group
+    .width(widthHH) // Dynamically set width based on group
     .data(filteredIncome)  // Use the filtered data
     .config(config); // Ensure 'config' is defined
 }
@@ -85,6 +87,8 @@ function generateIncomeChart(group, highlight) {
 function generateIncomeChartStatusquo(group) {
 
   const filteredIncomeStatusquo = hhIncome.filter(d => d.group == group && d.variable == "Status quo");
+
+  const widthHH = group == "Geschlecht" ? makeWidth(width) * 0.2 : group == "Altersgruppen" ? makeWidth(width) * 0.45 : makeWidth(width) * 0.5;
 
   const bars = vl
     .markBar({
@@ -141,15 +145,17 @@ function generateIncomeChartStatusquo(group) {
       bars,
       text,    
     )
-    .width(group == "Geschlecht" ? makeWidth(width) * 0.3 : group != "Haushaltstyp - detailiert" ? makeWidth(width) * 0.6 : makeWidth(width) * 0.6)
+    .width(widthHH)
     .data(filteredIncomeStatusquo)  // Use the filtered data
     .config(config);
 }
 
 
 function generatePovertyChart(group) {
-
+  
   const filteredPoverty = hhPoverty.filter(d => d.group == group && d.variable == select);
+
+  const widthHH = group == "Geschlecht" ? makeWidth(width) * 0.2 : group == "Altersgruppen" ? makeWidth(width) * 0.45 : makeWidth(width) * 0.5;
 
   const bars = vl
     .markBar({
@@ -185,14 +191,14 @@ function generatePovertyChart(group) {
   const text = vl
     .markText({
       size: 13,
-      align: "center",
+      align: "right",
       angle: -90,
       baseline: "middle",
-      dx: -42,
+      dx: -10,
     })
     .transform(
       // vl.filter('datum.value !== 0'),
-      vl.calculate("datum.value > 0 ? '+' + format(datum.value, '.2~f') + ' PP.' : format(datum.value, '.2~f') + ' PP.'")
+      vl.calculate("datum.value == 0 ? '-' + format(datum.value, '.2~f') + ' PP.' : format(datum.value, '.2~f') + ' PP.'")
         .as("formattedValue")
     )
     .encode(
@@ -212,7 +218,7 @@ function generatePovertyChart(group) {
       bars,
       text,    
       )
-    .width(group == "Geschlecht" ? makeWidth(width) * 0.3 : group != "Haushaltstyp - detailiert" ? makeWidth(width) * 0.6 : makeWidth(width) * 0.6)
+    .width(widthHH)
     .data(filteredPoverty)  // Use the filtered data
     .config(config);
 }
@@ -221,6 +227,8 @@ function generatePovertyChart(group) {
 function generatePovertyChartStatusquo(group) {
 
   const filteredPovertyStatusquo = hhPoverty.filter(d => d.group == group && d.variable == "Status quo");
+
+  const widthHH = group == "Geschlecht" ? makeWidth(width) * 0.2 : group == "Altersgruppen" ? makeWidth(width) * 0.45 : makeWidth(width) * 0.5;
 
   const bars = vl
     .markBar({
@@ -281,7 +289,7 @@ function generatePovertyChartStatusquo(group) {
       bars,
       text,    
     )
-    .width(group == "Geschlecht" ? makeWidth(width) * 0.3 : group != "Haushaltstyp - detailiert" ? makeWidth(width) * 0.6 : makeWidth(width) * 0.6)
+    .width(widthHH)
     .data(filteredPovertyStatusquo)  // Use the filtered data
     .config(config);
 }

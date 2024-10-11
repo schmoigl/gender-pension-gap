@@ -35,7 +35,7 @@ scenarios = aq.from(binsRaw)
   .filter(aq.escape(d => d.variable != "Szenario 4 (GPG/Frau)"))
   .filter(aq.escape(d => d.variable != "Szenario 5 (Beste 15 Jahre)"))
   .select("variable")
-  .dedupe()
+  .dedupe() 
   .array("variable")
 ```
 
@@ -164,42 +164,6 @@ bins = binsMid
   .objects()
 ```
 
-<!-- Ab hier Haushalte -->
-
-```{ojs}
-hhIncomeRaw = FileAttachment("data/household_income_detail.csv").csv({ typed: true })
-hhPovertyRaw = FileAttachment("data/household_arop_detail.csv").csv({ typed: true })
-```
-
-```{ojs}
-
-hhIncome = aq.from(hhIncomeRaw)
-  .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
-  .derive({ 
-    value: d => d.variable != "Status quo" ? d.value / 100 : d.value,
-    selectMark: aq.escape(d => d.variable == select ? "yes" : "no"), 
-    group2: d => d.group != "Haushaltstyp - detailiert" ? "irrelevant" : (d.detail.includes("kein Kind") ? "Kein Kind" : "Kinder"),
-    })
-  .objects()
-  .map(d => ({...d, detail: removeAfterLastComma(d.detail) }))
-  
-groups = aq.from(hhIncome)
-  .filter(aq.escape(d => d.group != "Gesamt"))
-  .select("group")
-  .dedupe()
-  <!-- .array("group") -->
-
-hhPoverty = aq.from(hhPovertyRaw)
-  .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
-  .derive({ 
-    value: d=> d.variable == "Status quo" ? d.value / 100 : d.value,
-    selectMark: aq.escape(d=> d.variable == select ? "yes" : "no"), 
-    group2: d => d.group != "Haushaltstyp - detailiert" ? "irrelevant" : (d.detail.includes("kein Kind") ? "kein Kind" : "ein Kind"),
-    })
-  .objects()
-  .map(d => ({...d, detail: removeAfterLastComma(d.detail) }))
-```
-
 
 <!-- kommunikation@akooe.at [undefined:kommunikation@akooe.at] -->
 
@@ -239,7 +203,7 @@ answer = guess == "40,1%" ? "Richtig! Der Unterschied ist groß." : "Leider fals
 ## Pensionsreformen: AK-Vorschläge für eine faire Berechnung
 
 #### Auflösung
-
+ 
 **${answer}**
 
 Der Gender Pension Gap, also der Unterschied zwischen Männer- und Frauenpensionen, liegt im Jahr 2024 in Österreich bei 40,1%¹. In Oberösterreich liegt er sogar bei 45,4% und ist somit im Bundesländervergleich nach Vorarlberg an vorletzter Stelle. Gründe für die Schlechterstellung von Frauen sind die Hürden, mit denen sie bereits im Erwerbsleben konfrontiert sind: lange Teilzeitphasen, niedrigere Einkommen, Zeiten von Arbeitslosigkeit und Unterbrechungen aufgrund von Kindererziehungs- und Pflegezeiten.
@@ -331,7 +295,7 @@ check2Info = select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)
 :::{.infoText}
 ![](img/Infobox_info_icon.svg){height=14px} ${check1Info} <br> ![](img/Infobox_info_icon.svg){height=14px} ${check2Info}
 :::
-
+ 
 :::
 
 
@@ -498,27 +462,28 @@ Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
 <span>Hier können Sie die Ergebnisse gesammelt betrachten und Ihre Eingaben ändern</span>
 
 <div class="fold-container">
-  <div class="column">
+<div class="column">
 
-      ```{ojs}
-      Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension"}), viewof rangeRaw) 
-      Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"}), viewof radioRaw)
-      Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)  
-      ```
-  </div>
+```{ojs}
+Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension"}), viewof rangeRaw) 
+Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"}), viewof radioRaw)
+Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)  
+```
 
-  <div class="column">
+</div>
+<div class="column">
 
-      ```{ojs}
-      Inputs.bind(Inputs.radio(["Meine Vergleichsgruppe", "∅ Gesamtdurchschnitt"], {value: "Meine Vergleichsgruppe", label: "Zeige"}), viewof radio2)
-      Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true}), viewof check1) 
-      Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? false : true}), viewof check2)
-      ```
-  </div>
+```{ojs}
+Inputs.bind(Inputs.radio(["Meine Vergleichsgruppe", "∅ Gesamtdurchschnitt"], {value: "Meine Vergleichsgruppe", label: "Zeige"}), viewof radio2)
+Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true}), viewof check1) 
+Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? false : true}), viewof check2)
+```
+
+</div>
 </div>
 
 <br>
-
+ 
 ```{ojs}
 distributions.render({ renderer: "svg" }) 
 ```
@@ -599,9 +564,9 @@ kinder = radioKinder
 ## Ich bin interessiert an den Effekten auf
 #### Auswahl 5/6
 ```{ojs}
-viewof haushaltseffekt = Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {label: "Effekte auf", value: "Haushaltseinkommen"})
+viewof radioHaushaltseffekt = Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {label: "Effekte auf", value: "Haushaltseinkommen"})
 
-infoHH = haushaltseffekt === "Haushaltseinkommen" ? 
+infoHH = radioHaushaltseffekt === "Haushaltseinkommen" ? 
   html`
     Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen.
     ` 
@@ -635,6 +600,64 @@ Informationen zu dem von Ihnen gewählten Szenario: ${info} <br>
 :::
 
 
+<!-- Ab hier Haushalte Daten -->
+
+```{ojs}
+hhIncomeRaw = FileAttachment("data/household_income_detail.csv").csv({ typed: true })
+hhPovertyRaw = FileAttachment("data/household_arop_detail.csv").csv({ typed: true })
+```
+
+```{ojs}
+hhIncome = aq.from(hhIncomeRaw)
+  .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
+  .derive({ 
+    value: d => d.variable != "Status quo" ? d.value / 100 : d.value,
+    selectMark: aq.escape(d => d.variable == select ? "yes" : "no"), 
+    group2: d => d.group != "Haushaltstyp - detailiert" ? "irrelevant" : (d.detail.includes("kein Kind") ? "Kein Kind" : "Kinder"),
+    // radioHaushaltseffekt: aq.escape(d => radioHaushaltseffekt),
+    radioGeschlecht: aq.escape(d => d.detail == radio),
+    selectStatus: aq.escape(d => d.detail == selectStatus),
+    radioAltersgruppe: aq.escape(d => d.detail == radioAltersgruppe),
+    radioKinder: aq.escape(d => radioKinder),
+    radioErwachsene: aq.escape(d => radioErwachsene),
+    // focus: d => d.radioGeschlecht || d.selectStatus || d.radioAltersgruppe,
+    })
+  .objects()
+  .map(d => ({...d, detail: removeAfterLastComma(d.detail) }))
+
+// selectStatus
+// radioAltersgruppe
+// radioKinder
+// radioErwachsene
+// radioHaushaltseffekt
+// hhIncome
+// hhPoverty
+
+groups = aq.from(hhIncome)
+  .filter(aq.escape(d => d.group != "Gesamt"))
+  .select("group")
+  .dedupe()
+  .array("group")
+
+hhPoverty = aq.from(hhPovertyRaw)
+  .filter(aq.escape(d => d.variable != "azr0" && d.variable != "azr1"))
+  .derive({ 
+    value: d => d.variable == "Status quo" ? d.value / 100 : d.value,
+    selectMark: aq.escape(d=> d.variable == select ? "yes" : "no"), 
+    group2: d => d.group != "Haushaltstyp - detailiert" ? "irrelevant" : (d.detail.includes("kein Kind") ? "kein Kind" : "ein Kind"),
+    // radioHaushaltseffekt: aq.escape(d => radioHaushaltseffekt),
+    radioGeschlecht: aq.escape(d => d.detail == radio),
+    selectStatus: aq.escape(d => d.detail == selectStatus),
+    radioAltersgruppe: aq.escape(d => d.detail == radioAltersgruppe),
+    radioKinder: aq.escape(d => radioKinder),
+    radioErwachsene: aq.escape(d => radioErwachsene),
+    // focus: d => d.radioGeschlecht || d.selectStatus || d.radioAltersgruppe,
+    })
+  .objects()
+  .map(d => ({...d, detail: removeAfterLastComma(d.detail) }))
+```
+
+
 ::: {.slide}
 
 <!-- Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren. -->
@@ -642,33 +665,34 @@ Informationen zu dem von Ihnen gewählten Szenario: ${info} <br>
 <!-- ## Geschlecht -->
 ## Das sind Ihre Ergebnisse
 #### Ergebnisse 1/3
-<span>Wie würde sich das ${select} auf die ${haushaltseffekt} von ${radio} auswirken?</span>
+<span>Wie würde sich das ${select} auf die ${radioHaushaltseffekt} von ${radio} auswirken?</span>
 
-:::: {.columns}
-
-::: {.column width="50%"}
+<div class="fold-container">
+<div class="column">
 
 #### Änderung
 
 ```{ojs}
-haushaltseffekt === "Haushaltseinkommen" ?
+radioHaushaltseffekt === "Haushaltseinkommen" ?
   generateIncomeChart("Geschlecht", highlight).render({ renderer: "svg" }) :
   generatePovertyChart("Geschlecht").render({ renderer: "svg" })
 ```
 
-:::
-
-::: {.column width="50%"}
+</div>
+<div class="column">
 
 #### Status Quo
 
 ```{ojs}
 highlight = radioRaw == "Frau" ? "Frauen" : "Männer"
 
-haushaltseffekt === "Haushaltseinkommen" ?
+radioHaushaltseffekt === "Haushaltseinkommen" ?
   generateIncomeChartStatusquo("Geschlecht", highlight).render({ renderer: "svg" }) :
   generatePovertyChartStatusquo("Geschlecht").render({ renderer: "svg" })
 ```
+
+</div>
+</div>
 
 
 ```{ojs}
@@ -699,17 +723,13 @@ hhPovertyGeschlechttext =
    "Die durchschnittliche Armutsgefährdungsquote von Männern liegt mit 14,97% leicht über der der Frauen (14,4%). Sie würden von Szenario 3 weniger profitieren (-0,13 Prozentpunkte) als Frauen (-0,42 Prozentpunkte)."
 ```
 
-:::
-
-::::
-
-${haushaltseffekt === "Haushaltseinkommen" ? hhIncomeGeschlechttext : hhPovertyGeschlechttext} <br><br>
+${radioHaushaltseffekt === "Haushaltseinkommen" ? hhIncomeGeschlechttext : hhPovertyGeschlechttext} <br><br>
 
 Eingabe ändern:
 ```{ojs}
 Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frau", label: "Geschlecht"}), viewof radioRaw)
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
+Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof radioHaushaltseffekt) 
 ```
 
 :::
@@ -721,31 +741,32 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {val
 <!-- ## Altersgruppen -->
 ## Das sind Ihre Ergebnisse
 #### Ergebnisse 2/3
-<span>Wie würde sich das ${select} auf die ${haushaltseffekt} in ihrer Altersgruppe auswirken?</span>
+<span>Wie würde sich das ${select} auf die ${radioHaushaltseffekt} in ihrer Altersgruppe auswirken?</span>
 
-:::: {.columns}
-
-::: {.column width="50%"}
+<div class="fold-container">
+<div class="column">
 
 #### Änderung
 
 ```{ojs}
-haushaltseffekt === "Haushaltseinkommen" ?
+radioHaushaltseffekt === "Haushaltseinkommen" ?
   generateIncomeChart("Altersgruppen").render({ renderer: "svg" }) :
   generatePovertyChart("Altersgruppen").render({ renderer: "svg" })
 ```
 
-:::
-
-::: {.column width="50%"}
+</div>
+<div class="column">
 
 #### Status Quo
 
 ```{ojs}
-haushaltseffekt === "Haushaltseinkommen" ?
+radioHaushaltseffekt === "Haushaltseinkommen" ?
   generateIncomeChartStatusquo("Altersgruppen").render({ renderer: "svg" }) : 
   generatePovertyChartStatusquo("Altersgruppen").render({ renderer: "svg" })
 ```
+
+</div>
+</div>
 
 
 ```{ojs}
@@ -797,18 +818,14 @@ hhIncomeAltersgruppetext = BaseIncomeAge + SzenarioIncomeAge
 hhPovertyAltersgruppetext = BasePovertyAge + SzenarioPovertyAge
 ```
 
-:::
-
-::::
-
-${haushaltseffekt === "Haushaltseinkommen" ? hhIncomeAltersgruppetext : hhPovertyAltersgruppetext} <br><br>
+${radioHaushaltseffekt === "Haushaltseinkommen" ? hhIncomeAltersgruppetext : hhPovertyAltersgruppetext} <br><br>
 
 Eingabe ändern:
 
 ```{ojs}
 Inputs.bind(Inputs.radio(["0-14", "15-24", "25-49", "50-64", "65-79", "80+"], {value: "0-14", label: "Altersgruppe"}), viewof radioAltersgruppe)
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
+Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof radioHaushaltseffekt) 
 ```
 
 :::
@@ -821,30 +838,43 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {val
 <!-- ## Erwerbsstatus -->
 ## Das sind Ihre Ergebnisse
 #### Ergebnisse 3/3
-<span>Wie würde sich das ${select} auf die ${haushaltseffekt} in ihrer Altersgruppe auswirken?</span>
+<span>Wie würde sich das ${select} auf die ${radioHaushaltseffekt} für Personen mit Ihrem Erwerbsstatus auswirken?</span>
 
-:::: {.columns}
+```{ojs}
+// groups
+selectStatus
+radioAltersgruppe
+radioKinder
+radioErwachsene
+radioHaushaltseffekt
+hhIncome
+hhPoverty
+```
 
-::: {.column width="52%"}
+<div class="fold-container">
+<div class="column">
 
 #### Änderung
 
 ```{ojs}
-haushaltseffekt === "Haushaltseinkommen" ?
+radioHaushaltseffekt === "Haushaltseinkommen" ?
   generateIncomeChart("Erwerbsstatus").render({ renderer: "svg" }) : 
   generatePovertyChart("Erwerbsstatus").render({ renderer: "svg" })
 ```
 
-:::
-
-::: {.column width="48%"}
+</div>
+<div class="column">
 
 #### Status Quo
 
 ```{ojs}
-haushaltseffekt === "Haushaltseinkommen" ?
-  generateIncomeChartStatusquo("Erwerbsstatus").render({ renderer: "svg" }) : generatePovertyChartStatusquo("Erwerbsstatus").render({ renderer: "svg" })
+radioHaushaltseffekt === "Haushaltseinkommen" ?
+  generateIncomeChartStatusquo("Erwerbsstatus").render({ renderer: "svg" }) :
+  generatePovertyChartStatusquo("Erwerbsstatus").render({ renderer: "svg" })
 ```
+
+</div>
+</div>
 
 
 ```{ojs}
@@ -899,26 +929,20 @@ SzenarioPovertyStatus =
   "Von Szenario 2 würden Personen der Gruppe 'Sonstige Inaktivität' am meisten profitieren. Weiters gibt es positive Effekte bei Pensionist:innen und dauerhaft arbeitsunfähigen Personen." :
   "Von Szenario 3 würden arbeitssuchende Personen am meisten profitieren. Weiters gibt es positive Effekte bei Pensionist:innen, Personen in Ausbildung und unselbständig beschäftigte Personen."
 
-   
 hhIncomeStatustext = BaseIncomeStatus + SzenarioIncomeStatus
 hhPovertyStatustext = BasePovertyStatus + SzenarioPovertyStatus
 ```
 
-:::
-
-::::
-
-${haushaltseffekt === "Haushaltseinkommen" ? hhIncomeStatustext : hhPovertyStatustext} <br><br>
+${radioHaushaltseffekt === "Haushaltseinkommen" ? hhIncomeStatustext : hhPovertyStatustext} <br><br>
 
 Eingabe ändern: 
 
 ```{ojs}
 Inputs.bind(Inputs.select(["Im Vorschulalter", "Landwirtschaft", "Selbständig beschäftigt", "Unselbständig beschäftigt", "In Pension", "Arbeitsuchend, arbeitslos", "In Ausbildung", "Inaktiv", "Dauerhaft arbeitsunfähig", "Sonstige Inaktivität"], {label: "Erwerbsstatus"}), viewof selectStatus)
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
+Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof radioHaushaltseffekt) 
 ```
 :::
-
 
 
 <!-- ## Erwerbsstatus -->
@@ -948,7 +972,7 @@ radioKinder
 #### Änderung
 
 ```{ojs}
-haushaltseffekt === "Haushaltseinkommen" ?
+radioHaushaltseffekt === "Haushaltseinkommen" ?
   generateIncomeChart("Haushaltstyp - detailiert").render({ renderer: "svg" }) : 
   generatePovertyChart("Haushaltstyp - detailiert").render({ renderer: "svg" })
 ```
@@ -960,7 +984,7 @@ haushaltseffekt === "Haushaltseinkommen" ?
 #### Status Quo
 
 ```{ojs}
-haushaltseffekt === "Haushaltseinkommen" ?
+radioHaushaltseffekt === "Haushaltseinkommen" ?
   generateIncomeChartStatusquo("Haushaltstyp - detailiert").render({ renderer: "svg" }) :
   generatePovertyChartStatusquo("Haushaltstyp - detailiert").render({ renderer: "svg" })
 ```
@@ -976,7 +1000,7 @@ Eingabe ändern:
 ```{ojs}
 Inputs.bind(Inputs.radio(["Kein Kind", "Ein Kind", "Zwei Kinder", "Drei Kinder oder mehr"], {label: "Kinder", value: "Kein Kind"}), viewof radioKinder)
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
+Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof radioHaushaltseffekt) 
 ```
 
 ::: -->
