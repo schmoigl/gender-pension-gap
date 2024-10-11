@@ -1,0 +1,262 @@
+
+```{ojs}
+
+// highlights do not work!!
+// TODO: highlights, haushaltstyp mit Kinder/ohne Kinder filtern, +/- 0 PP. in povertyChart
+
+
+// Functions für HH-Einkommen und Armutsgefährdungsquote
+
+function generateIncomeChart(group, highlight) {
+  // Filter data based on the provided group and a variable that should be defined or passed in
+  const filteredIncome = hhIncome.filter(d => d.group == group && d.variable == select); // Ensure 'select' is correctly defined or passed in
+  
+  const bars = vl
+    .markBar({
+      opacity: 0.8,
+      fill: colors[1], // Make sure colors[1] is defined
+    }) 
+    .encode( 
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: "+.2%",  // Format for y-axis labels as percentages
+          labelFontSize: 10
+        }),
+      vl.x()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 20,
+          labelLimit: 200,  
+          labelFontSize: 10,
+        }),
+//    vl.stroke(detail == highlight ? vl.value('black') : vl.value('transparent'))
+  );
+
+  
+  const text = vl
+    .markText({
+      dy: -10,
+      size: 10,
+      align: "center",
+    })
+    .transform(
+      vl.filter('datum.value !== 0'),
+    )
+    .encode(
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          format: "+.2f"
+        }),
+      vl.x()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format("+.2~%"),
+    );
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+    )
+    .width(group == "Geschlecht" ? makeWidth(width) * 0.3 : group != "Haushaltstyp - detailiert" ? makeWidth(width) * 0.5 : makeWidth(width) * 0.6) // Dynamically set width based on group
+    .data(filteredIncome)  // Use the filtered data
+    .config(config); // Ensure 'config' is defined
+}
+
+function generateIncomeChartStatusquo(group) {
+  // Filter data
+  const filteredIncomeStatusquo = hhIncome.filter(d => d.group == group && d.variable == "Status quo");
+  // // console.log(filteredIncomeStatusquo);
+
+  const bars = vl
+    .markBar({
+      opacity: 0.8,
+      fill: colors[2],
+    }) 
+    .encode( 
+      vl.x()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          labelFontSize: 10
+        }),
+      vl.y()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 20,
+          labelLimit: 100,  
+          labelFontSize: 10,
+        })
+    );
+
+ const text = vl
+    .markText({
+      dx: 10,
+      size: 10,
+      align: "right",
+    })
+    .encode(
+      vl.y().fieldN("detail")
+    )
+    .transform(
+      vl.calculate("format(datum.value, ',.0f') + '€'").as("formattedValue")
+    )
+    .encode(
+      vl.text().fieldN("formattedValue")
+    );
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+    )
+    .width(makeWidth(width) * 0.3)
+    .data(filteredIncomeStatusquo)  // Use the filtered data
+    .config(config);
+}
+
+
+function generatePovertyChart(group) {
+  const filteredPoverty = hhPoverty.filter(d => d.group == group && d.variable == select);
+  // console.log(filteredPoverty);
+
+  const bars = vl
+    .markBar({
+      fill: colors2[0],
+      opacity: 0.8,
+    }) 
+    .encode( 
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: "+.2f",
+          labelFontSize: 10
+        }),
+      vl.x()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 20,  
+          labelLimit: 200,  
+          labelFontSize: 10,
+        }),
+    )
+
+  const text = vl
+    .markText({
+      dy: 10,
+      size: 10,
+      align: "center",
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value")
+        .axis({
+          format: "+.2f"  // Ensure format is set here for text
+        }),
+      vl.x()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format(".2f")  // Format the text as fixed-point with one decimal
+    )
+    .transform(
+      vl.filter('datum.value !== 0'),
+      vl.calculate("datum.value >= 0 ? '+' + format(datum.value, '.2f') + ' PP.' : format(datum.value, '.2f') + ' PP.'")
+        .as("formattedValue")
+    )
+    .encode(
+      vl.text()
+        .fieldN("formattedValue")  // Use the calculated field for text labels
+    );
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+      )
+    .width(group == "Geschlecht" ? makeWidth(width) * 0.3 : group != "Haushaltstyp - detailiert" ? makeWidth(width) * 0.5 : makeWidth(width) * 0.6)
+    .data(filteredPoverty)  // Use the filtered data
+    .config(config);
+}
+
+
+function generatePovertyChartStatusquo(group) {
+  // Filter data
+  const filteredPovertyStatusquo = hhPoverty.filter(d => d.group == group && d.variable == "Status quo");
+  // console.log(filteredPovertyStatusquo);
+
+  const bars = vl
+    .markBar({
+      opacity: 0.8,
+      fill: colors2[1],
+    }) 
+    .encode( 
+      vl.x()
+        .fieldQ("value")
+        .axis({
+          title: null,
+          grid: false,
+          format: ".0%",
+          labelFontSize: 10
+        }),
+      vl.y()
+        .fieldN("detail")
+        .axis({
+          title: null,
+          domain: false,
+          ticks: false,
+          labelAlign: "right",
+          labelPadding: 20,
+          labelLimit: 100,  
+          labelFontSize: 10,
+        })
+    );
+
+  const text = vl
+    .markText({
+      dx: 10,
+      size: 10,
+      align: "right",
+    })
+    .encode(
+      vl.x()
+        .axis({
+          format: ".2%"
+        }),
+      vl.y()
+        .fieldN("detail"),
+      vl.text()
+        .fieldQ("value")
+        .format(".2%"),
+    );
+
+  return vl 
+    .layer(
+      bars,
+      text,    
+    )
+    .width(makeWidth(width) * 0.3)
+    .data(filteredPovertyStatusquo)  // Use the filtered data
+    .config(config);
+}
+```

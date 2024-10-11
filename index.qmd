@@ -9,6 +9,8 @@ execute:
 
 {{< include src/config.qmd >}}
 {{< include src/utils.qmd >}}
+{{< include src/graphs.qmd >}}
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 
@@ -28,7 +30,7 @@ descriptions = FileAttachment("data/descriptions.csv").csv({ typed: true })
 ```{ojs}
 binsRaw = FileAttachment("data/bins.csv").csv({ typed: true })
 scenarios = aq.from(binsRaw)
-  .derive({ variable: d => op.replace(d.variable, /\r\n/g, " ") })
+  .derive({ variable: d => aq.op.replace(d.variable, /\r\n/g, " ") })
   .filter(aq.escape(d => d.variable != "Status quo"))
   .filter(aq.escape(d => d.variable != "Szenario 4 (GPG/Frau)"))
   .filter(aq.escape(d => d.variable != "Szenario 5 (Beste 15 Jahre)"))
@@ -46,7 +48,7 @@ info = descriptions
 ```{ojs}
 binsMid = aq.from(binsRaw)
   .derive({ 
-    variable: d => op.replace(d.variable, /\r\n/g, " "),
+    variable: d => aq.op.replace(d.variable, /\r\n/g, " "),
     bin: d => d.bin * 100,
     range: aq.escape(d => range),
     radio: aq.escape(d => radio),
@@ -60,9 +62,9 @@ cumPercMid = binsMid
       )
   })
   .groupby(["gesl", "variable", "tail"]) 
-  .rollup({ N: d => op.sum(d.N) })
+  .rollup({ N: d => aq.op.sum(d.N) })
   .groupby(["gesl", "variable"])
-  .derive({ perc: d => d.N / op.sum(d.N) })
+  .derive({ perc: d => d.N / aq.op.sum(d.N) })
 
 CumPercSame = cumPercMid
   .filter(d => d.tail == "same")
@@ -110,9 +112,9 @@ decilesMid = aq.from(decilesRaw)
     diff: aq.escape(d => Math.abs(d.value-range)), // closest decile to the right! not left!!!!
   }) 
   .groupby(["gesl", "val", "variable"])
-  .derive({ closestDecile: d => op.min(d.diff) == d.diff && d.gesl == d.radio && d.val == "Status quo" ? 1 : 0 })
+  .derive({ closestDecile: d => aq.op.min(d.diff) == d.diff && d.gesl == d.radio && d.val == "Status quo" ? 1 : 0 })
   .groupby(["gesl", "variable", "D"])
-  .derive({ closestDecile: d => op.sum(d.closestDecile) > 0 ? "yes" : "no" })
+  .derive({ closestDecile: d => aq.op.sum(d.closestDecile) > 0 ? "yes" : "no" })
   .ungroup()
 
 decilesDiffVal = decilesMid
@@ -160,7 +162,6 @@ medians = decilesMid
 bins = binsMid
   .join_left(medians, [["gesl", "variable"], ["gesl", "variable"]])
   .objects()
-
 ```
 
 <!-- Ab hier Haushalte -->
@@ -285,14 +286,6 @@ Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese m
 Ihre Bruttopension wird in weiterer Folge dazu verwendet Sie in eine Vergleichsgruppe einzuordnen.
 :::
 
-<!-- **Auswahl 2/4**: 
-Geben Sie Ihr Geschlecht an
-```{ojs}
-viewof radioRaw = Inputs.radio(["Frau", "Mann"], {value: "Frauen"})
-```
-![](img/Infobox_info_icon.svg){height=14px}
-Manche der berechneten Szenarien wirken sich nur auf Frauen aus. Daher ist es möglich, dass die Ergebnisse bei Männern keine Veränderungen zeigen. -->
-
 :::
 
 ::: {.slide}
@@ -307,8 +300,6 @@ radio = radioRaw == "Frau" ? "Frauen" : "Männer"
 :::{.infoText}
 ![](img/Infobox_info_icon.svg){height=14px}
 Manche der berechneten Szenarien wirken sich nur auf Frauen aus. Daher ist es möglich, dass die Ergebnisse bei Männern keine Veränderungen zeigen. <br>
-<!-- ![](img/Infobox_info_icon.svg){height=14px}
-Datenbasis der Kohorten basiert auf einer einen nicht-binären Geschlechtseintrag noch nicht gegeben hat -->
 :::
 
 :::
@@ -343,18 +334,6 @@ check2Info = select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)
 
 :::
 
-<!-- ::: {.slide}
-**Auswahl 4/4**: 
-Zutreffendes ankreuzen (falls relevant)
-```{ojs}
-viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true})
-viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? false : true})
-interpolate = "step"
-check1Info = select != "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ? "Kindererziehungszeiten wären nur im Szenario 1 relevant." : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt." : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen."
-check2Info = select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten wären nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
-```
-![](img/Infobox_info_icon.svg){height=14px} ${check1Info} <br> ![](img/Infobox_info_icon.svg){height=14px} ${check2Info}
-::: -->
 
 ::: {.slide}
 ## Das sind Ihre Ergebnisse
@@ -370,226 +349,6 @@ decilesBar =
     .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Gesamtdurchschnitt" : "Meine Vergleichsgruppe"}))
     .map(d => ({...d, gesl: d.gesl == d.radio && d.D == "Meine Vergleichsgruppe" ? "Meine Vergleichsgruppe" : "∅ " + d.gesl}))
     .map(d => ({...d, dummy: "⠀"}))
-
-function bars(inputWidth) {
-
-  const bar = vl
-    .markBar({
-      strokeWidth: 1.75,
-      strokeOpacity: 1,
-      // size: width > 1600 ? 20 : null,
-    })
-    .encode(
-      vl.x()
-        .fieldN("gesl")
-        .sort("value")
-        .axis({
-          minExtent: 70,
-          grid: false,
-          title: null,
-        }), 
-      vl.y()
-        .fieldQ("value")
-        .scale({
-          domain: [0, 5000],
-          nice: false,
-        })
-        .axis({
-          domain: false,
-          grid: false,
-          title: width > 600 ? "Bruttopension" : null, 
-          labels:  width > 600 ? true : false,
-          ticks:  width > 600 ? true : false,
-        }),
-      vl.xOffset()
-        .fieldN("val"),
-      vl.color()
-        .fieldN("val")
-        .scale({
-          range: colors,
-        })
-        .legend({
-          // orient: width > 825 ? "right" : "top",
-          orient: "top",
-          symbolOpacity: 1,
-          symbolType: "square",
-          title: null,
-        }),
-      vl.stroke()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            ["transparent", "black"] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            ["black", "transparent"] :
-            ["black", "black"]          
-        })
-        .legend(null),
-      vl.opacity()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            [0.5, 0.8] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            [0.8, 0.5] :
-            [0.8, 0.8]
-        })
-        .legend(null),
-    )
-
-  const text = vl
-    .markText({
-      clip: true,
-      size: 14,
-      y: width > 600 ? 270 : 230,
-      angle: -90,
-      align: "left", 
-    })
-    .encode(
-      vl.x()
-        .fieldO("gesl"),
-      vl.xOffset()
-        .fieldN("val"),
-      vl.text()
-        .fieldQ("value")
-        .format(",.0~f"),
-      vl.opacity()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            [0.5, 0.8] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            [0.8, 0.5] :
-            [0.8, 0.8]
-        })
-        .legend(null),
-    )
-
-  const textDiff = vl
-    .markText({
-      clip: true,
-      size: 14,
-      dy: -16,
-      align: "center",
-    })
-    .transform(vl.filter("datum.val == 'Szenario'"))
-    .encode(
-      vl.x()
-        .fieldO("gesl"),
-      vl.y()
-        .fieldQ("value"),
-      vl.text()
-        .fieldQ("diffScenario")
-        .format("+,.0~f"),
-      vl.opacity()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            [0.5, 0.8] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            [0.8, 0.5] :
-            [0.8, 0.8]
-        })
-        .legend(null),
-    )
-
-  const textDiffPerc = vl
-    .markText({
-      clip: true,
-      size: 14,
-      dy: -36,
-      align: "center",
-    })
-    .transform(vl.filter("datum.val == 'Szenario'"))
-    .encode(
-      vl.x()
-        .fieldO("gesl"),
-      vl.y()
-        .fieldQ("value"),
-      vl.text() 
-        .fieldQ("diffScenarioPerc")
-        .format("+,.0~%"),
-      vl.opacity()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            [0.5, 0.8] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            [0.8, 0.5] :
-            [0.8, 0.8]
-        })
-        .legend(null), 
-    )
-
-  const textPosition = vl
-    .markText({
-      clip: true,
-      size: 18,
-      dy: -10,
-      dx: -28,
-      // angle: -0,
-      align: "left",
-      strokeWidth: 1.25,
-    })
-    .transform(
-      vl.filter("datum.D == 'Vergleichsgruppe'"),
-      vl.filter("datum.val == 'Status quo'"), 
-    )
-    .encode(
-      vl.x()
-        .fieldN("gesl")
-        .sort("value"), 
-      vl.y()
-        .fieldQ("value"),
-      vl.text()
-        .value("↘"),
-      vl.opacity()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            [0.5, 0.8] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            [0.8, 0.5] :
-            [0.8, 0.8]
-        })
-        .legend(null),  
-    )
-
-  const layers = width > 600 ?
-    vl.layer(
-      bar,
-      text,
-      textDiff,
-      textDiffPerc,
-      textPosition,
-    ) :
-    vl.layer(
-      bar,
-      text,
-      textDiff,
-      textDiffPerc,
-    ) 
-
-  return layers
-    .height(width > 600 ? 280 : 240) // width > 825 ? 280 : 180 
-    .width(inputWidth)
-    .facet({
-      field: "dummy", 
-      type: "nominal", 
-      title: null,
-      header: { 
-        labelFontSize: 14, 
-        orient: "top",
-      },
-    })
-    // .resolve({
-    //   "axis": {"x": "independent"},
-    //   "scale": {"x": "independent"},
-    //   })
-    .data(decilesBar)
-    .config(config)
-
-}
 
 bars(width > 600 ? 250 : width * 0.8).render({ renderer: "svg" })
 
@@ -656,194 +415,6 @@ decilesDumbbellFull = deciles
 ```
 
 ```{ojs}
-function dumbbell(inputData, inputWidth)  {
-
-  const points = vl
-    .markPoint({
-      size: 100,
-      opacity: 1,
-      shape: "square",
-      stroke: "transparent",
-    })
-    .encode(
-      vl.y()
-        .fieldQ("value")
-        .axis({
-          title: width > 600 ? "Bruttopension" : null,
-          labels:  width > 600 ? true : false,
-          ticks:  width > 600 ? true : false,
-          domain: false,
-          grid: false,
-        })
-        .scale({
-          domain: [0, 5000],
-          nice: false,
-        }),
-      vl.x()
-        .fieldO("val")
-        .axis({ 
-          title: null, 
-        }),
-      vl.fill()
-        .fieldN("gesl")
-        .scale({
-          range: colors2,
-        })
-        .legend({
-          // orient: width > 825 ? "right" : "top", 
-          orient: "top",
-          symbolOpacity: 1,
-          symbolType: "square",
-          title: null, 
-        }),
-    )
-
-  const lines = vl
-    .markLine({
-      opacity: 0.15,
-      size: 5,
-    })
-    .encode(
-      vl.y()
-        .fieldQ("value"),
-      vl.x()
-        .fieldO("val"),
-      vl.color()
-        .fieldN("val")
-        .scale({
-          range: ["black", "black"]
-        })
-        .legend(null),
-    )
-
-  const text = vl
-    .markText({
-      size: 14,
-      dx: 27,
-      clip: true,
-    })
-    .encode(
-      vl.y()
-        .fieldQ("value"),
-      vl.x() 
-        .fieldO("val"),
-      vl.color()
-        .fieldN("gesl")
-        .scale({
-          range: ["black"],
-        }) 
-        .legend(null),
-      vl.text() 
-        .fieldQ("value")
-        .format(",.0f"), 
-    )
-
-  const textRel = vl
-    .markText({
-      size: 14,
-      dx: width > 600 ? 27 : 10,
-      dy: 18,
-      clip: true,
-    })
-    .encode(
-      vl.y()
-        .fieldQ("value"),
-      vl.x()
-        .fieldO("val"),
-      vl.text()
-        .fieldQ("gapRel")
-        .format(",.0~%"),
-      vl.opacity()
-        .fieldN("gesl")
-        .scale({
-          range : [0.51, 0] 
-        })
-        .legend(null), 
-    )
-
-  const textGap = vl
-    .markText({
-      size: 14,
-      dx: 24,
-      dy: -16,
-      angle: -90,
-      align: "right",
-      clip: true,
-    })
-    .encode(
-      vl.y()
-        .fieldQ("value"),
-      vl.x()
-        .fieldO("val"),
-      vl.text()
-        .fieldQ("gapValue")
-        .format(",.0~f"),
-      vl.opacity()
-        .fieldN("gesl"),
-    )
-
-  const textArrow = vl
-    .markText({
-      size: 14,
-      dx: 30,
-      dy: -16,
-      angle: -90,
-      align: "left",
-      clip: true,
-    })
-    .encode(
-      vl.y()
-        .fieldQ("value"),
-      vl.x()
-        .fieldO("val"),
-      vl.text()
-        .value(" →"),
-      vl.opacity()
-        .fieldN("gesl"),
-    )
-
-    const layers = width > 600 ? 
-      vl.layer(
-        lines,
-        points,
-        text,
-        textRel, 
-        textGap,
-        textArrow,
-      ) :
-      vl.layer(
-        lines,
-        points,
-        textRel,
-        textGap,
-        textArrow,
-        // text,
-      )
-
-  return layers
-    .height(width > 600 ? 280 : 240)
-    .width(inputWidth)
-    .facet({
-      field: "D", 
-      type: "nominal", 
-      title: null,
-      // header: { 
-      //   labelFontSize: 0, 
-      // },
-      // header: { 
-      //   labelFontSize: 14, 
-      //   orient: "bottom",
-      // },
-      header: { 
-        labelFontSize: 14, 
-        labelOrient: "top",
-      },
-    })
-    .data(inputData)
-    .config(config)
-
-}
-
 dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2), width > 600 ? 230 : width * 0.36).render({ renderer: "svg" }) 
 
 viewof radio2 = Inputs.radio(
@@ -874,456 +445,6 @@ Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
 <span>Wie viel Pension erhalte ich momentan im Vergleich zu anderen?</span>
 
 ```{ojs}
-distributions = {
-
-  const dataDist = bins.filter(d => d.variable == "Status quo") //bins.filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
-  // const dataRule = dataDist
-  //   .filter(d => d.range == d.bin)
-  //   .map(d => ({...d, y: 0, y2: 20000}))
-
-  const dataRule = [
-      {gesl: "Frauen", median: 1223, y: 0, y2: 20000}, //1215
-      {gesl: "Männer", median: 2286, y: 0, y2: 20000}, //2278
-    ]
-
-  const area = vl
-    .markArea({ 
-      interpolate: interpolate,
-      fillOpacity: 0.4,
-      strokeWidth: 1.75,
-      clip: true,
-    })
-    .encode(
-      vl.x()
-        .fieldQ("bin")
-        .axis({
-          grid: false,
-          title: "Bruttopension",
-          // labels:  width > 825 ? true : false,
-          // ticks:  width > 825 ? true : false,
-        })
-        .scale({
-          domain: [0, 4500],
-          nice: false,
-        }),
-      vl.y()
-        .fieldQ("N")
-        .scale({
-          domain: [0, 23000],
-          nice: false,
-        })
-        .axis({
-          domain: false,
-          grid: false,
-          title: width > 825 ? "Anzahl Personen" : null,
-          labels:  width > 825 ? true : false,
-          ticks:  width > 825 ? true : false,
-          values: [0, 5000, 10000, 15000, 20000],
-        }),
-      vl.color()
-        .fieldN("gesl")
-        .scale({
-          range: colors2,
-        })
-        .legend(null),
-        // .legend({
-        //   orient: "top", 
-        //   symbolOpacity: 1,
-        //   symbolType: "square",
-        //   symbolStrokeColor: "transparent",
-        //   title: null,
-        // }),
-      vl.stroke()
-        .fieldN("gesl")
-        .scale({
-          range: radio == "Männer" ? ["transparent", "black"] : ["black", "transparent"],
-        })
-        .legend(null),
-    )
-
-  const areaLowTail = vl
-    .markArea({
-      interpolate: interpolate,
-      fillOpacity: 0.75,
-      strokeWidth: 2,
-      clip: true,
-    })
-    .transform(
-      vl.filter("datum.bin <= datum.range"),
-      vl.filter("datum.gesl == datum.radio"),
-    )
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.y()
-        .fieldQ("N"),
-      vl.color()
-        .fieldN("gesl")
-        .scale({
-          range: colors2,
-        })
-        .legend(null),
-    )
-
-  const rule = vl
-    .markRule({
-      stroke: "black",
-      strokeDash: [4, 2],
-      clip: true,
-      strokeWidth: 0.75,
-    })
-    .transform(
-      vl.filter("datum.bin == datum.range")
-    )
-    .encode(
-      vl.x()
-        .fieldQ("bin")
-    )
-
-  const ruleGray = vl
-    .markRule({
-      opacity: 0.51,
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.y()
-        .fieldQ("y"),
-      vl.y2()
-        .fieldQ("y2"),
-      vl.opacity()
-        .fieldN("gesl")
-        .scale({
-          range: radio == "Männer" ? 
-            [0.51, 1] : 
-            [1, 0.51]
-        })
-        .legend(null),
-    )
-
-  const textGray1 = vl
-    .markText({
-      opacity: 0.51,
-      size: 13,
-      y: 50,
-      dx: -10,
-      align: "right",
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.text()
-        .fieldQ("median")
-        .format(",.0f"),
-      vl.opacity()
-        .fieldN("gesl")
-        .scale({
-          range: radio == "Männer" ? 
-            [0.51, 1] : 
-            [1, 0.51]
-        })
-        .legend(null),
-    )
-
-  const textGray2 = vl
-    .markText({
-      // opacity: 0.51,
-      size: 11,
-      y: 65,
-      dx: -10,
-      align: "right",
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.text()
-        .value("mittlere Pension"),
-      vl.opacity()
-        .fieldN("gesl")
-        .scale({
-          range: radio == "Männer" ? 
-            [0.51, 1] : 
-            [1, 0.51]
-        })
-        .legend(null),
-    )
-
-  const textGray3 = vl
-    .markText({
-      opacity: 0.51,
-      size: 11,
-      y: 80,
-      dx: -10,
-      align: "right",
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.text()
-        .fieldN("gesl"),
-      vl.opacity()
-        .fieldN("gesl")
-        .scale({
-          range: radio == "Männer" ? 
-            [0.51, 1] : 
-            [1, 0.51]
-        })
-        .legend(null),
-    )
-
-  const textLeft = vl
-    .markText({
-      clip: true,
-      size: 14,
-      y: 10,
-      dx: -12,
-      align: "right",
-    })
-    .transform(
-      vl.filter("datum.gesl == datum.radio"),
-      vl.filter("datum.bin == datum.range"),
-    )
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value("← " + getCumPerc(radio, "lower")), 
-    )
-
-  // const textLeft2 = vl
-  //   .markText({
-  //     opacity: 0.51
-  //     clip: true,
-  //     size: 12,
-  //     y: 42,
-  //     dx: -12,
-  //     align: "right",
-  //   })
-  //   .transform(
-  //     vl.filter("datum.gesl == datum.radio"),
-  //     vl.filter("datum.bin == datum.range"),
-  //   )
-  //   .encode(
-  //     vl.x()
-  //       .fieldQ("bin"),
-  //     vl.text()
-  //       .value("kleiner"), 
-  //   )
-
-  const textLeftOther = vl
-    .markText({
-      opacity: 0.51,
-      clip: true,
-      size: 12,
-      y: 26,
-      dx: -12,
-      align: "right",
-    })
-    .transform(
-      vl.filter("datum.gesl != datum.radio"),
-      vl.filter("datum.bin == datum.range"),
-    )
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value(getCumPerc(notRadio, "lower")), 
-    )
-
-  const textRight = vl
-    .markText({
-      clip: true,
-      size: 14,
-      y: 10,
-      dx: 12,
-      align: "left",
-    })
-    .transform(
-      vl.filter("datum.gesl == datum.radio"),
-      vl.filter("datum.bin == datum.range"),
-    )
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value(getCumPerc(radio, "higher") + " →"), 
-    )
-
-  // const textRight2 = vl
-  //   .markText({
-  //     opacity: 0.51,
-  //     clip: true,
-  //     size: 12,
-  //     y: 42,
-  //     dx: 12,
-  //     align: "left",
-  //   })
-  //   .transform(
-  //     vl.filter("datum.gesl == datum.radio"),
-  //     vl.filter("datum.bin == datum.range"),
-  //   )
-  //   .encode(
-  //     vl.x()
-  //       .fieldQ("bin"),
-  //     vl.text()
-  //       .value("größer"),
-  //   )
-
-  const textRightOther = vl
-    .markText({
-      opacity: 0.51,
-      clip: true,
-      size: 12,
-      y: 26,
-      dx: 12,
-      align: "left",
-    })
-    .transform(
-      vl.filter("datum.gesl != datum.radio"),
-      vl.filter("datum.bin == datum.range"),
-    )
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value(getCumPerc(notRadio, "higher")), 
-    )
-
-  const textPosition = vl
-    .markText({
-      clip: true,
-      size: 18,
-      y: 290,
-      dx: 5,
-      // angle: -0,
-      align: "left",
-      strokeWidth: 1.25,
-    })
-    .transform(
-      vl.filter("datum.gesl == datum.radio"),
-      vl.filter("datum.bin == datum.range"),
-    )
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value("↙"), 
-    )
-
-  // const textPositionWhite = vl
-  //   .markText({
-  //     clip: true,
-  //     size: 18,
-  //     y: 290,
-  //     dx: 5,
-  //     // angle: -0,
-  //     align: "left",
-  //     stroke: "white",
-  //     strokeWidth: 2.75,
-  //     // fontWeight: "bold",
-  //   })
-  //   .transform(
-  //     vl.filter("datum.gesl == datum.radio"),
-  //     vl.filter("datum.bin == datum.range"),
-  //   )
-  //   .encode(
-  //     vl.x()
-  //       .fieldQ("bin"),
-  //     vl.text()
-  //       .value("↙"), 
-  //   )
-
-  const textMen = vl
-    .markText({
-      opacity: radio == "Männer" ? 1 : 0.51,
-      clip: true,
-      size: 11,
-      y: width > 600 ? 200 : 105,
-      align: "center",
-    })
-    .data([
-      {bin: 3500}
-    ])
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value("⤺ Pensionen der Männer"), 
-    )
-
-  const textWomen = vl
-    .markText({
-      opacity: radio == "Frauen" ? 1 : 0.51,
-      clip: true,
-      size: 11,
-      y: width > 600 ? 110 : 35,
-      align: "center",
-    })
-    .data([
-      {bin: width > 600 ? 400 : 600}
-    ])
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value(["Pensionen", "der Frauen ↷ "]), 
-    )
-
-
-    const layers = width > 825 ?
-      vl.layer(
-        ruleGray,
-        textGray1,
-        textGray2,
-        textGray3,
-        area,
-        areaLowTail,
-        rule,
-        textLeft,
-        textRight,
-        // textLeft2,
-        // textRight2,
-        // textPositionWhite,
-        textPosition,
-        textLeftOther,
-        textRightOther,
-        textMen,
-        textWomen,
-      ):
-      vl.layer( 
-        area, 
-        areaLowTail,
-        rule,
-        textLeft,
-        textRight,
-        textMen,
-        textWomen,
-      )
-
-  return layers
-    .height(width > 825 ? 300 : 200)
-    .width(makeWidth(width))
-    // .facet({
-    //   field: "variable", 
-    //   type: "nominal", 
-    //   title: null,
-    //   header: { 
-    //     labelFontSize: 14, 
-    //     orient: "top",
-    //   },
-    // })
-    .data(dataDist)
-    .config(config)
-}
-
 distributions.render({ renderer: "svg" }) 
 textDistributions = "Etwa " + getCumPerc(radio, "lower") + " aller " + radio + " erhalten im Status quo eine niedrigere Pension als " + germanLocale.format(",.0f")(range) + " Euro pro Monat. Umgekehrt erhalten " +  getCumPerc(radio, "higher") + " aller " + radio + " mehr Pension."
 ```
@@ -1344,212 +465,6 @@ Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"
 <span>Wie würden sich die Verteilungen dieser Pensionen im ${select} ändern?</span>
 
 ```{ojs}
-distributionsChange = {
-
-  const dataDistChange = bins.filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
-  const dataRule = dataDistChange
-    .filter(d => d.range == d.bin && d.variable != "Status quo")
-    .map(d => ({...d, y: 0, y2: 21500}))
-
-  const colorsArea = radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? colors : [colors[0], "transparent"]
-
-  const area = vl
-    .markArea({
-      interpolate: interpolate,
-      strokeWidth: 1.25,
-      stroke: "black",
-      opacity: 0.8,
-      clip: true,
-    })
-    .encode(
-      vl.x()
-        .fieldQ("bin")
-        .axis({
-          grid: false,
-          title: "Bruttopension",
-          // labels:  width > 825 ? true : false,
-          // ticks:  width > 825 ? true : false,
-        })
-        .scale({
-          domain: [0, 4500],
-          nice: false,
-        }),
-      vl.y()
-        .fieldQ("N")
-        .scale({
-          domain: [0, 23000],
-          nice: false,
-        })
-        .axis({
-          domain: false,
-          grid: false,
-          title: width > 825 ? "Anzahl Personen" : null,
-          labels:  width > 825 ? true : false,
-          ticks:  width > 825 ? true : false,
-          values: [0, 5000, 10000, 15000, 20000],
-        }),
-      vl.color()
-        .fieldN("variable")
-        .scale({
-          range: colorsArea,
-        })
-        .legend(null)
-        // .legend({
-        //   orient: "top", 
-        //   symbolType: "square",
-        //   symbolOpacity: 1,
-        //   symbolStrokeColor: "transparent", 
-        //   labelLimit: width > 825 ? 1111 : 160,
-        //   title: null,
-        // })
-    )
-
-  const ruleGray = vl
-    .markRule({
-      // opacity: 0.51,
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.y()
-        .fieldQ("y"),
-      vl.y2()
-        .fieldQ("y2"),
-    )
-
-  const textGray1 = vl
-    .markText({
-      // opacity: 0.51,
-      size: 13,
-      y: 50,
-      dx: -10,
-      align: "right",
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.text()
-        .fieldQ("median")
-        .format(",.0f"),
-    )
-
-  const textGrayVar = radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? "neue mittlere Pension " + radio : "mittlere Pension " + radio 
-
-  const textGray2 = vl
-    .markText({
-      // opacity: 0.51,
-      size: 11,
-      y: 65,
-      dx: -10,
-      align: "right",
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.text()
-        .value(textGrayVar),
-    )
-
-  const textGray3 = vl
-    .markText({
-      // opacity: 0.51,
-      size: 11,
-      y: 80,
-      dx: -10,
-      align: "right",
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.text()
-        .value(select.substr(0, 10)),
-    )
-
-  const textOld = vl
-    .markText({
-      clip: true,
-      size: 14,
-      y: 50,
-      align: "center",
-    })
-    .data([
-      {bin: radio == "Männer" ? 1000 : 600}
-    ])
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value("alte Verteilung ⤵"), 
-    )
-
-  const textNewVar = radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? "⤺ neue Pensionen" : "⤺ keine Veränderung"
-
-  const textNew = vl
-    .markText({
-      // opacity: 0.51,
-      clip: true,
-      size: 11,
-      y: width > 600 ? 180 : 100,
-      align: "left",
-    })
-    .data([
-      {bin: radio == "Männer" ? 2800 : 2200}
-    ])
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value([textNewVar, select.substr(0, 10)]), 
-    )
-
-  const textArrow = vl
-    .markText({
-      // opacity: 0.51,
-      clip: true,
-      size: radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? 16 : 0,
-      y: 30,
-      align: "right",
-      opacity: 0.7,
-      dx: -10,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.text()
-        .value("⟶"),
-    )
-
-  const layers = width > 825 ? 
-    vl.layer(
-      ruleGray,
-      textGray1,
-      textGray2,
-      textGray3,
-      textArrow,
-      textNew,
-      area, 
-    ) :
-    vl.layer(
-      area, 
-      textNew,
-    )
-
-  return layers
-    .height(width > 825 ? 300 : 200)
-    .width(makeWidth(width)) 
-    .data(dataDistChange)
-    .config(config)
-
-}
 distributionsChange.render({ renderer: "svg" })
 ```
 
@@ -1628,282 +543,18 @@ distributionsChange.render({ renderer: "svg" })
 
 ::::
 
-:::
 
+:::
 
 <!-- Ab hier Haushalte -->
 <!-- Plots -->
-```{ojs}
-
-// highlights do not work!!
-// TODO: highlights, haushaltstyp mit Kinder/ohne Kinder filtern, +/- 0 PP. in povertyChart
-
-
-// Functions für HH-Einkommen und Armutsgefährdungsquote
-
-function generateIncomeChart(group, highlight) {
-  // Filter data based on the provided group and a variable that should be defined or passed in
-  let filteredIncome = hhIncome.filter(d => d.group == group && d.variable == select); // Ensure 'select' is correctly defined or passed in
-  
-  const bars = vl
-    .markBar({
-      opacity: 0.8,
-      fill: colors[1], // Make sure colors[1] is defined
-    }) 
-    .encode( 
-      vl.y()
-        .fieldQ("value")
-        .axis({
-          title: null,
-          grid: false,
-          format: "+.2%",  // Format for y-axis labels as percentages
-          labelFontSize: 10
-        }),
-      vl.x()
-        .fieldN("detail")
-        .axis({
-          title: null,
-          domain: false,
-          ticks: false,
-          labelAlign: "right",
-          labelPadding: 20,
-          labelLimit: 200,  
-          labelFontSize: 10,
-        }),
-//    vl.stroke(detail == highlight ? vl.value('black') : vl.value('transparent'))
-  );
-
-  
-  const text = vl
-    .markText({
-      dy: -10,
-      size: 10,
-      align: "center",
-    })
-    .transform(
-      vl.filter('datum.value !== 0'),
-    )
-    .encode(
-      vl.y()
-        .fieldQ("value")
-        .axis({
-          format: "+.2f"
-        }),
-      vl.x()
-        .fieldN("detail"),
-      vl.text()
-        .fieldQ("value")
-        .format("+.2~%"),
-    );
-
-  return vl 
-    .layer(
-      bars,
-      text,    
-    )
-    .width(group == "Geschlecht" ? makeWidth(width) * 0.3 : makeWidth(width) * 0.6) // Dynamically set width based on group
-    .data(filteredIncome)  // Use the filtered data
-    .config(config) // Ensure 'config' is defined
-    .render();
-}
-
-function generateIncomeChartStatusquo(group) {
-  // Filter data
-  let filteredIncomeStatusquo = hhIncome.filter(d => d.group == group && d.variable == "Status quo");
-  // // console.log(filteredIncomeStatusquo);
-
-  const bars = vl
-    .markBar({
-      opacity: 0.8,
-      fill: colors[2],
-    }) 
-    .encode( 
-      vl.x()
-        .fieldQ("value")
-        .axis({
-          title: null,
-          grid: false,
-          labelFontSize: 10
-        }),
-      vl.y()
-        .fieldN("detail")
-        .axis({
-          title: null,
-          domain: false,
-          ticks: false,
-          labelAlign: "right",
-          labelPadding: 20,
-          labelLimit: 100,  
-          labelFontSize: 10,
-        })
-    );
-
- const text = vl
-    .markText({
-      dx: 10,
-      size: 10,
-      align: "right",
-    })
-    .encode(
-      vl.y().fieldN("detail")
-    )
-    .transform(
-      vl.calculate("format(datum.value, ',.0f') + '€'").as("formattedValue")
-    )
-    .encode(
-      vl.text().fieldN("formattedValue")
-    );
-
-  return vl 
-    .layer(
-      bars,
-      text,    
-    )
-    .width(makeWidth(width) * 0.3)
-    .data(filteredIncomeStatusquo)  // Use the filtered data
-    .config(config)
-    .render();
-}
-
-
-function generatePovertyChart(group) {
-  let filteredPoverty = hhPoverty.filter(d => d.group == group && d.variable == select);
-  // console.log(filteredPoverty);
-
-  const bars = vl
-    .markBar({
-      fill: colors2[0],
-      opacity: 0.8,
-    }) 
-    .encode( 
-      vl.y()
-        .fieldQ("value")
-        .axis({
-          title: null,
-          grid: false,
-          format: "+.2f",
-          labelFontSize: 10
-        }),
-      vl.x()
-        .fieldN("detail")
-        .axis({
-          title: null,
-          domain: false,
-          ticks: false,
-          labelAlign: "right",
-          labelPadding: 20,  
-          labelLimit: 200,  
-          labelFontSize: 10,
-        }),
-    )
-
-  const text = vl
-    .markText({
-      dy: 10,
-      size: 10,
-      align: "center",
-    })
-    .encode(
-      vl.y()
-        .fieldQ("value")
-        .axis({
-          format: "+.2f"  // Ensure format is set here for text
-        }),
-      vl.x()
-        .fieldN("detail"),
-      vl.text()
-        .fieldQ("value")
-        .format(".2f")  // Format the text as fixed-point with one decimal
-    )
-    .transform(
-      vl.filter('datum.value !== 0'),
-      vl.calculate("datum.value >= 0 ? '+' + format(datum.value, '.2f') + ' PP.' : format(datum.value, '.2f') + ' PP.'")
-        .as("formattedValue")
-    )
-    .encode(
-      vl.text()
-        .fieldN("formattedValue")  // Use the calculated field for text labels
-    );
-
-  return vl 
-    .layer(
-      bars,
-      text,    
-      )
-    .width(group == "Geschlecht" ? makeWidth(width) * 0.3: makeWidth(width) * 0.6)
-    .data(filteredPoverty)  // Use the filtered data
-    .config(config)
-    .render();
-}
-
-
-function generatePovertyChartStatusquo(group) {
-  // Filter data
-  let filteredPovertyStatusquo = hhPoverty.filter(d => d.group == group && d.variable == "Status quo");
-  // console.log(filteredPovertyStatusquo);
-
-  const bars = vl
-    .markBar({
-      opacity: 0.8,
-      fill: colors2[1],
-    }) 
-    .encode( 
-      vl.x()
-        .fieldQ("value")
-        .axis({
-          title: null,
-          grid: false,
-          format: ".0%",
-          labelFontSize: 10
-        }),
-      vl.y()
-        .fieldN("detail")
-        .axis({
-          title: null,
-          domain: false,
-          ticks: false,
-          labelAlign: "right",
-          labelPadding: 20,
-          labelLimit: 100,  
-          labelFontSize: 10,
-        })
-    );
-
-  const text = vl
-    .markText({
-      dx: 10,
-      size: 10,
-      align: "right",
-    })
-    .encode(
-      vl.x()
-        .axis({
-          format: ".2%"
-        }),
-      vl.y()
-        .fieldN("detail"),
-      vl.text()
-        .fieldQ("value")
-        .format(".2%"),
-    );
-
-  return vl 
-    .layer(
-      bars,
-      text,    
-    )
-    .width(makeWidth(width) * 0.3)
-    .data(filteredPovertyStatusquo)  // Use the filtered data
-    .config(config)
-    .render();
-}
-```
+{{< include src/graphsHH.qmd >}} 
 
 <!-- Slides -->
 
 ::: {.slide}
 ## Geben Sie ein Geschlecht an
-#### Auswahl 1/4
+#### Auswahl 1/6
 ```{ojs}
 Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frau", label: "Geschlecht"}), viewof radioRaw)
 ```
@@ -1912,7 +563,7 @@ Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frau", label: "Geschlecht"})
 
 ::: {.slide}
 ## Geben Sie eine Altersgruppe an
-#### Auswahl 2/4
+#### Auswahl 2/6
 ```{ojs}
 viewof radioAltersgruppe = Inputs.radio(["0-14", "15-24", "25-49", "50-64", "65-79", "80+"], {label: "Altersgruppe", value: "0-14"})
 altersgruppe = radioAltersgruppe
@@ -1922,7 +573,7 @@ altersgruppe = radioAltersgruppe
 
 ::: {.slide}
 ## Was ist Ihr Erwerbsstatus?
-#### Auswahl 3/4
+#### Auswahl 3/6
 ```{ojs}
 viewof selectStatus = Inputs.select(["Im Vorschulalter", "Landwirtschaft", "Selbständig beschäftigt", "Unselbständig beschäftigt", "In Pension", "Arbeitsuchend, arbeitslos", "In Ausbildung", "Inaktiv", "Dauerhaft arbeitsunfähig", "Sonstige Inaktivität"], {label: "Erwerbsstatus", value: "Unselbständig beschäftigt"})
 Status = selectStatus
@@ -1931,7 +582,7 @@ Status = selectStatus
 
 ::: {.slide}
 ## Wer lebt in Ihrem Haushalt?
-#### Auswahl 4/4
+#### Auswahl 4/6
 ```{ojs}
 viewof radioErwachsene = Inputs.radio(["Ein Erwachsener", "Zwei Erwachsene", "Drei Erwachsene oder mehr"], {label: "Erwachsene", value: "Ein Erwachsener"})
 erwachsene = radioErwachsene
@@ -1944,54 +595,54 @@ kinder = radioKinder
 :::
 
 
+::: {.slide}
+## Wer lebt in Ihrem Haushalt?
+#### Auswahl 5/6
+```{ojs}
+viewof haushaltseffekt = Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {label: "Effekte auf", value: "Haushaltseinkommen"})
+
+infoHH = haushaltseffekt === "Haushaltseinkommen" ? 
+  html`
+    Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen.
+    ` 
+  : 
+  html`
+    Armutsgefährdungsquote: Armutsgefährdung bezeichnet das Risiko, in Armut zu geraten. Die relative Armutsgefährdungsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb der Armutsgefährdungsschwelle liegt. Diese Grenze wird hier (nach Eurostat-Definition) bei 60% des mittleren äquivalente Haushaltseinkommen festgelegt.
+    `
+```
+
+:::{.infoText}
+![](img/Infobox_info_icon.svg){height=14px}
+${infoHH} <br>
+:::
+
+:::
+
+
+::: {.slide}
+## Wählen Sie ein Szenario
+#### Auswahl 6/6
+<!-- <span>Wählen Sie ein Szenario</span> -->
+```{ojs}
+Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select) 
+```
+
+:::{.infoText}
+![](img/Infobox_info_icon.svg){height=14px}
+Informationen zu dem von Ihnen gewählten Szenario: ${info} <br>
+:::
+
+:::
+
 
 ::: {.slide}
 
-## Haushaltsrechner - Ergebnisse
+<!-- Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren. -->
 
-Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
-
-
-<div class="fold-container">
-  <div class="column">
-
-
-
-```{ojs}
-Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select) 
-
-viewof haushaltseffekt = Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {label: "Effekte auf", value: "Haushaltseinkommen"})
-```
-
-
-  </div>
-</div>
-
-## Geschlecht
-
-```{ojs}
-html`
-  <div>
-    <h3>${haushaltseffekt === "Haushaltseinkommen" ? "Haushaltseinkommen" : "Armutsgefährdungsquote"}</h3>
-    ${
-      haushaltseffekt === "Haushaltseinkommen" ? 
-      html`
-        <div class="infoText">
-          <img src="img/Infobox_info_icon.svg" height="14px">
-          Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen.
-        </div>
-      ` 
-      : 
-      html`
-        <div class="infoText">
-          <img src="img/Infobox_info_icon.svg" height="14px">
-          Armutsgefährdungsquote: Armutsgefährdung bezeichnet das Risiko, in Armut zu geraten. Die relative Armutsgefährdungsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb der Armutsgefährdungsschwelle liegt. Diese Grenze wird hier (nach Eurostat-Definition) bei 60% des mittleren äquivalente Haushaltseinkommen festgelegt.
-        </div>
-      `
-    }
-  </div>
-`
-```
+<!-- ## Geschlecht -->
+## Das sind Ihre Ergebnisse
+#### Ergebnisse 1/4
+<span>Wie würde sich das ${select} auf die ${haushaltseffekt} von ${radio} auswirken?</span>
 
 :::: {.columns}
 
@@ -2000,10 +651,9 @@ html`
 #### Änderung
 
 ```{ojs}
-{
-  return haushaltseffekt === "Haushaltseinkommen" ?
-  generateIncomeChart("Geschlecht", "highlight") : generatePovertyChart("Geschlecht");
-}
+haushaltseffekt === "Haushaltseinkommen" ?
+  generateIncomeChart("Geschlecht", highlight).render({ renderer: "svg" }) :
+  generatePovertyChart("Geschlecht").render({ renderer: "svg" })
 ```
 
 :::
@@ -2015,12 +665,10 @@ html`
 ```{ojs}
 highlight = radioRaw == "Frau" ? "Frauen" : "Männer"
 
-{
-  return haushaltseffekt === "Haushaltseinkommen" ?
-  generateIncomeChartStatusquo("Geschlecht", highlight) : generatePovertyChartStatusquo("Geschlecht");
-}
+haushaltseffekt === "Haushaltseinkommen" ?
+  generateIncomeChartStatusquo("Geschlecht", highlight).render({ renderer: "svg" }) :
+  generatePovertyChartStatusquo("Geschlecht").render({ renderer: "svg" })
 html`<div style="height: 20px;"></div>`
-
 //highlight
 ```
 
@@ -2040,7 +688,6 @@ hhIncomeGeschlechttext =
   "Das durchschnittliche äquivalisierte Haushaltseinkommen von Frauen liegt mit 2.470€ leicht unter dem der Männer (2.528€). Sie würden von Szenario 3 mehr profitieren (+0,5%) als Männer (+0,28%)." : 
    "Das durchschnittliche äquivalisierte Haushaltseinkommen von Männern liegt mit 2.528€ leicht unter dem der Frauen (2.470€). Sie würden von Szenario 3 weniger profitieren (+0,28%) als Frauen (+0,5%)." 
    
-   
 hhPovertyGeschlechttext = 
   radioRaw == "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
   "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt mit 14,4% leicht unter der der Männer (14,97%). Sie würden von Szenario 1 mehr profitieren (-0,22 Prozentpunkte) als Männer (-0,02 Prozentpunkte)." : 
@@ -2053,15 +700,9 @@ hhPovertyGeschlechttext =
   radioRaw == "Frau" && select == "Szenario 3 (Einführung Gender-Pay-Gap-Faktor)" ?
   "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt mit 14,4% leicht unter der der Männer (14,97%). Sie würden von Szenario 3 mehr profitieren (-0,42 Prozentpunkte) als Männer (-0,13 Prozentpunkte)." : 
    "Die durchschnittliche Armutsgefährdungsquote von Männern liegt mit 14,97% leicht über der der Frauen (14,4%). Sie würden von Szenario 3 weniger profitieren (-0,13 Prozentpunkte) als Frauen (-0,42 Prozentpunkte)." 
-
-html`
-  <div>
-    <span>${haushaltseffekt === "Haushaltseinkommen" ? hhIncomeGeschlechttext : hhPovertyGeschlechttext}</span>
-  </div>
-`
-html`<div style="height: 20px;"></div>`
 ```
 
+${haushaltseffekt === "Haushaltseinkommen" ? hhIncomeGeschlechttext : hhPovertyGeschlechttext}
 
 :::
 
@@ -2070,54 +711,20 @@ html`<div style="height: 20px;"></div>`
 Eingabe ändern:
 ```{ojs}
 Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frau", label: "Geschlecht"}), viewof radioRaw)
+Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
+Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
 ```
 
 :::
 
 ::: {.slide}
 
-## Haushaltsrechner - Ergebnisse
+<!-- Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren. -->
 
-Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
-
-
-
-<div class="fold-container">
-  <div class="column">
-
-```{ojs}
-Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
-```
-
-  </div>
-</div>
-
-## Altersgruppen
-
-```{ojs}
-html`
-  <div>
-    <h3>${haushaltseffekt === "Haushaltseinkommen" ? "Haushaltseinkommen" : "Armutsgefährdungsquote"}</h3>
-    ${
-      haushaltseffekt === "Haushaltseinkommen" ? 
-      html`
-        <div class="infoText">
-          <img src="img/Infobox_info_icon.svg" height="14px">
-          Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen.
-        </div>
-      ` 
-      : 
-      html`
-        <div class="infoText">
-          <img src="img/Infobox_info_icon.svg" height="14px">
-          Armutsgefährdungsquote: Armutsgefährdung bezeichnet das Risiko, in Armut zu geraten. Die relative Armutsgefährdungsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb der Armutsgefährdungsschwelle liegt. Diese Grenze wird hier (nach Eurostat-Definition) bei 60% des mittleren äquivalente Haushaltseinkommen festgelegt.
-        </div>
-      `
-    }
-  </div>
-`
-```
+<!-- ## Altersgruppen -->
+## Das sind Ihre Ergebnisse
+#### Ergebnisse 2/4
+<span>Wie würde sich das ${select} auf die ${haushaltseffekt} in ihrer Altersgruppe auswirken?</span>
 
 :::: {.columns}
 
@@ -2126,10 +733,9 @@ html`
 #### Änderung
 
 ```{ojs}
-{
-  return haushaltseffekt === "Haushaltseinkommen" ?
-  generateIncomeChart("Altersgruppen") : generatePovertyChart("Altersgruppen");
-}
+haushaltseffekt === "Haushaltseinkommen" ?
+  generateIncomeChart("Altersgruppen").render({ renderer: "svg" }) : 
+  generatePovertyChart("Altersgruppen").render({ renderer: "svg" })
 ```
 
 :::
@@ -2139,10 +745,9 @@ html`
 #### Status Quo
 
 ```{ojs}
-{
-  return haushaltseffekt === "Haushaltseinkommen" ?
-  generateIncomeChartStatusquo("Altersgruppen") : generatePovertyChartStatusquo("Altersgruppen");
-}
+haushaltseffekt === "Haushaltseinkommen" ?
+  generateIncomeChartStatusquo("Altersgruppen").render({ renderer: "svg" }) : 
+  generatePovertyChartStatusquo("Altersgruppen").render({ renderer: "svg" })
 html`<div style="height: 20px;"></div>`
 ```
 
@@ -2215,6 +820,8 @@ Eingabe ändern:
 
 ```{ojs}
 Inputs.bind(Inputs.radio(["0-14", "15-24", "25-49", "50-64", "65-79", "80+"], {value: "0-14", label: "Altersgruppe"}), viewof radioAltersgruppe)
+Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
+Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
 ```
 
   </div>
@@ -2223,50 +830,14 @@ Inputs.bind(Inputs.radio(["0-14", "15-24", "25-49", "50-64", "65-79", "80+"], {v
 :::
 
 
-
 ::: {.slide}
 
-## Haushaltsrechner - Ergebnisse
+<!-- Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren. -->
 
-Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
-
-
-<div class="fold-container">
-  <div class="column">
-
-```{ojs}
-Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
-```
-
-  </div>
-</div>
-
-## Erwerbsstatus
-
-```{ojs}
-html`
-  <div>
-    <h3>${haushaltseffekt === "Haushaltseinkommen" ? "Haushaltseinkommen" : "Armutsgefährdungsquote"}</h3>
-    ${
-      haushaltseffekt === "Haushaltseinkommen" ? 
-      html`
-        <div class="infoText">
-          <img src="img/Infobox_info_icon.svg" height="14px">
-          Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen.
-        </div>
-      ` 
-      : 
-      html`
-        <div class="infoText">
-          <img src="img/Infobox_info_icon.svg" height="14px">
-          Armutsgefährdungsquote: Armutsgefährdung bezeichnet das Risiko, in Armut zu geraten. Die relative Armutsgefährdungsquote misst den Anteil der Menschen in einer Gesellschaft, deren Einkommen unterhalb der Armutsgefährdungsschwelle liegt. Diese Grenze wird hier (nach Eurostat-Definition) bei 60% des mittleren äquivalente Haushaltseinkommen festgelegt.
-        </div>
-      `
-    }
-  </div>
-`
-```
+<!-- ## Erwerbsstatus -->
+## Das sind Ihre Ergebnisse
+#### Ergebnisse 3/4
+<span>Wie würde sich das ${select} auf die ${haushaltseffekt} in ihrer Altersgruppe auswirken?</span>
 
 :::: {.columns}
 
@@ -2275,10 +846,9 @@ html`
 #### Änderung
 
 ```{ojs}
-{
-  return haushaltseffekt === "Haushaltseinkommen" ?
-  generateIncomeChart("Erwerbsstatus") : generatePovertyChart("Erwerbsstatus");
-}
+haushaltseffekt === "Haushaltseinkommen" ?
+  generateIncomeChart("Erwerbsstatus").render({ renderer: "svg" }) : 
+  generatePovertyChart("Erwerbsstatus").render({ renderer: "svg" })
 ```
 
 :::
@@ -2288,10 +858,8 @@ html`
 #### Status Quo
 
 ```{ojs}
-{
-  return haushaltseffekt === "Haushaltseinkommen" ?
-  generateIncomeChartStatusquo("Erwerbsstatus") : generatePovertyChartStatusquo("Erwerbsstatus");
-}
+haushaltseffekt === "Haushaltseinkommen" ?
+  generateIncomeChartStatusquo("Erwerbsstatus").render({ renderer: "svg" }) : generatePovertyChartStatusquo("Erwerbsstatus").render({ renderer: "svg" })
 html`<div style="height: 20px;"></div>`
 ```
 
@@ -2370,44 +938,22 @@ Eingabe ändern:
 
 ```{ojs}
 Inputs.bind(Inputs.select(["Im Vorschulalter", "Landwirtschaft", "Selbständig beschäftigt", "Unselbständig beschäftigt", "In Pension", "Arbeitsuchend, arbeitslos", "In Ausbildung", "Inaktiv", "Dauerhaft arbeitsunfähig", "Sonstige Inaktivität"], {label: "Erwerbsstatus"}), viewof selectStatus)
+Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
+Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
 ```
 :::
 
 ::: {.slide}
 
-## Haushaltsrechner - Ergebnisse
+<!-- Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren. -->
 
-Die Szenarien haben einen Einfluss auf die durchschnittlichen äquivalenten Haushaltseinkommen und die durchschnittliche Armutsgefährdungsquote. Wählen Sie ein Szenario aus um zu sehen welche Gruppen von bestimmten Szenarien am stärksten profitieren.
-
-
-<div class="fold-container">
-  <div class="column">
-
+<!-- ## Erwerbsstatus -->
+## Das sind Ihre Ergebnisse
+#### Ergebnisse 4/4
 ```{ojs}
-Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof haushaltseffekt) 
+infoKinder = radioKinder === "Kein Kind" ? "Haushalte ohne Kinder" : "Haushalte mit Kindern"
 ```
-
-  </div>
-</div>
-
-
-
-```{ojs}
-html`
-  <div>
-    <h2>${radioKinder === "Kein Kind" ? "Haushalte ohne Kinder" : "Haushalte mit Kindern"}</h3>
-  </div>
-`
-```
-
-```{ojs}
-html`
-  <div>
-    <h3>${haushaltseffekt === "Haushaltseinkommen" ? "Haushaltseinkommen" : "Armutsquote"}</h3>
-  </div>
-`
-```
+<span>Wie würde sich das ${select} auf ${infoKinder} auswirken?</span>
 
 :::: {.columns}
 
@@ -2416,10 +962,9 @@ html`
 #### Änderung
 
 ```{ojs}
-{
-  return haushaltseffekt === "Haushaltseinkommen" ?
-  generateIncomeChart("Haushaltstyp - detailiert") : generatePovertyChart("Haushaltstyp - detailiert");
-}
+haushaltseffekt === "Haushaltseinkommen" ?
+  generateIncomeChart("Haushaltstyp - detailiert").render({ renderer: "svg" }) : 
+  generatePovertyChart("Haushaltstyp - detailiert").render({ renderer: "svg" })
 ```
 
 :::
@@ -2429,10 +974,9 @@ html`
 #### Status Quo
 
 ```{ojs}
-{
-  return haushaltseffekt === "Haushaltseinkommen" ?
-  generateIncomeChartStatusquo("Haushaltstyp - detailiert") : generatePovertyChartStatusquo("Haushaltstyp - detailiert");
-}
+haushaltseffekt === "Haushaltseinkommen" ?
+  generateIncomeChartStatusquo("Haushaltstyp - detailiert").render({ renderer: "svg" }) :
+  generatePovertyChartStatusquo("Haushaltstyp - detailiert").render({ renderer: "svg" })
 ```
 
 Text Text Text
@@ -2442,10 +986,6 @@ Text Text Text
 ::::
 
 :::
-
-
-
-
 
 
 <div class="btn-container">
