@@ -554,7 +554,7 @@ erwachsene = radioErwachsene
 ```
 
 ```{ojs}
-viewof radioKinder = Inputs.radio(["Kein Kind", "Ein Kind", "Zwei Kinder", "Drei Kinder oder mehr"], {label: "Kinder", value: "Kein Kind"})
+viewof radioKinder = Inputs.radio(["Kein Kind", "Ein Kind", "Zwei Kinder oder mehr"], {label: "Kinder", value: "Kein Kind"})
 kinder = radioKinder
 ```
 :::
@@ -613,17 +613,23 @@ hhIncome = aq.from(hhIncomeRaw)
   .derive({ 
     value: d => d.variable != "Status quo" ? d.value / 100 : d.value,
     selectMark: aq.escape(d => d.variable == select ? "yes" : "no"), 
-    group2: d => d.group != "Haushaltstyp - detailiert" ? "irrelevant" : (d.detail.includes("kein Kind") ? "Kein Kind" : "Kinder"),
-    // radioHaushaltseffekt: aq.escape(d => radioHaushaltseffekt),
+    detail2: aq.escape(d => d.detail.includes("kein Kind") ? "Kein Kind" : d.detail.includes("1 Kind") ? "Ein Kind" : "Zwei Kinder oder mehr"),
+    detail3: aq.escape(d => d.detail.includes("<65") ? "<65" : "≥65"),
+    detail4: aq.escape(d => d.detail.includes("Frau") ? "Frauen" : "Männer"),
+    detail5: aq.escape(d => d.detail.includes("2 Erwachsene") ? "Zwei Erwachsene" : d.detail.includes("3 ") ? "Drei Erwachsene oder mehr" : "Ein Erwachsener"),
+  })
+  .derive({ 
     radioGeschlecht: aq.escape(d => d.detail == radio),
     selectStatus: aq.escape(d => d.detail == selectStatus),
     radioAltersgruppe: aq.escape(d => d.detail == radioAltersgruppe),
-    radioKinder: aq.escape(d => radioKinder),
-    radioErwachsene: aq.escape(d => radioErwachsene),
-    // focus: d => d.radioGeschlecht || d.selectStatus || d.radioAltersgruppe,
-    })
+    radioKinder: aq.escape(d => d.detail2 == radioKinder),
+    radioErwachsene: aq.escape(d => d.detail5 == radioErwachsene),
+  })
+  .derive({
+    focus: d => d.radioGeschlecht || d.selectStatus || d.radioAltersgruppe  || (d.radioKinder && d.radioErwachsene),
+  }) 
   .objects()
-  .map(d => ({...d, detail: removeAfterLastComma(d.detail) }))
+  // .map(d => ({...d, detail: removeAfterLastComma(d.detail) }))
 
 // selectStatus
 // radioAltersgruppe
@@ -644,17 +650,23 @@ hhPoverty = aq.from(hhPovertyRaw)
   .derive({ 
     value: d => d.variable == "Status quo" ? d.value / 100 : d.value,
     selectMark: aq.escape(d=> d.variable == select ? "yes" : "no"), 
-    group2: d => d.group != "Haushaltstyp - detailiert" ? "irrelevant" : (d.detail.includes("kein Kind") ? "kein Kind" : "ein Kind"),
-    // radioHaushaltseffekt: aq.escape(d => radioHaushaltseffekt),
+    detail2: aq.escape(d => d.detail.includes("kein Kind") ? "Kein Kind" : d.detail.includes("1 Kind") ? "Ein Kind" : "Zwei Kinder oder mehr"),
+    detail3: aq.escape(d => d.detail.includes("<65") ? "<65" : "≥65"),
+    detail4: aq.escape(d => d.detail.includes("Frau") ? "Frauen" : "Männer"),
+    detail5: aq.escape(d => d.detail.includes("2 Erwachsene") ? "Zwei Erwachsene" : d.detail.includes("3 ") ? "Drei Erwachsene oder mehr" : "Ein Erwachsener"),
+  })
+  .derive({ 
     radioGeschlecht: aq.escape(d => d.detail == radio),
     selectStatus: aq.escape(d => d.detail == selectStatus),
     radioAltersgruppe: aq.escape(d => d.detail == radioAltersgruppe),
-    radioKinder: aq.escape(d => radioKinder),
-    radioErwachsene: aq.escape(d => radioErwachsene),
-    // focus: d => d.radioGeschlecht || d.selectStatus || d.radioAltersgruppe,
-    })
+    radioKinder: aq.escape(d => d.detail2 == radioKinder),
+    radioErwachsene: aq.escape(d => d.detail5 == radioErwachsene),
+  }) 
+  .derive({
+    focus: d => d.radioGeschlecht || d.selectStatus || d.radioAltersgruppe  || (d.radioKinder && d.radioErwachsene),
+  }) 
   .objects()
-  .map(d => ({...d, detail: removeAfterLastComma(d.detail) }))
+  // .map(d => ({...d, detail: removeAfterLastComma(d.detail) }))
 ```
 
 
@@ -664,7 +676,7 @@ hhPoverty = aq.from(hhPovertyRaw)
 
 <!-- ## Geschlecht -->
 ## Das sind Ihre Ergebnisse
-#### Ergebnisse 1/3
+#### Ergebnisse 1/4
 <span>Wie würde sich das ${select} auf die ${radioHaushaltseffekt} von ${radio} auswirken?</span>
 
 <div class="fold-container">
@@ -740,7 +752,7 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {val
 
 <!-- ## Altersgruppen -->
 ## Das sind Ihre Ergebnisse
-#### Ergebnisse 2/3
+#### Ergebnisse 2/4
 <span>Wie würde sich das ${select} auf die ${radioHaushaltseffekt} in ihrer Altersgruppe auswirken?</span>
 
 <div class="fold-container">
@@ -837,19 +849,8 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {val
 
 <!-- ## Erwerbsstatus -->
 ## Das sind Ihre Ergebnisse
-#### Ergebnisse 3/3
+#### Ergebnisse 3/4
 <span>Wie würde sich das ${select} auf die ${radioHaushaltseffekt} für Personen mit Ihrem Erwerbsstatus auswirken?</span>
-
-```{ojs}
-// groups
-selectStatus
-radioAltersgruppe
-radioKinder
-radioErwachsene
-radioHaushaltseffekt
-hhIncome
-hhPoverty
-```
 
 <div class="fold-container">
 <div class="column">
@@ -947,27 +948,24 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {val
 
 <!-- ## Erwerbsstatus -->
 
-<!-- ::: {.slide}
+::: {.slide}
 
 ## Das sind Ihre Ergebnisse
 #### Ergebnisse 4/4
 ```{ojs}
 infoKinder = radioKinder === "Kein Kind" ? "Haushalte ohne Kinder" : "Haushalte mit Kindern"
-group
-
-hhIncome
-  .filter(d => d.group == group && d.variable == select) // Ensure 'select' is correctly defined or passed in
-  .filter(d => d.group2 == "Kein Kind" || d.group2 == "irrelevant")
-hhIncome
-  .filter(d => d.group == group && d.variable == select) // Ensure 'select' is correctly defined or passed in
-  .filter(d => d.group2 == "Kinder" || d.group2 == "irrelevant")
-radioKinder
+// selectStatus
+// radioAltersgruppe
+// radioKinder
+// radioErwachsene
+// radioHaushaltseffekt
+// hhIncome
+// hhPoverty
 ```
 <span>Wie würde sich das ${select} auf ${infoKinder} auswirken?</span>
 
-:::: {.columns}
-
-::: {.column width="60%"}
+<div class="fold-container">
+<div class="column">
 
 #### Änderung
 
@@ -977,9 +975,8 @@ radioHaushaltseffekt === "Haushaltseinkommen" ?
   generatePovertyChart("Haushaltstyp - detailiert").render({ renderer: "svg" })
 ```
 
-:::
-
-::: {.column width="40%"}
+</div>
+<div class="column">
 
 #### Status Quo
 
@@ -989,21 +986,20 @@ radioHaushaltseffekt === "Haushaltseinkommen" ?
   generatePovertyChartStatusquo("Haushaltstyp - detailiert").render({ renderer: "svg" })
 ```
 
-Text Text Text
-
-:::
-
-::::
+</div>
+</div>
 
 Eingabe ändern: 
 
 ```{ojs}
-Inputs.bind(Inputs.radio(["Kein Kind", "Ein Kind", "Zwei Kinder", "Drei Kinder oder mehr"], {label: "Kinder", value: "Kein Kind"}), viewof radioKinder)
+Inputs.bind(Inputs.radio(["Ein Erwachsener", "Zwei Erwachsene", "Drei Erwachsene oder mehr"], {label: "Erwachsene", value: "Ein Erwachsener"}), viewof radioErwachsene)
+// Inputs.bind(Inputs.radio(["Kein Kind", "Ein Kind", "Zwei Kinder", "Drei Kinder oder mehr"], {label: "Kinder", value: "Kein Kind"}), viewof radioKinder)
+Inputs.bind(Inputs.radio(["Kein Kind", "Ein Kind", "Zwei Kinder oder mehr"], {label: "Kinder", value: "Kein Kind"}), viewof radioKinder)
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
 Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {value: "Haushaltseinkommen", label: "Effekte auf"}), viewof radioHaushaltseffekt) 
 ```
 
-::: -->
+:::
 
 
 <div class="btn-container">
@@ -1087,13 +1083,19 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {val
   function updateButtonStates() {
     // Disable Previous button on the first slide
     if (currentSlide < 2) {
-      prevBtn.disabled = true;
-      prevBtn.classList.add('disabled');
-      jumpToLastBtn.style.display = 'inline-block'; // 'inline-block'
+      // prevBtn.disabled = true;
+      // prevBtn.classList.add('disabled');
+      jumpToLastBtn.style.display = 'none'; // 'inline-block'
     } else {
-      prevBtn.disabled = false;
-      prevBtn.classList.remove('disabled');
+      // prevBtn.disabled = false;
+      // prevBtn.classList.remove('disabled');
       jumpToLastBtn.style.display = 'none'; // Hide "Jump to last page" button
+    }
+
+    if (currentSlide < 2 || currentSlide == 10) {
+      prevBtn.style.display = 'none';
+    } else {
+      prevBtn.style.display = 'inline-block'; // Hide "Jump to last page" button
     }
 
     if (currentSlide === 9) {
@@ -1111,6 +1113,8 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {val
       nextBtn.textContent = 'weiter'; //  'Antwort bestätigen';
     } else if(currentSlide === 1) {
       nextBtn.textContent = 'Pensionsreformrechner starten';
+    } else if(slides.length - 1 === currentSlide) {
+      nextBtn.textContent = 'zurück zum Start'; 
     } else {
       nextBtn.textContent = 'weiter'; 
     }
@@ -1120,6 +1124,12 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {val
     } else {
       jumpToSlide10.style.display = 'none';
     }
+
+    // if (currentSlide === 10) {
+    //   prevBtn.style.display = 'none';
+    // } else {
+    //   prevBtn.style.display = 'inline-block';
+    // }
 
   }
 

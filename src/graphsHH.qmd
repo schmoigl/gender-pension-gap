@@ -15,10 +15,10 @@ function generateIncomeChart(group, highlight) {
   // const filteredIncome = radioKinder == "Kein Kind" ?
   //   hhIncome
   //     .filter(d => d.group == group && d.variable == select) // Ensure 'select' is correctly defined or passed in
-  //     .filter(d => d.group2 == "Kein Kind" || d.group2 == "irrelevant") :
+  //     .filter(d => d.detail2 == "Kein Kind" || d.detail2 == "irrelevant") :
   //   hhIncome
   //     .filter(d => d.group == group && d.variable == select) // Ensure 'select' is correctly defined or passed in
-  //     .filter(d => d.group2 == "Kinder" || d.group2 == "irrelevant");
+  //     .filter(d => d.detail2 == "Kinder" || d.detail2 == "irrelevant");
   
   const bars = vl
     .markBar({
@@ -46,10 +46,21 @@ function generateIncomeChart(group, highlight) {
           ticks: false,
           labelAlign: "right",
           labelPadding: 20,
-          labelLimit: 200,  
+          labelLimit: 280,  
           // labelFontSize: 10,
         }),
-//    vl.stroke(detail == highlight ? vl.value('black') : vl.value('transparent'))
+      vl.stroke()
+        .fieldN("focus")
+        .scale({
+          range: ["transparent", "black"],  
+        })
+        .legend(null),
+      vl.opacity()
+        .fieldN("focus")
+        .scale({
+          range: [0.5, 0.8],
+        })
+        .legend(null),
   );
 
   
@@ -72,6 +83,12 @@ function generateIncomeChart(group, highlight) {
       vl.text()
         .fieldQ("value")
         .format("+.2~%"),
+      vl.opacity()
+        .fieldN("focus")
+        .scale({
+          range: [0.5, 0.8],
+        })
+        .legend(null),
     );
 
   return vl 
@@ -112,9 +129,21 @@ function generateIncomeChartStatusquo(group) {
           ticks: false,
           labelAlign: "right",
           labelPadding: 20,
-          labelLimit: 200,  
+          labelLimit: 280,  
           // labelFontSize: 10,
+        }),
+      vl.stroke()
+        .fieldN("focus")
+        .scale({
+          range: ["transparent", "black"],  
         })
+        .legend(null),
+      vl.opacity()
+        .fieldN("focus")
+        .scale({
+          range: [0.5, 0.8],
+        })
+        .legend(null),
     );
 
  const text = vl
@@ -137,7 +166,13 @@ function generateIncomeChartStatusquo(group) {
       vl.y()
         .fieldQ("zero"),
       vl.text()
-        .fieldN("formattedValue")
+        .fieldN("formattedValue"),
+      vl.opacity()
+        .fieldN("focus")
+        .scale({
+          range: [0.5, 0.8],
+        })
+        .legend(null),
     );
 
   return vl 
@@ -166,7 +201,7 @@ function generatePovertyChart(group) {
       vl.y()
         .fieldQ("value")
         .scale({
-          domain: [-1, 0],
+          domain: [-1.5, 0],
         })
         .axis({
           title: null,
@@ -183,9 +218,21 @@ function generatePovertyChart(group) {
           ticks: false,
           labelAlign: "right",
           labelPadding: 20,  
-          labelLimit: 200,  
+          labelLimit: 280,  
           // labelFontSize: 10,
         }),
+      vl.stroke()
+        .fieldN("focus")
+        .scale({
+          range: ["transparent", "black"],  
+        })
+        .legend(null),
+      vl.opacity()
+        .fieldN("focus")
+        .scale({
+          range: [0.5, 0.8],
+        })
+        .legend(null),
     )
 
   const text = vl
@@ -210,7 +257,13 @@ function generatePovertyChart(group) {
       vl.x()
         .fieldN("detail"),
       vl.text()
-        .fieldN("formattedValue")  // Use the calculated field for text labels
+        .fieldN("formattedValue"),  // Use the calculated field for text labels
+      vl.opacity()
+        .fieldN("focus")
+        .scale({
+          range: [0.5, 0.8],
+        })
+        .legend(null),
     );
     
   return vl 
@@ -253,9 +306,21 @@ function generatePovertyChartStatusquo(group) {
           ticks: false,
           labelAlign: "right",
           labelPadding: 20,
-          labelLimit: 200,  
+          labelLimit: 280,  
           // labelFontSize: 10,
+        }),
+      vl.stroke()
+        .fieldN("focus")
+        .scale({
+          range: ["transparent", "black"],  
         })
+        .legend(null),
+      vl.opacity()
+        .fieldN("focus")
+        .scale({
+          range: [0.5, 0.8],
+        })
+        .legend(null),
     );
 
   const text = vl
@@ -282,6 +347,12 @@ function generatePovertyChartStatusquo(group) {
       vl.text()
         .fieldQ("value")
         .format(".1%"),
+      vl.opacity()
+        .fieldN("focus")
+        .scale({
+          range: [0.5, 0.8],
+        })
+        .legend(null),
     );
 
   return vl 
