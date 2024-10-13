@@ -537,7 +537,7 @@ altersgruppe = radioAltersgruppe
 :::
 
 ::: {.slide}
-## Was ist Ihr Erwerbsstatus?
+## Geben Sie Ihren Erwerbsstatus an
 #### Auswahl 3/6
 ```{ojs}
 viewof selectStatus = Inputs.select(["Im Vorschulalter", "Landwirtschaft", "Selbständig beschäftigt", "Unselbständig beschäftigt", "In Pension", "Arbeitsuchend, arbeitslos", "In Ausbildung", "Inaktiv", "Dauerhaft arbeitsunfähig", "Sonstige Inaktivität"], {label: "Erwerbsstatus", value: "Unselbständig beschäftigt"})
@@ -546,7 +546,7 @@ Status = selectStatus
 :::
 
 ::: {.slide}
-## Wer lebt in Ihrem Haushalt?
+## Geben Sie die Personen in Ihrem Haushalt an
 #### Auswahl 4/6
 ```{ojs}
 viewof radioErwachsene = Inputs.radio(["Ein Erwachsener", "Zwei Erwachsene", "Drei Erwachsene oder mehr"], {label: "Erwachsene", value: "Ein Erwachsener"})
