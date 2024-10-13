@@ -1114,7 +1114,7 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {val
     } else if(currentSlide === 1) {
       nextBtn.textContent = 'Pensionsreformrechner starten';
     } else if(slides.length - 1 === currentSlide) {
-      nextBtn.textContent = 'zurück zum Start'; 
+      nextBtn.textContent = 'zum Anfang'; 
     } else {
       nextBtn.textContent = 'weiter'; 
     }
