@@ -214,9 +214,9 @@ Mit dem AK-Pensionsreformrechner sehen Sie, was die einzelnen Reformen für die 
 
 ### Machen Sie mit! Wie viel Pension würden Sie bekommen?
 
-Eine [Studie des WIFO](res/AKOE_Pensionen_EB_070824.pdf){target="_blank"} 
+Eine [Studie des WIFO](https://www.wifo.ac.at/wp-content/uploads/upload-7517/s_2024_pensionssystem_oesterreich_53526411.pdf){target="_blank"} 
 im Auftrag der AK OÖ untersucht die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender
-Pension Gap.²
+Pension Gap.² 
 
 <ul>
   <li>Szenario 1: Höherbewertung von Kindererziehungszeiten</li>
@@ -224,7 +224,7 @@ Pension Gap.²
   <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht.</li>
 </ul>
 
-Die Auswirkungen dieser Szenarien auf Pensionen und Haushaltseinkommen können Sie hier erkunden.
+Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Pensionsreformrechner zeigt Ihnen dabei, wie sich die Pensionshöhe in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würde. Darüber hinaus gibt der Haushaltsrechner Auskunft darüber wie die Szenarien die Haushaltseinkommen und die Armutsgefährdungsquote der Haushalte beeinflussen würden.
 
 :::{.infoText}
 ¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik. <br>
@@ -1092,7 +1092,7 @@ Inputs.bind(Inputs.radio(["Haushaltseinkommen", "Armutsgefährdungsquote"], {val
       jumpToLastBtn.style.display = 'none'; // Hide "Jump to last page" button
     }
 
-    if (currentSlide < 2 || currentSlide == 10) {
+    if (currentSlide < 3 || currentSlide == 10) {
       prevBtn.style.display = 'none';
     } else {
       prevBtn.style.display = 'inline-block'; // Hide "Jump to last page" button
