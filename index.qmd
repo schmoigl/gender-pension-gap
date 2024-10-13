@@ -224,7 +224,7 @@ Pension Gap.²
   <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht.</li>
 </ul>
 
-Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Pensionsreformrechner zeigt Ihnen dabei, wie sich die Pensionshöhe in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würde. Darüber hinaus gibt der Haushaltsrechner Auskunft darüber wie die Szenarien die Haushaltseinkommen und die Armutsgefährdungsquote der Haushalte beeinflussen würden.
+Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Pensionsreformrechner zeigt Ihnen dabei, wie sich die Pensionshöhe in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würde. Darüber hinaus gibt der Haushaltsrechner Auskunft darüber, wie die Szenarien die Haushaltseinkommen und die Armutsgefährdungsquote der Haushalte beeinflussen würden.
 
 :::{.infoText}
 ¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik. <br>
