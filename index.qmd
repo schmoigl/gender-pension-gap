@@ -677,7 +677,7 @@ hhPoverty = aq.from(hhPovertyRaw)
 <!-- ## Geschlecht -->
 ## Das sind Ihre Ergebnisse
 #### Ergebnisse 1/4
-<span>Wie würde sich das ${select} auf die ${radioHaushaltseffekt} von ${radio} auswirken?</span>
+<span>Wie würde sich das ${select} auf die ${radioHaushaltseffekt} der ${radio} auswirken?</span>
 
 <div class="fold-container">
 <div class="column">
@@ -712,7 +712,7 @@ hhIncomeGeschlechttext =
   radioRaw == "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
   "Das durchschnittliche äquivalisierte Haushaltseinkommen von Frauen liegt mit 2.470€ leicht unter dem der Männer (2.528€). Sie würden von Szenario 1 mehr profitieren (+0,47%) als Männer (+0,26%)." : 
   radioRaw != "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-   "Das durchschnittliche äquivalisierte Haushaltseinkommen von Männern liegt mit 2.528€ leicht unter dem der Frauen (2.470€). Sie würden von Szenario 1 weniger profitieren (+0,26%) als Frauen (+0,47%)." : 
+   "Das durchschnittliche äquivalisierte Haushaltseinkommen von Männern liegt mit 2.528€ leicht über dem der Frauen (2.470€). Sie würden von Szenario 1 weniger profitieren (+0,26%) als Frauen (+0,47%)." : 
   radioRaw == "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
   "Das durchschnittliche äquivalisierte Haushaltseinkommen von Frauen liegt mit 2.470€ leicht unter dem der Männer (2.528€). Sie würden von Szenario 2 gleich viel wie Männer profitieren (+0,09%)." : 
   radioRaw != "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
