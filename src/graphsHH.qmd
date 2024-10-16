@@ -1,24 +1,12 @@
 
 ```{ojs}
-// highlights do not work!!
-// TODO: highlights, haushaltstyp mit Kinder/ohne Kinder filtern, +/- 0 PP. in povertyChart
-// Functions für HH-Einkommen und Armutsgefährdungsquote
-
-function generateIncomeChart(group, highlight) {
+function generateIncomeChart(group) {
   // Filter data based on the provided group and a variable that should be defined or passed in
 
   const filteredIncome = hhIncome
       .filter(d => d.group == group && d.variable == select) // Ensure 'select' is correctly defined or passed in
   
   const widthHH = group == "Geschlecht" ? makeWidth(width) * 0.2 : group == "Altersgruppen" ? makeWidth(width) * 0.45 : makeWidth(width) * 0.5;
-  
-  // const filteredIncome = radioKinder == "Kein Kind" ?
-  //   hhIncome
-  //     .filter(d => d.group == group && d.variable == select) // Ensure 'select' is correctly defined or passed in
-  //     .filter(d => d.detail2 == "Kein Kind" || d.detail2 == "irrelevant") :
-  //   hhIncome
-  //     .filter(d => d.group == group && d.variable == select) // Ensure 'select' is correctly defined or passed in
-  //     .filter(d => d.detail2 == "Kinder" || d.detail2 == "irrelevant");
   
   const bars = vl
     .markBar({
@@ -33,7 +21,7 @@ function generateIncomeChart(group, highlight) {
           domain: [0, 0.02],
         })
         .axis({
-          title: null,
+          title: "In Prozent",
           grid: false,
           format: "+.2%",
           minExtent: 40,
@@ -53,7 +41,7 @@ function generateIncomeChart(group, highlight) {
       vl.stroke()
         .fieldN("focus")
         .scale({
-          range: ["transparent", "black"],  
+          range: ["transparent", "black"],
         })
         .legend(null),
       vl.opacity()
@@ -118,7 +106,7 @@ function generateIncomeChartStatusquo(group) {
       vl.y()
         .fieldQ("value")
         .axis({
-          title: null,
+          title: "In Euro",
           grid: false,
           minExtent: 40,
           // labelFontSize: 10
@@ -207,7 +195,7 @@ function generatePovertyChart(group) {
           domain: [-1.5, 0],
         })
         .axis({
-          title: null,
+          title: "In Prozentpunkten",
           grid: false,
           format: "+.2f",
           minExtent: 40,
@@ -296,7 +284,7 @@ function generatePovertyChartStatusquo(group) {
       vl.y()
         .fieldQ("value")
         .axis({
-          title: null,
+          title: "In Prozent",
           grid: false,
           format: ".0%",
           minExtent: 40,
