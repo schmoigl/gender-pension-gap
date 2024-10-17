@@ -171,7 +171,7 @@ bins = binsMid
 
 ::: {.column-body .mainText .scroll-target}
 <h4 class="headlineRechner">RECHNER</h4>
-<!-- # AK-Pensionsreformrechner  -->
+<!-- # AK-Pensionsfairnessrechner  -->
 :::
 
 :::: {#slideshow-container .column-body}
@@ -180,7 +180,7 @@ bins = binsMid
 
 ## Pensionsreformen: AK-Vorschläge für eine faire Berechnung
 
-#### Einstiegsfragen
+#### Einstiegsfrage I
 
 **Um wieviel Prozent ist die durchschnittliche Pension von Frauen in Österreich geringer als die der Männer?** 
 
@@ -198,6 +198,8 @@ answer = guess == "40,1%" ? "Richtig! Der Unterschied ist groß." : "Leider fals
 
 <button class="btn btn-secondary" style="margin-top: 30px; margin-bottom: 50px;" onclick="jumpToSlide(1)">Weiter und herausfinden, wie sich Ihre Pension verändern würde</button>
 
+#### Einstiegsfrage II
+
 **Wie viele Pensionist:innen befinden sich im Risiko, in Armut zu geraten?**
 
 <div style="width: 500px;">
@@ -210,10 +212,9 @@ viewof guess2 = Inputs.radio(["0%", "8,3% ", "14,8%", "26,2%"], {
 answer2 = guess2 == "14,8%" ? "Richtig! Fast 15% der Pensionist:innen in Österreich befinden sich im Armutsrisiko." : "Leider falsch, fast 15% der Pensionist:innen in Österreich befinden sich im Armutsrisiko!"
 ```
 
-</div> 
+</div>
 
 <button class="btn btn-secondary" style="margin-top: 30px; margin-bottom: 50px;" onclick="jumpToSlide(11)">Weiter und herausfinden, wie sich Armutsgefährdungsquote und Einkommen verändern</button>
-
 :::
 
 ::: {.slide}
@@ -228,7 +229,7 @@ Der Gender Pension Gap, also der Unterschied zwischen Männer- und Frauenpension
 
 Die Arbeiterkammer Oberösterreich hält dies für eine große Ungerechtigkeit und setzt sich für Pensionsreformen ein, die tatsächlich Verbesserungen für die Menschen bringen und dieser enormen Schieflage entgegenwirken.
 
-Mit dem AK-Pensionsreformrechner sehen Sie, was die einzelnen Reformen für die Pensionshöhen, bei der Reduktion des Gender Pension Gap und Verteilung bedeuten. Probieren Sie das neue Tool aus, verbreiten Sie es und geben Sie uns Rückmeldung!
+Mit dem AK-Pensionsfairnessrechner sehen Sie, was die einzelnen Reformen für die Pensionshöhen, bei der Reduktion des Gender Pension Gap und Verteilung bedeuten. Probieren Sie das neue Tool aus, verbreiten Sie es und geben Sie uns Rückmeldung!
 
 ### Machen Sie mit! Wie viel Pension würden Sie bekommen?
 
@@ -242,7 +243,7 @@ Pension Gap².
   <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht.</li>
 </ul>
 
-Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Pensionsreformrechner zeigt Ihnen dabei, wie sich die Pensionshöhe in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würde. Darüber hinaus gibt der Haushaltsrechner Auskunft darüber, wie die Szenarien die Haushaltseinkommen und die Armutsgefährdungsquote der Haushalte beeinflussen würden.
+Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Rechner zeigt Ihnen dabei, wie sich die Pensionshöhe in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würde.
 
 :::{.infoText}
 ¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik. <br>
@@ -538,7 +539,7 @@ distributionsChange.render({ renderer: "svg" })
 
 ## Pensionsreformen: AK-Forderungen
 
-Hier kommt noch Inhalt von der AK
+Hier kommt noch Inhalt von der AK: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 :::
 
@@ -601,7 +602,7 @@ Hier kommt noch Inhalt von der AK
  
 **${answer2}**
 
-Info von AK 
+Hier kommt noch Inhalt von der AK: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 ### Machen Sie mit! Wie viel Pension würden Sie bekommen?
 
@@ -615,7 +616,12 @@ Pension Gap².
   <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht.</li>
 </ul>
 
-Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Pensionsreformrechner zeigt Ihnen dabei, wie sich die Pensionshöhe in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würde. Darüber hinaus gibt der Haushaltsrechner Auskunft darüber, wie die Szenarien die Haushaltseinkommen und die Armutsgefährdungsquote der Haushalte beeinflussen würden.
+Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Rechner gib Auskunft darüber, wie die Szenarien die Haushaltseinkommen und die Armutsgefährdungsquote der Haushalte beeinflussen würden.
+
+:::{.infoText}
+¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik. <br>
+²Datenbasis: Sozialversicherungsdaten zu und den Erwerbs- und Einkommensverläufen der Pensionsantrittskohorten 2015 bis 2021. 
+:::
 
 :::
 
@@ -1197,35 +1203,34 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 
 ## Pensionsreformen: AK-Forderungen
 
-Hier kommt noch Inhalt von der AK
+Hier kommt noch Inhalt von der AK: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
 :::
-
-
 
 <div class="btn-container">
 <button id="prevBtn" class="btn btn-secondary">zurück</button>
 <button id="nextBtn" class="btn btn-secondary">weiter</button>
-<br>
+</div>
+<div class="btn-container">
 <button id="jumpToSlide0" class="btn btn-secondary" onclick="jumpToSlide(0)">zum Anfang</button>
 <button id="jumpToSlide10" class="btn btn-secondary" onclick="jumpToSlide(11)">Haushaltsrechner starten</button>
 <button id="jumpToLastBtn" class="btn btn-secondary small-btn">Überspringen und zur Vollversion (ohne Erläuterungen)</button>
 </div>
- 
+
 ::::
 
 ::: {.column-body .text-center}
 <div class="btn-group" role="group" aria-label="Social Media Share Buttons">
-  <a href="https://twitter.com/intent/tweet?text=AK%20Pensionsreformrechner&url=https://data-science.wifo.ac.at/AK-Pensionsreformrechner/" target="_blank" class="btn btn-secondary">
+  <a href="https://twitter.com/intent/tweet?text=AK%20Pensionsfairnessrechner&url=https://data-science.wifo.ac.at/AK-Pensionsfairnessrechner/" target="_blank" class="btn btn-secondary">
     <i class="fab fa-x-twitter"></i> 
   </a>
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https://data-science.wifo.ac.at/AK-Pensionsreformrechner/" target="_blank" class="btn btn-secondary">
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://data-science.wifo.ac.at/AK-Pensionsfairnessrechner/" target="_blank" class="btn btn-secondary">
     <i class="fab fa-facebook"></i> 
   </a>
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://data-science.wifo.ac.at/AK-Pensionsreformrechner/" target="_blank" class="btn btn-secondary">
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://data-science.wifo.ac.at/AK-Pensionsfairnessrechner/" target="_blank" class="btn btn-secondary">
     <i class="fab fa-linkedin"></i> 
   </a>
-  <a href="mailto:?subject=AK%20Pensionsreformrechner&body=https://data-science.wifo.ac.at/AK-Pensionsreformrechner/" target="_blank" class="btn btn-secondary">
+  <a href="mailto:?subject=AK%20Pensionsfairnessrechner&body=https://data-science.wifo.ac.at/AK-Pensionsfairnessrechner/" target="_blank" class="btn btn-secondary">
     <i class="fas fa-envelope"></i> 
   </a>
   <a href="https://www.instagram.com/yourprofile/" target="_blank" class="btn btn-secondary">
@@ -1325,9 +1330,9 @@ Hier kommt noch Inhalt von der AK
 
     // Change Next button text on the last slide
     if (currentSlide === 11) {
-      nextBtn.textContent = 'Haushaltsrechner starten';
+      nextBtn.textContent = 'Rechner starten';
     } else if(currentSlide === 1) {
-      nextBtn.textContent = 'Pensionsfairness-Rechner starten'
+      nextBtn.textContent = 'Rechner starten'
     } else {
       nextBtn.textContent = 'weiter'; 
     }
