@@ -23,7 +23,7 @@ function generateIncomeChart(group) {
         .axis({
           title: "In Prozent",
           grid: false,
-          format: "+.2%",
+          format: "+.1%",
           minExtent: 40,
           // labelFontSize: 10
         }),
@@ -197,7 +197,7 @@ function generatePovertyChart(group) {
         .axis({
           title: "In Prozentpunkten",
           grid: false,
-          format: "+.2f",
+          format: "+.1f",
           minExtent: 40,
           // labelFontSize: 10
         }),
