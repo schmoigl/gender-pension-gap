@@ -1,3 +1,3 @@
 quarto render
 scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/AK-Pensionsreformrechner
-scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/AK-Pensionsfarinessrechner
+scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/AK-Pensionsfairnessrechner
