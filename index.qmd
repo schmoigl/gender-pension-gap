@@ -98,10 +98,14 @@ notRadio = radio == "Frauen" ? "Männer" : "Frauen"
 
 ```{ojs}
 decilesRaw = 
-  check1[0] == "Kindererziehungszeiten" ?
+  check1[0] == "Kindererziehungszeiten" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
   FileAttachment("data/deciles_betroffen_szen1.csv").csv({ typed: true }) :
-  check2[0] == "Arbeitslosenversicherungszeiten" ?
+  check1[0] != "Kindererziehungszeiten" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
+  FileAttachment("data/deciles_nbetroffen_szen1.csv").csv({ typed: true }) :
+  check2[0] == "Arbeitslosenversicherungszeiten" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
   FileAttachment("data/deciles_betroffen_szen2.csv").csv({ typed: true }) :
+  check2[0] != "Arbeitslosenversicherungszeiten" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
+  FileAttachment("data/deciles_nbetroffen_szen2.csv").csv({ typed: true }) :
   FileAttachment("data/deciles.csv").csv({ typed: true })
 
 decilesMid = aq.from(decilesRaw)
