@@ -184,7 +184,7 @@ bins = binsMid
 
 ::: {.slide .slide-active}
 
-## Pensionsreformen: AK-Vorschläge für eine faire Berechnung
+## Frauenpensionen erhöhen: AK-Vorschläge für eine faire Berechnung
 
 #### Einstiegsfrage I
 
@@ -225,7 +225,7 @@ answer2 = guess2 == "14,8%" ? "Richtig! Fast 15% der Pensionist:innen in Österr
 
 ::: {.slide}
 
-## Pensionsreformen: AK-Vorschläge für eine faire Berechnung
+## Frauenpensionen erhöhen: AK-Vorschläge für eine faire Berechnung
 
 #### Auflösung
  
@@ -244,16 +244,23 @@ im Auftrag der AK OÖ untersucht die Auswirkungen verschiedener Änderungen im P
 Pension Gap². 
 
 <ul>
-  <li>Szenario 1: Höherbewertung von Kindererziehungszeiten</li>
-  <li>Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit</li>
-  <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht.</li>
+  <li>Szenario 1: Höherbewertung von Kindererziehungszeiten³</li>
+  <li>Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit⁴</li>
+  <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht⁵</li>
 </ul>
 
 Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Rechner zeigt Ihnen dabei, wie sich die Pensionshöhe in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würde.
 
 :::{.infoText}
-¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik. <br>
+¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik.
+
 ²Datenbasis: Sozialversicherungsdaten zu und den Erwerbs- und Einkommensverläufen der Pensionsantrittskohorten 2015 bis 2021. 
+
+³ ${descriptions.map(d => d.description)[0]}
+
+⁴ ${descriptions.map(d => d.description)[1]}
+
+⁵ ${descriptions.map(d => d.description)[2]}
 :::
 
 :::
@@ -382,11 +389,11 @@ barsText =
   diffScenario > 0 && diffScenarioGesamt > 0 ? 
   "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio  + checkText1 + checkText2 + ")" + " im Schnitt um " + germanLocale.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + germanLocale.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   diffScenarioGesamt < 0 ?
-  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + checkText1 + checkText2 + ")" + " im Schnitt um " + germanLocale.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + germanLocale.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(-diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(-diffScenarioPercGesamt) + " weniger Pension bekommen." : 
+  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + checkText1 + checkText2 + ")" + " im Schnitt um " + germanLocale.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + germanLocale.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(-diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(-diffScenarioPercGesamt) + " mehr Pension bekommen." : 
   check1.length != 1 && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ?
-  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ", die keine Kinderbetreuungszeiten vorweisen können)" + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " + "Betrachtet man den Gesamtdurchschnitt aller " + radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " weniger Pension bekommen." :
+  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ", die keine Kinderbetreuungszeiten vorweisen können)" + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " + "Betrachtet man den Gesamtdurchschnitt aller " + radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   check2.length != 1 && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ", die keine Ersatzzeiten durch Arbeitslosigkeit haben)" + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " + "Betrachtet man den Gesamtdurchschnitt aller " + radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " weniger Pension bekommen." :
+  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ", die keine Ersatzzeiten durch Arbeitslosigkeit haben)" + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " + "Betrachtet man den Gesamtdurchschnitt aller " + radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   "Im " + select + " würden " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro" + checkText2 + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " 
 ```
 
@@ -433,10 +440,10 @@ mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Statu
 mehrWenigerGesamt = deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0] ? " sinken." : " steigen."
 
 dumbbellText = check1.length != 1 && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ?
-  "Der Gender Pension Gap würde in meiner Vergleichsgruppe würde sich nicht verändern. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " relativ zur Pension der Männer. Insgesamt würde der Gap von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt + " Das entspricht dann " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapRel)[0]) + " der Männerpension." :
+  "Der Gender Pension Gap in meiner Vergleichsgruppe würde sich nicht verändern. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " relativ zur Pension der Männer. Insgesamt würde der Gap von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt + " Das entspricht dann " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapRel)[0]) + " der Männerpension." :
   check2.length != 1 && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Der Gender Pension Gap würde in meiner Vergleichsgruppe würde sich nicht verändern. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " relativ zur Pension der Männer. Insgesamt würde der Gap von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt + " Das entspricht dann " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapRel)[0]) + " der Männerpension." :
-  "Der Gender Pension Gap würde in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + checkText1 + checkText2 + ") von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt + " Das entspricht dann " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapRel)[0]) + " der Männerpension." 
+  "Der Gender Pension Gap in meiner Vergleichsgruppe würde sich nicht verändern. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " relativ zur Pension der Männer. Insgesamt würde der Gap von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt + " Das entspricht dann " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapRel)[0]) + " der Männerpension." :
+  "Der Gender Pension Gap in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + checkText1 + checkText2 + ") von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt + " Das entspricht dann " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapRel)[0]) + " der Männerpension." 
 ```
 
 ${dumbbellText} <br><br> Eingaben ändern:
@@ -564,9 +571,11 @@ distributionsChange.render({ renderer: "svg" })
 
 ::: {.slide}
 
-## Pensionsreformen: AK-Forderungen
+## AK Oberösterreich für faire Pensionen
 
-Hier kommt noch Inhalt von der AK: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Sie sehen, die 3 Szenarien aus der Studie, also die Höherberechnung von Kindererziehungszeiten und Zeiten der Arbeitslosigkeit bzw. die Einführung eines Gender-Pay-Gap-Faktors, würden auf unterschiedliche Weise die Pensionen erhöhen. Vor allem für Frauen ist ein deutlich positiver Effekt zu spüren. Das ist enorm wichtig für ein gerechteres Pensionssystem, da Frauenpensionen in Österreich derzeit um über 40 Prozent niedriger sind als jene der Männer. 
+
+Die Vorschläge der Arbeiterkammer Oberösterreich für eine fairere Pensionsberechnung würden genau hier ansetzten und Frauenpensionen nachhaltig erhöhen. 
 
 :::
 
@@ -629,25 +638,37 @@ Hier kommt noch Inhalt von der AK: Lorem ipsum dolor sit amet, consetetur sadips
  
 **${answer2}**
 
-Hier kommt noch Inhalt von der AK: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Altersarmut, insbesondere bei Frauen, ist ein großes Thema. Das liegt auch daran, dass Frauenpensionen um 40,1 Prozent niedriger sind als jene der Männer. Gründe für die Schlechterstellung von Frauen sind die Hürden, mit denen sie bereits im Erwerbsleben konfrontiert sind: lange Teilzeitphasen, niedrige Einkommen, Zeiten von Arbeitslosigkeit und Unterbrechungen aufgrund von Kindererziehungs- und Pflegezeiten.
 
-### Machen Sie mit! Wie viel Pension würden Sie bekommen?
+Die Arbeiterkammer Oberösterreich hält dies für eine große Ungerechtigkeit und setzt sich für Pensionsberechnungen ein, die tatsächlich Verbesserungen für die Menschen bringen und dieser enormen Schieflage entgegenwirken.
+
+Mit dem AK-Pensionsfairness-Rechner sehen Sie, was die einzelnen Vorschläge zur faireren Pensionsberechnung für die Pensionshöhen, für Gender Pension Gap, die Verteilung und die Armutsgefährdungsquoten bedeuten. 
+
+Probieren Sie das neue Tool aus, verbreiten Sie es und geben Sie uns gerne Rückmeldung!
+
+### Machen Sie mit! Wie verändern sich Haushaltseinkommen und Armutsquoten? 
 
 Eine [Studie des WIFO](https://www.wifo.ac.at/wp-content/uploads/upload-7517/s_2024_pensionssystem_oesterreich_53526411.pdf){target="_blank"} 
-im Auftrag der AK OÖ untersucht die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender
-Pension Gap². 
+im Auftrag der AK OÖ untersucht die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender Pension Gap, also den Unterschied zwischen Frauen- und Männerpensionen. Zusätzlich werden Auswirkungen auf Haushaltseinkommen und Armutsgefährdungsquoten dargestellt.². 
 
 <ul>
-  <li>Szenario 1: Höherbewertung von Kindererziehungszeiten</li>
-  <li>Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit</li>
-  <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht.</li>
+  <li>Szenario 1: Höherbewertung von Kindererziehungszeiten³</li>
+  <li>Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit⁴</li>
+  <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht⁵</li>
 </ul>
 
-Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Rechner gib Auskunft darüber, wie die Szenarien die Haushaltseinkommen und die Armutsgefährdungsquote der Haushalte beeinflussen würden.
+Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der AK-Pensionsfairness-Rechner zeigt Ihnen dabei, wie sich die Haushaltseinkommen und die Armutsgefährdungsquote in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würden. 
 
 :::{.infoText}
-¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik. <br>
+¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik.
+
 ²Datenbasis: Sozialversicherungsdaten zu und den Erwerbs- und Einkommensverläufen der Pensionsantrittskohorten 2015 bis 2021. 
+
+³ ${descriptions.map(d => d.description)[0]}
+
+⁴ ${descriptions.map(d => d.description)[1]}
+
+⁵ ${descriptions.map(d => d.description)[2]}
 :::
 
 :::
@@ -1228,9 +1249,11 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 
 ::: {.slide}
 
-## Pensionsreformen: AK-Forderungen
+## AK Oberösterreich für faire Pensionen
 
-Hier kommt noch Inhalt von der AK: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+Sie sehen, die 3 Szenarien aus der Studie, also die Höherberechnung von Kindererziehungszeiten und Zeiten der Arbeitslosigkeit bzw. die Einführung eines Gender-Pay-Gap-Faktors, würden auf unterschiedliche Weise die Pensionen erhöhen. Vor allem für Frauen ist ein deutlich positiver Effekt zu spüren. Das ist enorm wichtig für ein gerechteres Pensionssystem, da Frauenpensionen in Österreich derzeit um über 40 Prozent niedriger sind als jene der Männer. 
+
+Die Vorschläge der Arbeiterkammer Oberösterreich für eine fairere Pensionsberechnung würden genau hier ansetzten und Frauenpensionen nachhaltig erhöhen. 
 
 :::
 
