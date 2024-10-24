@@ -245,8 +245,8 @@ Pension Gap².
 
 <ul>
   <li>Szenario 1: Höherbewertung von Kindererziehungszeiten³</li>
-  <li>Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit⁴</li>
-  <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht⁵</li>
+  <li>Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit<sup>4</sup></li>
+  <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht<sup>5</sup></li>
 </ul>
 
 Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Rechner zeigt Ihnen dabei, wie sich die Pensionshöhe in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würde.
@@ -258,9 +258,9 @@ Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Rechner zeigt I
 
 ³ ${descriptions.map(d => d.description)[0]}
 
-⁴ ${descriptions.map(d => d.description)[1]}
+<sup>4</sup> ${descriptions.map(d => d.description)[1]}
 
-⁵ ${descriptions.map(d => d.description)[2]}
+<sup>5</sup> ${descriptions.map(d => d.description)[2]}
 :::
 
 :::
@@ -653,8 +653,8 @@ im Auftrag der AK OÖ untersucht die Auswirkungen verschiedener Änderungen im P
 
 <ul>
   <li>Szenario 1: Höherbewertung von Kindererziehungszeiten³</li>
-  <li>Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit⁴</li>
-  <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht⁵</li>
+  <li>Szenario 2: Höherbewertung von Zeiten der Arbeitslosigkeit<sup>4</sup></li>
+  <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht<sup>5</sup></li>
 </ul>
 
 Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der AK-Pensionsfairness-Rechner zeigt Ihnen dabei, wie sich die Haushaltseinkommen und die Armutsgefährdungsquote in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würden. 
@@ -666,9 +666,9 @@ Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der AK-Pensionsfair
 
 ³ ${descriptions.map(d => d.description)[0]}
 
-⁴ ${descriptions.map(d => d.description)[1]}
+<sup>4</sup> ${descriptions.map(d => d.description)[1]}
 
-⁵ ${descriptions.map(d => d.description)[2]}
+<sup>5</sup> ${descriptions.map(d => d.description)[2]}
 :::
 
 :::

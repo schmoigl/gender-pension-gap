@@ -1,8 +1,8 @@
-# AK-Pensionsreformrechner Website
+# AK-PensionsfairnessrechnerWebsite
 
 This repository contains the Quarto-based website for the AK-OOe-Pensionen project. The website is live at:
 
-[https://data-science.wifo.ac.at/AK-Pensionsreformrechner/](https://data-science.wifo.ac.at/AK-Pensionsreformrechner/)
+[https://data-science.wifo.ac.at/AK-Pensionsfairnessrechner/](https://data-science.wifo.ac.at/AK-Pensionsfairnessrechner/)
 
 ## Prerequisites
 
@@ -98,7 +98,7 @@ quarto preview
 quarto render
 
 # Deploy the rendered website
-scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/AK-Pensionsreformrechner 
+scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/AK-Pensionsfairnessrechner
 ```
 
 Happy coding!
