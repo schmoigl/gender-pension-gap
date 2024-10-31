@@ -9,7 +9,7 @@ project:
     - index.qmd
     - households.qmd
 website:
-  title: "AK-Pensionsreformrechner "
+  title: "AK-Pensionsfairnessrechner"
   favicon: img/favicon.ico
   search: false
   page-footer: |
