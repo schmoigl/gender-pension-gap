@@ -240,7 +240,7 @@ function dumbbell(inputData, inputWidth)  {
           grid: false,
         })
         .scale({
-          domain: [0, 5000],
+          domain: [0, 6000],
           nice: false,
         }),
       vl.x()
@@ -324,14 +324,35 @@ function dumbbell(inputData, inputWidth)  {
         })
         .legend(null), 
     )
+    
+  const textPerc = vl
+    .markText({
+      size: 14,
+      dx: 0,
+      dy: -30,
+      angle: -90,
+      align: "left",
+      clip: true,
+    })
+    .encode(
+      vl.y()
+        .fieldQ("value"),
+      vl.x()
+        .fieldO("val"),
+      vl.text()
+        .fieldQ("gapPerc")
+        .format(",.0~%"),
+      vl.opacity()
+        .fieldN("gesl"),
+    )
 
   const textGap = vl
     .markText({
       size: 14,
-      dx: 24,
+      dx: 0,
       dy: -16,
       angle: -90,
-      align: "right",
+      align: "left",
       clip: true,
     })
     .encode(
@@ -348,9 +369,9 @@ function dumbbell(inputData, inputWidth)  {
 
   const textArrow = vl
     .markText({
-      size: 14,
-      dx: 30,
-      dy: -16,
+      size: 10,
+      dx: 50,
+      dy: -40,
       angle: -90,
       align: "left",
       clip: true,
@@ -361,10 +382,13 @@ function dumbbell(inputData, inputWidth)  {
       vl.x()
         .fieldO("val"),
       vl.text()
-        .value(" →"),
+        .value(["Gender","Pension Gap", "↙"]), 
       vl.opacity()
         .fieldN("gesl"),
     )
+
+    
+
 
     const layers = width > 600 ? 
       vl.layer(
@@ -373,6 +397,7 @@ function dumbbell(inputData, inputWidth)  {
         text,
         textRel, 
         textGap,
+        textPerc,
         textArrow,
       ) :
       vl.layer(
@@ -380,6 +405,7 @@ function dumbbell(inputData, inputWidth)  {
         points,
         textRel,
         textGap,
+        textPerc,
         textArrow,
         // text,
       )

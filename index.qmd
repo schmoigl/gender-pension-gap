@@ -184,7 +184,7 @@ bins = binsMid
 
 ::: {.slide .slide-active}
 
-## Frauenpensionen erhöhen: AK-Vorschläge für eine faire Berechnung
+## Frauenpensionen erhöhen: AK-Vorschläge für eine faire Pensionsberechnung
 
 #### Einstiegsfrage I
 
@@ -202,7 +202,7 @@ answer = guess == "40,1%" ? "Richtig! Der Unterschied ist groß." : "Leider fals
 
 </div> 
 
-<button class="btn btn-secondary" style="margin-top: 30px; margin-bottom: 50px;" onclick="jumpToSlide(1)">Weiter und herausfinden, wie sich Ihre Pension verändern würde</button>
+<button class="btn btn-secondary" style="margin-top: 30px; margin-bottom: 50px;" onclick="jumpToSlide(1)">Weiter und herausfinden, wie sich Ihre Pension durch die AK-Vorschläge verändern würde</button>
 
 #### Einstiegsfrage II
 
@@ -220,12 +220,12 @@ answer2 = guess2 == "14,8%" ? "Richtig! Fast 15% der Pensionist:innen in Österr
 
 </div>
 
-<button class="btn btn-secondary" style="margin-top: 30px; margin-bottom: 50px;" onclick="jumpToSlide(11)">Weiter und herausfinden, wie sich Armutsgefährdungsquote und Einkommen verändern</button>
+<button class="btn btn-secondary" style="margin-top: 30px; margin-bottom: 50px;" onclick="jumpToSlide(11)">Weiter und herausfinden, wie sich Armutsgefährdungsquote und Einkommen durch die AK-Vorschläge verändern würden</button>
 :::
 
 ::: {.slide}
 
-## Frauenpensionen erhöhen: AK-Vorschläge für eine faire Berechnung
+## Frauenpensionen erhöhen: AK-Vorschläge für eine faire Pensionsberechnung
 
 #### Auflösung
  
@@ -235,7 +235,7 @@ Der Gender Pension Gap, also der Unterschied zwischen Männer- und Frauenpension
 
 Die Arbeiterkammer Oberösterreich hält dies für eine große Ungerechtigkeit und setzt sich für Pensionsreformen ein, die tatsächlich Verbesserungen für die Menschen bringen und dieser enormen Schieflage entgegenwirken.
 
-Mit dem AK-Pensionsfairnessrechner sehen Sie, was die einzelnen Reformen für die Pensionshöhen, bei der Reduktion des Gender Pension Gap und Verteilung bedeuten. Probieren Sie das neue Tool aus, verbreiten Sie es und geben Sie uns Rückmeldung!
+Mit dem AK-Pensionsfairness-Rechner sehen Sie, was die einzelnen Reformen für die Pensionshöhen, bei der Reduktion des Gender Pension Gap und Verteilung bedeuten.
 
 ### Machen Sie mit! Wie viel Pension würden Sie bekommen?
 
@@ -249,18 +249,19 @@ Pension Gap².
   <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht<sup>5</sup></li>
 </ul>
 
-Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Rechner zeigt Ihnen dabei, wie sich die Pensionshöhe in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würde.
+Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der Rechner zeigt Ihnen dabei, wie sich die Pensionshöhe in den jeweiligen Szenarien  durchschnittlich verändern würde.
+<br><br>
 
 :::{.infoText}
 ¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik.
 
-²Datenbasis: Sozialversicherungsdaten zu und den Erwerbs- und Einkommensverläufen der Pensionsantrittskohorten 2015 bis 2021. 
+²Datenbasis: Sozialversicherungsdaten zu den Erwerbs- und Einkommensverläufen der Pensionsantrittskohorten 2015 bis 2021. 
 
-³ ${descriptions.map(d => d.description)[0]}
+³${descriptions.map(d => d.description)[0]}
 
-<sup>4</sup> ${descriptions.map(d => d.description)[1]}
+<sup>4</sup>${descriptions.map(d => d.description)[1]}
 
-<sup>5</sup> ${descriptions.map(d => d.description)[2]}
+<sup>5</sup>${descriptions.map(d => d.description)[2]}
 :::
 
 :::
@@ -362,8 +363,10 @@ Inputs.bind(
 ```
 
 ```{ojs}
-checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen können" : ""
-checkText2 = check2.length == 1 ? ", die Ersatzzeiten durch Arbeitslosigkeit haben" : ""
+checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen können," : ""
+checkText2 = check2.length == 1 ? ", die Ersatzzeiten durch Arbeitslosigkeit haben," : ""
+
+
 
 diffScenario = deciles
   .filter(d => d.variable == select)
@@ -384,20 +387,32 @@ diffScenarioPercGesamt = deciles
 statusIncome = deciles
   .filter(d => d.closestDecileValue == d.D && d.gesl == d.radio && d.val == "Status quo")
   .map(d => d.value)[0]
-
-barsText = 
-  diffScenario > 0 && diffScenarioGesamt > 0 ? 
-  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio  + checkText1 + checkText2 + ")" + " im Schnitt um " + germanLocale.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + germanLocale.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
+  
+closestDecileNumber = closestDecileValue.split('.')[0]
+  
+barsText = md`
+  ${diffScenario > 0 && diffScenarioGesamt > 0 ? 
+  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro¹" + checkText1 + checkText2 + " im Schnitt um **" + germanLocale.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten**. Das entspricht etwa " + germanLocale.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   diffScenarioGesamt < 0 ?
-  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + checkText1 + checkText2 + ")" + " im Schnitt um " + germanLocale.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten. Das entspricht etwa " + germanLocale.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(-diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(-diffScenarioPercGesamt) + " mehr Pension bekommen." : 
+  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro¹" + checkText1 + checkText2 + " im Schnitt um **" + germanLocale.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten**. Das entspricht etwa " + germanLocale.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(-diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(-diffScenarioPercGesamt) + " mehr Pension bekommen." : 
   check1.length != 1 && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ?
-  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ", die keine Kinderbetreuungszeiten vorweisen können)" + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " + "Betrachtet man den Gesamtdurchschnitt aller " + radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
+  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro¹, die keine Kinderbetreuungszeiten vorweisen können," + " **gleich viel erhalten wie aktuell**. " + "Das Szenario hätte keinen Effekt. " + "Betrachtet man den Gesamtdurchschnitt aller " + radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
   check2.length != 1 && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + ", die keine Ersatzzeiten durch Arbeitslosigkeit haben)" + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " + "Betrachtet man den Gesamtdurchschnitt aller " + radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
-  "Im " + select + " würden " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro" + checkText2 + " gleich viel erhalten wie aktuell. " + "Das Szenario hätte keinen Effekt. " 
+  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro¹, die keine Ersatzzeiten durch Arbeitslosigkeit haben" + " **gleich viel erhalten wie aktuell**. " + "Das Szenario hätte keinen Effekt. " + "Betrachtet man den Gesamtdurchschnitt aller " + radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
+  "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro¹" + checkText2 + " **gleich viel erhalten wie aktuell**. " + "Das Szenario hätte keinen Effekt. " 
+  }
+`
+perzentilText = "Sie haben eine Bruttopension von " + rangeRaw + " für " + radio + " angeben. Ihre Vergleichsgruppe ist deshalb das " + deciles.map(d => d.closestDecileValue)[0] + " (" +  closestDecileNumber + "% der " + radio + " haben eine geringere Pension). Hier beträgt die durchschnittliche Pension " + germanLocale.format(",.0f")(statusIncome) + " Euro."
+
 ```
 
-${barsText} <br><br> Eingaben ändern:
+${barsText} 
+
+:::{.infoText}
+¹${perzentilText} 
+:::
+
+Eingaben ändern:
 
 ```{ojs}
 Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension"}), viewof rangeRaw)
@@ -424,7 +439,7 @@ decilesDumbbellFull = deciles
 ```
 
 ```{ojs}
-dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2), width > 600 ? 230 : width * 0.36).render({ renderer: "svg" }) 
+dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2), width > 600 ? 230 : width * 0.5).render({ renderer: "svg" }) 
 // radio2
 // decilesDumbbellFull
 // dumbbell(decilesDumbbellFull, width > 600 ? 230 : width * 0.36).render({ renderer: "svg" })
@@ -433,6 +448,9 @@ viewof radio2 = Inputs.radio(
   ["Meine Vergleichsgruppe", "∅ Gesamtdurchschnitt", "Beides anzeigen"], 
   {value: "Meine Vergleichsgruppe", label: "Zeige"}
   ) 
+  
+
+
 ```
 
 ```{ojs}
@@ -440,16 +458,25 @@ mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Statu
 mehrWenigerGesamt = deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0] ? " sinken." : " steigen."
 
 dumbbellText = check1.length != 1 && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ?
-  "Der Gender Pension Gap in meiner Vergleichsgruppe würde sich nicht verändern. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " relativ zur Pension der Männer. Insgesamt würde der Gap von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt + " Das entspricht dann " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapRel)[0]) + " der Männerpension." :
+  "Im " + select + " würde sich der Gender Pension Gap in meiner Vergleichsgruppe¹, den Frauen ohne Kinderbetreuungszeiten, nicht verändern. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0]) + ". Im Gesamtdurchschnitt würde der Gap im " + select + " " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapPerc)[0]) + " ausmachen und damit von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt :
   check2.length != 1 && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Der Gender Pension Gap in meiner Vergleichsgruppe würde sich nicht verändern. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " relativ zur Pension der Männer. Insgesamt würde der Gap von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt + " Das entspricht dann " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapRel)[0]) + " der Männerpension." :
+  "Im " + select + " würde sich der Gender Pension Gap in meiner Vergleichsgruppe¹, den " + radio + " die keine Ersatzzeiten durch Arbeitslosigkeit haben, nicht verändern. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0]) + " . Im Gesamtdurchschnitt würde der Gap im " + select + " " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapPerc)[0]) + " ausmachen und damit von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt :
   "Der Gender Pension Gap in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + checkText1 + checkText2 + ") von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt + " Das entspricht dann " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapRel)[0]) + " der Männerpension." 
+  
+perzentilText2 = "Sie haben eine Bruttopension von " + rangeRaw + " für " + radio + " angeben. Ihre Vergleichsgruppe ist deshalb das " + deciles.map(d => d.closestDecileValue)[0] + " (" +  closestDecileNumber + "% der " + radio + " haben eine geringere Pension). Hier beträgt die durchschnittliche Pension " + germanLocale.format(",.0f")(statusIncome) + " Euro."
 ```
 
-${dumbbellText} <br><br> Eingaben ändern:
+${dumbbellText}
+
+:::{.infoText}
+¹${perzentilText2} 
+:::
+
+<br><br> Eingaben ändern:
 
 ```{ojs}
 Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension"}), viewof rangeRaw)
+Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"}), viewof radioRaw)
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select) 
 select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
   Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true}), viewof check1) :
@@ -632,7 +659,7 @@ Die Vorschläge der Arbeiterkammer Oberösterreich für eine fairere Pensionsber
 
 ::: {.slide}
 
-## Pensionsreformen: AK-Vorschläge für eine faire Berechnung
+## Frauenpensionen erhöhen: AK-Vorschläge für eine faire Pensionsberechnung
 
 #### Auflösung
  
@@ -644,12 +671,10 @@ Die Arbeiterkammer Oberösterreich hält dies für eine große Ungerechtigkeit u
 
 Mit dem AK-Pensionsfairness-Rechner sehen Sie, was die einzelnen Vorschläge zur faireren Pensionsberechnung für die Pensionshöhen, für Gender Pension Gap, die Verteilung und die Armutsgefährdungsquoten bedeuten. 
 
-Probieren Sie das neue Tool aus, verbreiten Sie es und geben Sie uns gerne Rückmeldung!
-
 ### Machen Sie mit! Wie verändern sich Haushaltseinkommen und Armutsquoten? 
 
 Eine [Studie des WIFO](https://www.wifo.ac.at/wp-content/uploads/upload-7517/s_2024_pensionssystem_oesterreich_53526411.pdf){target="_blank"} 
-im Auftrag der AK OÖ untersucht die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender Pension Gap, also den Unterschied zwischen Frauen- und Männerpensionen. Zusätzlich werden Auswirkungen auf Haushaltseinkommen und Armutsgefährdungsquoten dargestellt.². 
+im Auftrag der AK OÖ untersucht die Auswirkungen verschiedener Änderungen im Pensionsrecht auf die Höhe der Alterseinkommen und den Gender Pension Gap, also den Unterschied zwischen Frauen- und Männerpensionen. Zusätzlich werden Auswirkungen auf Haushaltseinkommen und Armutsgefährdungsquoten dargestellt². 
 
 <ul>
   <li>Szenario 1: Höherbewertung von Kindererziehungszeiten³</li>
@@ -657,18 +682,18 @@ im Auftrag der AK OÖ untersucht die Auswirkungen verschiedener Änderungen im P
   <li>Szenario 3: Einführung eines Gender-Pay-Gap-Faktors, der die Einkommensunterschiede zwischen Männern und Frauen ausgleicht<sup>5</sup></li>
 </ul>
 
-Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der AK-Pensionsfairness-Rechner zeigt Ihnen dabei, wie sich die Haushaltseinkommen und die Armutsgefährdungsquote in den jeweiligen Szenarien für Personen mit Ihren Merkmalen durchschnittlich verändern würden. 
+Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der AK-Pensionsfairness-Rechner zeigt Ihnen dabei, wie sich die Haushaltseinkommen und die Armutsgefährdungsquote in den jeweiligen Szenarien durchschnittlich verändern würden. 
 
 :::{.infoText}
 ¹Datenbasis: Pensionsversicherungs-Jahresstatistik, Dezember 2023, Berechnung: MA 23 - Wirtschaft, Arbeit und Statistik.
 
 ²Datenbasis: Sozialversicherungsdaten zu und den Erwerbs- und Einkommensverläufen der Pensionsantrittskohorten 2015 bis 2021. 
 
-³ ${descriptions.map(d => d.description)[0]}
+³${descriptions.map(d => d.description)[0]}
 
-<sup>4</sup> ${descriptions.map(d => d.description)[1]}
+<sup>4</sup>${descriptions.map(d => d.description)[1]}
 
-<sup>5</sup> ${descriptions.map(d => d.description)[2]}
+<sup>5</sup>${descriptions.map(d => d.description)[2]}
 :::
 
 :::
@@ -678,12 +703,12 @@ Die Auswirkungen dieser Szenarien können Sie hier erkunden. Der AK-Pensionsfair
 ## Ich bin interessiert an den Effekten auf
 #### Auswahl 1/2
 ```{ojs}
-viewof radioHaushaltseffekt = Inputs.radio(["das Gesamteinkommen meines Haushalts", "die Armutsgefährdungsquote meines Haushalts"], {value: "das Gesamteinkommen meines Haushalts"})
+viewof radioHaushaltseffekt = Inputs.radio(["das Gesamteinkommen von Haushalten", "die Armutsgefährdungsquote von Haushalten"], {value: "das Gesamteinkommen von Haushalten"})
 
-optionHH = radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ? 
+optionHH = radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ? 
   html`Haushaltseinkommen` : html`Armutsgefährdungsquote`
 
-infoHH = radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ? 
+infoHH = radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ? 
   html`
     Haushaltseinkommen: Das äquivalente Haushaltseinkommen ist ein Maß zur Ermittlung des Einkommensniveaus eines Haushalts unter Berücksichtigung der Haushaltsgröße und -zusammensetzung. Es zielt darauf ab, das verfügbare Einkommen eines Haushalts auf eine einheitliche Basis zu bringen, um Vergleiche zwischen verschiedenen Haushalten zu ermöglichen.
     ` 
@@ -696,6 +721,9 @@ infoHH = radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 :::{.infoText}
 ![](img/Infobox_info_icon.svg){height=14px}
 ${infoHH} <br>
+![](img/Infobox_info_icon.svg){height=14px}
+Die Betrachtung liegt hier auf durchschnittlichen Haushaltseinkommen. Darunter fallen auch Haushalte, in denen z.B. nur eine Person ein Pensionseinkommen oder in der gar keine Person ein Pensionseinkommen hat. Deswegen sind hier die gezeigten Effekte kleiner, als wenn nur das individuelle Pensionseinkommen betrachtet wird.
+
 :::
 
 :::
@@ -815,12 +843,12 @@ hhPoverty = aq.from(hhPovertyRaw)
 
 ```{ojs}
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
   ? "<h4>Änderung der Haushaltseinkommen</h4>"
   : "<h4>Änderung der Armutsgefährdungsquote</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChart("Geschlecht").render({ renderer: "svg" }) :
   generatePovertyChart("Geschlecht").render({ renderer: "svg" })
 ```
@@ -830,12 +858,12 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 
 ```{ojs}
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
-  ? "<h4>Status Quo der Haushaltseinkommen</h4>"
-  : "<h4>Status Quo der Armutsgefährdungsquote</h4>"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
+  ? "<h4>Status quo der Haushaltseinkommen</h4>"
+  : "<h4>Status quo der Armutsgefährdungsquote</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChartStatusquo("Geschlecht").render({ renderer: "svg" }) :
   generatePovertyChartStatusquo("Geschlecht").render({ renderer: "svg" })
 ```
@@ -848,36 +876,36 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 ```{ojs}
 hhIncomeGeschlechttext = 
   radioRaw == "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-  "Das durchschnittliche äquivalisierte Haushaltseinkommen von Frauen liegt mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 1 mehr profitieren (+0,47%) als Männer (+0,26%)." : 
+  "Das durchschnittliche Haushaltseinkommen von Frauen liegt im Status quo mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 1 mehr profitieren (+0,47%) als Männer (+0,26%)." : 
   radioRaw != "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-   "Das durchschnittliche äquivalisierte Haushaltseinkommen von Männern liegt mit 2.528€ leicht über dem der Frauen (2.470€)¹. Sie würden von Szenario 1 weniger profitieren (+0,26%) als Frauen (+0,47%)." : 
+   "Das durchschnittliche Haushaltseinkommen von Männern liegt im Status quo mit 2.528€ leicht über dem der Frauen (2.470€)¹. Sie würden von Szenario 1 weniger profitieren (+0,26%) als Frauen (+0,47%)." : 
   radioRaw == "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Das durchschnittliche äquivalisierte Haushaltseinkommen von Frauen liegt mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 2 gleich viel wie Männer profitieren (+0,09%)." : 
+  "Das durchschnittliche Haushaltseinkommen von Frauen liegt im Status quo mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 2 gleich viel wie Männer profitieren (+0,09%)." : 
   radioRaw != "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-   "Das durchschnittliche äquivalisierte Haushaltseinkommen von Männern liegt mit 2.528€ leicht unter dem der Frauen (2.470€)¹. Sie würden von Szenario 2 gleich viel wie Frauen profitieren (+0,09%)." : 
+   "Das durchschnittliche Haushaltseinkommen von Männern liegt im Status quo mit 2.528€ leicht unter dem der Frauen (2.470€)¹. Sie würden von Szenario 2 gleich viel wie Frauen profitieren (+0,09%)." : 
   radioRaw == "Frau" && select == "Szenario 3 (Einführung Gender-Pay-Gap-Faktor)" ?
-  "Das durchschnittliche äquivalisierte Haushaltseinkommen von Frauen liegt mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 3 mehr profitieren (+0,5%) als Männer (+0,28%)." : 
-   "Das durchschnittliche äquivalisierte Haushaltseinkommen von Männern liegt mit 2.528€ leicht unter dem der Frauen (2.470€)¹. Sie würden von Szenario 3 weniger profitieren (+0,28%) als Frauen (+0,5%)." 
+  "Das durchschnittliche Haushaltseinkommen von Frauen liegt im Status quo mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 3 mehr profitieren (+0,5%) als Männer (+0,28%)." : 
+   "Das durchschnittliche Haushaltseinkommen von Männern liegt im Status quo mit 2.528€ leicht unter dem der Frauen (2.470€)¹. Sie würden von Szenario 3 weniger profitieren (+0,28%) als Frauen (+0,5%)." 
    
 hhPovertyGeschlechttext = 
   radioRaw == "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 1 mehr profitieren (-0,22 Prozentpunkte) als Männer (-0,02 Prozentpunkte)." : 
+  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt im Status quo mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 1 mehr profitieren (-0,22 Prozentpunkte) als Männer (-0,02 Prozentpunkte)." : 
   radioRaw != "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 1 weniger profitieren (-0,02 Prozentpunkte) als Frauen (-0,22 Prozentpunkte)." : 
+   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt im Status quo mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 1 weniger profitieren (-0,02 Prozentpunkte) als Frauen (-0,22 Prozentpunkte)." : 
   radioRaw == "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 2 mehr profitieren (-0,05 Prozentpunkte) als Männer (-0,02 Prozentpunkte)." : 
+  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt im Status quo mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 2 mehr profitieren (-0,05 Prozentpunkte) als Männer (-0,02 Prozentpunkte)." : 
   radioRaw != "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 2 weniger profitieren (-0,02 Prozentpunkte) als Frauen (-0,05 Prozentpunkte)." : 
+   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt im Status quo mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 2 weniger profitieren (-0,02 Prozentpunkte) als Frauen (-0,05 Prozentpunkte)." : 
   radioRaw == "Frau" && select == "Szenario 3 (Einführung Gender-Pay-Gap-Faktor)" ?
-  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 3 mehr profitieren (-0,42 Prozentpunkte) als Männer (-0,13 Prozentpunkte)." : 
-   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 3 weniger profitieren (-0,13 Prozentpunkte) als Frauen (-0,42 Prozentpunkte)."
+  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt im Status quo mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 3 mehr profitieren (-0,42 Prozentpunkte) als Männer (-0,13 Prozentpunkte)." : 
+   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt im Status quo mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 3 weniger profitieren (-0,13 Prozentpunkte) als Frauen (-0,42 Prozentpunkte)."
 ```
 
 
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ? hhIncomeGeschlechttext : hhPovertyGeschlechttext} <br>
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ? hhIncomeGeschlechttext : hhPovertyGeschlechttext} <br>
 
 ```{ojs}
-html`${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+html`${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   `<div class="infoText">¹Das Haushaltseinkommen wird berechnet, indem alle Einkommen der Haushaltsmitglieder summiert und als gemeinsame Ressource betrachtet werden. In der Regel wird angenommen, dass die Ressourcen innerhalb des Haushalts gleichmäßig verteilt sind. Inwieweit sich ein niedriges Individualeinkommen in einem niedrigen Haushaltseinkommen widerspiegelt, hängt stark von der Haushaltsstruktur ab.</div>` :
   `<div class="infoText">¹Da das Armutsrisiko nicht anhand des individuellen, sondern des Haushaltseinkommens gemessen wird, ist das Armutsrisiko für einen Mann und eine Frau, die im selben Haushalt leben, unabhängig vom individuellen Einkommen gleich, wenn (wie üblicherweise angenommen) die Ressourcen im Haushalt gleichmäßig verteilt werden. In Österreich unterscheidet sich das Armutsrisiko für Frauen und Männer bis zum Regelpensionsalter daher trotz des relativ hohen Gender Pay Gap kaum.</div>`
 }`
@@ -887,7 +915,7 @@ Eingabe ändern:
 ```{ojs}
 Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frau", label: "Geschlecht"}), viewof radioRaw)
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["das Gesamteinkommen meines Haushalts", "die Armutsgefährdungsquote meines Haushalts"], {value: "das Gesamteinkommen meines Haushalts", label: "Effekte auf"}), viewof radioHaushaltseffekt) 
+Inputs.bind(Inputs.radio(["das Gesamteinkommen von Haushalten", "die Armutsgefährdungsquote von Haushalten"], {value: "das Gesamteinkommen von Haushalten", label: "Effekte auf"}), viewof radioHaushaltseffekt) 
 ```
 
 :::
@@ -905,16 +933,16 @@ Inputs.bind(Inputs.radio(["das Gesamteinkommen meines Haushalts", "die Armutsgef
 <div class="column">
 
 ```{ojs}
-optionHH2 = radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ? 
+optionHH2 = radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ? 
   html`Haushaltseinkommen` : html`Armutsgefährdungsquote`
 
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
   ? "<h4>Änderung der Haushaltseinkommen</h4>"
   : "<h4>Änderung der Armutsgefährdungsquote</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChart("Altersgruppen").render({ renderer: "svg" }) :
   generatePovertyChart("Altersgruppen").render({ renderer: "svg" })
 ```
@@ -926,12 +954,12 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 
 ```{ojs}
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
-  ? "<h4>Status Quo der Haushaltseinkommen</h4>"
-  : "<h4>Status Quo der Armutsgefährdungsquote</h4>"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
+  ? "<h4>Status quo der Haushaltseinkommen</h4>"
+  : "<h4>Status quo der Armutsgefährdungsquote</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChartStatusquo("Altersgruppen").render({ renderer: "svg" }) : 
   generatePovertyChartStatusquo("Altersgruppen").render({ renderer: "svg" })
 ```
@@ -951,10 +979,10 @@ AltersgruppeIncome =
 
 BaseIncomeAge = 
   radioAltersgruppe == "50-64" ?
-  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppeIncome + ". Im Vergleich mit anderen Altersgruppen ist dies der höchste Wert. ") : 
+  ("Das durchschnittliche Haushaltseinkommen der Altersgruppe " + radioAltersgruppe + " liegt im Status quo bei etwa " + AltersgruppeIncome + ". Im Vergleich mit anderen Altersgruppen ist dies der höchste Wert. ") : 
   radioAltersgruppe == "0-14" ?
-  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppeIncome + ". Im Vergleich mit anderen Altersgruppen ist dies der niedrigste Wert. ") :   
-  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppeIncome + ". ")
+  ("Das durchschnittliche Haushaltseinkommen der Altersgruppe " + radioAltersgruppe + " liegt im Status quo bei etwa " + AltersgruppeIncome + ". Im Vergleich mit anderen Altersgruppen ist dies der niedrigste Wert. ") :   
+  ("Das durchschnittliche Haushaltseinkommen der Altersgruppe " + radioAltersgruppe + " liegt im Status quo bei etwa " + AltersgruppeIncome + ". ")
    
 SzenarioIncomeAge = 
   select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
@@ -973,10 +1001,10 @@ AltersgruppePoverty =
   
 BasePovertyAge = 
   radioAltersgruppe == "15-24" ?
-  ("Die durchschnittliche Armutsgefährdungsquote der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppePoverty + ". Im Vergleich mit anderen Altersgruppen ist dies der höchste Wert. ") : 
+  ("Die durchschnittliche Armutsgefährdungsquote der Altersgruppe " + radioAltersgruppe + " liegt im Status quo bei etwa " + AltersgruppePoverty + ". Im Vergleich mit anderen Altersgruppen ist dies der höchste Wert. ") : 
   radioAltersgruppe == "50-64" ?
-  ("Die durchschnittliche Armutsgefährdungsquote der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppePoverty + ". Im Vergleich mit anderen Altersgruppen ist dies der niedrigste Wert. ") :   
-  ("Die durchschnittliche Armutsgefährdungsquote der Altersgruppe " + radioAltersgruppe + " liegt bei etwa " + AltersgruppePoverty + ". ")
+  ("Die durchschnittliche Armutsgefährdungsquote der Altersgruppe " + radioAltersgruppe + " liegt im Status quo bei etwa " + AltersgruppePoverty + ". Im Vergleich mit anderen Altersgruppen ist dies der niedrigste Wert. ") :   
+  ("Die durchschnittliche Armutsgefährdungsquote der Altersgruppe " + radioAltersgruppe + " liegt im Status quo bei etwa " + AltersgruppePoverty + ". ")
    
 SzenarioPovertyAge = 
   select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
@@ -989,7 +1017,7 @@ hhIncomeAltersgruppetext = BaseIncomeAge + SzenarioIncomeAge
 hhPovertyAltersgruppetext = BasePovertyAge + SzenarioPovertyAge
 ```
 
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ? hhIncomeAltersgruppetext : hhPovertyAltersgruppetext} <br><br>
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ? hhIncomeAltersgruppetext : hhPovertyAltersgruppetext} <br><br>
 
 Eingabe ändern:
 
@@ -997,7 +1025,7 @@ Eingabe ändern:
 viewof radioAltersgruppe = Inputs.radio(["0-14", "15-24", "25-49", "50-64", "65-79", "80+"], {label: "Altersgruppe", value: "0-14"})
 altersgruppe = radioAltersgruppe
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["das Gesamteinkommen meines Haushalts", "die Armutsgefährdungsquote meines Haushalts"], {value: "das Gesamteinkommen meines Haushalts", label: "Effekte auf"}), viewof radioHaushaltseffekt) 
+Inputs.bind(Inputs.radio(["das Gesamteinkommen von Haushalten", "die Armutsgefährdungsquote von Haushalten"], {value: "das Gesamteinkommen von Haushalten", label: "Effekte auf"}), viewof radioHaushaltseffekt) 
 ```
 
 :::
@@ -1016,16 +1044,16 @@ Inputs.bind(Inputs.radio(["das Gesamteinkommen meines Haushalts", "die Armutsgef
 <div class="column">
 
 ```{ojs}
-optionHH3 = radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ? 
+optionHH3 = radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ? 
   html`Haushaltseinkommen` : html`Armutsgefährdungsquote`
 
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
   ? "<h4>Änderung der Haushaltseinkommen</h4>"
   : "<h4>Änderung der Armutsgefährdungsquote</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChart("Erwerbsstatus").render({ renderer: "svg" }) : 
   generatePovertyChart("Erwerbsstatus").render({ renderer: "svg" })
 ```
@@ -1037,12 +1065,12 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 
 ```{ojs}
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
-  ? "<h4>Status Quo der Haushaltseinkommen</h4>"
-  : "<h4>Status Quo der Armutsgefährdungsquote</h4>"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
+  ? "<h4>Status quo der Haushaltseinkommen</h4>"
+  : "<h4>Status quo der Armutsgefährdungsquote</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChartStatusquo("Erwerbsstatus").render({ renderer: "svg" }) :
   generatePovertyChartStatusquo("Erwerbsstatus").render({ renderer: "svg" })
 ```
@@ -1054,47 +1082,47 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 ```{ojs}
 // Achtung Arbeitsuchend, arbeitslos wird geändert durch , lösch-Function -> noch ändern!
 StatusIncome = 
-  Status == "Arbeitsuchend, arbeitslos" ?  "1.700€" :
-  Status == "Dauerhaft arbeitsunfähig" ? "1.900€" : 
-  //Status == "Im Vorschulalter" ? "2.100€" : 
-  Status == "In Ausbildung" ? "2.300€" : 
-  Status == "In Pension" ? "2.400€" : 
-  //Status == "Inaktiv" ? "2.500€" : 
-  //Status == "Landwirtschaft" ? "2.600€" : 
-  Status == "Selbständig beschäftigt" ? "3.100€" : 
-  //Status == "Sonstige Inaktivität" ? "1.900€" : 
+  selectStatus == "Arbeitsuchend, arbeitslos" ?  "1.700€" :
+  selectStatus == "Dauerhaft arbeitsunfähig" ? "1.900€" : 
+  selectStatus == "Im Vorschulalter" ? "2.100€" : 
+  selectStatus == "In Ausbildung" ? "2.300€" : 
+  selectStatus == "In Pension" ? "2.400€" : 
+  selectStatus == "Inaktiv" ? "2.500€" : 
+  selectStatus == "Landwirtschaft" ? "2.600€" : 
+  selectStatus == "Selbständig beschäftigt" ? "3.100€" : 
+  selectStatus == "Sonstige Inaktivität" ? "1.900€" : 
   "2.700€"
 
 BaseIncomeStatus = 
-  Status == "Selbständig beschäftigt" ?
-  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Gruppe '" + Status + "' liegt bei etwa " + StatusIncome + ". Im Vergleich mit anderen Gruppen ist dies der höchste Wert. ") : 
-  Status == "Arbeitsuchend, arbeitslos" ?
-  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Gruppe '" + Status + "' liegt bei etwa " + StatusIncome + ". Im Vergleich mit anderen Gruppen ist dies der niedrigste Wert. ") :   
-  ("Das durchschnittliche äquivalisierte Haushaltseinkommen der Gruppe '" + Status + "' liegt bei etwa " + StatusIncome + ". ")
+  selectStatus == "Selbständig beschäftigt" ?
+  ("Das durchschnittliche Haushaltseinkommen der Gruppe '" + selectStatus + "' liegt im Status quo bei etwa " + StatusIncome + ". Im Vergleich mit anderen Gruppen ist dies der höchste Wert. ") : 
+  selectStatus == "Arbeitsuchend, arbeitslos" ?
+  ("Das durchschnittliche Haushaltseinkommen der Gruppe '" + selectStatus + "' liegt im Status quo bei etwa " + StatusIncome + ". Im Vergleich mit anderen Gruppen ist dies der niedrigste Wert. ") :   
+  ("Das durchschnittliche Haushaltseinkommen der Gruppe '" + selectStatus + "' liegt im Status quo bei etwa " + StatusIncome + ". ")
    
 SzenarioIncomeStatus = 
   "In allen gezeigten Szenarien würden Pensionist:innen überdurchschnittlich profitieren."
 
 
 StatusPoverty = 
-  Status == "Arbeitsuchend, arbeitslos" ?  "46%" :
-  Status == "Dauerhaft arbeitsunfähig" ? "34%" : 
-  Status == "Im Vorschulalter" ? "18%" : 
-  Status == "In Ausbildung" ? "18%" : 
-  Status == "In Pension" ? "15%" : 
-  Status == "Inaktiv" ? "18%" : 
-  Status == "Landwirtschaft" ? "6%" : 
-  Status == "Selbständig beschäftigt" ? "17%" : 
-  Status == "Sonstige Inaktivität" ? "32%" : 
+  selectStatus == "Arbeitsuchend, arbeitslos" ?  "46%" :
+  selectStatus == "Dauerhaft arbeitsunfähig" ? "34%" : 
+  selectStatus == "Im Vorschulalter" ? "18%" : 
+  selectStatus == "In Ausbildung" ? "18%" : 
+  selectStatus == "In Pension" ? "15%" : 
+  selectStatus == "Inaktiv" ? "18%" : 
+  selectStatus == "Landwirtschaft" ? "6%" : 
+  selectStatus == "Selbständig beschäftigt" ? "17%" : 
+  selectStatus == "Sonstige Inaktivität" ? "32%" : 
   "8%"
 
 
 BasePovertyStatus = 
-  Status == "Arbeitsuchend, arbeitslos" ?
-  ("Die durchschnittliche Armutsgefährdungsquote der Gruppe '" + Status + "' liegt bei etwa " + StatusPoverty + ". Im Vergleich mit anderen Gruppen ist dies der höchste Wert. ") : 
-  Status == "Landwirtschaft" ?
-  ("Die durchschnittliche Armutsgefährdungsquote der Gruppe '" + Status + "' liegt bei etwa " + StatusPoverty + ". Im Vergleich mit anderen Gruppen ist dies der niedrigste Wert. ") :   
-  ("Die durchschnittliche Armutsgefährdungsquote der Gruppe '" + Status + "' liegt bei etwa " + StatusPoverty + ". ")
+  selectStatus == "Arbeitsuchend, arbeitslos" ?
+  ("Die durchschnittliche Armutsgefährdungsquote der Gruppe '" + selectStatus + "' liegt im Status quo bei etwa " + StatusPoverty + ". Im Vergleich mit anderen Gruppen ist dies der höchste Wert. ") : 
+  selectStatus == "Landwirtschaft" ?
+  ("Die durchschnittliche Armutsgefährdungsquote der Gruppe '" + selectStatus + "' liegt im Status quo bei etwa " + StatusPoverty + ". Im Vergleich mit anderen Gruppen ist dies der niedrigste Wert. ") :   
+  ("Die durchschnittliche Armutsgefährdungsquote der Gruppe '" + selectStatus + "' liegt im Status quo bei etwa " + StatusPoverty + ". ")
 
 SzenarioPovertyStatus = 
   select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
@@ -1107,14 +1135,14 @@ hhIncomeStatustext = BaseIncomeStatus + SzenarioIncomeStatus
 hhPovertyStatustext = BasePovertyStatus + SzenarioPovertyStatus
 ```
 
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ? hhIncomeStatustext : hhPovertyStatustext} <br><br>
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ? hhIncomeStatustext : hhPovertyStatustext} <br><br>
 
 Eingabe ändern: 
 
 ```{ojs}
 viewof selectStatus = Inputs.select(["Selbständig beschäftigt", "Unselbständig beschäftigt", "In Pension", "Arbeitsuchend, arbeitslos", "In Ausbildung", "Dauerhaft arbeitsunfähig"], {label: "Erwerbsstatus", value: "Unselbständig beschäftigt"})
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["das Gesamteinkommen meines Haushalts", "die Armutsgefährdungsquote meines Haushalts"], {value: "das Gesamteinkommen meines Haushalts", label: "Effekte auf"}), viewof radioHaushaltseffekt) 
+Inputs.bind(Inputs.radio(["das Gesamteinkommen von Haushalten", "die Armutsgefährdungsquote von Haushalten"], {value: "das Gesamteinkommen von Haushalten", label: "Effekte auf"}), viewof radioHaushaltseffekt) 
 ```
 :::
 
@@ -1129,7 +1157,7 @@ Inputs.bind(Inputs.radio(["das Gesamteinkommen meines Haushalts", "die Armutsgef
 
 ```{ojs}
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select)
-Inputs.bind(Inputs.radio(["das Gesamteinkommen meines Haushalts", "die Armutsgefährdungsquote meines Haushalts"], {value: "das Gesamteinkommen meines Haushalts", label: "Effekte auf"}), viewof radioHaushaltseffekt)
+Inputs.bind(Inputs.radio(["das Gesamteinkommen von Haushalten", "die Armutsgefährdungsquote von Haushalten"], {value: "das Gesamteinkommen von Haushalten", label: "Effekte auf"}), viewof radioHaushaltseffekt)
 ```
 
 </div>
@@ -1149,12 +1177,12 @@ Inputs.bind(Inputs.select(["Selbständig beschäftigt", "Unselbständig beschäf
 
 ```{ojs}
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
   ? "<h4>Änderung der Haushaltseinkommen nach Geschlecht</h4>"
   : "<h4>Änderung der Armutsgefährdungsquote nach Geschlecht</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChart("Geschlecht").render({ renderer: "svg" }) :
   generatePovertyChart("Geschlecht").render({ renderer: "svg" })
 ```
@@ -1164,12 +1192,12 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 
 ```{ojs}
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
-  ? "<h4>Status Quo der Haushaltseinkommen nach Geschlecht</h4>"
-  : "<h4>Status Quo der Armutsgefährdungsquote nach Geschlecht</h4>"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
+  ? "<h4>Status quo der Haushaltseinkommen nach Geschlecht</h4>"
+  : "<h4>Status quo der Armutsgefährdungsquote nach Geschlecht</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChartStatusquo("Geschlecht").render({ renderer: "svg" }) :
   generatePovertyChartStatusquo("Geschlecht").render({ renderer: "svg" })
 ```
@@ -1182,12 +1210,12 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 
 ```{ojs}
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
   ? "<h4>Änderung der Haushaltseinkommen nach Altersgruppen</h4>"
   : "<h4>Änderung der Armutsgefährdungsquote nach Altersgruppen</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChart("Altersgruppen").render({ renderer: "svg" }) :
   generatePovertyChart("Altersgruppen").render({ renderer: "svg" })
 ```
@@ -1197,12 +1225,12 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 
 ```{ojs}
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
-  ? "<h4>Status Quo der Haushaltseinkommen nach Altersgruppen</h4>"
-  : "<h4>Status Quo der Armutsgefährdungsquote nach Altersgruppen</h4>"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
+  ? "<h4>Status quo der Haushaltseinkommen nach Altersgruppen</h4>"
+  : "<h4>Status quo der Armutsgefährdungsquote nach Altersgruppen</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChartStatusquo("Altersgruppen").render({ renderer: "svg" }) :
   generatePovertyChartStatusquo("Altersgruppen").render({ renderer: "svg" })
 ```
@@ -1216,12 +1244,12 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 
 ```{ojs}
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
   ? "<h4>Änderung der Haushaltseinkommen nach Erwebsstatus</h4>"
   : "<h4>Änderung der Armutsgefährdungsquote nach Erwebsstatus</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChart("Erwerbsstatus").render({ renderer: "svg" }) :
   generatePovertyChart("Erwerbsstatus").render({ renderer: "svg" })
 ```
@@ -1231,12 +1259,12 @@ radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
 
 ```{ojs}
 html`
-${radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts"
-  ? "<h4>Status Quo der Haushaltseinkommen nach Erwebsstatus</h4>"
-  : "<h4>Status Quo der Armutsgefährdungsquote nach Erwebsstatus</h4>"
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten"
+  ? "<h4>Status quo der Haushaltseinkommen nach Erwebsstatus</h4>"
+  : "<h4>Status quo der Armutsgefährdungsquote nach Erwebsstatus</h4>"
 }`
 
-radioHaushaltseffekt === "das Gesamteinkommen meines Haushalts" ?
+radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
   generateIncomeChartStatusquo("Erwerbsstatus").render({ renderer: "svg" }) :
   generatePovertyChartStatusquo("Erwerbsstatus").render({ renderer: "svg" })
 ```
