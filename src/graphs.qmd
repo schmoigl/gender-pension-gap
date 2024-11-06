@@ -240,7 +240,7 @@ function dumbbell(inputData, inputWidth)  {
           grid: false,
         })
         .scale({
-          domain: [0, 6000],
+          domain: [0, 5000],
           nice: false,
         }),
       vl.x()
@@ -301,29 +301,6 @@ function dumbbell(inputData, inputWidth)  {
         .fieldQ("value")
         .format(",.0f"), 
     )
-
-  const textRel = vl
-    .markText({
-      size: 14,
-      dx: width > 600 ? 27 : 10,
-      dy: 18,
-      clip: true,
-    })
-    .encode(
-      vl.y()
-        .fieldQ("value"),
-      vl.x()
-        .fieldO("val"),
-      vl.text()
-        .fieldQ("gapRel")
-        .format(",.0~%"),
-      vl.opacity()
-        .fieldN("gesl")
-        .scale({
-          range : [0.51, 0] 
-        })
-        .legend(null), 
-    )
     
   const textPerc = vl
     .markText({
@@ -343,7 +320,11 @@ function dumbbell(inputData, inputWidth)  {
         .fieldQ("gapPerc")
         .format(",.0~%"),
       vl.opacity()
-        .fieldN("gesl"),
+        .fieldN("gesl")
+        .scale({
+          range : [0.51, 0]
+        })
+        .legend(null),
     )
 
   const textGap = vl
@@ -370,9 +351,9 @@ function dumbbell(inputData, inputWidth)  {
   const textArrow = vl
     .markText({
       size: 10,
-      dx: 50,
-      dy: -40,
-      angle: -90,
+      dx: rangeRaw < 3000 ? 40 : 20,
+      dy: width > 600 ? (rangeRaw < 3000  ? -40 : -50) : (rangeRaw < 3000  ? -37 : -35),
+      angle: rangeRaw < 3000 ? -90 : -270,
       align: "left",
       clip: true,
     })
@@ -382,7 +363,7 @@ function dumbbell(inputData, inputWidth)  {
       vl.x()
         .fieldO("val"),
       vl.text()
-        .value(["Gender","Pension Gap", "↙"]), 
+        .value(["  Gender","  Pension", "↙ Gap"]), 
       vl.opacity()
         .fieldN("gesl"),
     )
@@ -395,7 +376,7 @@ function dumbbell(inputData, inputWidth)  {
         lines,
         points,
         text,
-        textRel, 
+        //textRel, 
         textGap,
         textPerc,
         textArrow,
@@ -403,7 +384,7 @@ function dumbbell(inputData, inputWidth)  {
       vl.layer(
         lines,
         points,
-        textRel,
+        //textRel,
         textGap,
         textPerc,
         textArrow,
@@ -806,7 +787,7 @@ distributions = {
     .markText({
       opacity: radio == "Männer" ? 1 : 0.51,
       clip: true,
-      size: 11,
+      size: width > 600 ? 11 : 10,
       y: width > 600 ? 200 : 105,
       align: "center",
     })
@@ -817,14 +798,14 @@ distributions = {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value("⤺ Pensionen der Männer"), 
+        .value(width > 600 ? "⤺ Pensionen der Männer" : ["⤺ Pensionen ", "der Männer"]), 
     )
 
   const textWomen = vl
     .markText({
       opacity: radio == "Frauen" ? 1 : 0.51,
       clip: true,
-      size: 11,
+      size: width > 600 ? 11 : 10,
       y: width > 600 ? 110 : 35,
       align: "center",
     })

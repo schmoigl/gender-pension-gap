@@ -93,6 +93,7 @@ function getCumPerc(gesl, tail) {
   return out
 }
 
+
 notRadio = radio == "Frauen" ? "Männer" : "Frauen"
 ```
 
@@ -233,9 +234,9 @@ answer2 = guess2 == "14,8%" ? "Richtig! Fast 15% der Pensionist:innen in Österr
 
 Der Gender Pension Gap, also der Unterschied zwischen Männer- und Frauenpensionen, liegt im Jahr 2024 in Österreich bei 40,1%¹. In Oberösterreich liegt er sogar bei 45,4% und ist somit im Bundesländervergleich nach Vorarlberg an vorletzter Stelle. Gründe für die Schlechterstellung von Frauen sind die Hürden, mit denen sie bereits im Erwerbsleben konfrontiert sind: lange Teilzeitphasen, niedrigere Einkommen, Zeiten von Arbeitslosigkeit und Unterbrechungen aufgrund von Kindererziehungs- und Pflegezeiten.
 
-Die Arbeiterkammer Oberösterreich hält dies für eine große Ungerechtigkeit und setzt sich für Pensionsreformen ein, die tatsächlich Verbesserungen für die Menschen bringen und dieser enormen Schieflage entgegenwirken.
+Die Arbeiterkammer Oberösterreich hält dies für eine große Ungerechtigkeit und setzt sich für Pensionsberechnungen ein, die tatsächlich Verbesserungen für die Menschen bringen und dieser enormen Schieflage entgegenwirken.
 
-Mit dem AK-Pensionsfairness-Rechner sehen Sie, was die einzelnen Reformen für die Pensionshöhen, bei der Reduktion des Gender Pension Gap und Verteilung bedeuten.
+Mit dem AK-Pensionsfairness-Rechner sehen Sie, was die einzelnen Änderungsvorschläge für die Pensionshöhen, bei der Reduktion des Gender Pension Gap und Verteilung bedeuten.
 
 ### Machen Sie mit! Wie viel Pension würden Sie bekommen?
 
@@ -275,6 +276,7 @@ viewof rangeRaw = Inputs.range([400, 4000], {step: 50, value: 1500})
 range = Math.round(rangeRaw/100)*100
 ```
 
+
 :::{.infoText}
 ![](img/Infobox_info_icon.svg){height=14px} 
 Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese mit dem [AK-Pensionsrechner](https://pensionsrechner.arbeiterkammer.at/pkr-on2/){target="_blank"} ermitteln. 
@@ -282,6 +284,7 @@ Sollten Sie ihre voraussichtliche Bruttopension nicht kennen können Sie diese m
 ![](img/Infobox_info_icon.svg){height=14px} 
 Ihre Bruttopension wird in weiterer Folge dazu verwendet Sie in eine Vergleichsgruppe einzuordnen.
 :::
+
 
 :::
 
@@ -307,7 +310,7 @@ Manche der berechneten Szenarien wirken sich nur auf Frauen aus. Daher ist es m�
 
 #### Auswahl 3/3
 
-Durch die Auswahl eines Reform-Szenarios können Sie beeinflussen, wie sich die Pensionshöhe verändert.
+Durch die Auswahl eines Verbesserungs-Szenarios können Sie beeinflussen, wie sich die Pensionshöhe verändert.
 
 <!-- <span>Wählen Sie ein Szenario</span> -->
 ```{ojs}
@@ -334,7 +337,6 @@ check2Info = select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)
 :::
  
 :::
-
 
 ::: {.slide}
 ## Das sind Ihre Ergebnisse
@@ -365,6 +367,9 @@ Inputs.bind(
 ```{ojs}
 checkText1 = check1.length == 1 ? ", die Kinderbetreuungszeiten vorweisen können," : ""
 checkText2 = check2.length == 1 ? ", die Ersatzzeiten durch Arbeitslosigkeit haben," : ""
+
+checkText1not = check1.length != 1 && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? ", die keine Kinderbetreuungszeiten vorweisen können," : ""
+checkText2not = check2.length != 1 && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? ", die keine Ersatzzeiten durch Arbeitslosigkeit haben," : ""
 
 
 
@@ -402,7 +407,7 @@ barsText = md`
   "Im " + select + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro¹" + checkText2 + " **gleich viel erhalten wie aktuell**. " + "Das Szenario hätte keinen Effekt. " 
   }
 `
-perzentilText = "Sie haben eine Bruttopension von " + rangeRaw + " für " + radio + " angeben. Ihre Vergleichsgruppe ist deshalb das " + deciles.map(d => d.closestDecileValue)[0] + " (" +  closestDecileNumber + "% der " + radio + " haben eine geringere Pension). Hier beträgt die durchschnittliche Pension " + germanLocale.format(",.0f")(statusIncome) + " Euro."
+perzentilText = "Sie haben eine Bruttopension von " + rangeRaw + " Euro angeben. Ihre Vergleichsgruppe ist deshalb das " + deciles.map(d => d.closestDecileValue)[0] + " (" +  closestDecileNumber + "% der " + radio + checkText1 + checkText2 + checkText1not + checkText2not + " haben eine geringere Pension). Hier beträgt die durchschnittliche Pension " + germanLocale.format(",.0f")(statusIncome) + " Euro."
 
 ```
 
@@ -439,7 +444,9 @@ decilesDumbbellFull = deciles
 ```
 
 ```{ojs}
-dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2), width > 600 ? 230 : width * 0.5).render({ renderer: "svg" }) 
+dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull : decilesDumbbellFull.filter(d => d.D == radio2), width > 600 ? 230 : width * 0.6).render({ renderer: "svg" }) 
+
+
 // radio2
 // decilesDumbbellFull
 // dumbbell(decilesDumbbellFull, width > 600 ? 230 : width * 0.36).render({ renderer: "svg" })
@@ -457,22 +464,29 @@ viewof radio2 = Inputs.radio(
 mehrWeniger = deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0] ? " fallen." : " steigen."
 mehrWenigerGesamt = deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0] > deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0] ? " sinken." : " steigen."
 
-dumbbellText = check1.length != 1 && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ?
-  "Im " + select + " würde sich der Gender Pension Gap in meiner Vergleichsgruppe¹, den Frauen ohne Kinderbetreuungszeiten, nicht verändern. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0]) + ". Im Gesamtdurchschnitt würde der Gap im " + select + " " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapPerc)[0]) + " ausmachen und damit von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt :
+percentText = 
+  Math.round(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0] * 100) === Math.round(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapPerc)[0] * 100) 
+  ? "weiterhin " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapPerc)[0]) 
+  : germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapPerc)[0])
+
+dumbbellText = md`
+  ${check1.length != 1 && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ?
+"Im " + select + " würde sich der Gender Pension Gap in meiner Vergleichsgruppe¹, **nicht verändern**. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0]) + ". Im Gesamtdurchschnitt würde der Gap im " + select + " " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapPerc)[0]) + " ausmachen und damit von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt :
   check2.length != 1 && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Im " + select + " würde sich der Gender Pension Gap in meiner Vergleichsgruppe¹, den " + radio + " die keine Ersatzzeiten durch Arbeitslosigkeit haben, nicht verändern. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0]) + " . Im Gesamtdurchschnitt würde der Gap im " + select + " " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapPerc)[0]) + " ausmachen und damit von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt :
-  "Der Gender Pension Gap in meiner Vergleichsgruppe (" + deciles.map(d => d.closestDecileValue)[0] + " der " + radio + checkText1 + checkText2 + ") von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + " Damit würde die Frauenpension hier " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapRel)[0]) + " statt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapRel)[0]) + " relativ zur Männerpension ausmachen. Insgesamt würde der Gap von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt + " Das entspricht dann " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapRel)[0]) + " der Männerpension." 
-  
-perzentilText2 = "Sie haben eine Bruttopension von " + rangeRaw + " für " + radio + " angeben. Ihre Vergleichsgruppe ist deshalb das " + deciles.map(d => d.closestDecileValue)[0] + " (" +  closestDecileNumber + "% der " + radio + " haben eine geringere Pension). Hier beträgt die durchschnittliche Pension " + germanLocale.format(",.0f")(statusIncome) + " Euro."
+"Im " + select + " würde sich der Gender Pension Gap in meiner Vergleichsgruppe¹, **nicht verändern**. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0]) + ". Im Gesamtdurchschnitt würde der Gap im " + select + " " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapPerc)[0]) + " ausmachen und von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt :
+  "Im " + select + " würde der Gender Pension Gap in meiner Vergleichsgruppe¹, " + " **von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + "** Damit würde der Gender Pension Gap " + percentText + " ausmachen. Im Gesamtdurchschnitt würde der Gap im " + select + " " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapPerc)[0]) + " ausmachen und damit von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
+  }
+`
+
 ```
 
 ${dumbbellText}
 
 :::{.infoText}
-¹${perzentilText2} 
+¹${perzentilText} 
 :::
 
-<br><br> Eingaben ändern:
+Eingaben ändern:
 
 ```{ojs}
 Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension"}), viewof rangeRaw)
@@ -669,7 +683,7 @@ Altersarmut, insbesondere bei Frauen, ist ein großes Thema. Das liegt auch dara
 
 Die Arbeiterkammer Oberösterreich hält dies für eine große Ungerechtigkeit und setzt sich für Pensionsberechnungen ein, die tatsächlich Verbesserungen für die Menschen bringen und dieser enormen Schieflage entgegenwirken.
 
-Mit dem AK-Pensionsfairness-Rechner sehen Sie, was die einzelnen Vorschläge zur faireren Pensionsberechnung für die Pensionshöhen, für Gender Pension Gap, die Verteilung und die Armutsgefährdungsquoten bedeuten. 
+Mit dem AK-Pensionsfairness-Rechner sehen Sie, was die einzelnen Änderungsvorschläge zur faireren Pensionsberechnung für die Pensionshöhen, für Gender Pension Gap, die Verteilung und die Armutsgefährdungsquoten bedeuten. 
 
 ### Machen Sie mit! Wie verändern sich Haushaltseinkommen und Armutsquoten? 
 
@@ -733,7 +747,7 @@ Die Betrachtung liegt hier auf durchschnittlichen Haushaltseinkommen. Darunter f
 ## Wählen Sie ein Szenario
 #### Auswahl 2/2
 
-Durch die Auswahl eines Reform-Szenarios können Sie beeinflussen, wie sich Haushaltseinkommen bzw. Armutsgefährdungsquote verändern.
+Durch die Auswahl eines Verbesserungs-Szenarios können Sie beeinflussen, wie sich Haushaltseinkommen bzw. Armutsgefährdungsquote verändern.
 <!-- <span>Wählen Sie ein Szenario</span> -->
 ```{ojs}
 Inputs.bind(Inputs.select(scenarios, {label: "Szenario"}), viewof select) 
@@ -876,33 +890,33 @@ radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
 ```{ojs}
 hhIncomeGeschlechttext = 
   radioRaw == "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-  "Das durchschnittliche Haushaltseinkommen von Frauen liegt im Status quo mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 1 mehr profitieren (+0,47%) als Männer (+0,26%)." : 
+  "Das durchschnittliche Haushaltseinkommen von Frauen liegt im Status quo mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 1 (Höherbewertung Kindererziehungszeiten) mehr profitieren (+0,47%) als Männer (+0,26%)." : 
   radioRaw != "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-   "Das durchschnittliche Haushaltseinkommen von Männern liegt im Status quo mit 2.528€ leicht über dem der Frauen (2.470€)¹. Sie würden von Szenario 1 weniger profitieren (+0,26%) als Frauen (+0,47%)." : 
+   "Das durchschnittliche Haushaltseinkommen von Männern liegt im Status quo mit 2.528€ leicht über dem der Frauen (2.470€)¹. Sie würden von Szenario 1 (Höherbewertung Kindererziehungszeiten) weniger profitieren (+0,26%) als Frauen (+0,47%)." : 
   radioRaw == "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Das durchschnittliche Haushaltseinkommen von Frauen liegt im Status quo mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 2 gleich viel wie Männer profitieren (+0,09%)." : 
+  "Das durchschnittliche Haushaltseinkommen von Frauen liegt im Status quo mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit) gleich viel wie Männer profitieren (+0,09%)." : 
   radioRaw != "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-   "Das durchschnittliche Haushaltseinkommen von Männern liegt im Status quo mit 2.528€ leicht unter dem der Frauen (2.470€)¹. Sie würden von Szenario 2 gleich viel wie Frauen profitieren (+0,09%)." : 
+   "Das durchschnittliche Haushaltseinkommen von Männern liegt im Status quo mit 2.528€ leicht unter dem der Frauen (2.470€)¹. Sie würden von Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit) gleich viel wie Frauen profitieren (+0,09%)." : 
   radioRaw == "Frau" && select == "Szenario 3 (Einführung Gender-Pay-Gap-Faktor)" ?
-  "Das durchschnittliche Haushaltseinkommen von Frauen liegt im Status quo mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 3 mehr profitieren (+0,5%) als Männer (+0,28%)." : 
-   "Das durchschnittliche Haushaltseinkommen von Männern liegt im Status quo mit 2.528€ leicht unter dem der Frauen (2.470€)¹. Sie würden von Szenario 3 weniger profitieren (+0,28%) als Frauen (+0,5%)." 
+  "Das durchschnittliche Haushaltseinkommen von Frauen liegt im Status quo mit 2.470€ leicht unter dem der Männer (2.528€)¹. Sie würden von Szenario 3 (Einführung Gender-Pay-Gap-Faktor) mehr profitieren (+0,5%) als Männer (+0,28%)." : 
+   "Das durchschnittliche Haushaltseinkommen von Männern liegt im Status quo mit 2.528€ leicht unter dem der Frauen (2.470€)¹. Sie würden von Szenario 3 (Einführung Gender-Pay-Gap-Faktor) weniger profitieren (+0,28%) als Frauen (+0,5%)." 
    
 hhPovertyGeschlechttext = 
   radioRaw == "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt im Status quo mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 1 mehr profitieren (-0,22 Prozentpunkte) als Männer (-0,02 Prozentpunkte)." : 
+  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt im Status quo mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 1 (Höherbewertung Kindererziehungszeiten) mehr profitieren (-0,22 Prozentpunkte) als Männer (-0,02 Prozentpunkte)." : 
   radioRaw != "Frau" && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt im Status quo mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 1 weniger profitieren (-0,02 Prozentpunkte) als Frauen (-0,22 Prozentpunkte)." : 
+   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt im Status quo mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 1 (Höherbewertung Kindererziehungszeiten) weniger profitieren (-0,02 Prozentpunkte) als Frauen (-0,22 Prozentpunkte)." : 
   radioRaw == "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt im Status quo mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 2 mehr profitieren (-0,05 Prozentpunkte) als Männer (-0,02 Prozentpunkte)." : 
+  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt im Status quo mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit) mehr profitieren (-0,05 Prozentpunkte) als Männer (-0,02 Prozentpunkte)." : 
   radioRaw != "Frau" && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt im Status quo mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 2 weniger profitieren (-0,02 Prozentpunkte) als Frauen (-0,05 Prozentpunkte)." : 
+   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt im Status quo mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit) weniger profitieren (-0,02 Prozentpunkte) als Frauen (-0,05 Prozentpunkte)." : 
   radioRaw == "Frau" && select == "Szenario 3 (Einführung Gender-Pay-Gap-Faktor)" ?
-  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt im Status quo mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 3 mehr profitieren (-0,42 Prozentpunkte) als Männer (-0,13 Prozentpunkte)." : 
-   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt im Status quo mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 3 weniger profitieren (-0,13 Prozentpunkte) als Frauen (-0,42 Prozentpunkte)."
+  "Die durchschnittliche Armutsgefährdungsquote von Frauen liegt im Status quo mit 14,4% leicht unter der der Männer (14,97%)¹. Sie würden von Szenario 3 (Einführung Gender-Pay-Gap-Faktor) mehr profitieren (-0,42 Prozentpunkte) als Männer (-0,13 Prozentpunkte)." : 
+   "Die durchschnittliche Armutsgefährdungsquote von Männern liegt im Status quo mit 14,97% leicht über der der Frauen (14,4%)¹. Sie würden von Szenario 3 (Einführung Gender-Pay-Gap-Faktor) weniger profitieren (-0,13 Prozentpunkte) als Frauen (-0,42 Prozentpunkte)."
 ```
 
 
-${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ? hhIncomeGeschlechttext : hhPovertyGeschlechttext} <br>
+${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ? hhIncomeGeschlechttext : hhPovertyGeschlechttext}
 
 ```{ojs}
 html`${radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
@@ -986,10 +1000,10 @@ BaseIncomeAge =
    
 SzenarioIncomeAge = 
   select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-  "Von Szenario 1 würden Personen zwischen 50 und 79 überdurchschnittlich profitieren." :
+  "Von Szenario 1 (Höherbewertung Kindererziehungszeiten) würden Personen zwischen 50 und 79 überdurchschnittlich profitieren." :
   select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Von Szenario 2 würden Personen zwischen 50 und 79 überdurchschnittlich profitieren." :
-  "Von Szenario 3 würden Personen zwischen 50 und 79 überdurchschnittlich profitieren."
+  "Von Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit) würden Personen zwischen 50 und 79 überdurchschnittlich profitieren." :
+  "Von Szenario 3 (Einführung Gender-Pay-Gap-Faktor) würden Personen zwischen 50 und 79 überdurchschnittlich profitieren."
 
 AltersgruppePoverty = 
   radioAltersgruppe == "0-14" ?  "17%" :
@@ -1008,10 +1022,10 @@ BasePovertyAge =
    
 SzenarioPovertyAge = 
   select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-  "Von Szenario 1 würden Personen zwischen 50 und 79 überdurchschnittlich profitieren." :
+  "Von Szenario 1 (Höherbewertung Kindererziehungszeiten) würden Personen zwischen 50 und 79 überdurchschnittlich profitieren." :
   select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Von Szenario 2 würden ausschließlich Personen zwischen 50 und 79 profitieren." :
-  "Von Szenario 3 würden Personen zwischen 15 und 24 am meisten profitieren."
+  "Von Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit) würden ausschließlich Personen zwischen 50 und 79 profitieren." :
+  "Von Szenario 3 (Einführung Gender-Pay-Gap-Faktor) würden Personen zwischen 15 und 24 am meisten profitieren."
 
 hhIncomeAltersgruppetext = BaseIncomeAge + SzenarioIncomeAge
 hhPovertyAltersgruppetext = BasePovertyAge + SzenarioPovertyAge
@@ -1126,10 +1140,10 @@ BasePovertyStatus =
 
 SzenarioPovertyStatus = 
   select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-  "Von Szenario 1 würden Pensionist:innen überdurchschnittlich profitieren. Weiters gäbe es positive Effekte auf arbeitssuchende Personen, Personen in Ausbildung sowie kleine positive Effekte für unselbständig Beschäftigte." :
+  "Von Szenario 1 (Höherbewertung Kindererziehungszeiten) würden Pensionist:innen überdurchschnittlich profitieren. Weiters gäbe es positive Effekte auf arbeitssuchende Personen, Personen in Ausbildung sowie kleine positive Effekte für unselbständig Beschäftigte." :
   select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Von Szenario 2 würden Personen der Gruppe 'Sonstige Inaktivität' am meisten profitieren. Weiters gibt es positive Effekte bei Pensionist:innen und dauerhaft arbeitsunfähigen Personen." :
-  "Von Szenario 3 würden arbeitssuchende Personen am meisten profitieren. Weiters gibt es positive Effekte bei Pensionist:innen, Personen in Ausbildung und unselbständig beschäftigte Personen."
+  "Von Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit) würden Personen der Gruppe 'Sonstige Inaktivität' am meisten profitieren. Weiters gibt es positive Effekte bei Pensionist:innen und dauerhaft arbeitsunfähigen Personen." :
+  "Von Szenario 3 (Einführung Gender-Pay-Gap-Faktor) würden arbeitssuchende Personen am meisten profitieren. Weiters gibt es positive Effekte bei Pensionist:innen, Personen in Ausbildung und unselbständig beschäftigte Personen."
 
 hhIncomeStatustext = BaseIncomeStatus + SzenarioIncomeStatus
 hhPovertyStatustext = BasePovertyStatus + SzenarioPovertyStatus
@@ -1271,6 +1285,7 @@ radioHaushaltseffekt === "das Gesamteinkommen von Haushalten" ?
 
 </div>
 </div>
+
 
 :::
 
