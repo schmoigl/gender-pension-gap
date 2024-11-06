@@ -363,7 +363,7 @@ function dumbbell(inputData, inputWidth)  {
       vl.x()
         .fieldO("val"),
       vl.text()
-        .value(["  Gender","  Pension", "↙ Gap"]), 
+        .value(["Gender","Pension", "⤺ Gap"]),
       vl.opacity()
         .fieldN("gesl"),
     )
@@ -795,7 +795,7 @@ distributions = {
       {bin: 3500}
     ])
     .encode(
-      vl.x()
+      vl.x() 
         .fieldQ("bin"),
       vl.text()
         .value(width > 600 ? "⤺ Pensionen der Männer" : ["⤺ Pensionen ", "der Männer"]), 

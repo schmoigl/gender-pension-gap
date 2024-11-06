@@ -455,8 +455,6 @@ viewof radio2 = Inputs.radio(
   ["Meine Vergleichsgruppe", "∅ Gesamtdurchschnitt", "Beides anzeigen"], 
   {value: "Meine Vergleichsgruppe", label: "Zeige"}
   ) 
-  
-
 
 ```
 
