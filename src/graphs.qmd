@@ -1,225 +1,5 @@
 
 ```{ojs}
-function bars(inputWidth) {
-
-  const bar = vl
-    .markBar({
-      strokeWidth: 1.75,
-      strokeOpacity: 1,
-      // size: width > 1600 ? 20 : null,
-    })
-    .encode(
-      vl.x()
-        .fieldN("gesl")
-        .sort("value")
-        .axis({
-          minExtent: 70,
-          grid: false,
-          title: null,
-        }), 
-      vl.y()
-        .fieldQ("value")
-        .scale({
-          domain: [0, 5000],
-          nice: false,
-        })
-        .axis({
-          domain: false,
-          grid: false,
-          title: width > 600 ? "Bruttopension" : null, 
-          labels:  width > 600 ? true : false,
-          ticks:  width > 600 ? true : false,
-        }),
-      vl.xOffset()
-        .fieldN("val"),
-      vl.color()
-        .fieldN("val")
-        .scale({
-          range: colors,
-        })
-        .legend({
-          // orient: width > 825 ? "right" : "top",
-          orient: "top",
-          symbolOpacity: 1,
-          symbolType: "square",
-          title: null,
-        }),
-      vl.stroke()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            ["transparent", "black"] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            ["black", "transparent"] :
-            ["black", "black"]          
-        })
-        .legend(null),
-      vl.opacity()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            [0.5, 0.8] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            [0.8, 0.5] :
-            [0.8, 0.8]
-        })
-        .legend(null),
-    )
-
-  const text = vl
-    .markText({
-      clip: true,
-      size: 14,
-      y: width > 600 ? 270 : 230,
-      angle: -90,
-      align: "left", 
-    })
-    .encode(
-      vl.x()
-        .fieldO("gesl"),
-      vl.xOffset()
-        .fieldN("val"),
-      vl.text()
-        .fieldQ("value")
-        .format(",.0~f"),
-      vl.opacity()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            [0.5, 0.8] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            [0.8, 0.5] :
-            [0.8, 0.8]
-        })
-        .legend(null),
-    )
-
-  const textDiff = vl
-    .markText({
-      clip: true,
-      size: 14,
-      dy: -16,
-      align: "center",
-    })
-    .transform(vl.filter("datum.val == 'Szenario'"))
-    .encode(
-      vl.x()
-        .fieldO("gesl"),
-      vl.y()
-        .fieldQ("value"),
-      vl.text()
-        .fieldQ("diffScenario")
-        .format("+,.0~f"),
-      vl.opacity()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            [0.5, 0.8] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            [0.8, 0.5] :
-            [0.8, 0.8]
-        })
-        .legend(null),
-    )
-
-  const textDiffPerc = vl
-    .markText({
-      clip: true,
-      size: 14,
-      dy: -36,
-      align: "center",
-    })
-    .transform(vl.filter("datum.val == 'Szenario'"))
-    .encode(
-      vl.x()
-        .fieldO("gesl"),
-      vl.y()
-        .fieldQ("value"),
-      vl.text() 
-        .fieldQ("diffScenarioPerc")
-        .format("+,.0~%"),
-      vl.opacity()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            [0.5, 0.8] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            [0.8, 0.5] :
-            [0.8, 0.8]
-        })
-        .legend(null), 
-    )
-
-  const textPosition = vl
-    .markText({
-      clip: true,
-      size: 18,
-      dy: -10,
-      dx: -28,
-      // angle: -0,
-      align: "left",
-      strokeWidth: 1.25,
-    })
-    .transform(
-      vl.filter("datum.D == 'Vergleichsgruppe'"),
-      vl.filter("datum.val == 'Status quo'"), 
-    )
-    .encode(
-      vl.x()
-        .fieldN("gesl")
-        .sort("value"), 
-      vl.y()
-        .fieldQ("value"),
-      vl.text()
-        .value("↘"),
-      vl.opacity()
-        .fieldN("closestDecile")
-        .scale({
-          range: radio2 == "Meine Vergleichsgruppe" ? 
-            [0.5, 0.8] : 
-            radio2 == "∅ Gesamtdurchschnitt" ? 
-            [0.8, 0.5] :
-            [0.8, 0.8]
-        })
-        .legend(null),  
-    )
-
-  const layers = width > 600 ?
-    vl.layer(
-      bar,
-      text,
-      textDiff,
-      textDiffPerc,
-      textPosition,
-    ) :
-    vl.layer(
-      bar,
-      text,
-      textDiff,
-      textDiffPerc,
-    ) 
-
-  return layers
-    .height(width > 600 ? 280 : 240) // width > 825 ? 280 : 180 
-    .width(inputWidth)
-    .facet({
-      field: "dummy", 
-      type: "nominal", 
-      title: null,
-      header: { 
-        labelFontSize: 14, 
-        orient: "top",
-      },
-    })
-    // .resolve({
-    //   "axis": {"x": "independent"},
-    //   "scale": {"x": "independent"},
-    //   })
-    .data(decilesBar)
-    .config(config)
-
-}
-
 function dumbbell(inputData, inputWidth)  {
 
   const points = vl
@@ -244,7 +24,7 @@ function dumbbell(inputData, inputWidth)  {
           nice: false,
         }),
       vl.x()
-        .fieldO("val")
+        .fieldO("D")
         .axis({ 
           title: null, 
         }),
@@ -271,9 +51,9 @@ function dumbbell(inputData, inputWidth)  {
       vl.y()
         .fieldQ("value"),
       vl.x()
-        .fieldO("val"),
+        .fieldO("D"),
       vl.color()
-        .fieldN("val")
+        .fieldN("D")
         .scale({
           range: ["black", "black"]
         })
@@ -290,7 +70,7 @@ function dumbbell(inputData, inputWidth)  {
       vl.y()
         .fieldQ("value"),
       vl.x() 
-        .fieldO("val"),
+        .fieldO("D"),
       vl.color()
         .fieldN("gesl")
         .scale({
@@ -315,7 +95,7 @@ function dumbbell(inputData, inputWidth)  {
       vl.y()
         .fieldQ("value"),
       vl.x()
-        .fieldO("val"),
+        .fieldO("D"),
       vl.text()
         .fieldQ("gapPerc")
         .format(",.0~%"),
@@ -340,7 +120,7 @@ function dumbbell(inputData, inputWidth)  {
       vl.y()
         .fieldQ("value"),
       vl.x()
-        .fieldO("val"),
+        .fieldO("D"),
       vl.text()
         .fieldQ("gapValue")
         .format(",.0~f"),
@@ -361,15 +141,12 @@ function dumbbell(inputData, inputWidth)  {
       vl.y()
         .fieldQ("value"),
       vl.x()
-        .fieldO("val"),
+        .fieldO("D"),
       vl.text()
         .value(["Gender","Pension", "⤺ Gap"]),
       vl.opacity()
         .fieldN("gesl"),
     )
-
-    
-
 
     const layers = width > 600 ? 
       vl.layer(
@@ -394,27 +171,19 @@ function dumbbell(inputData, inputWidth)  {
   return layers
     .height(width > 600 ? 280 : 240)
     .width(inputWidth)
-    .facet({
-      field: "D", 
-      type: "nominal", 
-      title: null,
-      // header: { 
-      //   labelFontSize: 0, 
-      // },
-      // header: { 
-      //   labelFontSize: 14, 
-      //   orient: "bottom",
-      // },
-      header: { 
-        labelFontSize: 14, 
-        labelOrient: "top",
-      },
-    })
+    // .facet({
+    //   field: "D", 
+    //   type: "nominal", 
+    //   title: null,
+    //   header: { 
+    //     labelFontSize: 14, 
+    //     labelOrient: "top",
+    //   },
+    // })
     .data(inputData)
     .config(config)
 
 }
-
 
 distributions = {
 
