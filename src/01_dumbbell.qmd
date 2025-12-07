@@ -93,7 +93,7 @@ function dumbbell(inputData, inputWidth)  {
   const textPerc = vl
     .markText({
       size: 14,
-      dx: 20,
+      dx: 8,
       dy: -14,
       align: "left",
       anchor: "middle",
@@ -118,7 +118,7 @@ function dumbbell(inputData, inputWidth)  {
   const textGap = vl
     .markText({
       size: 14,
-      dx: 20,
+      dx: 8,
       dy: -30,
       align: "left",
       anchor: "middle",
@@ -139,9 +139,10 @@ function dumbbell(inputData, inputWidth)  {
   const textArrow = vl
     .markText({
       size: 14,
-      dx: 80,
-      dy: -40, // rangeRaw < 3000 ? -35 : -40,
-      align: "center",
+      dx: 50,
+      dy: -30, // rangeRaw < 3000 ? -35 : -40,
+      align: "left",
+      anchor: "middle",
       clip: true,
     })
     .encode(
@@ -176,7 +177,7 @@ function dumbbell(inputData, inputWidth)  {
       )
 
   return layers
-    .height(width > 600 ? 200 : 180)
+    .height(width > 600 ? 160 : 140)
     .width(makeWidth(width))
     // .facet({
     //   field: "D", 

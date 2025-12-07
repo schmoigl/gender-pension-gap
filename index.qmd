@@ -133,7 +133,7 @@ bins = binsMid
 ```
 
 ```{ojs}
-viewof rangeRaw = Inputs.range([400, 4000], {step: 50, value: 1500})
+viewof rangeRaw = Inputs.range([400, 4000], {step: 10, value: 1500})
 range = Math.round(rangeRaw/100)*100
 ```
 
