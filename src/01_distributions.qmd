@@ -25,6 +25,7 @@ distributions = {
         .axis({
           grid: false,
           title: "Bruttopension",
+          domainColor: "black",
           // labels:  width > 825 ? true : false,
           // ticks:  width > 825 ? true : false,
         })

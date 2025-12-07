@@ -18,6 +18,7 @@ function dumbbell(inputData, inputWidth)  {
           ticks:  width > 600 ? true : false,
           domain: true,
           grid: false,
+          domainColor: "black",
         })
         .scale({
           domain: [0, 5000],
