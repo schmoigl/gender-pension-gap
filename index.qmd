@@ -25,20 +25,6 @@ descriptions = FileAttachment("data/descriptions.csv").csv({ typed: true })
 
 ```{ojs}
 binsRaw = FileAttachment("data/bins.csv").csv({ typed: true })
-scenarios = aq.from(binsRaw)
-  .derive({ variable: d => aq.op.replace(d.variable, /\r\n/g, " ") })
-  .filter(aq.escape(d => d.variable != "Status quo"))
-  .filter(aq.escape(d => d.variable != "Szenario 4 (GPG/Frau)"))
-  .filter(aq.escape(d => d.variable != "Szenario 5 (Beste 15 Jahre)"))
-  .select("variable")
-  .dedupe() 
-  .array("variable")
-```
-
-```{ojs}
-info = descriptions
-  .filter(d => d.variable == select)
-  .map(d => d.description)[0] 
 ```
 
 ```{ojs}
@@ -353,7 +339,8 @@ Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: sele
 
 <br> -->
  
-```{ojs}
+
+<!-- ```{ojs}
 distributions.render({ renderer: "svg" }) 
 ```
 
@@ -375,4 +362,4 @@ dumbbell(radio2 == "Beides anzeigen" ? decilesDumbbellFull.filter(d => d.D == "M
 distributionsChange.render({ renderer: "svg" })
 ```
 
-::::
+:::: -->
