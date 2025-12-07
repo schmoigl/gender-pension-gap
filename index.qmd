@@ -169,22 +169,11 @@ select =
   selectnew == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ? "Szenario 1 (Höherbewertung Kindererziehungszeiten)" : 
   selectnew == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" : 
   "Szenario 3 (Einführung Gender-Pay-Gap-Faktor)"
-         
-selecttextshort = 
-  select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ? "Szenario 1 (Höherbewertung Kindererziehungszeiten)" : 
-  select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" :
-  "Szenario 3 - Einführung eines Aufwertungsfaktors (Gender-Pay-Gap-Faktor)"
-  
-selectszen = 
-  select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ? "Szenario 1" : 
-  select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? "Szenario 2" :
-  "Szenario 3"
 ```
 
 ```{ojs}
 viewof check1 = Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true})
 viewof check2 = Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? false : true})
-interpolate = "step"
 check1Info = select != "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ? "Kindererziehungszeiten sind nur im Szenario 1 relevant." : radio != "Frauen" ? "Kindererziehungszeiten wurden bei der Berechnung der Szenarien nur für Frauen berücksichtigt." : "Kindererziehungszeiten werden für Frauen in durchschnittlichem Ausmaß angenommen."
 check2Info = select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? "Arbeitslosenversicherungsszeiten sind nur im Szenario 2 relevant." : "Es werden Arbeitslosenversicherungszeiten von durchschnittlicher Höhe angenommen."
 ```
@@ -230,22 +219,8 @@ statusIncome = deciles
   
 closestDecileNumber = closestDecileValue.split('.')[0]
   
-barsText = md`
-  ${diffScenario > 0 && diffScenarioGesamt > 0 ? 
-  "Im " + selecttextshort + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro¹" + checkText1 + checkText2 + " im Schnitt um **" + germanLocale.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten**. Das entspricht etwa " + germanLocale.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
-  diffScenarioGesamt < 0 ?
-  "Im " + selecttextshort + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro¹" + checkText1 + checkText2 + " im Schnitt um **" + germanLocale.format(",.0f")(diffScenario) + " Euro mehr Pension erhalten**. Das entspricht etwa " + germanLocale.format(",.0%")(diffScenarioPerc) + " mehr. Betrachtet man den Gesamtdurchschnitt aller "+ radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(-diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(-diffScenarioPercGesamt) + " mehr Pension bekommen." : 
-  check1.length != 1 && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ?
-  "Im " + selecttextshort + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro¹, die keine Kinderbetreuungszeiten vorweisen können," + " **gleich viel erhalten wie aktuell**. " + "Das Szenario hätte keinen Effekt. " + "Betrachtet man den Gesamtdurchschnitt aller " + radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
-  check2.length != 1 && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Im " + selecttextshort + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro¹, die keine Ersatzzeiten durch Arbeitslosigkeit haben" + " **gleich viel erhalten wie aktuell**. " + "Das Szenario hätte keinen Effekt. " + "Betrachtet man den Gesamtdurchschnitt aller " + radio + " so würden diese im Schnitt " + germanLocale.format(",.0f")(diffScenarioGesamt) + " Euro oder " + germanLocale.format(",.0%")(diffScenarioPercGesamt) + " mehr Pension bekommen." :
-  "Im " + selecttextshort + " würden vergleichbare " + radio + " mit einer Pension von " + germanLocale.format(",.0f")(statusIncome) + " Euro¹" + checkText2 + " **gleich viel erhalten wie aktuell**. " + "Das Szenario hätte keinen Effekt. " 
-  }
-`
 perzentilText = "Sie haben eine Bruttopension von " + rangeRaw + " Euro angeben. Ihre Vergleichsgruppe ist deshalb das " + deciles.map(d => d.closestDecileValue)[0] + " (" +  closestDecileNumber + "% der " + radio + checkText1 + checkText2 + checkText1not + checkText2not + " haben eine geringere Pension). Hier beträgt die durchschnittliche Pension " + germanLocale.format(",.0f")(statusIncome) + " Euro."
 ```
-
-${barsText} 
 
 ${perzentilText} 
 
@@ -272,18 +247,7 @@ percentText =
   Math.round(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0] * 100) === Math.round(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapPerc)[0] * 100) 
   ? "weiterhin " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapPerc)[0]) 
   : germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapPerc)[0])
-
-dumbbellText = md`
-  ${check1.length != 1 && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ?
-"Im " + selecttextshort + " würde sich der Gender Pension Gap in meiner Vergleichsgruppe¹, **nicht verändern**. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0]) + ". Im Gesamtdurchschnitt würde der Gap im " + selectszen + " " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapPerc)[0]) + " ausmachen und damit von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt :
-  check2.length != 1 && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-"Im " + selecttextshort + " würde sich der Gender Pension Gap in meiner Vergleichsgruppe¹, **nicht verändern**. Er beträgt " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro oder " + germanLocale.format(",.0%")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapPerc)[0]) + ". Im Gesamtdurchschnitt würde der Gap im " + selectszen + " " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapPerc)[0]) + " ausmachen und von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt :
-  "Im " + selecttextshort + " würde der Gender Pension Gap in meiner Vergleichsgruppe¹, " + " **von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == d.closestDecileValue && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWeniger + "** Damit würde der Gender Pension Gap " + percentText + " ausmachen. Im Gesamtdurchschnitt würde der Gap im " + selectszen + " " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapPerc)[0]) + " anstatt " + germanLocale.format(",.0%")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapPerc)[0]) + " ausmachen und damit von " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Status quo").map(d => d.gapValue)[0]) + " Euro auf " + germanLocale.format(",.0f")(deciles.filter(d => d.D == "Gesamt" && d.val == "Szenario").map(d => d.gapValue)[0]) + " Euro" + mehrWenigerGesamt
-  }
-`
 ```
-
-${dumbbellText}
 
 ${perzentilText}
 
@@ -297,24 +261,6 @@ ${textDistributions}
 ```{ojs}
 distributionsChange.render({ renderer: "svg" }) 
 ```
-
-```{ojs}
-distributionsChangeText1 = 
-  select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Durch die Aufwertung der Zeiten in Arbeitslosigkeit würden sich die Pension für " + radio + " leicht erhöhen." :
-  radio == "Frauen" && select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  "Für " + radio + " würden sich die Pensionen im " + selecttextshort + " deutlich erhöhen." :
-  radio == "Männer" && select != "Szenario 5 (Beste 15 Jahre)" ?
-  radio + " profitieren nicht von " + selecttextshort + "." :
-  radio + " profitieren deutlich von " + selecttextshort + "."
-distributionsChangeText2 = radio == "Männer" && select != "Szenario 5 (Beste 15 Jahre)" && select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? 
-"Die mittlere Pension der Männer würde sich nicht verändern und bei " + germanLocale.format(",.0~f")(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " verbleiben." :
-"Die mittlere Pension der " + radio + " würde sich auf " + germanLocale.format(",.0~f")(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " Euro steigern."
-```
-
-${distributionsChangeText1} 
-
-${distributionsChangeText2}
 
 <!-- <div class="fold-container">
 <div class="column">
