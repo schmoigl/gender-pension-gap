@@ -1,104 +1,33 @@
-# AK-PensionsfairnessrechnerWebsite
+# Marie Neurath Prize
 
-This repository contains the Quarto-based website for the AK-OOe-Pensionen project. The website is live at:
+The Austrian Chamber of Labour (Arbeiterkammer Wien) launched the **Marie Neurath Prize for Data Visualization** in 2025, honoring outstanding visualizations that address distribution questions in economics and society.
 
-[https://data-science.wifo.ac.at/AK-Pensionsfairnessrechner/](https://data-science.wifo.ac.at/AK-Pensionsfairnessrechner/)
+## About the Prize
 
-## Prerequisites
+- **Main Award:** €3,000
+- **Recognition Prizes:** €1,000 each (two prizes)
+- **Submission Period:** November 6, 2025 – January 31, 2026
+- **Award Announcement:** March 24, 2026
 
-Before you can run or deploy the website, ensure that you have the following installed on your system:
+## Focus & Requirements
 
-- **Git**: For cloning the repository and managing code versions.
-- **Quarto**: For rendering and previewing the website. You can download and install Quarto from [here](https://quarto.org/docs/get-started/).
+The prize recognizes visualizations that:
+- Address distribution questions (wealth, resources, labor, time, value creation, power dynamics)
+- Make complex economic and societal connections accessible
+- Empower workers through understandable communication
+- Follow the Vienna method of statistical imagery for low-barrier accessibility
+- Maintain transparent data sourcing and scientific standards
+- Preferably focus on Austrian topics (European/global topics relevant to workers also acceptable)
 
-## Cloning the Repository
+## Technical Requirements
 
-To get started, clone the repository from Gitea to your local machine using Git.
+- Minimum 300 DPI resolution
+- Creative Commons licensing required for winners
 
-1. Open your terminal (or Git Bash on Windows).
-2. Run the following command to clone the repository:
+## About Marie Neurath
 
-   ```bash
-   git clone https://gitea.wsr.ac.at/wa-projects/AK-OOe-Pensionen-PN-23011.git
-   ```
+Marie Neurath (1898-1986) pioneered visual knowledge communication at Vienna's Society and Economic Museum (from 1924), collaborating with Otto Neurath and Gerd Arntz. After fleeing Nazi Austria, she co-founded the ISOTYPE Institute in Britain, directing it from 1945-1971 to advance accessible information design.
 
-3. Navigate into the cloned repository:
+## Links
 
-   ```bash
-   cd AK-OOe-Pensionen-PN-23011
-   ```
-
-## Running the Website Locally
-
-To preview the website locally, follow these steps:
-
-1. Ensure that you have Quarto installed on your system.
-2. In the terminal, navigate to the root directory of the project if you're not already there.
-3. Run the following command to start a local preview of the website:
-
-   ```bash
-   quarto preview
-   ```
-
-   This will render the website and start a local web server. You should be able to view the website in your browser at `http://localhost:7777`.
-
-4. The `quarto preview` command will watch for any changes you make to the source files and automatically update the website preview in the browser.
-
-## Rendering the Website for Production
-
-To render the website for production (i.e., for deployment to the live site), use the following command:
-
-1. Make sure you are in the root directory of the repository.
-2. Run the following command:
-
-   ```bash
-   quarto render
-   ```
-
-   This will render all the necessary files for the website in a production-ready format, generating the output in the `webssite/` folder.
-
-## Deploying the Website
-
-Once you have rendered the website for production, you'll need to deploy it to the server.
-
-1. After rendering, navigate to the `website/` folder that contains the built website files:
-
-   ```bash
-   cd website
-   ```
-
-2. Deploy the contents of this folder to the server where the website is hosted. Depending on your server setup, you can use `scp`, `rsync`, or a web deployment tool to move the files. Here’s an example of how to use `scp` for deployment:
-
-   ```bash
-   scp -r * lschmoigl@hades:/home/lschmoigl/datascience/htdocs/pensionen
-   ```
-
-3. Replace `lschmoigl` with your actual server credentials.
-
-## Additional Information
-
-- **Customizing the Website**: You can customize the content of the website by editing the markdown or R Markdown files within the repository. Changes made to these files will be reflected when you re-render or preview the website.
-- **Help & Support**: For further assistance with Quarto, visit the [Quarto documentation](https://quarto.org/docs/guide/).
-
----
-
-### Summary of Commands
-
-```bash
-# Clone the repository
-git clone https://gitea.wsr.ac.at/wa-projects/AK-OOe-Pensionen-PN-23011.git
-
-# Change directory into the project
-cd AK-OOe-Pensionen-PN-23011
-
-# Preview the website locally
-quarto preview
-
-# Render the website for production
-quarto render
-
-# Deploy the rendered website
-scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/AK-Pensionsfairnessrechner
-```
-
-Happy coding!
+- [Marie Neurath Prize for Data Visualization](https://wien.arbeiterkammer.at/neurath)

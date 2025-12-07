@@ -7,28 +7,11 @@ project:
     watch-inputs: true
   render: 
     - index.qmd
-    - households.qmd
 website:
-  title: "AK-Pensionsfairnessrechner"
+  title: "Gender Pension Gap"
   favicon: img/favicon.ico
   search: false
-  page-footer: |
-    <div style="display: flex; justify-content: center; align-items: center;">
-      <a href="https://ooe.arbeiterkammer.at/index.html">
-        <img src="img/ak-logo.svg" height="64px" alt="AK Logo">
-      </a>
-      <a href="https://www.wifo.ac.at/">
-        <img src="img/WIFO_kurz_rechts.svg" height="28px" alt="WIFO Logo">
-      </a>
-    </div>
-    <br>
-    © 2024 AK Oberösterreich | Volksgartenstrasse 40, 4020 Linz | [+43 50 6906 0](tel:+435069060) | [wsg@akooe.at](mailto:wsg@akooe.at)
-  navbar: 
-    # sticky: false
-    title: | 
-      [![](img/ak-logo.svg){height="70px"}](https://ooe.arbeiterkammer.at/index.html) &nbsp;
-    left: 
-      - index.qmd
+  navbar: false
 format:
   html:
     theme: [cosmo, style/styles.scss]
