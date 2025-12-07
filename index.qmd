@@ -17,8 +17,6 @@ execute:
 // warning: false
 import {vl} from "@vega/vega-lite-api-v5" // apiVersion = '5.6.0' vlVersion = '5.6.0' vegaVersion = '5.23.0' tooltipVersion = '0.30.0'
 import {aq, op} from '@uwdata/arquero' // version "6.0.0"
-// import {number, slider} from "@jashkenas/inputs"
-// import { rangeInput } from '@mootari/range-slider'
 ```
 
 ```{ojs}
@@ -35,7 +33,6 @@ scenarios = aq.from(binsRaw)
   .select("variable")
   .dedupe() 
   .array("variable")
-  
 ```
 
 ```{ojs}
@@ -91,7 +88,6 @@ function getCumPerc(gesl, tail) {
   .map(d => d.text)
   return out
 }
-
 
 notRadio = radio == "Frauen" ? "Männer" : "Frauen"
 ```
@@ -168,10 +164,7 @@ medians = aq.from(decilesRawGeneral)
 bins = binsMid
   .join_left(medians, [["gesl", "variable"], ["gesl", "variable"]])
   .objects()
-  
-
 ```
-
 
 ```{ojs}
 viewof rangeRaw = Inputs.range([400, 4000], {step: 50, value: 1500})
@@ -182,7 +175,6 @@ range = Math.round(rangeRaw/100)*100
 viewof radioRaw = Inputs.radio(["Frau", "Mann"], {value: "Frau"})
 radio = radioRaw == "Frau" ? "Frauen" : "Männer"
 ```
-
 
 ```{ojs}
 viewof selectnew = Inputs.select(["Szenario 1 (Höherbewertung Kindererziehungszeiten)","Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)","Szenario 3 (Einführung eines Aufwertungsfaktors [Gender-Pay-Gap-Faktor])"])
@@ -201,7 +193,6 @@ selectszen =
   select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ? "Szenario 1" : 
   select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? "Szenario 2" :
   "Szenario 3"
-  
 ```
 
 ```{ojs}
@@ -213,24 +204,15 @@ check2Info = select != "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)
 ```
 
 ```{ojs}
-decilesBar = 
-  deciles
-    .filter(d => d.variable == select)
-    .filter(d => d.D == d.closestDecileValue || d.D == "Gesamt")
-    .filter(d => d.gesl == d.radio || d.D == "Gesamt")
-    .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Gesamtdurchschnitt" : "Meine Vergleichsgruppe"}))
-    .map(d => ({...d, gesl: d.gesl == d.radio && d.D == "Meine Vergleichsgruppe" ? "Meine Vergleichsgruppe" : "∅ " + d.gesl}))
-    .map(d => ({...d, dummy: "⠀"}))
+decilesBar = deciles
+  .filter(d => d.variable == select)
+  .filter(d => d.D == d.closestDecileValue || d.D == "Gesamt")
+  .filter(d => d.gesl == d.radio || d.D == "Gesamt")
+  .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Gesamtdurchschnitt" : "Meine Vergleichsgruppe"}))
+  .map(d => ({...d, gesl: d.gesl == d.radio && d.D == "Meine Vergleichsgruppe" ? "Meine Vergleichsgruppe" : "∅ " + d.gesl}))
+  .map(d => ({...d, dummy: "⠀"}))
 
 bars(width > 600 ? 250 : width * 0.8).render({ renderer: "svg" })
-
-Inputs.bind(
-  Inputs.radio(
-    ["Meine Vergleichsgruppe", "∅ Gesamtdurchschnitt", "Beides anzeigen"], 
-    {value: "Meine Vergleichsgruppe", label: "Zeige"}
-    ),
-  viewof radio2
-  )
 ```
 
 ```{ojs}
@@ -239,8 +221,6 @@ checkText2 = check2.length == 1 ? ", die Ersatzzeiten durch Arbeitslosigkeit hab
 
 checkText1not = check1.length != 1 && select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? ", die keine Kinderbetreuungszeiten vorweisen können," : ""
 checkText2not = check2.length != 1 && select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? ", die keine Ersatzzeiten durch Arbeitslosigkeit haben," : ""
-
-
 
 diffScenario = deciles
   .filter(d => d.variable == select)
@@ -277,27 +257,11 @@ barsText = md`
   }
 `
 perzentilText = "Sie haben eine Bruttopension von " + rangeRaw + " Euro angeben. Ihre Vergleichsgruppe ist deshalb das " + deciles.map(d => d.closestDecileValue)[0] + " (" +  closestDecileNumber + "% der " + radio + checkText1 + checkText2 + checkText1not + checkText2not + " haben eine geringere Pension). Hier beträgt die durchschnittliche Pension " + germanLocale.format(",.0f")(statusIncome) + " Euro."
-
-
 ```
 
 ${barsText} 
 
 ${perzentilText} 
-
-Eingaben ändern:
-
-```{ojs}
-Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension"}), viewof rangeRaw)
-Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"}), viewof radioRaw)
-Inputs.bind(Inputs.select(["Szenario 1 (Höherbewertung Kindererziehungszeiten)","Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)","Szenario 3 (Einführung eines Aufwertungsfaktors [Gender-Pay-Gap-Faktor])"], {label: "Szenario"}), viewof selectnew)
-select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-  Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true}), viewof check1) :
-  select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? false : true}), viewof check2) :
-  html`<div></div>`
-```
-
 
 ```{ojs}
 decilesDumbbellFull = deciles
@@ -312,7 +276,6 @@ viewof radio2 = Inputs.radio(
   ["Meine Vergleichsgruppe", "∅ Gesamtdurchschnitt", "Beides anzeigen"], 
   {value: "Meine Vergleichsgruppe", label: "Zeige"}
   ) 
-
 ```
 
 ```{ojs}
@@ -338,31 +301,12 @@ ${dumbbellText}
 
 ${perzentilText}
 
-Eingaben ändern:
-
-```{ojs}
-Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension"}), viewof rangeRaw)
-Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"}), viewof radioRaw)
-Inputs.bind(Inputs.select(["Szenario 1 (Höherbewertung Kindererziehungszeiten)","Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)","Szenario 3 (Einführung eines Aufwertungsfaktors [Gender-Pay-Gap-Faktor])"], {label: "Szenario"}), viewof selectnew) 
-select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" ?
-  Inputs.bind(Inputs.checkbox(["Kindererziehungszeiten"], {disabled: select == "Szenario 1 (Höherbewertung Kindererziehungszeiten)" && radio == "Frauen" ? false : true}), viewof check1) :
-  select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ?
-  Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" ? false : true}), viewof check2) :
-  html`<div></div>`
-```
-
-
 ```{ojs}
 distributions.render({ renderer: "svg" }) 
 textDistributions = "Etwa " + getCumPerc(radio, "lower") + " aller " + radio + " erhalten im Status quo eine niedrigere Pension als " + germanLocale.format(",.0f")(range) + " Euro pro Monat. Umgekehrt erhalten " +  getCumPerc(radio, "higher") + " aller " + radio + " mehr Pension."
 ```
 
-${textDistributions} <br><br> Eingaben ändern:
-
-```{ojs}
-Inputs.bind(Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension"}), viewof rangeRaw)
-Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"}), viewof radioRaw)
-```
+${textDistributions}
 
 ```{ojs}
 distributionsChange.render({ renderer: "svg" }) 
@@ -382,14 +326,11 @@ distributionsChangeText2 = radio == "Männer" && select != "Szenario 5 (Beste 15
 "Die mittlere Pension der " + radio + " würde sich auf " + germanLocale.format(",.0~f")(bins.filter(d => d.variable == select && d.gesl == d.radio)[0].median) + " Euro steigern."
 ```
 
-${distributionsChangeText1} ${distributionsChangeText2} <br><br> Eingaben ändern:
+${distributionsChangeText1} 
 
-```{ojs}
-Inputs.bind(Inputs.radio(["Frau", "Mann"], {value: "Frauen", label: "Geschlecht"}), viewof radioRaw) 
-Inputs.bind(Inputs.select(["Szenario 1 (Höherbewertung Kindererziehungszeiten)","Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)","Szenario 3 (Einführung eines Aufwertungsfaktors [Gender-Pay-Gap-Faktor])"], {label: "Szenario"}), viewof selectnew)
-```
+${distributionsChangeText2}
 
-<div class="fold-container">
+<!-- <div class="fold-container">
 <div class="column">
 
 ```{ojs}
@@ -410,7 +351,7 @@ Inputs.bind(Inputs.checkbox(["Arbeitslosenversicherungszeiten"], {disabled: sele
 </div>
 </div>
 
-<br>
+<br> -->
  
 ```{ojs}
 distributions.render({ renderer: "svg" }) 
