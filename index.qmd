@@ -7,10 +7,10 @@ execute:
   warning: false 
 ---
 
-{{< include src/config.qmd >}}
-{{< include src/utils.qmd >}}
-{{< include src/graphs.qmd >}}
-
+{{< include src/00_config.qmd >}}
+{{< include src/00_utils.qmd >}}
+{{< include src/01_dumbbell.qmd >}}
+{{< include src/01_distributions.qmd >}}
 
 ```{ojs}
 // echo: false
@@ -152,7 +152,16 @@ statusIncome = deciles
   .map(d => d.value)[0]
   
 closestDecileNumber = closestDecileValue.split('.')[0]
-  
+```
+
+```{ojs}
+decilesDumbbellFull = deciles
+    .filter(d => (d.D == d.closestDecileValue || d.D == "Gesamt") && d.variable == select)
+    .filter(d => d.val == "Status quo")
+    .map(d => ({...d, D: d.D == "Gesamt" ? "∅" : "Ich"}))
+```
+
+```{ojs}
 perzentilText = 
   "Sie haben eine Bruttopension von " + rangeRaw + " Euro angeben. " +
   "Ihre Vergleichsgruppe ist deshalb das " + deciles.map(d => d.closestDecileValue)[0] + 
@@ -160,32 +169,22 @@ perzentilText =
   "Hier beträgt die durchschnittliche Pension " + germanLocale.format(",.0f")(statusIncome) + " Euro."
 ```
 
-${perzentilText} 
-
 ```{ojs}
-decilesDumbbellFull = deciles
-    .filter(d => (d.D == d.closestDecileValue || d.D == "Gesamt") && d.variable == select)
-    .filter(d => d.val == "Status quo")
-    .map(d => ({...d, D: d.D == "Gesamt" ? "∅ Gesamtdurchschnitt" : "Meine Vergleichsgruppe"}))
-```
-
-```{ojs}
-dumbbell(
-  decilesDumbbellFull, 
-  width > 600 ? 230 : width * 0.6
-  )
-  .render({ renderer: "svg" })
-```
-
-${perzentilText}
-
-```{ojs}
-distributions.render({ renderer: "svg" }) 
 textDistributions = 
   "Etwa " + getCumPerc(radio, "lower") + " aller " + radio + 
   " erhalten im Status quo eine niedrigere Pension als " + germanLocale.format(",.0f")(range) + " Euro pro Monat. " + 
   "Umgekehrt erhalten " +  getCumPerc(radio, "higher") + " aller " + radio + " mehr Pension."
 ```
+
+```{ojs}
+distributions.render({ renderer: "svg" }) 
+
+dumbbell(decilesDumbbellFull)
+  .render({ renderer: "svg" })
+```
+
+
+${perzentilText}
 
 ${textDistributions}
 

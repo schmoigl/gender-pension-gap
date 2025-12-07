@@ -8,11 +8,11 @@ colors5 = ["#00ff00", "#0000ff"]
 
 function makeWidth(inputWidth) {
   const outputWidth = 
-    inputWidth > 2000 ? inputWidth * 0.250 :
-    inputWidth > 1600 ? inputWidth * 0.330 :
-    inputWidth > 1400 ? inputWidth * 0.380 :
+    inputWidth > 2000 ? inputWidth * 0.500 :
+    inputWidth > 1600 ? inputWidth * 0.450 :
+    inputWidth > 1400 ? inputWidth * 0.400 :
     inputWidth > 1100 ? inputWidth * 0.400 :
-    inputWidth > 825 ? inputWidth * 0.450 :
+    inputWidth > 825 ? inputWidth * 0.800 :
     inputWidth * 0.775
   return outputWidth
 }

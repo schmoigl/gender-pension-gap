@@ -1,0 +1,191 @@
+
+```{ojs}
+function dumbbell(inputData, inputWidth)  {
+
+  const points = vl
+    .markPoint({
+      size: 100,
+      opacity: 1,
+      shape: "square",
+      stroke: "transparent",
+    })
+    .encode(
+      vl.x()
+        .fieldQ("value")
+        .axis({
+          title: width > 600 ? "Bruttopension" : null,
+          labels:  width > 600 ? true : false,
+          ticks:  width > 600 ? true : false,
+          domain: true,
+          grid: false,
+        })
+        .scale({
+          domain: [0, 5000],
+          nice: false,
+        }),
+      vl.y()
+        .fieldO("D")
+        .axis({
+          title: null,
+          domain: false,
+          labels: false,
+          ticks: false,
+          // minExtent: 80,
+        })
+        .scale({
+          reverse: true,
+        }),
+      vl.fill()
+        .fieldN("gesl")
+        .scale({
+          range: colors2,
+        })
+        .legend({
+          // orient: width > 825 ? "right" : "top", 
+          orient: "top",
+          symbolOpacity: 1,
+          symbolType: "square",
+          title: null, 
+        }),
+    )
+
+  const lines = vl
+    .markLine({
+      opacity: 0.15,
+      size: 5,
+    })
+    .encode(
+      vl.x()
+        .fieldQ("value"),
+      vl.y()
+        .fieldO("D"),
+      vl.color()
+        .fieldN("D")
+        .scale({
+          range: ["black", "black"]
+        })
+        .legend(null),
+    )
+
+  const text = vl
+    .markText({
+      size: 14,
+      dy: 27,
+      clip: true,
+    })
+    .encode(
+      vl.x()
+        .fieldQ("value"),
+      vl.y()
+        .fieldO("D"),
+      vl.color()
+        .fieldN("gesl")
+        .scale({
+          range: ["black"],
+        }) 
+        .legend(null),
+      vl.text() 
+        .fieldQ("value")
+        .format(",.0f"), 
+    )
+    
+  const textPerc = vl
+    .markText({
+      size: 14,
+      dx: -30,
+      dy: -12,
+      align: "left",
+      clip: true,
+    })
+    .encode(
+      vl.x()
+        .fieldQ("value"),
+      vl.y()
+        .fieldO("D"),
+      vl.text()
+        .fieldQ("gapPerc")
+        .format(",.0~%"),
+      vl.opacity()
+        .fieldN("gesl")
+        .scale({
+          range : [0.51, 0]
+        })
+        .legend(null),
+    )
+
+  const textGap = vl
+    .markText({
+      size: 14,
+      dx: -16,
+      dy: -24,
+      align: "left",
+      clip: true,
+    })
+    .encode(
+      vl.x()
+        .fieldQ("value"),
+      vl.y()
+        .fieldO("D"),
+      vl.text()
+        .fieldQ("gapValue")
+        .format(",.0~f"),
+      vl.opacity()
+        .fieldN("gesl"),
+    )
+
+  const textArrow = vl
+    .markText({
+      size: 10,
+      dx: width > 600 ? 40 : 30,
+      dy: rangeRaw < 3000 ? -35 : -40,
+      align: "left",
+      clip: true,
+    })
+    .encode(
+      vl.x()
+        .fieldQ("value"),
+      vl.y()
+        .fieldO("D"),
+      vl.text()
+        .value(["Gender","Pension", "⤺ Gap"]),
+      vl.opacity()
+        .fieldN("gesl"),
+    )
+
+    const layers = width > 600 ? 
+      vl.layer(
+        lines,
+        points,
+        text,
+        //textRel, 
+        textGap,
+        textPerc,
+        textArrow,
+      ) :
+      vl.layer(
+        lines,
+        points,
+        //textRel,
+        textGap,
+        textPerc,
+        textArrow,
+        // text,
+      )
+
+  return layers
+    .height(width > 600 ? 200 : 180)
+    .width(makeWidth(width))
+    // .facet({
+    //   field: "D", 
+    //   type: "nominal", 
+    //   title: null,
+    //   header: { 
+    //     labelFontSize: 14, 
+    //     labelOrient: "top",
+    //   },
+    // })
+    .data(inputData)
+    .config(config)
+
+}
+```
