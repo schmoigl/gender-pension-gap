@@ -226,8 +226,6 @@ range = Math.round(rangeRaw/100)*100
 </div>
 </div>
 
-${textInteractive1}
-
 ```{ojs}
 makeDistribution({ inputData: dataDistribution }).render({ renderer: "svg" })
 
@@ -236,4 +234,7 @@ makeIsotype({ inputData: dataIsotype }).render({ renderer: "svg" })
 makeDumbbell({ inputData: dataDumbbell }).render({ renderer: "svg" })
 ```
 
+${textInteractive1}
+
 :::
+
