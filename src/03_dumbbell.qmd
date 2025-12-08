@@ -158,7 +158,7 @@ makeDumbbell = function({ inputData }) {
   const textPerc = vl
     .markText({
       size: 13,
-      dx: 50,
+      dx: 52,
       dy: -14,
       align: "right",
       anchor: "middle",
@@ -183,7 +183,7 @@ makeDumbbell = function({ inputData }) {
   const textGap = vl
     .markText({
       size: 13,
-      dx: 50,
+      dx: 52,
       dy: -30,
       align: "right",
       anchor: "middle",
@@ -208,7 +208,7 @@ makeDumbbell = function({ inputData }) {
   const textArrow = vl
     .markText({
       size: 13,
-      dx: -50,
+      dx: -52,
       dy: -30, // rangeRaw < 3000 ? -35 : -40,
       align: "left",
       anchor: "middle",
