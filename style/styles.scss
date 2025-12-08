@@ -185,15 +185,44 @@ form {
 }
 
 input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #000;
+    border-radius: 0;
     cursor: pointer;
+    position: relative;
 }
 
-input[type="radio"]:checked + label {
+input[type="radio"][value="0"]:checked + label {
     color: #be0021;
 }
-  
-input[type="radio"]:checked {
-    accent-color: #be0021;
+
+input[type="radio"][value="0"]:checked {
+    background-color: #be0021;
+    border-color: #be0021;
+}
+
+input[type="radio"][value="1"]:checked + label {
+    color: #ffa500;
+}
+
+input[type="radio"][value="1"]:checked {
+    background-color: #ffa500;
+    border-color: #ffa500;
+}
+
+input[type="number"] {
+    border: none;
+    border-bottom: 1px solid;
+    outline: none;
+}
+
+input[type="number"]:focus {
+    border: none;
+    border-bottom: 1px solid;
+    outline: none;
 }
 
 /* Range input styling */
@@ -210,7 +239,7 @@ input[type="range"]::-webkit-slider-runnable-track {
     height: 5px;
     cursor: pointer;
     background: #ddd;
-    border-radius: 5px;
+    border-radius: 0;
     border-color: "black";
 }
 
@@ -218,7 +247,7 @@ input[type="range"]::-moz-range-track {
     height: 5px;
     cursor: pointer;
     background: #ddd;
-    border-radius: 5px;
+    border-radius: 0;
     border-color: "black";
 }
 
@@ -234,29 +263,29 @@ input[type="range"]::-ms-track {
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border-color: "black";
-    border-radius: 50%;
+    border-radius: 0;
     background: #be0021;
     cursor: pointer;
-    margin-top: -5px; /* To properly align the thumb with the track */
+    margin-top: -3.5px; /* To properly align the thumb with the track */
 }
 
 input[type="range"]::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border-color: "black";
-    border-radius: 50%;
+    border-radius: 0;
     background: #be0021;
     cursor: pointer;
 }
 
 input[type="range"]::-ms-thumb {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border-color: "black";
-    border-radius: 50%;
+    border-radius: 0;
     background: #be0021;
     cursor: pointer;
 }

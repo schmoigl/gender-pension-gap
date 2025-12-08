@@ -61,7 +61,7 @@ cumPerc = cumPercMid
   .groupby(["gesl", "variable", "tail"])
   .derive({ 
     text: aq.escape(d => germanLocale.format(",.0~%")(d.perc)),
-    percRound: aq.escape(d => Math.round(d.perc*100))
+    percRound: aq.escape(d => Math.round(d.perc*50))
     })
   .objects()
 
@@ -181,7 +181,7 @@ textDistributions =
 <div class="column">
 
 ```{ojs}
-viewof radioRaw = Inputs.radio(["Frau", "Mann"], {value: "Frau", label: "Gruppe"})
+viewof radioRaw = Inputs.radio(["Frau", "Mann"], {value: "Frau", label: "Geschlecht:"})
 radio = radioRaw == "Frau" ? "Frauen" : "Männer"
 ```
 
@@ -189,7 +189,7 @@ radio = radioRaw == "Frau" ? "Frauen" : "Männer"
 <div class="column">
 
 ```{ojs}
-viewof rangeRaw = Inputs.range([400, 4000], {step: 10, value: 1500, label: "Bruttopension"})
+viewof rangeRaw = Inputs.range([400, 4000], {step: 10, value: 1500, label: "Bruttopension:"})
 range = Math.round(rangeRaw/100)*100
 ```
 

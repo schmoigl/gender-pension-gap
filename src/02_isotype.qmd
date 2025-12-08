@@ -20,7 +20,7 @@ makeIsotype = function({ inputData }) {
       vl.yOffset()
         .fieldQ("positionY")
         .scale({
-          domain: [0, 9],
+          domain: [0, 5],
         }),
       vl.x()
         .fieldQ("positionX")
@@ -32,7 +32,7 @@ makeIsotype = function({ inputData }) {
           grid: false,
         })
         .scale({
-          domain: [0, 9],
+          domain: [0, 10],
         }),
       vl.fill()
         .fieldN("gesl")
@@ -74,7 +74,7 @@ makeIsotype = function({ inputData }) {
     // chartIsotypeText,
   )
   .width(makeWidth(width) / 2)
-  .height(520)
+  .height(300)
   .facet({
     field: "tail",
     type: "nominal",

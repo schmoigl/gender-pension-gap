@@ -4,7 +4,7 @@ function makeDumbbell(inputData, inputWidth)  {
 
   const points = vl
     .markPoint({
-      size: 100,
+      size: 120,
       opacity: 1,
       shape: "square",
       stroke: "transparent",
@@ -20,6 +20,8 @@ function makeDumbbell(inputData, inputWidth)  {
           grid: false,
           domainColor: "black",
           tickColor: "black",
+          domainWidth: 0.75,
+          tickWidth: 0.75,
           labelFlush: false,
         })
         .scale({
