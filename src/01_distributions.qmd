@@ -2,11 +2,8 @@
 ```{ojs}
 distributions = {
 
-  const dataDist = bins.filter(d => d.variable == "Status quo") //bins.filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
-  // const dataRule = dataDist
-  //   .filter(d => d.range == d.bin)
-  //   .map(d => ({...d, y: 0, y2: 20000}))
-
+  const dataDist = bins.filter(d => d.variable == "Status quo") 
+  
   const dataRule = [
       {gesl: "Frauen", median: 1223, y: 0, y2: 20000}, //1215
       {gesl: "Männer", median: 2286, y: 0, y2: 20000}, //2278
@@ -26,6 +23,8 @@ distributions = {
           grid: false,
           title: "Bruttopension",
           domainColor: "black",
+          tickColor: "black",
+          labelFlush: false,
           // labels:  width > 825 ? true : false,
           // ticks:  width > 825 ? true : false,
         })
@@ -134,7 +133,7 @@ distributions = {
   const textGray1 = vl
     .markText({
       opacity: 0.51,
-      size: 13,
+      size: 12,
       y: 50,
       dx: -10,
       align: "right",
@@ -160,8 +159,8 @@ distributions = {
   const textGray2 = vl
     .markText({
       // opacity: 0.51,
-      size: 11,
-      y: 65,
+      size: 12,
+      y: 66,
       dx: -10,
       align: "right",
       clip: true,
@@ -171,7 +170,7 @@ distributions = {
       vl.x()
         .fieldQ("median"),
       vl.text()
-        .value("mittlere Pension"),
+        .value("Median"),
       vl.opacity()
         .fieldN("gesl")
         .scale({
@@ -185,8 +184,8 @@ distributions = {
   const textGray3 = vl
     .markText({
       opacity: 0.51,
-      size: 11,
-      y: 80,
+      size: 12,
+      y: 82,
       dx: -10,
       align: "right",
       clip: true,
@@ -373,7 +372,7 @@ distributions = {
     .markText({
       opacity: radio == "Männer" ? 1 : 0.51,
       clip: true,
-      size: width > 600 ? 11 : 10,
+      size: width > 600 ? 12 : 12,
       y: width > 600 ? 200 : 105,
       align: "center",
     })
@@ -391,7 +390,7 @@ distributions = {
     .markText({
       opacity: radio == "Frauen" ? 1 : 0.51,
       clip: true,
-      size: width > 600 ? 11 : 10,
+      size: width > 600 ? 12 : 12,
       y: width > 600 ? 110 : 35,
       align: "center",
     })
@@ -451,213 +450,4 @@ distributions = {
     .data(dataDist)
     .config(config)
 }
-
-distributionsChange = {
-
-  const dataDistChange = bins.filter(d => (d.variable == select || d.variable == "Status quo") && d.gesl == d.radio)
-  const dataRule = dataDistChange
-    .filter(d => d.range == d.bin && d.variable != "Status quo")
-    .map(d => ({...d, y: 0, y2: 21500}))
-
-  const colorsArea = radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? colors : [colors[0], "transparent"]
-
-  const area = vl
-    .markArea({
-      interpolate: interpolate,
-      strokeWidth: 1.25,
-      stroke: "black",
-      opacity: 0.8,
-      clip: true,
-    })
-    .encode(
-      vl.x()
-        .fieldQ("bin")
-        .axis({
-          grid: false,
-          title: "Bruttopension",
-          // labels:  width > 825 ? true : false,
-          // ticks:  width > 825 ? true : false,
-        })
-        .scale({
-          domain: [0, 5000],
-          nice: false,
-        }),
-      vl.y()
-        .fieldQ("N")
-        .scale({
-          domain: [0, 23000],
-          nice: false,
-        })
-        .axis({
-          domain: false,
-          grid: false,
-          title: null,
-          labels: false,
-          ticks: false,
-          values: [0, 5000, 10000, 15000, 20000],
-          // minExtent: 80,
-        }),
-      vl.color()
-        .fieldN("variable")
-        .scale({
-          range: colorsArea,
-        })
-        .legend(null)
-        // .legend({
-        //   orient: "top", 
-        //   symbolType: "square",
-        //   symbolOpacity: 1,
-        //   symbolStrokeColor: "transparent", 
-        //   labelLimit: width > 825 ? 1111 : 160,
-        //   title: null,
-        // })
-    )
-
-  const ruleGray = vl
-    .markRule({
-      // opacity: 0.51,
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.y()
-        .fieldQ("y"),
-      vl.y2()
-        .fieldQ("y2"),
-    )
-
-  const textGray1 = vl
-    .markText({
-      // opacity: 0.51,
-      size: 13,
-      y: 50,
-      dx: -10,
-      align: "right",
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.text()
-        .fieldQ("median")
-        .format(",.0f"),
-    )
-
-  const textGrayVar = radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? "neue mittlere Pension " + radio : "mittlere Pension " + radio 
-
-  const textGray2 = vl
-    .markText({
-      // opacity: 0.51,
-      size: 11,
-      y: 65,
-      dx: -10,
-      align: "right",
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.text()
-        .value(textGrayVar),
-    )
-
-  const textGray3 = vl
-    .markText({
-      // opacity: 0.51,
-      size: 11,
-      y: 80,
-      dx: -10,
-      align: "right",
-      clip: true,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.text()
-        .value(select.substr(0, 10)),
-    )
-
-  const textOld = vl
-    .markText({
-      clip: true,
-      size: 14,
-      y: 50,
-      align: "center",
-    })
-    .data([
-      {bin: radio == "Männer" ? 1000 : 600}
-    ])
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value("alte Verteilung ⤵"), 
-    )
-
-  const textNewVar = radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? "⤺ neue Pensionen" : "⤺ keine Veränderung"
-
-  const textNew = vl
-    .markText({
-      // opacity: 0.51,
-      clip: true,
-      size: 11,
-      y: width > 600 ? 180 : 100,
-      align: "left",
-    })
-    .data([
-      {bin: radio == "Männer" ? 2800 : 2200}
-    ])
-    .encode(
-      vl.x()
-        .fieldQ("bin"),
-      vl.text()
-        .value([textNewVar, select.substr(0, 10)]), 
-    )
-
-  const textArrow = vl
-    .markText({
-      // opacity: 0.51,
-      clip: true,
-      size: radio == "Frauen" || select == "Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)" || select == "Szenario 5 (Beste 15 Jahre)"  ? 16 : 0,
-      y: 30,
-      align: "right",
-      opacity: 0.7,
-      dx: -10,
-    })
-    .data(dataRule)
-    .encode(
-      vl.x()
-        .fieldQ("median"),
-      vl.text()
-        .value("⟶"),
-    )
-
-  const layers = width > 825 ? 
-    vl.layer(
-      ruleGray,
-      textGray1,
-      textGray2,
-      textGray3,
-      textArrow,
-      textNew,
-      area, 
-    ) :
-    vl.layer(
-      area, 
-      textNew,
-    )
-
-  return layers
-    .height(width > 825 ? 300 : 200)
-    .width(makeWidth(width)) 
-    .data(dataDistChange)
-    .config(config)
-
-}
-
 ```

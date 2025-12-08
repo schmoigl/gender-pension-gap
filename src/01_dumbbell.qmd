@@ -19,6 +19,8 @@ function dumbbell(inputData, inputWidth)  {
           domain: true,
           grid: false,
           domainColor: "black",
+          tickColor: "black",
+          labelFlush: false,
         })
         .scale({
           domain: [0, 5000],
@@ -93,68 +95,79 @@ function dumbbell(inputData, inputWidth)  {
     
   const textPerc = vl
     .markText({
-      size: 14,
-      dx: 8,
+      size: 13,
+      dx: 47,
       dy: -14,
-      align: "left",
+      align: "right",
       anchor: "middle",
       clip: true,
+      opacity: 0.51,
     })
+    .transform(
+      vl.joinaggregate([vl.mean("value").as("midValue")])
+        .groupby(["D"]),
+      vl.filter("datum.gesl == 'Frauen'")
+    )
     .encode(
       vl.x()
-        .fieldQ("value"),
+        .field("midValue")
+        .type("quantitative"),
       vl.y()
         .fieldO("D"),
       vl.text()
         .fieldQ("gapPerc")
         .format(",.0~%"),
-      vl.opacity()
-        .fieldN("gesl")
-        .scale({
-          range : [0.51, 0]
-        })
-        .legend(null),
     )
 
   const textGap = vl
     .markText({
-      size: 14,
-      dx: 8,
+      size: 13,
+      dx: 47,
       dy: -30,
-      align: "left",
+      align: "right",
       anchor: "middle",
       clip: true,
+      opacity: 0.51,
     })
+    .transform(
+      vl.joinaggregate([vl.mean("value").as("midValue")])
+        .groupby(["D"]),
+      vl.filter("datum.gesl == 'Frauen'")
+    )
     .encode(
       vl.x()
-        .fieldQ("value"),
+        .field("midValue")
+        .type("quantitative"),
       vl.y()
         .fieldO("D"),
       vl.text()
         .fieldQ("gapValue")
-        .format(",.0~f"),
-      vl.opacity()
-        .fieldN("gesl"),
+        .format("$,.0~f"),
     )
 
   const textArrow = vl
     .markText({
-      size: 14,
-      dx: 50,
+      size: 13,
+      dx: -47,
       dy: -30, // rangeRaw < 3000 ? -35 : -40,
       align: "left",
       anchor: "middle",
       clip: true,
+      opacity: 0.51,
     })
+    .transform(
+      vl.joinaggregate([vl.mean("value").as("midValue")])
+        .groupby(["D"]),
+      vl.filter("datum.gesl == 'Frauen'")
+    )
     .encode(
       vl.x()
-        .fieldQ("value"),
+        .field("midValue")
+        .type("quantitative"),
       vl.y()
         .fieldO("D"),
       vl.text()
-        .value(["Gender", "⤺ Gap"]),
-      vl.opacity()
-        .fieldN("gesl"),
+        .value(["Gender", "Gap ↷"]),
     )
 
     const layers = width > 600 ? 

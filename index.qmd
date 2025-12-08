@@ -11,6 +11,7 @@ execute:
 {{< include src/00_utils.qmd >}}
 {{< include src/01_dumbbell.qmd >}}
 {{< include src/01_distributions.qmd >}}
+{{< include src/01_isotype.qmd >}}
 
 ```{ojs}
 // echo: false
@@ -26,7 +27,7 @@ binsRaw = FileAttachment("data/bins.csv").csv({ typed: true })
 ```{ojs}
 binsMid = aq.from(binsRaw)
   .filter(d => d.variable == "Status quo")
-  .derive({ 
+  .derive({
     variable: d => aq.op.replace(d.variable, /\r\n/g, " "),
     bin: d => d.bin * 100,
     range: aq.escape(d => range),
@@ -58,8 +59,15 @@ cumPerc = cumPercMid
     perc: d => d.tail == "lower" ? d.perc + d.percSame : d.perc, // closest decile to the right! not left!!!!
   })
   .groupby(["gesl", "variable", "tail"])
-  .derive({ text: aq.escape(d => germanLocale.format(",.0~%")(d.perc)) })
+  .derive({ 
+    text: aq.escape(d => germanLocale.format(",.0~%")(d.perc)),
+    percRound: aq.escape(d => Math.round(d.perc*100))
+    })
   .objects()
+
+dataIsotype = cumPerc
+  .filter(d => d.variable == "Status quo")
+  .filter(d => d.tail != "same")
 
 function getCumPerc(gesl, tail) {
   const out = cumPerc
@@ -73,7 +81,7 @@ function getCumPerc(gesl, tail) {
 }
 
 notRadio = radio == "Frauen" ? "Männer" : "Frauen"
-interpolate = "step"
+interpolate = "natural"
 ```
 
 ```{ojs}
@@ -158,7 +166,7 @@ closestDecileNumber = closestDecileValue.split('.')[0]
 decilesDumbbellFull = deciles
     .filter(d => (d.D == d.closestDecileValue || d.D == "Gesamt") && d.variable == select)
     .filter(d => d.val == "Status quo")
-    .map(d => ({...d, D: d.D == "Gesamt" ? "∅" : "Ich"}))
+    // .map(d => ({...d, D: d.D == "Gesamt" ? "∅" : "Ich"}))
 ```
 
 ```{ojs}
@@ -179,8 +187,9 @@ textDistributions =
 ```{ojs}
 distributions.render({ renderer: "svg" }) 
 
-dumbbell(decilesDumbbellFull)
-  .render({ renderer: "svg" })
+makeIsotype({ inputData: dataIsotype }).render({ renderer: "svg" }) 
+
+dumbbell(decilesDumbbellFull).render({ renderer: "svg" })
 ```
 
 
