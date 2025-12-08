@@ -1,6 +1,6 @@
 
 ```{ojs}
-distributions = {
+makeDistribution = {
 
   const dataDist = bins.filter(d => d.variable == "Status quo") 
   

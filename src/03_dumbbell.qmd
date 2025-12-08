@@ -1,6 +1,6 @@
 
 ```{ojs}
-function dumbbell(inputData, inputWidth)  {
+function makeDumbbell(inputData, inputWidth)  {
 
   const points = vl
     .markPoint({

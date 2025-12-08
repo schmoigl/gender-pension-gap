@@ -9,7 +9,7 @@ execute:
 
 {{< include src/00_config.qmd >}}
 {{< include src/00_utils.qmd >}}
-{{< include src/01_distributions.qmd >}}
+{{< include src/01_distribution.qmd >}}
 {{< include src/02_isotype.qmd >}}
 {{< include src/03_dumbbell.qmd >}}
 
@@ -185,18 +185,14 @@ textDistributions =
 ```
 
 ```{ojs}
-distributions.render({ renderer: "svg" }) 
+makeDistribution.render({ renderer: "svg" }) 
 
 makeIsotype({ inputData: dataIsotype }).render({ renderer: "svg" }) 
 
-dumbbell(decilesDumbbellFull).render({ renderer: "svg" })
+makeDumbbell(decilesDumbbellFull).render({ renderer: "svg" })
 ```
 
 
 ${perzentilText}
 
 ${textDistributions}
-
-<!-- ```{ojs}
-distributionsChange.render({ renderer: "svg" }) 
-``` -->
