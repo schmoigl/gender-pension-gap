@@ -3,7 +3,7 @@
 makeIsotype = function({ inputData }) {
 
   const chartIsotypeMain = vl.markPoint({
-      size: 0.75,
+      size: 0.5,
       stroke: "black",
       strokeWidth: 0,
       strokeOpacity: 1,
@@ -35,22 +35,11 @@ makeIsotype = function({ inputData }) {
           domain: [0, 9],
         }),
       vl.fill()
-        // .fieldQ("pot_pzt")
-        // .scale({
-        //   range: inputArgument.mainColors,
-        //   type: button
-        // })
         .fieldN("gesl")
         .scale({
           range: colors2,
         })
         .legend(false),
-      // vl.opacity()
-      //   .fieldN("tail")
-      //   .scale({
-      //     range: [1, 0.51]
-      //   })
-      //   .legend(false),
       vl.shape()
         .fieldN("gesl")
         .scale({
@@ -61,25 +50,6 @@ makeIsotype = function({ inputData }) {
         })
         .legend(false)
     )
-
-  // const chartIsotypeGray = vl.markBar({
-  //     size: 15,
-  //     color: "#f1f1f1", // "#f1f1f1"
-  //   })
-  //   .encode(
-  //     vl.y().fieldN("indicator").axis(null),
-  //     vl.x()
-  //       .fieldQ("pot_pzt")
-  //       .axis(null)
-  //       .scale({ domain: [0, 100] }),
-  //   )
-  //   .data([
-  //     {indicator: "Lebenssituationsindex", pot_pzt: 100},
-  //     {indicator: "Kaufkraft", pot_pzt: 100},
-  //     {indicator: "Erwerbsintegration", pot_pzt: 100},
-  //     {indicator: "Bevölkerungsstruktur", pot_pzt: 100},
-  //     {indicator: "Bildungsstruktur", pot_pzt: 100},
-  //   ])
 
   // const chartIsotypeText = vl.markText({
   //     fontSize: 14,
@@ -98,45 +68,24 @@ makeIsotype = function({ inputData }) {
   //     vl.text().fieldN("indicator"),
   //     vl.x().fieldQ("positions"),
   //   )
-  //   .data(data)
-
-  // const chartIsotypeNumber = vl.markText({
-  //     fontSize: 14,
-  //     dx: 24,
-  //     dy: 13,
-  //     align: "left",
-  //   })
-  //   .transform(
-  //     vl.filter(select),
-  //     vl.window([{ op: "rank", as: "rank" }]).groupby(["indicator"]),
-  //     vl.filter("datum.rank == 1"),
-  //     vl.calculate("datum['pot_pzt']/2").as("positions"),
-  //   )
-  //   .encode(
-  //     vl.y().fieldN("indicator").axis(null),
-  //     vl.x().fieldQ("positions"),
-  //     vl.text().fieldN("text_detail_1"),
-  //   )
-  //   .data(data)
 
   return vl.layer(
-    // chartIsotypeGray,
     chartIsotypeMain,
     // chartIsotypeText,
-    // chartIsotypeNumber,
   )
   .width(makeWidth(width) / 2)
-  .height(400)
+  .height(520)
   .facet({
     field: "tail",
     type: "nominal",
     title: null,
     sort: ["lower", "higher"],
     scale: {
-      domain: ["lower", "higher"]
+      domain: ["lower", "higher"],
+      range: ["lower", "higher"],
     },
     header: {
-      labelFontSize: 14,
+      labelFontSize: 0,
       labelOrient: "top",
       labelExpr: "datum.value == 'lower' ? 'weniger' : 'mehr'",
       labelPadding: 0,

@@ -43,13 +43,14 @@ function dumbbell(inputData, inputWidth)  {
         .scale({
           range: colors2,
         })
-        .legend({
-          // orient: width > 825 ? "right" : "top", 
-          orient: "top",
-          symbolOpacity: 1,
-          symbolType: "square",
-          title: null, 
-        }),
+        .legend(null),
+        // .legend({
+        //   // orient: width > 825 ? "right" : "top", 
+        //   orient: "top",
+        //   symbolOpacity: 1,
+        //   symbolType: "square",
+        //   title: null, 
+        // }),
     )
 
   const lines = vl
