@@ -4,7 +4,7 @@ The Austrian Chamber of Labour (Arbeiterkammer Wien) launched the **Marie Neurat
 
 Our working version is live under:
 
-[https://data.science.wifo.ac.at/marie-neurath](https://data.science.wifo.ac.at/marie-neurath)
+[https://data-science.wifo.ac.at/marie-neurath](https://data-science.wifo.ac.at/marie-neurath)
 
 ## About the Prize
 
