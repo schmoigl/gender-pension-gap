@@ -8,6 +8,8 @@ makeIsotype = function({ inputData }) {
       strokeWidth: 0,
       strokeOpacity: 1,
       opacity: 0.8,
+      dy: -100,
+      clip: true,
     })
     .transform(
       vl.calculate("sequence(0, datum.percRound)").as("positions"),
@@ -98,7 +100,7 @@ makeIsotype = function({ inputData }) {
       labelFontSize: 14,
       labelOrient: "top",
       labelExpr: "datum.value == 'lower' ? 'haben weniger Pension' : 'haben mehr Pension'",
-      labelPadding: 0,
+      labelPadding: -20,
     },
   })
   .resolve({scale: {x: "independent", yOffset: "independent"}})

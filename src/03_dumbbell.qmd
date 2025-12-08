@@ -171,6 +171,44 @@ makeDumbbell = function({ inputData }) {
         .value(["Gender", "Gap ↷"]),
     )
 
+  const textMedianLabel = vl
+    .markText({
+      size: 13,
+      dx: -110,
+      align: "left",
+      opacity: 0.51,
+    })
+    .transform(
+      vl.filter("datum.D == 'Median' && datum.gesl == 'Frauen'")
+    )
+    .encode(
+      vl.x()
+        .fieldQ("value"),
+      vl.y()
+        .fieldO("D"),
+      vl.text()
+        .value("Median"),
+    )
+
+  const textPerzentilLabel = vl
+    .markText({
+      size: 13,
+      dx: -110,
+      align: "left",
+      opacity: 0.51,
+    })
+    .transform(
+      vl.filter("datum.D != 'Median' && datum.gesl == 'Frauen'")
+    )
+    .encode(
+      vl.x()
+        .fieldQ("value"),
+      vl.y()
+        .fieldO("D"),
+      vl.text()
+        .value("Perzentil"),
+    )
+
     const layers = width > 600 ?
       vl.layer(
         lines,
@@ -180,6 +218,8 @@ makeDumbbell = function({ inputData }) {
         textGap,
         textPerc,
         textArrow,
+        textMedianLabel,
+        textPerzentilLabel,
       ) :
       vl.layer(
         lines,
@@ -188,6 +228,8 @@ makeDumbbell = function({ inputData }) {
         textGap,
         textPerc,
         textArrow,
+        textMedianLabel,
+        textPerzentilLabel,
         // text,
       )
 

@@ -9,7 +9,7 @@ project:
     - index.qmd
 website:
   title: "Gender Pension Gap"
-  favicon: img/favicon.ico
+  favicon: img/favicon-wifo.ico
   search: false
   navbar: false
 format:
