@@ -19,7 +19,7 @@ format:
       # sidebar-width: 300px
       body-width: 826px
       # margin-width: 360px
-      gutter-width: 8px
+      gutter-width: 8px 
     toc: false
     page-layout: article
-    fontsize: 15px
+    fontsize: 14px
