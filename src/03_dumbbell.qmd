@@ -100,7 +100,7 @@ makeDumbbell = function({ inputData }) {
   const textPerc = vl
     .markText({
       size: 13,
-      dx: 47,
+      dx: 50,
       dy: -14,
       align: "right",
       anchor: "middle",
@@ -125,7 +125,7 @@ makeDumbbell = function({ inputData }) {
   const textGap = vl
     .markText({
       size: 13,
-      dx: 47,
+      dx: 50,
       dy: -30,
       align: "right",
       anchor: "middle",
@@ -150,7 +150,7 @@ makeDumbbell = function({ inputData }) {
   const textArrow = vl
     .markText({
       size: 13,
-      dx: -47,
+      dx: -50,
       dy: -30, // rangeRaw < 3000 ? -35 : -40,
       align: "left",
       anchor: "middle",
@@ -174,8 +174,8 @@ makeDumbbell = function({ inputData }) {
   const textMedianLabel = vl
     .markText({
       size: 13,
-      dx: -110,
-      align: "left",
+      dx: -14,
+      align: "right",
       opacity: 0.51,
     })
     .transform(
@@ -193,8 +193,8 @@ makeDumbbell = function({ inputData }) {
   const textPerzentilLabel = vl
     .markText({
       size: 13,
-      dx: -110,
-      align: "left",
+      dx: -14,
+      align: "right",
       opacity: 0.51,
     })
     .transform(
