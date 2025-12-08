@@ -186,8 +186,6 @@ dataDumbbell = {
     .join_left(withGaps, "D")
     .objects()
 }
-
-dataDumbbell
 ```
 
 ```{ojs}
