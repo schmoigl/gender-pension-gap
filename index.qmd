@@ -9,9 +9,9 @@ execute:
 
 {{< include src/00_config.qmd >}}
 {{< include src/00_utils.qmd >}}
-{{< include src/01_dumbbell.qmd >}}
 {{< include src/01_distributions.qmd >}}
-{{< include src/01_isotype.qmd >}}
+{{< include src/02_isotype.qmd >}}
+{{< include src/03_dumbbell.qmd >}}
 
 ```{ojs}
 // echo: false
