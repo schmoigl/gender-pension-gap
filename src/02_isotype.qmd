@@ -52,7 +52,7 @@ makeIsotype = function({ inputData }) {
     )
 
   const chartIsotypeText = vl.markText({
-      fontSize: 12,
+      fontSize: 13,
       dx: 15,
       dy: 13,
       align: "center",
@@ -84,7 +84,7 @@ makeIsotype = function({ inputData }) {
     chartIsotypeText,
   )
   .width(makeWidth(width) / 2)
-  .height(300)
+  .height(320)
   .facet({
     field: "tail",
     type: "nominal",

@@ -194,7 +194,7 @@ function makeDumbbell(inputData, inputWidth)  {
       )
 
   return layers
-    .height(width > 600 ? 160 : 140)
+    .height(width > 600 ? 140 : 140)
     .width(makeWidth(width))
     // .facet({
     //   field: "D", 

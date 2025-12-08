@@ -160,18 +160,23 @@ decilesDumbbellFull = deciles
 ```
 
 ```{ojs}
-perzentilText = 
-  "Sie haben eine Bruttopension von " + rangeRaw + " Euro angeben. " +
-  "Ihre Vergleichsgruppe ist deshalb das " + deciles.map(d => d.closestDecileValue)[0] + 
-  " (" +  closestDecileNumber + "% der " + radio + " haben eine geringere Pension). " + 
-  "Hier beträgt die durchschnittliche Pension " + germanLocale.format(",.0f")(statusIncome) + " Euro."
+import {html} from "htl"
 ```
 
 ```{ojs}
-textDistributions = 
-  "Etwa " + getCumPerc(radio, "lower") + " aller " + radio + 
-  " erhalten im Status quo eine niedrigere Pension als " + germanLocale.format(",.0f")(range) + " Euro pro Monat. " + 
-  "Umgekehrt erhalten " +  getCumPerc(radio, "higher") + " aller " + radio + " mehr Pension."
+genderColor = radio == "Männer" ? colors2[1] : colors2[0]
+```
+
+```{ojs}
+perzentilText = html`Sie haben eine Bruttopension von <strong>${rangeRaw}</strong> Euro angeben. Ihre Vergleichsgruppe ist deshalb das ${deciles.map(d => d.closestDecileValue)[0]} (<strong>${closestDecileNumber}%</strong> der <strong><span style="color: ${genderColor}">${radio}</span></strong> haben eine geringere Pension). Hier beträgt die durchschnittliche Pension <strong>${germanLocale.format(",.0f")(statusIncome)}</strong> Euro.`
+```
+
+```{ojs}
+textDistributions = html`Etwa <strong>${getCumPerc(radio, "lower")}</strong> aller <strong><span style="color: ${genderColor}">${radio}</span></strong> erhalten im Status quo eine niedrigere Pension als <strong>${germanLocale.format(",.0f")(range)}</strong> Euro pro Monat. Umgekehrt erhalten <strong>${getCumPerc(radio, "higher")}</strong> aller <strong><span style="color: ${genderColor}">${radio}</span></strong> mehr Pension.`
+```
+
+```{ojs}
+textInteractive1 = html`${perzentilText} ${textDistributions}`
 ```
 
 
@@ -196,16 +201,14 @@ range = Math.round(rangeRaw/100)*100
 </div>
 </div>
 
-```{ojs}
-makeDistribution.render({ renderer: "svg" }) 
+${textInteractive1}
 
-makeIsotype({ inputData: dataIsotype }).render({ renderer: "svg" }) 
+```{ojs}
+makeDistribution.render({ renderer: "svg" })
+
+makeIsotype({ inputData: dataIsotype }).render({ renderer: "svg" })
 
 makeDumbbell(decilesDumbbellFull).render({ renderer: "svg" })
 ```
-
-${perzentilText}
-
-${textDistributions}
 
 :::
