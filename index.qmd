@@ -18,6 +18,7 @@ execute:
 // warning: false
 import {vl} from "@vega/vega-lite-api-v5" // apiVersion = '5.6.0' vlVersion = '5.6.0' vegaVersion = '5.23.0' tooltipVersion = '0.30.0'
 import {aq, op} from '@uwdata/arquero' // version "6.0.0"
+import {html} from "htl"
 ```
 
 ```{ojs}
@@ -124,20 +125,18 @@ deciles = decilesMid
   .join_left(decilesDiffGesl, [["val", "D", "variable"], ["val", "D", "variable"]])
   .objects()
 
-decilesRawGeneral = FileAttachment("data/deciles.csv").csv({ typed: true }) // always the main data no betr or nbetr
+dataRule = [
+  {gesl: "Frauen", median: 1223, y: 0, y2: 20000},
+  {gesl: "Männer", median: 2286, y: 0, y2: 20000},
+]
 
-medians = aq.from(decilesRawGeneral)
-  .filter(aq.escape(d => d.D == "50. Perzentil"))
-  .derive({ 
-    variable: d => d.val == "Szenario" ? d.variable : "Status quo",
-    median: d => d.value,
-    })
-  .select(["gesl", "variable", "val", "median"])
-  .dedupe()
+medians = aq.from(dataRule)
+  .select(["gesl", "median"])
 
-bins = binsMid
-  .join_left(medians, [["gesl", "variable"], ["gesl", "variable"]])
+dataDistribution = binsMid
+  .join_left(medians, [["gesl"], ["gesl"]])
   .objects()
+  .filter(d => d.variable == "Status quo")
 ```
 
 ```{ojs}
@@ -153,14 +152,42 @@ closestDecileNumber = closestDecileValue.split('.')[0]
 ```
 
 ```{ojs}
-decilesDumbbellFull = deciles
-    .filter(d => (d.D == d.closestDecileValue || d.D == "Gesamt") && d.variable == select)
-    .filter(d => d.val == "Status quo")
-    // .map(d => ({...d, D: d.D == "Gesamt" ? "∅" : "Ich"}))
-```
+dataDumbbell = {
+  // Get closest decile data and drop existing gap columns
+  const closestDecile = aq.from(deciles)
+    .params({ closestDecileValue: closestDecileValue, select: select })
+    .filter(d => d.D == closestDecileValue && d.variable == select && d.val == "Status quo")
+    .select(aq.not("gapValue", "gapPerc", "gapRel", "Frauen", "Männer"))
 
-```{ojs}
-import {html} from "htl"
+  // Get median data
+  const medianData = aq.from(dataRule)
+    .derive({
+      D: aq.escape(d => "Median"),
+      value: d => d.median,
+      variable: aq.escape(d => select),
+      val: aq.escape(d => "Status quo")
+    })
+
+  // Combine both datasets
+  const combined = closestDecile.concat(medianData)
+
+  // Calculate gaps for each D group
+  const withGaps = combined
+    .groupby("D")
+    .pivot("gesl", "value")
+    .derive({
+      gapValue: d => d.Männer - d.Frauen,
+      gapPerc: d => (d.Männer - d.Frauen) / d.Männer
+    })
+    .select(["D", "gapValue", "gapPerc"])
+
+  // Join gaps back and return
+  return combined
+    .join_left(withGaps, "D")
+    .objects()
+}
+
+dataDumbbell
 ```
 
 ```{ojs}
@@ -204,11 +231,11 @@ range = Math.round(rangeRaw/100)*100
 ${textInteractive1}
 
 ```{ojs}
-makeDistribution.render({ renderer: "svg" })
+makeDistribution({ inputData: dataDistribution }).render({ renderer: "svg" })
 
 makeIsotype({ inputData: dataIsotype }).render({ renderer: "svg" })
 
-makeDumbbell(decilesDumbbellFull).render({ renderer: "svg" })
+makeDumbbell({ inputData: dataDumbbell }).render({ renderer: "svg" })
 ```
 
 :::

@@ -1,6 +1,6 @@
 
 ```{ojs}
-function makeDumbbell(inputData, inputWidth)  {
+makeDumbbell = function({ inputData }) {
 
   const points = vl
     .markPoint({
@@ -47,11 +47,11 @@ function makeDumbbell(inputData, inputWidth)  {
         })
         .legend(null),
         // .legend({
-        //   // orient: width > 825 ? "right" : "top", 
+        //   // orient: width > 825 ? "right" : "top",
         //   orient: "top",
         //   symbolOpacity: 1,
         //   symbolType: "square",
-        //   title: null, 
+        //   title: null,
         // }),
     )
 
@@ -113,8 +113,7 @@ function makeDumbbell(inputData, inputWidth)  {
     )
     .encode(
       vl.x()
-        .field("midValue")
-        .type("quantitative"),
+        .fieldQ("midValue"),
       vl.y()
         .fieldO("D"),
       vl.text()
@@ -139,8 +138,7 @@ function makeDumbbell(inputData, inputWidth)  {
     )
     .encode(
       vl.x()
-        .field("midValue")
-        .type("quantitative"),
+        .fieldQ("midValue"),
       vl.y()
         .fieldO("D"),
       vl.text()
@@ -165,20 +163,19 @@ function makeDumbbell(inputData, inputWidth)  {
     )
     .encode(
       vl.x()
-        .field("midValue")
-        .type("quantitative"),
+        .fieldQ("midValue"),
       vl.y()
         .fieldO("D"),
       vl.text()
         .value(["Gender", "Gap ↷"]),
     )
 
-    const layers = width > 600 ? 
+    const layers = width > 600 ?
       vl.layer(
         lines,
         points,
         text,
-        //textRel, 
+        //textRel,
         textGap,
         textPerc,
         textArrow,

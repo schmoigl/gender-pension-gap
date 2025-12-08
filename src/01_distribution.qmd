@@ -1,13 +1,6 @@
 
 ```{ojs}
-makeDistribution = {
-
-  const dataDist = bins.filter(d => d.variable == "Status quo") 
-  
-  const dataRule = [
-      {gesl: "Frauen", median: 1223, y: 0, y2: 20000}, //1215
-      {gesl: "Männer", median: 2286, y: 0, y2: 20000}, //2278
-    ]
+makeDistribution = function({ inputData }) {
 
   const area = vl
     .markArea({ 
@@ -449,7 +442,7 @@ makeDistribution = {
     //     orient: "top",
     //   },
     // })
-    .data(dataDist)
+    .data(inputData)
     .config(config)
 }
 ```
