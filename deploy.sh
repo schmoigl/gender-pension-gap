@@ -1,2 +1,2 @@
 quarto render
-scp -r website/* lschmoigl@hades:/home/lschmoigl/datascience/htdocs/marie-neurath
+scp -r website/* lschmoigl@data-science.wifo.ac.at:/home/lschmoigl/datascience/htdocs/marie-neurath
