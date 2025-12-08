@@ -54,13 +54,13 @@ makeIsotype = function({ inputData }) {
   const chartIsotypeText = vl.markText({
       fontSize: 13,
       dx: 15,
-      dy: 13,
+      dy: 14,
       align: "center",
       opacity: 0.51,
       clip: true,
     })
     .transform(
-      vl.calculate("['↜ ' + datum.text, datum.gesl]").as("label"),
+      vl.calculate("['↜ ' + datum.text]").as("label"), // , datum.gesl
       vl.calculate("datum.percRound % 10").as("positionX"),
       vl.calculate("floor(datum.percRound / 10)").as("positionY"),
     )

@@ -20,8 +20,9 @@ makeDistribution = function({ inputData }) {
           domainWidth: 0.75,
           tickWidth: 0.75,
           labelFlush: false,
-          // labels:  width > 825 ? true : false,
-          // ticks:  width > 825 ? true : false,
+          labels:  width > 825 ? true : false,
+          ticks:  width > 825 ? true : false,
+          tickMinStep: 1000,
         })
         .scale({
           domain: [0, 5000],
@@ -368,7 +369,7 @@ makeDistribution = function({ inputData }) {
       opacity: radio == "Männer" ? 1 : 0.51,
       clip: true,
       size: width > 600 ? 12 : 12,
-      y: width > 600 ? 200 : 105,
+      y: width > 600 ? 190 : 105,
       align: "center",
     })
     .data([
@@ -386,7 +387,7 @@ makeDistribution = function({ inputData }) {
       opacity: radio == "Frauen" ? 1 : 0.51,
       clip: true,
       size: width > 600 ? 12 : 12,
-      y: width > 600 ? 110 : 35,
+      y: width > 600 ? 104 : 35,
       align: "center",
     })
     .data([
@@ -431,7 +432,7 @@ makeDistribution = function({ inputData }) {
       )
 
   return layers
-    .height(width > 825 ? 300 : 200)
+    .height(width > 825 ? 284 : 200)
     .width(makeWidth(width))
     // .facet({
     //   field: "variable", 

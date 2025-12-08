@@ -23,6 +23,7 @@ makeDumbbell = function({ inputData }) {
           domainWidth: 0.75,
           tickWidth: 0.75,
           labelFlush: false,
+          tickMinStep: 1000,
         })
         .scale({
           domain: [0, 5000],
