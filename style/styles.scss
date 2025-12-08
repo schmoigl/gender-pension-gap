@@ -52,10 +52,6 @@ h4 {
   scroll-margin-top: 20px; /* Adds a 100px margin when scrolled into view */
 }
 
-.headlineRechner {
-  margin-top: 2.25em;
-}
-
 .navbar {
     // position: fixed;
     // top: 0;
@@ -98,105 +94,50 @@ form {
     padding: 0.2em 0 0.2em 0;
 }
 
-.btn-group {
-    margin-bottom: 1em;
-}
-
 .infoText {
     font-size: 0.8rem;
     margin: 0.5rem 0 1.2rem 0;
 }
 
-.slide {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out; /* Fade transition */
-  }
+.fold-container {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  .slide.active {
-    display: block;
-    opacity: 1;
-  }
+.column {
+  flex: 1;
+  min-width: 300px; /* Adjust the minimum width */
+  padding: 10px;
+}
 
-  .fade-in {
-    animation: fadeIn 0.3s ease-in forwards; /* Fade in effect */
-  }
+.column ojs {
+  display: inline-block; /* Make sure the OJS elements follow the column layout */
+  width: 100%; /* Ensure the input spans the full width */
+}
 
-  .fade-out {
-    animation: fadeOut 0.3s ease-in forwards; /* Fade out effect */
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeOut {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-
-  .fold-container {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
+@media (max-width: 826px) {
   .column {
-    flex: 1;
-    min-width: 300px; /* Adjust the minimum width */
-    padding: 10px;
+    flex: 100%; /* Stack the columns vertically below 826px */
   }
-  
-  .column ojs {
-    display: inline-block; /* Make sure the OJS elements follow the column layout */
-    width: 100%; /* Ensure the input spans the full width */
-  }
-  
-  @media (max-width: 826px) {
-    .column {
-      flex: 100%; /* Stack the columns vertically below 826px */
-    }
-  }
+}
 
-  .fade-element {
-    opacity: 0; /* Start hidden by default */
-    transition: opacity 0.3s ease-in-out; /* Smooth transition for fading */
-    height: 0;
-    overflow: hidden;
-  }
-  
-  .fade-element.active {
-    opacity: 1;
-    height: auto;
-  }
+.fade-element {
+  opacity: 0; /* Start hidden by default */
+  transition: opacity 0.3s ease-in-out; /* Smooth transition for fading */
+  height: 0;
+  overflow: hidden;
+}
 
-  .btn.disabled {
-    pointer-events: none;
-    display: none;
-    opacity: 0.6;
-  }
+.fade-element.active {
+  opacity: 1;
+  height: auto;
+}
 
-#jumpToLastBtn {
-    // float: right; /* Push the button to the right */
-    padding-top: 4px;    
-    padding-bottom: 4px;
-    font-size: 0.75rem; 
-    width: auto;
-    height: auto;   
-  }
-
-// .small-btn {
-//     padding: 2px 4px;    /* Smaller padding */
-//     font-size: 0.1rem;   /* Smaller font size */
-// }
+.btn.disabled {
+  pointer-events: none;
+  display: none;
+  opacity: 0.6;
+}
 
 @media screen and (max-width: 826px) {
     form {
@@ -204,24 +145,19 @@ form {
     }
 }
 
-p {
-    margin: 0 0 0.5em 0;
-}
-
 .column-body {
     background: url(img/struktur-footer.png);
-    padding: 0em 2em 0 2em;
+    // padding: 0em 2em 0 2em;
     // margin: 0 0 1rem 0;
 }
 
 .column-margin {
-    // text-align: justify;
     margin: 12px 12px 12px 12px;
 }
 
 @media screen and (max-width: 826px) {
     .page-full {
-        --bs-gutter-x: 0;
+        --bs-gutter-x: 8px;
     }
 }
 
@@ -247,7 +183,6 @@ p {
     margin: 0px 0px 0px 0px;
     padding: 12px 12px 12px 12px;
 }
-
 
 input[type="radio"] {
     cursor: pointer;

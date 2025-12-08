@@ -6,9 +6,9 @@ config = ({
   background: "transparent",
   padding: {
     left: 0, 
-    top: 5, 
+    top: 12, 
     right: 0, 
-    bottom: 5,
+    bottom: 12,
     },
   font: "Montserrat",
   fontSize: 14, 

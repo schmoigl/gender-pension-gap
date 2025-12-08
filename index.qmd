@@ -141,16 +141,6 @@ bins = binsMid
 ```
 
 ```{ojs}
-viewof rangeRaw = Inputs.range([400, 4000], {step: 10, value: 1500})
-range = Math.round(rangeRaw/100)*100
-```
-
-```{ojs}
-viewof radioRaw = Inputs.radio(["Frau", "Mann"], {value: "Frau"})
-radio = radioRaw == "Frau" ? "Frauen" : "Männer"
-```
-
-```{ojs}
 select = "Szenario 1 (Höherbewertung Kindererziehungszeiten)"
 ```
 
@@ -184,6 +174,28 @@ textDistributions =
   "Umgekehrt erhalten " +  getCumPerc(radio, "higher") + " aller " + radio + " mehr Pension."
 ```
 
+
+::: {.colum-body}
+
+<div class="fold-container">
+<div class="column">
+
+```{ojs}
+viewof radioRaw = Inputs.radio(["Frau", "Mann"], {value: "Frau", label: "Gruppe"})
+radio = radioRaw == "Frau" ? "Frauen" : "Männer"
+```
+
+</div>
+<div class="column">
+
+```{ojs}
+viewof rangeRaw = Inputs.range([400, 4000], {step: 10, value: 1500, label: "Bruttopension"})
+range = Math.round(rangeRaw/100)*100
+```
+
+</div>
+</div>
+
 ```{ojs}
 makeDistribution.render({ renderer: "svg" }) 
 
@@ -192,7 +204,8 @@ makeIsotype({ inputData: dataIsotype }).render({ renderer: "svg" })
 makeDumbbell(decilesDumbbellFull).render({ renderer: "svg" })
 ```
 
-
 ${perzentilText}
 
 ${textDistributions}
+
+:::
