@@ -2,6 +2,64 @@
 ```{ojs}
 makeDumbbell = function({ inputData }) {
 
+  const labels = vl
+    .markPoint({
+      size: 0.5,
+      opacity: 0.8,
+      stroke: "black",
+      strokeWidth: 0,
+    })
+    .encode(
+      vl.x()
+        .fieldQ("value")
+        .axis({
+          title: width > 600 ? "Bruttopension" : null,
+          labels:  width > 600 ? true : false,
+          ticks:  width > 600 ? true : false,
+          domain: true,
+          grid: false,
+          domainColor: "black",
+          tickColor: "black",
+          domainWidth: 0.75,
+          tickWidth: 0.75,
+          labelFlush: false,
+          tickMinStep: 1000,
+        })
+        .scale({
+          domain: [0, 5000],
+          nice: false,
+        }),
+      vl.xOffset().value(-11),
+      vl.y()
+        .fieldO("D")
+        .axis({
+          title: null,
+          domain: false,
+          labels: false,
+          ticks: false,
+          // minExtent: 80,
+        })
+        .scale({
+          reverse: true,
+        }),
+      vl.yOffset().value(-35),
+      vl.fill()
+        .fieldN("gesl")
+        .scale({
+          range: colors2,
+        })
+        .legend(null),
+      vl.shape()
+        .fieldN("gesl")
+        .scale({
+          range: [
+            path2,
+            path1,
+          ]
+        })
+        .legend(false)
+    )
+
   const points = vl
     .markPoint({
       size: 120,
@@ -212,6 +270,7 @@ makeDumbbell = function({ inputData }) {
     const layers = width > 600 ?
       vl.layer(
         lines,
+        labels,
         points,
         text,
         //textRel,
@@ -223,6 +282,7 @@ makeDumbbell = function({ inputData }) {
       ) :
       vl.layer(
         lines,
+        labels,
         points,
         //textRel,
         textGap,
