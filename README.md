@@ -2,6 +2,10 @@
 
 The Austrian Chamber of Labour (Arbeiterkammer Wien) launched the **Marie Neurath Prize for Data Visualization** in 2025, honoring outstanding visualizations that address distribution questions in economics and society.
 
+Our working version is live under:
+
+[https://data.science.wifo.ac.at/marie-neurath](https://data.science.wifo.ac.at/marie-neurath)
+
 ## About the Prize
 
 - **Main Award:** €3,000
