@@ -1,10 +1,10 @@
 /*-- scss:defaults --*/
-$font-family-sans-serif: "Montserrat";
+$font-family-sans-serif: "Jost";
 $link-color: #be0021;
 
 
 /*-- scss:rules --*/
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 body {
     background-color: #FAF6ED;
@@ -57,7 +57,7 @@ svg.marks {
 }
 
 h4 {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: bold;
   margin-top: 1.25em;
 }
@@ -104,7 +104,7 @@ form {
 }
 
 .infoText {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     margin: 0.5rem 0 1.2rem 0;
 }
 
@@ -147,7 +147,7 @@ form {
     opacity: 0.651;
     text-align: justify;
     margin-left: 2em;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 @media screen and (max-width: 1400px) {
@@ -208,16 +208,16 @@ form {
     background-color: rgba(255,255,255,1);
     border-radius: 0px;
     border: 0px solid;
-    font-family: "Montserrat";
-    font-Size: 13px;
+    font-family: "Jost";
+    font-size: 15px;
     margin: 0px 0px 0px 0px;
 }
 .tooltip {
     background-color: rgba(255,255,255,1);
     border-radius: 0px;
     border: 0px solid;
-    font-family: "Montserrat";
-    font-Size: 13px;
+    font-family: "Jost";
+    font-size: 15px;
     margin: 0px 0px 0px 0px;
     padding: 12px 12px 12px 12px;
 }
@@ -332,6 +332,6 @@ input[type="range"]::-ms-thumb {
 }
 
 output {
-    font-family: "Montserrat" !important;
+    font-family: "Jost" !important;
     font-size: 15px !important;
 }

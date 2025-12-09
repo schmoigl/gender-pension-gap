@@ -5,7 +5,7 @@ makeDistribution = function({ inputData }) {
   const area = vl
     .markArea({ 
       interpolate: interpolate,
-      fillOpacity: 0.4,
+      fillOpacity: 0.5,
       strokeWidth: 1,
       clip: true,
     })
@@ -129,7 +129,7 @@ makeDistribution = function({ inputData }) {
   const textGray1 = vl
     .markText({
       opacity: 0.651,
-      size: 12,
+      size: 13,
       y: 50,
       dx: -10,
       align: "right",
@@ -155,7 +155,7 @@ makeDistribution = function({ inputData }) {
   const textGray2 = vl
     .markText({
       // opacity: 0.651,
-      size: 12,
+      size: 13,
       y: 66,
       dx: -10,
       align: "right",
@@ -180,7 +180,7 @@ makeDistribution = function({ inputData }) {
   const textGray3 = vl
     .markText({
       opacity: 0.651,
-      size: 12,
+      size: 13,
       y: 82,
       dx: -10,
       align: "right",
@@ -205,7 +205,7 @@ makeDistribution = function({ inputData }) {
   const textLeft = vl
     .markText({
       clip: true,
-      size: 14,
+      size: 15,
       y: 10,
       dx: -12,
       align: "right",
@@ -225,7 +225,7 @@ makeDistribution = function({ inputData }) {
   //   .markText({
   //     opacity: 0.651
   //     clip: true,
-  //     size: 12,
+  //     size: 13,
   //     y: 42,
   //     dx: -12,
   //     align: "right",
@@ -245,7 +245,7 @@ makeDistribution = function({ inputData }) {
     .markText({
       opacity: 0.651,
       clip: true,
-      size: 12,
+      size: 13,
       y: 26,
       dx: -12,
       align: "right",
@@ -264,7 +264,7 @@ makeDistribution = function({ inputData }) {
   const textRight = vl
     .markText({
       clip: true,
-      size: 14,
+      size: 15,
       y: 10,
       dx: 12,
       align: "left",
@@ -284,7 +284,7 @@ makeDistribution = function({ inputData }) {
   //   .markText({
   //     opacity: 0.651,
   //     clip: true,
-  //     size: 12,
+  //     size: 13,
   //     y: 42,
   //     dx: 12,
   //     align: "left",
@@ -304,7 +304,7 @@ makeDistribution = function({ inputData }) {
     .markText({
       opacity: 0.651,
       clip: true,
-      size: 12,
+      size: 13,
       y: 26,
       dx: 12,
       align: "left",
@@ -368,7 +368,7 @@ makeDistribution = function({ inputData }) {
     .markText({
       opacity: radio == "Otto" ? 1 : 0.651,
       clip: true,
-      size: width > 786 ? 12 : 12,
+      size: width > 786 ? 13 : 13,
       y: width > 786 ? 164 : 120,
       align: "center",
     })
@@ -386,7 +386,7 @@ makeDistribution = function({ inputData }) {
     .markText({
       opacity: radio == "Marie" ? 1 : 0.651,
       clip: true,
-      size: width > 786 ? 12 : 12,
+      size: width > 786 ? 13 : 13,
       y: width > 786 ? 90 : 45,
       align: "center",
     })
@@ -439,7 +439,7 @@ makeDistribution = function({ inputData }) {
     //   type: "nominal", 
     //   title: null,
     //   header: { 
-    //     labelFontSize: 14, 
+    //     labelFontsize: 15, 
     //     orient: "top",
     //   },
     // })

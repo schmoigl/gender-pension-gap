@@ -54,7 +54,7 @@ makeIsotype = function({ inputData, rangeValue }) {
     )
 
   const chartIsotypeText = vl.markText({
-      fontSize: 13,
+      fontsize: 15,
       dx: 15,
       dy: 14,
       align: "center",
@@ -97,7 +97,7 @@ makeIsotype = function({ inputData, rangeValue }) {
       range: ["lower", "higher"],
     },
     header: {
-      labelFontSize: 14,
+      labelFontSize: 15,
       labelOrient: "top",
       labelExpr: `datum.value == 'lower' ? 'Pension < ${rangeValue}€' : 'Pension > ${rangeValue}€'`,
       labelPadding: -20,

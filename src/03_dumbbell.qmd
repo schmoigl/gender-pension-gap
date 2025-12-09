@@ -62,7 +62,7 @@ makeDumbbell = function({ inputData }) {
 
   const points = vl
     .markPoint({
-      size: 120,
+      size: 130,
       opacity: 1,
       shape: "square",
       stroke: "transparent",
@@ -133,7 +133,7 @@ makeDumbbell = function({ inputData }) {
 
   const text = vl
     .markText({
-      size: 14,
+      size: 15,
       dy: 20,
       clip: true,
       align: "center",
@@ -301,7 +301,7 @@ makeDumbbell = function({ inputData }) {
     //   type: "nominal", 
     //   title: null,
     //   header: { 
-    //     labelFontSize: 14, 
+    //     labelFontsize: 15, 
     //     labelOrient: "top",
     //   },
     // })
