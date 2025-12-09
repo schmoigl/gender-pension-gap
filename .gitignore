@@ -21,3 +21,4 @@ households_1_files/
 **/*.quarto_ipynb
 
 .claude/
+/.luarc.json
