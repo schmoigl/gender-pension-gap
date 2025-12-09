@@ -1,9 +1,9 @@
 ---
 title: 1925 — 2025
 subtitle: Auch heute bekommt <strong><span style="color:#be0021">Marie</span></strong> weniger Pension als <strong><span style="color:#ffa500">Otto</span></strong>
-author:
-  - Lukas Schmoigl
-  - Lydia Grandner
+# author:
+#   - Lukas Schmoigl
+#   - Lydia Grandner
 lang: de
 # filters: [remove_title.lua]
 anchor-sections: false
@@ -76,6 +76,7 @@ cumPerc = cumPercMid
 dataIsotype = cumPerc
   .filter(d => d.variable == "Status quo")
   .filter(d => d.tail != "same")
+  // .map(d => ({...d, rangeRaw: germanLocale.format(",.0f")(rangeRaw) }))
 
 function getCumPerc(gesl, tail) {
   const out = cumPerc
@@ -247,7 +248,7 @@ textInteractive1 = html`${perzentilText} ${textDistributions}`
 
 Vor hundert Jahren revolutionierten <strong><span style="color:#be0021">Marie</span></strong> und <strong><span style="color:#ffa500">Otto</span></strong> Neurath am Wiener Gesellschafts- und Wirtschaftsmuseum die Darstellung komplexer sozialer und ökonomischer Zusammenhänge. Mit ihrer Bildstatistik haben sie Verteilungsfragen sichtbar und verständlich gemacht. 
 
-Heute, 2025, zeigen die Daten: Der Gender Pension Gap besteht weiterhin. <strong><span style="color:#be0021">Marie</span></strong> erhält in Österreich deutlich weniger Pension als <strong><span style="color:#ffa500">Otto</span></strong>. Die nachfolgenden interaktiven Visualisierung ermöglicht es, diese Pensionsunterschiede nach Geschlecht zu erkunden. In der Tradition der Neuraths wird komplexe Information zugänglich gemacht, um gesellschaftliche Probleme sichtbar zu machen und darüber hinaus textlich beschrieben.
+Auch im Jahr 2025 sind gesellschaftliche Probleme nicht verschwunden. So zeigen aktuelle Daten, dass der Gender Pension Gap eklatant ist: Das heißt <strong><span style="color:#be0021">Marie</span></strong> erhält in Österreich im Schnitt deutlich weniger Pension als <strong><span style="color:#ffa500">Otto</span></strong>. Die nachfolgenden interaktiven Visualisierung ermöglicht es, diese Pensionsunterschiede nach Geschlecht zu erkunden. In der Tradition der Neuraths wird komplexe Information zugänglich gemacht, um gesellschaftliche Probleme sichtbar zu machen.
 
 ::: {.column-margin}
 Die Daten basieren auf der Studie von <strong>Eppel et al.</strong> [-@eppel2024simulation] zur Simulation von Änderungen des Pensionssystems auf die Höhe der Alterseinkommen und wurden zunächst auch im Rahmen des Folgeprojekts <strong>Mayrhuber et al.</strong> [-@wifo2024pension] entwickelt.
@@ -257,7 +258,7 @@ Die Daten basieren auf der Studie von <strong>Eppel et al.</strong> [-@eppel2024
 <div class="column">
 
 ```{ojs}
-width
+// width
 viewof radioRaw = Inputs.radio(["Marie", "Otto"], {value: "Marie", label: "Geschlecht:"})
 radio = radioRaw == "Marie" ? "Marie" : "Otto"
 ```
@@ -276,7 +277,11 @@ range = Math.round(rangeRaw/100)*100
 ```{ojs}
 makeDistribution({ inputData: dataDistribution }).render({ renderer: "svg" })
 
-makeIsotype({ inputData: dataIsotype }).render({ renderer: "svg" })
+makeIsotype({ 
+  inputData: dataIsotype, 
+  rangeValue: germanLocale.format(",.0f")(statusIncome) // or germanLocale.format(",.0f")(rangeRaw) 
+  })
+  .render({ renderer: "svg" })
 
 makeDumbbell({ inputData: dataDumbbell }).render({ renderer: "svg" })
 ```

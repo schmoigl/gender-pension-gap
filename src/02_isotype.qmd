@@ -1,6 +1,6 @@
 
 ```{ojs}
-makeIsotype = function({ inputData }) {
+makeIsotype = function({ inputData, rangeValue }) {
 
   const chartIsotypeMain = vl.markPoint({
       size: 0.5,
@@ -99,7 +99,7 @@ makeIsotype = function({ inputData }) {
     header: {
       labelFontSize: 14,
       labelOrient: "top",
-      labelExpr: "datum.value == 'lower' ? 'haben weniger Pension' : 'haben mehr Pension'",
+      labelExpr: `datum.value == 'lower' ? 'Pension < ${rangeValue}€' : 'Pension > ${rangeValue}€'`,
       labelPadding: -20,
     },
   })

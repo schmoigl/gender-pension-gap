@@ -369,7 +369,7 @@ makeDistribution = function({ inputData }) {
       opacity: radio == "Otto" ? 1 : 0.651,
       clip: true,
       size: width > 786 ? 12 : 12,
-      y: width > 786 ? 168 : 120,
+      y: width > 786 ? 164 : 120,
       align: "center",
     })
     .data([
