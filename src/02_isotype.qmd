@@ -58,7 +58,7 @@ makeIsotype = function({ inputData }) {
       dx: 15,
       dy: 14,
       align: "center",
-      opacity: 0.51,
+      opacity: 0.651,
       clip: true,
     })
     .transform(

@@ -163,7 +163,7 @@ makeDumbbell = function({ inputData }) {
       align: "right",
       anchor: "middle",
       clip: true,
-      opacity: 0.51,
+      opacity: 0.651,
     })
     .transform(
       vl.joinaggregate([vl.mean("value").as("midValue")])
@@ -188,7 +188,7 @@ makeDumbbell = function({ inputData }) {
       align: "right",
       anchor: "middle",
       clip: true,
-      opacity: 0.51,
+      opacity: 0.651,
     })
     .transform(
       vl.joinaggregate([vl.mean("value").as("midValue")])
@@ -213,7 +213,7 @@ makeDumbbell = function({ inputData }) {
       align: "left",
       anchor: "middle",
       clip: true,
-      opacity: 0.51,
+      opacity: 0.651,
     })
     .transform(
       vl.joinaggregate([vl.mean("value").as("midValue")])
@@ -234,7 +234,7 @@ makeDumbbell = function({ inputData }) {
       size: 13,
       dx: -14,
       align: "right",
-      opacity: 0.51,
+      opacity: 0.651,
     })
     .transform(
       vl.filter("datum.D == 'Median' && datum.gesl == 'Marie'")
@@ -253,7 +253,7 @@ makeDumbbell = function({ inputData }) {
       size: 13,
       dx: -14,
       align: "right",
-      opacity: 0.51,
+      opacity: 0.651,
       clip: true,
     })
     .transform(

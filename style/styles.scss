@@ -26,6 +26,10 @@ p {
     text-align: justify;
 }
 
+.subtitle {
+    font-weight: 450;
+}
+
 pre, code, .callout, .sourceCode {
     display: none;
 }
@@ -147,8 +151,8 @@ form {
 }
 
 .column-margin {
-    color: "black" !important;
-    opacity: 0.75;
+    color: black !important;
+    opacity: 0.651;
     text-align: justify;
     margin-left: 2em;
     font-size: 13px;

@@ -1,9 +1,9 @@
 ---
 title: 1925 — 2025
-subtitle: Auch heute bekommt Marie weniger Pension als Otto
+subtitle: Auch heute bekommt <strong><span style="color:#be0021">Marie</span></strong> weniger Pension als <strong><span style="color:#ffa500">Otto</span></strong>
 author:
   - Lukas Schmoigl
-  - Lydia Grandner
+  # - Lydia Grandner
 lang: de
 # filters: [remove_title.lua]
 anchor-sections: false
@@ -154,8 +154,38 @@ select = "Szenario 1 (Höherbewertung Kindererziehungszeiten)"
 statusIncome = deciles
   .filter(d => d.closestDecileValue == d.D && d.gesl == d.radio && d.val == "Status quo")
   .map(d => d.value)[0]
-  
+
 closestDecileNumber = closestDecileValue.split('.')[0]
+```
+
+```{ojs}
+otherGenderIncome = deciles
+  .filter(d => d.closestDecileValue == d.D && d.gesl == notRadio && d.val == "Status quo")
+  .map(d => d.value)[0]
+```
+
+```{ojs}
+gapAbsolute = Math.abs(otherGenderIncome - statusIncome)
+gapRelative = ((otherGenderIncome - statusIncome) / statusIncome) * 100
+gapRelativeReverse = ((otherGenderIncome - statusIncome) / otherGenderIncome) * 100
+gapDirection = otherGenderIncome > statusIncome ? "mehr" : "weniger"
+// For the second sentence, always compare Marie to Otto
+marieIncome = radio == "Marie" ? statusIncome : otherGenderIncome
+ottoIncome = radio == "Otto" ? statusIncome : otherGenderIncome
+// When Marie selected: use Otto as base; when Otto selected: use Marie as base
+marieOttoGapPercent = radio == "Marie"
+  ? Math.abs((ottoIncome - marieIncome) / ottoIncome * 100)
+  : Math.abs((ottoIncome - marieIncome) / ottoIncome * 100)
+// Swap percentages when Otto is selected
+firstPercent = radio == "Otto" ? marieOttoGapPercent : Math.abs(gapRelative)
+secondPercent = radio == "Otto" ? Math.abs(gapRelative) : marieOttoGapPercent
+```
+
+```{ojs}
+textInteractive2 = radio == "Marie" ?
+  html`Würden Sie ${notRadio == "Otto" ? "ein" : "eine"} <strong><span style="color: ${otherGenderColor}">${notRadio}</span></strong> sein und im <strong>${closestDecileValue}</strong> sein, würden Sie <strong>${germanLocale.format(",.0f")(otherGenderIncome)}</strong> Euro an Pension bekommen. Das sind <strong>${germanLocale.format(",.0f")(gapAbsolute)}</strong> Euro ${gapDirection} (<strong>${germanLocale.format(",.0f")(firstPercent)}%</strong>). Oder anders herum formuliert: <strong><span style="color: ${colors2[0]}">Marie</span></strong> hätte <strong>${germanLocale.format(",.0f")(secondPercent)}%</strong> weniger als <strong><span style="color: ${colors2[1]}">Otto</span></strong>.`
+  :
+  html`Würden Sie ${notRadio == "Otto" ? "ein" : "eine"} <strong><span style="color: ${otherGenderColor}">${notRadio}</span></strong> sein und im <strong>${closestDecileValue}</strong> sein, würden Sie <strong>${germanLocale.format(",.0f")(otherGenderIncome)}</strong> Euro an Pension bekommen. Das sind <strong>${germanLocale.format(",.0f")(gapAbsolute)}</strong> Euro ${gapDirection} (<strong>${germanLocale.format(",.0f")(firstPercent)}%</strong>).`
 ```
 
 ```{ojs}
@@ -197,10 +227,11 @@ dataDumbbell = {
 
 ```{ojs}
 genderColor = radio == "Otto" ? colors2[1] : colors2[0]
+otherGenderColor = notRadio == "Otto" ? colors2[1] : colors2[0]
 ```
 
 ```{ojs}
-perzentilText = html`Sie haben eine Bruttopension von <strong>${germanLocale.format(",.0f")(rangeRaw)}</strong> Euro angeben. Ihre Vergleichsgruppe ist deshalb das ${deciles.map(d => d.closestDecileValue)[0]} (<strong>${closestDecileNumber}%</strong> der <strong><span style="color: ${genderColor}">${radio}s</span></strong> haben eine geringere Pension). Hier beträgt die durchschnittliche Pension <strong>${germanLocale.format(",.0f")(statusIncome)}</strong> Euro.`
+perzentilText = html`Sie haben eine Bruttopension von <strong>${germanLocale.format(",.0f")(rangeRaw)}</strong> Euro angeben. Ihre Vergleichsgruppe ist deshalb das <strong>${deciles.map(d => d.closestDecileValue)[0]}</strong> (<strong>${closestDecileNumber}%</strong> der <strong><span style="color: ${genderColor}">${radio}s</span></strong> haben eine geringere Pension). Hier beträgt die durchschnittliche Pension <strong>${germanLocale.format(",.0f")(statusIncome)}</strong> Euro.`
 ```
 
 ```{ojs}
@@ -214,7 +245,7 @@ textInteractive1 = html`${perzentilText} ${textDistributions}`
 
 ::: {.column-body}
 
-Vor hundert Jahren revolutionierten Marie und Otto Neurath am Wiener Gesellschafts- und Wirtschaftsmuseum die Darstellung komplexer sozialer und ökonomischer Zusammenhänge. Mit ihrer Bildstatistik machten sie Verteilungsfragen sichtbar und für alle verständlich. Heute, 2025, zeigen die Visualisierungen: Der Gender Pension Gap besteht weiterhin. Marie erhält in Österreich deutlich weniger Pension als Otto.
+Vor hundert Jahren revolutionierten <strong><span style="color:#be0021">Marie</span></strong> und <strong><span style="color:#ffa500">Otto</span></strong> Neurath am Wiener Gesellschafts- und Wirtschaftsmuseum die Darstellung komplexer sozialer und ökonomischer Zusammenhänge. Mit ihrer Bildstatistik machten sie Verteilungsfragen sichtbar und für alle verständlich. Heute, 2025, zeigen die Visualisierungen: Der Gender Pension Gap besteht weiterhin. <strong><span style="color:#be0021">Marie</span></strong> erhält in Österreich deutlich weniger Pension als <strong><span style="color:#ffa500">Otto</span></strong>.
 
 Die nachfolgenden interaktiven Visualisierungen ermöglichen es, diese Pensionsunterschiede nach Geschlecht zu erkunden und verschiedene Reformszenarien zu vergleichen. In der Tradition der Neuraths wird komplexe Information zugänglich gemacht, um gesellschaftliche Probleme sichtbar zu machen.
 
@@ -252,6 +283,10 @@ makeDumbbell({ inputData: dataDumbbell }).render({ renderer: "svg" })
 ::: {.column-margin}
 <div style="margin-top: 6em;">
 ${textInteractive1}
+</div>
+
+<div style="margin-top: 2em;">
+${textInteractive2}
 </div>
 :::
 
