@@ -168,7 +168,7 @@ makeDumbbell = function({ inputData }) {
     .transform(
       vl.joinaggregate([vl.mean("value").as("midValue")])
         .groupby(["D"]),
-      vl.filter("datum.gesl == 'Frauen'")
+      vl.filter("datum.gesl == 'Marie'")
     )
     .encode(
       vl.x()
@@ -193,7 +193,7 @@ makeDumbbell = function({ inputData }) {
     .transform(
       vl.joinaggregate([vl.mean("value").as("midValue")])
         .groupby(["D"]),
-      vl.filter("datum.gesl == 'Frauen'")
+      vl.filter("datum.gesl == 'Marie'")
     )
     .encode(
       vl.x()
@@ -218,7 +218,7 @@ makeDumbbell = function({ inputData }) {
     .transform(
       vl.joinaggregate([vl.mean("value").as("midValue")])
         .groupby(["D"]),
-      vl.filter("datum.gesl == 'Frauen'")
+      vl.filter("datum.gesl == 'Marie'")
     )
     .encode(
       vl.x()
@@ -237,7 +237,7 @@ makeDumbbell = function({ inputData }) {
       opacity: 0.51,
     })
     .transform(
-      vl.filter("datum.D == 'Median' && datum.gesl == 'Frauen'")
+      vl.filter("datum.D == 'Median' && datum.gesl == 'Marie'")
     )
     .encode(
       vl.x()
@@ -257,7 +257,7 @@ makeDumbbell = function({ inputData }) {
       clip: true,
     })
     .transform(
-      vl.filter("datum.D != 'Median' && datum.gesl == 'Frauen'")
+      vl.filter("datum.D != 'Median' && datum.gesl == 'Marie'")
     )
     .encode(
       vl.x()

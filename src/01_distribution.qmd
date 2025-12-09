@@ -59,7 +59,7 @@ makeDistribution = function({ inputData }) {
       vl.stroke()
         .fieldN("gesl")
         .scale({
-          range: radio == "Männer" ? ["transparent", "black"] : ["black", "transparent"],
+          range: radio == "Otto" ? ["transparent", "black"] : ["black", "transparent"],
         })
         .legend(null),
     )
@@ -119,7 +119,7 @@ makeDistribution = function({ inputData }) {
       vl.opacity()
         .fieldN("gesl")
         .scale({
-          range: radio == "Männer" ? 
+          range: radio == "Otto" ? 
             [0.51, 1] : 
             [1, 0.51]
         })
@@ -145,7 +145,7 @@ makeDistribution = function({ inputData }) {
       vl.opacity()
         .fieldN("gesl")
         .scale({
-          range: radio == "Männer" ? 
+          range: radio == "Otto" ? 
             [0.51, 1] : 
             [1, 0.51]
         })
@@ -170,7 +170,7 @@ makeDistribution = function({ inputData }) {
       vl.opacity()
         .fieldN("gesl")
         .scale({
-          range: radio == "Männer" ? 
+          range: radio == "Otto" ? 
             [0.51, 1] : 
             [1, 0.51]
         })
@@ -195,7 +195,7 @@ makeDistribution = function({ inputData }) {
       vl.opacity()
         .fieldN("gesl")
         .scale({
-          range: radio == "Männer" ? 
+          range: radio == "Otto" ? 
             [0.51, 1] : 
             [1, 0.51]
         })
@@ -366,7 +366,7 @@ makeDistribution = function({ inputData }) {
 
   const textMen = vl
     .markText({
-      opacity: radio == "Männer" ? 1 : 0.51,
+      opacity: radio == "Otto" ? 1 : 0.51,
       clip: true,
       size: width > 600 ? 12 : 12,
       y: width > 600 ? 190 : 105,
@@ -379,12 +379,12 @@ makeDistribution = function({ inputData }) {
       vl.x() 
         .fieldQ("bin"),
       vl.text()
-        .value(width > 600 ? "⤺ Pensionen der Männer" : ["⤺ Pensionen ", "der Männer"]), 
+        .value(width > 600 ? "⤺ Ottos Pensionen" : ["⤺ Ottos ", "Pensionen"]), 
     )
 
   const textWomen = vl
     .markText({
-      opacity: radio == "Frauen" ? 1 : 0.51,
+      opacity: radio == "Marie" ? 1 : 0.51,
       clip: true,
       size: width > 600 ? 12 : 12,
       y: width > 600 ? 104 : 35,
@@ -397,7 +397,7 @@ makeDistribution = function({ inputData }) {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value(["Pensionen", "der Frauen ↷ "]), 
+        .value(["Maries", "Pensionen ↷ "]), 
     )
 
 

@@ -6,6 +6,26 @@ $link-color: #be0021;
 /*-- scss:rules --*/
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
+body {
+    background-color: #FAF6ED;
+    background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.02) 2px, rgba(0,0,0,.02) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.02) 2px, rgba(0,0,0,.02) 4px),
+        repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(0,0,0,.012) 3px, rgba(0,0,0,.012) 6px),
+        repeating-linear-gradient(128deg, transparent, transparent 7px, rgba(139,119,101,.008) 7px, rgba(139,119,101,.008) 14px),
+        repeating-linear-gradient(217deg, transparent, transparent 5px, rgba(139,119,101,.006) 5px, rgba(139,119,101,.006) 11px),
+        repeating-radial-gradient(circle at 20% 30%, transparent, transparent 40px, rgba(0,0,0,.003) 40px, rgba(0,0,0,.003) 80px),
+        repeating-radial-gradient(circle at 80% 70%, transparent, transparent 60px, rgba(139,119,101,.004) 60px, rgba(139,119,101,.004) 120px);
+}
+
+:root {
+    --r-selection-background-color: #ffa500; // #4CAF50; // rgb(25, 135, 55);
+}
+
+p {
+    text-align: justify;
+}
+
 pre, code, .callout, .sourceCode {
     display: none;
 }
@@ -19,28 +39,14 @@ svg.marks {
     position: relative;
     width: 100%;
     height: 100%;
-    // height: 22vh;
     overflow: hidden;
 }
   
 .image-container img {
-    // position: absolute;
-    // left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; 
-    // top: -10%; /* Move the image up by 10% to crop some from the top */
-    // bottom: -10%; /* Optionally move it down to control the bottom cropping */
+    object-fit: contain;
 }
-
-// h1, h2, h3 {
-//     color: #be0021;
-//     border-bottom: none;
-// }
-
-// h1 {
-//     margin-bottom: 0;
-// }
 
 h4 {
   font-size: 13px;
@@ -53,11 +59,6 @@ h4 {
 }
 
 .navbar {
-    // position: fixed;
-    // top: 0;
-    // left: 0;
-    // width: 100%;
-    // z-index: 1000;
     background: url(img/struktur-footer.png);
 }
 
@@ -145,19 +146,28 @@ form {
     }
 }
 
-// .column-body {
-//     background: url(img/struktur-footer.png);
-//     // padding: 0em 2em 0 2em;
-//     // margin: 0 0 1rem 0;
-// }
+.column-margin {
+    color: "black" !important;
+    opacity: 0.75;
+    text-align: justify;
+    margin-left: 2em;
+    font-size: 13px;
+}
 
-// .column-margin {
-//     margin: 12px 12px 12px 12px;
-// }
+@media screen and (max-width: 1400px) {
+    .column-margin {
+        display: none;
+    }
+}
+
+#quarto-appendix.default {
+    background-color: transparent !important;
+    border-top: 0px;
+}
 
 @media screen and (max-width: 826px) {
     .page-full {
-        --bs-gutter-x: 8px;
+        --bs-gutter-x: 12px;
     }
 }
 
@@ -193,6 +203,7 @@ input[type="radio"] {
     border-radius: 0;
     cursor: pointer;
     position: relative;
+    background: transparent;
 }
 
 input[type="radio"][value="0"]:checked + label {
@@ -217,12 +228,14 @@ input[type="number"] {
     border: none;
     border-bottom: 1px solid;
     outline: none;
+    background: transparent;
 }
 
 input[type="number"]:focus {
     border: none;
     border-bottom: 1px solid;
     outline: none;
+    background: transparent;
 }
 
 /* Range input styling */
@@ -238,7 +251,7 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-runnable-track {
     height: 5px;
     cursor: pointer;
-    background: #ddd;
+    background: rgba(0,0,0,0.14);
     border-radius: 0;
     border-color: "black";
 }
@@ -246,7 +259,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 input[type="range"]::-moz-range-track {
     height: 5px;
     cursor: pointer;
-    background: #ddd;
+    background: rgba(0,0,0,0.14);
     border-radius: 0;
     border-color: "black";
 }
@@ -254,7 +267,7 @@ input[type="range"]::-moz-range-track {
 input[type="range"]::-ms-track {
     height: 5px;
     cursor: pointer;
-    background: transparent;
+    background: rgba(0,0,0,0.14);
     border-color: "black";
     color: transparent;
 }
@@ -275,7 +288,7 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-moz-range-thumb {
     width: 12px;
     height: 12px;
-    border-color: "black";
+    border: none;
     border-radius: 0;
     background: #be0021;
     cursor: pointer;

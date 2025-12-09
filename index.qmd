@@ -1,8 +1,10 @@
 ---
-title: "Der Gender Pension Gap in Österreich"
+title: 1925 — 2025
+subtitle: Auch heute bekommt Marie weniger Pension als Otto
 author:
   - Lukas Schmoigl
   - Lydia Grandner
+lang: de
 # filters: [remove_title.lua]
 anchor-sections: false
 bibliography: src/references.bib
@@ -86,7 +88,7 @@ function getCumPerc(gesl, tail) {
   return out
 }
 
-notRadio = radio == "Frauen" ? "Männer" : "Frauen"
+notRadio = radio == "Marie" ? "Otto" : "Marie"
 interpolate = "natural"
 ```
 
@@ -118,10 +120,10 @@ decilesDiffGesl = decilesMid
   .select(["gesl", "D", "variable", "val", "value"])
   .groupby(["val", "D", "variable"])
   .pivot("gesl", "value")
-  .derive({ 
-    gapValue: d => d.Männer - d.Frauen,
-    gapPerc: d => (d.Männer - d.Frauen) / (d.Männer),
-    gapRel: d => (d.Frauen) / (d.Männer),
+  .derive({
+    gapValue: d => d.Otto - d.Marie,
+    gapPerc: d => (d.Otto - d.Marie) / (d.Otto),
+    gapRel: d => (d.Marie) / (d.Otto),
   })
 
 deciles = decilesMid
@@ -131,8 +133,8 @@ deciles = decilesMid
   .objects()
 
 dataRule = [
-  {gesl: "Frauen", median: 1223, y: 0, y2: 20000},
-  {gesl: "Männer", median: 2286, y: 0, y2: 20000},
+  {gesl: "Marie", median: 1223, y: 0, y2: 20000},
+  {gesl: "Otto", median: 2286, y: 0, y2: 20000},
 ]
 
 medians = aq.from(dataRule)
@@ -162,7 +164,7 @@ dataDumbbell = {
   const closestDecile = aq.from(deciles)
     .params({ closestDecileValue: closestDecileValue, select: select })
     .filter(d => d.D == closestDecileValue && d.variable == select && d.val == "Status quo")
-    .select(aq.not("gapValue", "gapPerc", "gapRel", "Frauen", "Männer"))
+    .select(aq.not("gapValue", "gapPerc", "gapRel", "Marie", "Otto"))
 
   // Get median data
   const medianData = aq.from(dataRule)
@@ -181,8 +183,8 @@ dataDumbbell = {
     .groupby("D")
     .pivot("gesl", "value")
     .derive({
-      gapValue: d => d.Männer - d.Frauen,
-      gapPerc: d => (d.Männer - d.Frauen) / d.Männer
+      gapValue: d => d.Otto - d.Marie,
+      gapPerc: d => (d.Otto - d.Marie) / d.Otto
     })
     .select(["D", "gapValue", "gapPerc"])
 
@@ -194,15 +196,15 @@ dataDumbbell = {
 ```
 
 ```{ojs}
-genderColor = radio == "Männer" ? colors2[1] : colors2[0]
+genderColor = radio == "Otto" ? colors2[1] : colors2[0]
 ```
 
 ```{ojs}
-perzentilText = html`Sie haben eine Bruttopension von <strong>${germanLocale.format(",.0f")(rangeRaw)}</strong> Euro angeben. Ihre Vergleichsgruppe ist deshalb das ${deciles.map(d => d.closestDecileValue)[0]} (<strong>${closestDecileNumber}%</strong> der <strong><span style="color: ${genderColor}">${radio}</span></strong> haben eine geringere Pension). Hier beträgt die durchschnittliche Pension <strong>${germanLocale.format(",.0f")(statusIncome)}</strong> Euro.`
+perzentilText = html`Sie haben eine Bruttopension von <strong>${germanLocale.format(",.0f")(rangeRaw)}</strong> Euro angeben. Ihre Vergleichsgruppe ist deshalb das ${deciles.map(d => d.closestDecileValue)[0]} (<strong>${closestDecileNumber}%</strong> der <strong><span style="color: ${genderColor}">${radio}s</span></strong> haben eine geringere Pension). Hier beträgt die durchschnittliche Pension <strong>${germanLocale.format(",.0f")(statusIncome)}</strong> Euro.`
 ```
 
 ```{ojs}
-textDistributions = html`Etwa <strong>${getCumPerc(radio, "lower")}</strong> aller <strong><span style="color: ${genderColor}">${radio}</span></strong> erhalten im Status quo eine niedrigere Pension als <strong>${germanLocale.format(",.0f")(range)}</strong> Euro pro Monat. Umgekehrt erhalten <strong>${getCumPerc(radio, "higher")}</strong> aller <strong><span style="color: ${genderColor}">${radio}</span></strong> mehr Pension.`
+textDistributions = html`Etwa <strong>${getCumPerc(radio, "lower")}</strong> aller <strong><span style="color: ${genderColor}">${radio}s</span></strong> erhalten im Status quo eine niedrigere Pension als <strong>${germanLocale.format(",.0f")(range)}</strong> Euro pro Monat. Umgekehrt erhalten <strong>${getCumPerc(radio, "higher")}</strong> aller <strong><span style="color: ${genderColor}">${radio}s</span></strong> mehr Pension.`
 ```
 
 ```{ojs}
@@ -212,14 +214,20 @@ textInteractive1 = html`${perzentilText} ${textDistributions}`
 
 ::: {.column-body}
 
-Die nachfolgenden Datenanalysen basieren auf der Studie von @eppel2024simulation zur Simulation von Änderungen des Pensionssystems auf die Höhe der Alterseinkommen und den Gender Pension Gap in Österreich. Die interaktiven Visualisierungen wurden im Rahmen des Folgeprojekts @wifo2024pension entwickelt.
+Vor hundert Jahren revolutionierten Marie und Otto Neurath am Wiener Gesellschafts- und Wirtschaftsmuseum die Darstellung komplexer sozialer und ökonomischer Zusammenhänge. Mit ihrer Bildstatistik machten sie Verteilungsfragen sichtbar und für alle verständlich. Heute, 2025, zeigen die Visualisierungen: Der Gender Pension Gap besteht weiterhin. Marie erhält in Österreich deutlich weniger Pension als Otto.
+
+Die nachfolgenden interaktiven Visualisierungen ermöglichen es, diese Pensionsunterschiede nach Geschlecht zu erkunden und verschiedene Reformszenarien zu vergleichen. In der Tradition der Neuraths wird komplexe Information zugänglich gemacht, um gesellschaftliche Probleme sichtbar zu machen.
+
+::: {.column-margin}
+Die Daten basieren auf der Studie von @eppel2024simulation zur Simulation von Änderungen des Pensionssystems auf die Höhe der Alterseinkommen und wurden zunächst auch im Rahmen des Folgeprojekts @wifo2024pension entwickelt.
+:::
 
 <div class="fold-container">
 <div class="column">
 
 ```{ojs}
-viewof radioRaw = Inputs.radio(["Frau", "Mann"], {value: "Frau", label: "Geschlecht:"})
-radio = radioRaw == "Frau" ? "Frauen" : "Männer"
+viewof radioRaw = Inputs.radio(["Marie", "Otto"], {value: "Marie", label: "Geschlecht:"})
+radio = radioRaw == "Marie" ? "Marie" : "Otto"
 ```
 
 </div>
@@ -242,7 +250,9 @@ makeDumbbell({ inputData: dataDumbbell }).render({ renderer: "svg" })
 ```
 
 ::: {.column-margin}
+<div style="margin-top: 6em;">
 ${textInteractive1}
+</div>
 :::
 
 :::

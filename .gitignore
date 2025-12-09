@@ -19,3 +19,5 @@ households_1_files/
 /.quarto/
 
 **/*.quarto_ipynb
+
+.claude/

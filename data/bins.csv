@@ -1,695 +1,695 @@
 gesl,bin,variable,N
-Frauen,13,Status quo,14631
-Frauen,25,Status quo,3448
-Frauen,14,Status quo,13770
-Frauen,10,Status quo,15422
-Frauen,19,Status quo,7629
-Frauen,12,Status quo,15063
-Frauen,8,Status quo,13754
-Frauen,11,Status quo,15245
-Frauen,9,Status quo,14621
-Frauen,7,Status quo,12477
-Frauen,23,Status quo,4445
-Frauen,16,Status quo,11464
-Frauen,17,Status quo,10485
-Frauen,6,Status quo,11081
-Frauen,18,Status quo,8988
-Frauen,21,Status quo,5782
-Frauen,20,Status quo,6707
-Frauen,5,Status quo,8713
-Frauen,30,Status quo,1291
-Frauen,4,Status quo,5403
-Frauen,15,Status quo,12835
-Frauen,26,Status quo,2912
-Frauen,22,Status quo,4979
-Frauen,3,Status quo,2567
-Frauen,24,Status quo,3852
-Frauen,31,Status quo,957
-Männer,29,Status quo,6891
-Frauen,32,Status quo,672
-Frauen,29,Status quo,1610
-Frauen,2,Status quo,775
-Frauen,27,Status quo,2498
-Frauen,35,Status quo,123
-Frauen,28,Status quo,1997
-Männer,24,Status quo,9728
-Männer,33,Status quo,5219
-Männer,35,Status quo,3567
-Männer,28,Status quo,7140
-Männer,34,Status quo,4494
-Männer,37,Status quo,1757
-Männer,26,Status quo,8423
-Männer,25,Status quo,9034
-Männer,22,Status quo,9853
-Männer,16,Status quo,4205
-Männer,8,Status quo,2170
-Männer,21,Status quo,9371
-Männer,20,Status quo,8534
-Männer,14,Status quo,3548
-Männer,31,Status quo,6171
-Männer,9,Status quo,2464
-Männer,23,Status quo,9862
-Männer,5,Status quo,1191
-Männer,18,Status quo,6131
-Männer,27,Status quo,7740
-Männer,12,Status quo,3104
-Männer,32,Status quo,6021
-Männer,19,Status quo,7172
-Männer,36,Status quo,2723
-Männer,17,Status quo,5047
-Männer,41,Status quo,80
-Männer,30,Status quo,6485
-Männer,11,Status quo,2956
-Männer,15,Status quo,3617
-Männer,10,Status quo,2718
-Männer,13,Status quo,3266
-Männer,6,Status quo,1551
-Männer,38,Status quo,1112
-Männer,7,Status quo,1879
-Männer,39,Status quo,548
-Männer,40,Status quo,269
-Frauen,34,Status quo,231
-Frauen,33,Status quo,451
-Männer,3,Status quo,502
-Männer,4,Status quo,825
-Frauen,1,Status quo,103
-Frauen,36,Status quo,47
-Männer,2,Status quo,221
-Frauen,37,Status quo,18
-Frauen,38,Status quo,10
-Männer,42,Status quo,35
-Männer,43,Status quo,5
-Frauen,39,Status quo,4
-Frauen,41,Status quo,3
-Männer,1,Status quo,45
-Männer,46,Status quo,1
-Männer,44,Status quo,1
-Frauen,40,Status quo,1
-Frauen,14,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",15004
-Frauen,26,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3360
-Frauen,16,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",13448
-Frauen,11,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",14768
-Frauen,20,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",8207
-Frauen,12,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",14910
-Frauen,9,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",12654
-Frauen,10,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",14066
-Frauen,19,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9437
-Frauen,25,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",4068
-Frauen,17,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",12019
-Frauen,8,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",11478
-Frauen,13,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",15118
-Frauen,22,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6084
-Frauen,21,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6975
-Frauen,5,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",5229
-Frauen,30,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1487
-Frauen,7,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9942
-Frauen,6,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",7711
-Frauen,15,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",14199
-Frauen,18,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",10800
-Frauen,4,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3419
-Frauen,3,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1901
-Frauen,24,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",4423
-Frauen,31,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1101
-Männer,29,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6891
-Frauen,23,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",5221
-Frauen,32,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",829
-Frauen,2,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",740
-Frauen,27,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2926
-Frauen,35,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",154
-Frauen,29,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1940
-Frauen,28,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2383
-Männer,24,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9728
-Männer,33,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",5219
-Männer,35,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3567
-Männer,28,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",7140
-Männer,34,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",4494
-Männer,37,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1757
-Männer,26,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",8423
-Männer,25,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9034
-Männer,22,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9853
-Männer,16,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",4205
-Männer,8,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2170
-Männer,21,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9371
-Männer,20,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",8534
-Männer,14,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3548
-Männer,31,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6171
-Männer,9,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2464
-Männer,23,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9862
-Männer,5,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1191
-Männer,18,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6131
-Männer,27,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",7740
-Männer,12,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3104
-Männer,32,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6021
-Männer,19,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",7172
-Männer,36,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2723
-Männer,17,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",5047
-Männer,41,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",80
-Männer,30,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6485
-Männer,11,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2956
-Männer,15,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3617
-Männer,10,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2718
-Männer,13,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3266
-Männer,6,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1551
-Männer,38,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1112
-Männer,7,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1879
-Männer,39,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",548
-Männer,40,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",269
-Frauen,34,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",318
-Frauen,33,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",533
-Männer,3,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",502
-Männer,4,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",825
-Frauen,1,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",103
-Frauen,36,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",61
-Männer,2,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",221
-Frauen,37,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",29
-Frauen,38,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",8
-Männer,42,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",35
-Männer,43,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",5
-Frauen,39,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",7
-Frauen,41,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3
-Männer,1,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",45
-Männer,46,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1
-Männer,44,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1
-Frauen,40,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1
-Frauen,13,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",14531
-Frauen,25,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3615
-Frauen,15,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",12867
-Frauen,10,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",15061
-Frauen,19,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",8025
-Frauen,12,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",14933
-Frauen,8,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",13322
-Frauen,11,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",15050
-Frauen,9,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",14311
-Frauen,7,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",12154
-Frauen,23,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4634
-Frauen,16,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",11742
-Frauen,17,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",10688
-Frauen,6,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",10657
-Frauen,18,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9437
-Frauen,22,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",5302
-Frauen,14,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",13839
-Frauen,20,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6959
-Frauen,5,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",8344
-Frauen,30,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1295
-Frauen,21,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6086
-Frauen,4,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",5074
-Frauen,26,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2996
-Frauen,3,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2391
-Frauen,24,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4039
-Frauen,31,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1001
-Männer,29,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",7181
-Frauen,32,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",683
-Frauen,29,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1652
-Frauen,2,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",692
-Frauen,27,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2594
-Frauen,35,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",128
-Frauen,28,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2072
-Männer,25,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9385
-Männer,33,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",5389
-Männer,35,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3639
-Männer,28,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",7539
-Männer,34,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4576
-Männer,37,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1799
-Männer,26,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",8873
-Männer,22,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9750
-Männer,16,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4017
-Männer,9,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2327
-Männer,23,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9985
-Männer,21,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9137
-Männer,15,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3536
-Männer,31,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6317
-Männer,30,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6715
-Männer,24,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9963
-Männer,5,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1118
-Männer,19,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6947
-Männer,27,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",8000
-Männer,12,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2989
-Männer,20,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",8156
-Männer,32,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6141
-Männer,36,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2754
-Männer,18,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",5797
-Männer,41,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",82
-Männer,14,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3371
-Männer,17,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4682
-Männer,11,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2818
-Männer,10,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2621
-Männer,13,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3203
-Männer,6,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1476
-Männer,38,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1139
-Männer,8,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2067
-Männer,7,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1814
-Männer,39,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",560
-Männer,40,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",271
-Frauen,34,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",243
-Frauen,33,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",463
-Männer,3,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",475
-Männer,4,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",766
-Frauen,1,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",100
-Frauen,36,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",47
-Männer,2,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",214
-Frauen,37,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",19
-Frauen,38,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",10
-Männer,42,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",35
-Männer,43,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",5
-Frauen,39,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4
-Frauen,41,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3
-Männer,1,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",45
-Männer,46,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1
-Männer,44,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1
-Frauen,40,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1
-Frauen,14,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",15658
-Frauen,25,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3863
-Frauen,16,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",14787
-Frauen,11,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",13562
-Frauen,21,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",7520
-Frauen,13,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",15263
-Frauen,12,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",14434
-Frauen,8,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9993
-Frauen,7,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9108
-Frauen,19,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",10778
-Frauen,9,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",11324
-Frauen,23,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",5208
-Frauen,18,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",12561
-Frauen,6,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",8004
-Frauen,22,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6208
-Frauen,15,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",15714
-Frauen,20,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9156
-Frauen,10,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",12205
-Frauen,5,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",5678
-Frauen,30,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1359
-Frauen,26,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3275
-Frauen,17,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",13791
-Frauen,4,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2876
-Frauen,24,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",4385
-Frauen,31,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1029
-Männer,29,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6891
-Frauen,32,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",741
-Frauen,29,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1757
-Frauen,3,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",789
-Frauen,27,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2714
-Frauen,35,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",137
-Frauen,28,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2182
-Männer,24,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9728
-Männer,33,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",5219
-Männer,35,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3567
-Männer,28,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",7140
-Männer,34,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",4494
-Männer,37,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1757
-Männer,26,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",8423
-Männer,25,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9034
-Männer,22,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9853
-Männer,16,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",4205
-Männer,8,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2170
-Männer,21,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9371
-Männer,20,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",8534
-Männer,14,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3548
-Männer,31,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6171
-Männer,9,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2464
-Männer,23,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9862
-Männer,5,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1191
-Männer,18,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6131
-Männer,27,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",7740
-Männer,12,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3104
-Männer,32,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6021
-Männer,19,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",7172
-Männer,36,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2723
-Männer,17,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",5047
-Männer,41,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",80
-Männer,30,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6485
-Männer,11,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2956
-Männer,15,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3617
-Männer,10,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2718
-Männer,13,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3266
-Männer,6,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1551
-Männer,38,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1112
-Männer,7,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1879
-Männer,39,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",548
-Männer,40,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",269
-Frauen,34,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",259
-Frauen,33,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",477
-Männer,3,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",502
-Männer,4,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",825
-Frauen,2,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",153
-Frauen,36,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",53
-Frauen,1,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",26
-Männer,2,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",221
-Frauen,37,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",18
-Frauen,38,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",11
-Männer,42,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",35
-Männer,43,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",5
-Frauen,39,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",4
-Frauen,41,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3
-Männer,1,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",45
-Männer,46,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1
-Männer,44,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1
-Frauen,40,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1
-Frauen,17,"Szenario 4
+Marie,13,Status quo,14631
+Marie,25,Status quo,3448
+Marie,14,Status quo,13770
+Marie,10,Status quo,15422
+Marie,19,Status quo,7629
+Marie,12,Status quo,15063
+Marie,8,Status quo,13754
+Marie,11,Status quo,15245
+Marie,9,Status quo,14621
+Marie,7,Status quo,12477
+Marie,23,Status quo,4445
+Marie,16,Status quo,11464
+Marie,17,Status quo,10485
+Marie,6,Status quo,11081
+Marie,18,Status quo,8988
+Marie,21,Status quo,5782
+Marie,20,Status quo,6707
+Marie,5,Status quo,8713
+Marie,30,Status quo,1291
+Marie,4,Status quo,5403
+Marie,15,Status quo,12835
+Marie,26,Status quo,2912
+Marie,22,Status quo,4979
+Marie,3,Status quo,2567
+Marie,24,Status quo,3852
+Marie,31,Status quo,957
+Otto,29,Status quo,6891
+Marie,32,Status quo,672
+Marie,29,Status quo,1610
+Marie,2,Status quo,775
+Marie,27,Status quo,2498
+Marie,35,Status quo,123
+Marie,28,Status quo,1997
+Otto,24,Status quo,9728
+Otto,33,Status quo,5219
+Otto,35,Status quo,3567
+Otto,28,Status quo,7140
+Otto,34,Status quo,4494
+Otto,37,Status quo,1757
+Otto,26,Status quo,8423
+Otto,25,Status quo,9034
+Otto,22,Status quo,9853
+Otto,16,Status quo,4205
+Otto,8,Status quo,2170
+Otto,21,Status quo,9371
+Otto,20,Status quo,8534
+Otto,14,Status quo,3548
+Otto,31,Status quo,6171
+Otto,9,Status quo,2464
+Otto,23,Status quo,9862
+Otto,5,Status quo,1191
+Otto,18,Status quo,6131
+Otto,27,Status quo,7740
+Otto,12,Status quo,3104
+Otto,32,Status quo,6021
+Otto,19,Status quo,7172
+Otto,36,Status quo,2723
+Otto,17,Status quo,5047
+Otto,41,Status quo,80
+Otto,30,Status quo,6485
+Otto,11,Status quo,2956
+Otto,15,Status quo,3617
+Otto,10,Status quo,2718
+Otto,13,Status quo,3266
+Otto,6,Status quo,1551
+Otto,38,Status quo,1112
+Otto,7,Status quo,1879
+Otto,39,Status quo,548
+Otto,40,Status quo,269
+Marie,34,Status quo,231
+Marie,33,Status quo,451
+Otto,3,Status quo,502
+Otto,4,Status quo,825
+Marie,1,Status quo,103
+Marie,36,Status quo,47
+Otto,2,Status quo,221
+Marie,37,Status quo,18
+Marie,38,Status quo,10
+Otto,42,Status quo,35
+Otto,43,Status quo,5
+Marie,39,Status quo,4
+Marie,41,Status quo,3
+Otto,1,Status quo,45
+Otto,46,Status quo,1
+Otto,44,Status quo,1
+Marie,40,Status quo,1
+Marie,14,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",15004
+Marie,26,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3360
+Marie,16,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",13448
+Marie,11,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",14768
+Marie,20,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",8207
+Marie,12,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",14910
+Marie,9,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",12654
+Marie,10,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",14066
+Marie,19,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9437
+Marie,25,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",4068
+Marie,17,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",12019
+Marie,8,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",11478
+Marie,13,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",15118
+Marie,22,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6084
+Marie,21,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6975
+Marie,5,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",5229
+Marie,30,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1487
+Marie,7,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9942
+Marie,6,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",7711
+Marie,15,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",14199
+Marie,18,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",10800
+Marie,4,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3419
+Marie,3,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1901
+Marie,24,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",4423
+Marie,31,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1101
+Otto,29,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6891
+Marie,23,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",5221
+Marie,32,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",829
+Marie,2,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",740
+Marie,27,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2926
+Marie,35,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",154
+Marie,29,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1940
+Marie,28,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2383
+Otto,24,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9728
+Otto,33,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",5219
+Otto,35,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3567
+Otto,28,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",7140
+Otto,34,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",4494
+Otto,37,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1757
+Otto,26,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",8423
+Otto,25,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9034
+Otto,22,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9853
+Otto,16,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",4205
+Otto,8,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2170
+Otto,21,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9371
+Otto,20,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",8534
+Otto,14,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3548
+Otto,31,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6171
+Otto,9,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2464
+Otto,23,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",9862
+Otto,5,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1191
+Otto,18,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6131
+Otto,27,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",7740
+Otto,12,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3104
+Otto,32,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6021
+Otto,19,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",7172
+Otto,36,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2723
+Otto,17,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",5047
+Otto,41,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",80
+Otto,30,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",6485
+Otto,11,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2956
+Otto,15,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3617
+Otto,10,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",2718
+Otto,13,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3266
+Otto,6,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1551
+Otto,38,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1112
+Otto,7,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1879
+Otto,39,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",548
+Otto,40,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",269
+Marie,34,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",318
+Marie,33,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",533
+Otto,3,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",502
+Otto,4,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",825
+Marie,1,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",103
+Marie,36,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",61
+Otto,2,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",221
+Marie,37,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",29
+Marie,38,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",8
+Otto,42,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",35
+Otto,43,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",5
+Marie,39,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",7
+Marie,41,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",3
+Otto,1,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",45
+Otto,46,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1
+Otto,44,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1
+Marie,40,"Szenario 1 (Höherbewertung Kindererziehungszeiten)",1
+Marie,13,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",14531
+Marie,25,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3615
+Marie,15,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",12867
+Marie,10,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",15061
+Marie,19,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",8025
+Marie,12,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",14933
+Marie,8,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",13322
+Marie,11,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",15050
+Marie,9,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",14311
+Marie,7,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",12154
+Marie,23,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4634
+Marie,16,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",11742
+Marie,17,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",10688
+Marie,6,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",10657
+Marie,18,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9437
+Marie,22,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",5302
+Marie,14,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",13839
+Marie,20,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6959
+Marie,5,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",8344
+Marie,30,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1295
+Marie,21,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6086
+Marie,4,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",5074
+Marie,26,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2996
+Marie,3,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2391
+Marie,24,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4039
+Marie,31,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1001
+Otto,29,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",7181
+Marie,32,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",683
+Marie,29,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1652
+Marie,2,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",692
+Marie,27,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2594
+Marie,35,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",128
+Marie,28,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2072
+Otto,25,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9385
+Otto,33,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",5389
+Otto,35,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3639
+Otto,28,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",7539
+Otto,34,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4576
+Otto,37,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1799
+Otto,26,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",8873
+Otto,22,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9750
+Otto,16,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4017
+Otto,9,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2327
+Otto,23,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9985
+Otto,21,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9137
+Otto,15,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3536
+Otto,31,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6317
+Otto,30,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6715
+Otto,24,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",9963
+Otto,5,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1118
+Otto,19,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6947
+Otto,27,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",8000
+Otto,12,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2989
+Otto,20,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",8156
+Otto,32,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",6141
+Otto,36,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2754
+Otto,18,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",5797
+Otto,41,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",82
+Otto,14,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3371
+Otto,17,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4682
+Otto,11,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2818
+Otto,10,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2621
+Otto,13,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3203
+Otto,6,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1476
+Otto,38,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1139
+Otto,8,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",2067
+Otto,7,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1814
+Otto,39,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",560
+Otto,40,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",271
+Marie,34,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",243
+Marie,33,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",463
+Otto,3,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",475
+Otto,4,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",766
+Marie,1,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",100
+Marie,36,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",47
+Otto,2,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",214
+Marie,37,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",19
+Marie,38,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",10
+Otto,42,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",35
+Otto,43,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",5
+Marie,39,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",4
+Marie,41,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",3
+Otto,1,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",45
+Otto,46,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1
+Otto,44,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1
+Marie,40,"Szenario 2 (Höherbewertung Zeiten der Arbeitslosigkeit)",1
+Marie,14,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",15658
+Marie,25,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3863
+Marie,16,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",14787
+Marie,11,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",13562
+Marie,21,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",7520
+Marie,13,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",15263
+Marie,12,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",14434
+Marie,8,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9993
+Marie,7,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9108
+Marie,19,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",10778
+Marie,9,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",11324
+Marie,23,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",5208
+Marie,18,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",12561
+Marie,6,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",8004
+Marie,22,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6208
+Marie,15,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",15714
+Marie,20,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9156
+Marie,10,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",12205
+Marie,5,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",5678
+Marie,30,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1359
+Marie,26,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3275
+Marie,17,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",13791
+Marie,4,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2876
+Marie,24,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",4385
+Marie,31,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1029
+Otto,29,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6891
+Marie,32,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",741
+Marie,29,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1757
+Marie,3,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",789
+Marie,27,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2714
+Marie,35,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",137
+Marie,28,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2182
+Otto,24,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9728
+Otto,33,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",5219
+Otto,35,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3567
+Otto,28,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",7140
+Otto,34,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",4494
+Otto,37,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1757
+Otto,26,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",8423
+Otto,25,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9034
+Otto,22,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9853
+Otto,16,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",4205
+Otto,8,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2170
+Otto,21,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9371
+Otto,20,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",8534
+Otto,14,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3548
+Otto,31,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6171
+Otto,9,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2464
+Otto,23,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",9862
+Otto,5,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1191
+Otto,18,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6131
+Otto,27,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",7740
+Otto,12,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3104
+Otto,32,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6021
+Otto,19,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",7172
+Otto,36,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2723
+Otto,17,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",5047
+Otto,41,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",80
+Otto,30,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",6485
+Otto,11,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2956
+Otto,15,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3617
+Otto,10,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",2718
+Otto,13,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3266
+Otto,6,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1551
+Otto,38,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1112
+Otto,7,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1879
+Otto,39,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",548
+Otto,40,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",269
+Marie,34,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",259
+Marie,33,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",477
+Otto,3,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",502
+Otto,4,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",825
+Marie,2,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",153
+Marie,36,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",53
+Marie,1,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",26
+Otto,2,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",221
+Marie,37,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",18
+Marie,38,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",11
+Otto,42,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",35
+Otto,43,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",5
+Marie,39,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",4
+Marie,41,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",3
+Otto,1,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",45
+Otto,46,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1
+Otto,44,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1
+Marie,40,"Szenario 3 (Einführung Gender-Pay-Gap-Faktor)",1
+Marie,17,"Szenario 4
 (GPG/Frau)",17802
-Frauen,26,"Szenario 4
+Marie,26,"Szenario 4
 (GPG/Frau)",4037
-Frauen,19,"Szenario 4
+Marie,19,"Szenario 4
 (GPG/Frau)",16245
-Frauen,15,"Szenario 4
+Marie,15,"Szenario 4
 (GPG/Frau)",16064
-Frauen,23,"Szenario 4
+Marie,23,"Szenario 4
 (GPG/Frau)",7728
-Frauen,16,"Szenario 4
+Marie,16,"Szenario 4
 (GPG/Frau)",17641
-Frauen,10,"Szenario 4
+Marie,10,"Szenario 4
 (GPG/Frau)",8097
-Frauen,18,"Szenario 4
+Marie,18,"Szenario 4
 (GPG/Frau)",17116
-Frauen,12,"Szenario 4
+Marie,12,"Szenario 4
 (GPG/Frau)",10258
-Frauen,7,"Szenario 4
+Marie,7,"Szenario 4
 (GPG/Frau)",5581
-Frauen,13,"Szenario 4
+Marie,13,"Szenario 4
 (GPG/Frau)",12191
-Frauen,21,"Szenario 4
+Marie,21,"Szenario 4
 (GPG/Frau)",12717
-Frauen,24,"Szenario 4
+Marie,24,"Szenario 4
 (GPG/Frau)",6071
-Frauen,20,"Szenario 4
+Marie,20,"Szenario 4
 (GPG/Frau)",15081
-Frauen,22,"Szenario 4
+Marie,22,"Szenario 4
 (GPG/Frau)",9964
-Frauen,6,"Szenario 4
+Marie,6,"Szenario 4
 (GPG/Frau)",3977
-Frauen,9,"Szenario 4
+Marie,9,"Szenario 4
 (GPG/Frau)",7134
-Frauen,14,"Szenario 4
+Marie,14,"Szenario 4
 (GPG/Frau)",14089
-Frauen,8,"Szenario 4
+Marie,8,"Szenario 4
 (GPG/Frau)",6592
-Frauen,30,"Szenario 4
+Marie,30,"Szenario 4
 (GPG/Frau)",1589
-Frauen,5,"Szenario 4
+Marie,5,"Szenario 4
 (GPG/Frau)",1648
-Frauen,11,"Szenario 4
+Marie,11,"Szenario 4
 (GPG/Frau)",9140
-Frauen,4,"Szenario 4
+Marie,4,"Szenario 4
 (GPG/Frau)",160
-Frauen,32,"Szenario 4
+Marie,32,"Szenario 4
 (GPG/Frau)",898
-Männer,29,"Szenario 4
+Otto,29,"Szenario 4
 (GPG/Frau)",6891
-Frauen,25,"Szenario 4
+Marie,25,"Szenario 4
 (GPG/Frau)",4990
-Frauen,31,"Szenario 4
+Marie,31,"Szenario 4
 (GPG/Frau)",1161
-Frauen,29,"Szenario 4
+Marie,29,"Szenario 4
 (GPG/Frau)",2064
-Frauen,27,"Szenario 4
+Marie,27,"Szenario 4
 (GPG/Frau)",3211
-Frauen,35,"Szenario 4
+Marie,35,"Szenario 4
 (GPG/Frau)",152
-Frauen,28,"Szenario 4
+Marie,28,"Szenario 4
 (GPG/Frau)",2638
-Männer,24,"Szenario 4
+Otto,24,"Szenario 4
 (GPG/Frau)",9728
-Männer,33,"Szenario 4
+Otto,33,"Szenario 4
 (GPG/Frau)",5219
-Männer,35,"Szenario 4
+Otto,35,"Szenario 4
 (GPG/Frau)",3567
-Männer,28,"Szenario 4
+Otto,28,"Szenario 4
 (GPG/Frau)",7140
-Männer,34,"Szenario 4
+Otto,34,"Szenario 4
 (GPG/Frau)",4494
-Männer,37,"Szenario 4
+Otto,37,"Szenario 4
 (GPG/Frau)",1757
-Männer,26,"Szenario 4
+Otto,26,"Szenario 4
 (GPG/Frau)",8423
-Männer,25,"Szenario 4
+Otto,25,"Szenario 4
 (GPG/Frau)",9034
-Männer,22,"Szenario 4
+Otto,22,"Szenario 4
 (GPG/Frau)",9853
-Männer,16,"Szenario 4
+Otto,16,"Szenario 4
 (GPG/Frau)",4205
-Männer,8,"Szenario 4
+Otto,8,"Szenario 4
 (GPG/Frau)",2170
-Männer,21,"Szenario 4
+Otto,21,"Szenario 4
 (GPG/Frau)",9371
-Männer,20,"Szenario 4
+Otto,20,"Szenario 4
 (GPG/Frau)",8534
-Männer,14,"Szenario 4
+Otto,14,"Szenario 4
 (GPG/Frau)",3548
-Männer,31,"Szenario 4
+Otto,31,"Szenario 4
 (GPG/Frau)",6171
-Männer,9,"Szenario 4
+Otto,9,"Szenario 4
 (GPG/Frau)",2464
-Männer,23,"Szenario 4
+Otto,23,"Szenario 4
 (GPG/Frau)",9862
-Männer,5,"Szenario 4
+Otto,5,"Szenario 4
 (GPG/Frau)",1191
-Männer,18,"Szenario 4
+Otto,18,"Szenario 4
 (GPG/Frau)",6131
-Männer,27,"Szenario 4
+Otto,27,"Szenario 4
 (GPG/Frau)",7740
-Männer,12,"Szenario 4
+Otto,12,"Szenario 4
 (GPG/Frau)",3104
-Männer,32,"Szenario 4
+Otto,32,"Szenario 4
 (GPG/Frau)",6021
-Männer,19,"Szenario 4
+Otto,19,"Szenario 4
 (GPG/Frau)",7172
-Männer,36,"Szenario 4
+Otto,36,"Szenario 4
 (GPG/Frau)",2723
-Männer,17,"Szenario 4
+Otto,17,"Szenario 4
 (GPG/Frau)",5047
-Männer,41,"Szenario 4
+Otto,41,"Szenario 4
 (GPG/Frau)",80
-Männer,30,"Szenario 4
+Otto,30,"Szenario 4
 (GPG/Frau)",6485
-Männer,11,"Szenario 4
+Otto,11,"Szenario 4
 (GPG/Frau)",2956
-Männer,15,"Szenario 4
+Otto,15,"Szenario 4
 (GPG/Frau)",3617
-Männer,10,"Szenario 4
+Otto,10,"Szenario 4
 (GPG/Frau)",2718
-Männer,13,"Szenario 4
+Otto,13,"Szenario 4
 (GPG/Frau)",3266
-Männer,6,"Szenario 4
+Otto,6,"Szenario 4
 (GPG/Frau)",1551
-Männer,38,"Szenario 4
+Otto,38,"Szenario 4
 (GPG/Frau)",1112
-Männer,7,"Szenario 4
+Otto,7,"Szenario 4
 (GPG/Frau)",1879
-Männer,39,"Szenario 4
+Otto,39,"Szenario 4
 (GPG/Frau)",548
-Männer,40,"Szenario 4
+Otto,40,"Szenario 4
 (GPG/Frau)",269
-Frauen,33,"Szenario 4
+Marie,33,"Szenario 4
 (GPG/Frau)",570
-Männer,3,"Szenario 4
+Otto,3,"Szenario 4
 (GPG/Frau)",502
-Männer,4,"Szenario 4
+Otto,4,"Szenario 4
 (GPG/Frau)",825
-Frauen,34,"Szenario 4
+Marie,34,"Szenario 4
 (GPG/Frau)",344
-Frauen,36,"Szenario 4
+Marie,36,"Szenario 4
 (GPG/Frau)",74
-Männer,2,"Szenario 4
+Otto,2,"Szenario 4
 (GPG/Frau)",221
-Frauen,37,"Szenario 4
+Marie,37,"Szenario 4
 (GPG/Frau)",18
-Frauen,38,"Szenario 4
+Marie,38,"Szenario 4
 (GPG/Frau)",12
-Männer,42,"Szenario 4
+Otto,42,"Szenario 4
 (GPG/Frau)",35
-Männer,43,"Szenario 4
+Otto,43,"Szenario 4
 (GPG/Frau)",5
-Frauen,39,"Szenario 4
+Marie,39,"Szenario 4
 (GPG/Frau)",6
-Frauen,41,"Szenario 4
+Marie,41,"Szenario 4
 (GPG/Frau)",3
-Männer,1,"Szenario 4
+Otto,1,"Szenario 4
 (GPG/Frau)",45
-Männer,46,"Szenario 4
+Otto,46,"Szenario 4
 (GPG/Frau)",1
-Männer,44,"Szenario 4
+Otto,44,"Szenario 4
 (GPG/Frau)",1
-Frauen,40,"Szenario 4
+Marie,40,"Szenario 4
 (GPG/Frau)",1
-Frauen,16,"Szenario 5
+Marie,16,"Szenario 5
 (Beste 15 Jahre)",10589
-Frauen,28,"Szenario 5
+Marie,28,"Szenario 5
 (Beste 15 Jahre)",3918
-Frauen,11,"Szenario 5
+Marie,11,"Szenario 5
 (Beste 15 Jahre)",10829
-Frauen,21,"Szenario 5
+Marie,21,"Szenario 5
 (Beste 15 Jahre)",7531
-Frauen,14,"Szenario 5
+Marie,14,"Szenario 5
 (Beste 15 Jahre)",11099
-Frauen,7,"Szenario 5
+Marie,7,"Szenario 5
 (Beste 15 Jahre)",8888
-Frauen,12,"Szenario 5
+Marie,12,"Szenario 5
 (Beste 15 Jahre)",10968
-Frauen,10,"Szenario 5
+Marie,10,"Szenario 5
 (Beste 15 Jahre)",10627
-Frauen,5,"Szenario 5
+Marie,5,"Szenario 5
 (Beste 15 Jahre)",7829
-Frauen,23,"Szenario 5
+Marie,23,"Szenario 5
 (Beste 15 Jahre)",6244
-Frauen,8,"Szenario 5
+Marie,8,"Szenario 5
 (Beste 15 Jahre)",9612
-Frauen,27,"Szenario 5
+Marie,27,"Szenario 5
 (Beste 15 Jahre)",4405
-Frauen,20,"Szenario 5
+Marie,20,"Szenario 5
 (Beste 15 Jahre)",8341
-Frauen,4,"Szenario 5
+Marie,4,"Szenario 5
 (Beste 15 Jahre)",6545
-Frauen,17,"Szenario 5
+Marie,17,"Szenario 5
 (Beste 15 Jahre)",10149
-Frauen,26,"Szenario 5
+Marie,26,"Szenario 5
 (Beste 15 Jahre)",4749
-Frauen,25,"Szenario 5
+Marie,25,"Szenario 5
 (Beste 15 Jahre)",5315
-Frauen,13,"Szenario 5
+Marie,13,"Szenario 5
 (Beste 15 Jahre)",11158
-Frauen,30,"Szenario 5
+Marie,30,"Szenario 5
 (Beste 15 Jahre)",3039
-Frauen,6,"Szenario 5
+Marie,6,"Szenario 5
 (Beste 15 Jahre)",8227
-Frauen,36,"Szenario 5
+Marie,36,"Szenario 5
 (Beste 15 Jahre)",1416
-Frauen,40,"Szenario 5
+Marie,40,"Szenario 5
 (Beste 15 Jahre)",406
-Frauen,29,"Szenario 5
+Marie,29,"Szenario 5
 (Beste 15 Jahre)",3457
-Frauen,31,"Szenario 5
+Marie,31,"Szenario 5
 (Beste 15 Jahre)",2867
-Frauen,22,"Szenario 5
+Marie,22,"Szenario 5
 (Beste 15 Jahre)",7060
-Frauen,19,"Szenario 5
+Marie,19,"Szenario 5
 (Beste 15 Jahre)",9163
-Frauen,24,"Szenario 5
+Marie,24,"Szenario 5
 (Beste 15 Jahre)",5693
-Frauen,18,"Szenario 5
+Marie,18,"Szenario 5
 (Beste 15 Jahre)",9742
-Frauen,9,"Szenario 5
+Marie,9,"Szenario 5
 (Beste 15 Jahre)",10291
-Frauen,15,"Szenario 5
+Marie,15,"Szenario 5
 (Beste 15 Jahre)",10914
-Frauen,34,"Szenario 5
+Marie,34,"Szenario 5
 (Beste 15 Jahre)",1877
-Frauen,3,"Szenario 5
+Marie,3,"Szenario 5
 (Beste 15 Jahre)",3957
-Frauen,35,"Szenario 5
+Marie,35,"Szenario 5
 (Beste 15 Jahre)",1598
-Frauen,2,"Szenario 5
+Marie,2,"Szenario 5
 (Beste 15 Jahre)",1003
-Frauen,37,"Szenario 5
+Marie,37,"Szenario 5
 (Beste 15 Jahre)",1080
-Männer,41,"Szenario 5
+Otto,41,"Szenario 5
 (Beste 15 Jahre)",3370
-Frauen,32,"Szenario 5
+Marie,32,"Szenario 5
 (Beste 15 Jahre)",2432
-Frauen,33,"Szenario 5
+Marie,33,"Szenario 5
 (Beste 15 Jahre)",2148
-Frauen,39,"Szenario 5
+Marie,39,"Szenario 5
 (Beste 15 Jahre)",612
-Frauen,38,"Szenario 5
+Marie,38,"Szenario 5
 (Beste 15 Jahre)",864
-Männer,28,"Szenario 5
+Otto,28,"Szenario 5
 (Beste 15 Jahre)",7720
-Männer,36,"Szenario 5
+Otto,36,"Szenario 5
 (Beste 15 Jahre)",6041
-Männer,33,"Szenario 5
+Otto,33,"Szenario 5
 (Beste 15 Jahre)",5661
-Männer,44,"Szenario 5
+Otto,44,"Szenario 5
 (Beste 15 Jahre)",975
-Männer,42,"Szenario 5
+Otto,42,"Szenario 5
 (Beste 15 Jahre)",2507
-Männer,40,"Szenario 5
+Otto,40,"Szenario 5
 (Beste 15 Jahre)",2953
-Männer,29,"Szenario 5
+Otto,29,"Szenario 5
 (Beste 15 Jahre)",7311
-Männer,27,"Szenario 5
+Otto,27,"Szenario 5
 (Beste 15 Jahre)",8203
-Männer,24,"Szenario 5
+Otto,24,"Szenario 5
 (Beste 15 Jahre)",8055
-Männer,25,"Szenario 5
+Otto,25,"Szenario 5
 (Beste 15 Jahre)",8379
-Männer,21,"Szenario 5
+Otto,21,"Szenario 5
 (Beste 15 Jahre)",5873
-Männer,9,"Szenario 5
+Otto,9,"Szenario 5
 (Beste 15 Jahre)",1656
-Männer,22,"Szenario 5
+Otto,22,"Szenario 5
 (Beste 15 Jahre)",6714
-Männer,34,"Szenario 5
+Otto,34,"Szenario 5
 (Beste 15 Jahre)",6040
-Männer,15,"Szenario 5
+Otto,15,"Szenario 5
 (Beste 15 Jahre)",2446
-Männer,37,"Szenario 5
+Otto,37,"Szenario 5
 (Beste 15 Jahre)",4683
-Männer,32,"Szenario 5
+Otto,32,"Szenario 5
 (Beste 15 Jahre)",6262
-Männer,35,"Szenario 5
+Otto,35,"Szenario 5
 (Beste 15 Jahre)",5487
-Männer,38,"Szenario 5
+Otto,38,"Szenario 5
 (Beste 15 Jahre)",4815
-Männer,31,"Szenario 5
+Otto,31,"Szenario 5
 (Beste 15 Jahre)",6386
-Männer,5,"Szenario 5
+Otto,5,"Szenario 5
 (Beste 15 Jahre)",1077
-Männer,43,"Szenario 5
+Otto,43,"Szenario 5
 (Beste 15 Jahre)",2436
-Männer,20,"Szenario 5
+Otto,20,"Szenario 5
 (Beste 15 Jahre)",5101
-Männer,30,"Szenario 5
+Otto,30,"Szenario 5
 (Beste 15 Jahre)",6790
-Männer,16,"Szenario 5
+Otto,16,"Szenario 5
 (Beste 15 Jahre)",2742
-Männer,23,"Szenario 5
+Otto,23,"Szenario 5
 (Beste 15 Jahre)",7384
-Männer,26,"Szenario 5
+Otto,26,"Szenario 5
 (Beste 15 Jahre)",8268
-Männer,7,"Szenario 5
+Otto,7,"Szenario 5
 (Beste 15 Jahre)",1433
-Männer,39,"Szenario 5
+Otto,39,"Szenario 5
 (Beste 15 Jahre)",4546
-Männer,18,"Szenario 5
+Otto,18,"Szenario 5
 (Beste 15 Jahre)",3654
-Männer,19,"Szenario 5
+Otto,19,"Szenario 5
 (Beste 15 Jahre)",4365
-Männer,14,"Szenario 5
+Otto,14,"Szenario 5
 (Beste 15 Jahre)",2353
-Männer,12,"Szenario 5
+Otto,12,"Szenario 5
 (Beste 15 Jahre)",2146
-Männer,11,"Szenario 5
+Otto,11,"Szenario 5
 (Beste 15 Jahre)",1948
-Männer,10,"Szenario 5
+Otto,10,"Szenario 5
 (Beste 15 Jahre)",1824
-Männer,17,"Szenario 5
+Otto,17,"Szenario 5
 (Beste 15 Jahre)",3004
-Männer,6,"Szenario 5
+Otto,6,"Szenario 5
 (Beste 15 Jahre)",1302
-Männer,8,"Szenario 5
+Otto,8,"Szenario 5
 (Beste 15 Jahre)",1527
-Männer,4,"Szenario 5
+Otto,4,"Szenario 5
 (Beste 15 Jahre)",754
-Männer,45,"Szenario 5
+Otto,45,"Szenario 5
 (Beste 15 Jahre)",398
-Männer,13,"Szenario 5
+Otto,13,"Szenario 5
 (Beste 15 Jahre)",2223
-Frauen,41,"Szenario 5
+Marie,41,"Szenario 5
 (Beste 15 Jahre)",205
-Männer,2,"Szenario 5
+Otto,2,"Szenario 5
 (Beste 15 Jahre)",258
-Männer,3,"Szenario 5
+Otto,3,"Szenario 5
 (Beste 15 Jahre)",504
-Frauen,1,"Szenario 5
+Marie,1,"Szenario 5
 (Beste 15 Jahre)",116
-Frauen,44,"Szenario 5
+Marie,44,"Szenario 5
 (Beste 15 Jahre)",5
-Männer,46,"Szenario 5
+Otto,46,"Szenario 5
 (Beste 15 Jahre)",49
-Frauen,42,"Szenario 5
+Marie,42,"Szenario 5
 (Beste 15 Jahre)",72
-Männer,1,"Szenario 5
+Otto,1,"Szenario 5
 (Beste 15 Jahre)",53
-Frauen,43,"Szenario 5
+Marie,43,"Szenario 5
 (Beste 15 Jahre)",20
-Frauen,45,"Szenario 5
+Marie,45,"Szenario 5
 (Beste 15 Jahre)",3
-Frauen,46,"Szenario 5
+Marie,46,"Szenario 5
 (Beste 15 Jahre)",1
