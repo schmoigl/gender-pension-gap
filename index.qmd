@@ -1,10 +1,15 @@
 ---
-# title: "Szenarien von Pensionsreformen" 
-filters: [remove_title.lua]
+title: "Der Gender Pension Gap in Österreich"
+author:
+  - Lukas Schmoigl
+  - Lydia Grandner
+# filters: [remove_title.lua]
 anchor-sections: false
+bibliography: src/references.bib
+reference-section-title: "Literatur"
 execute:
   echo: false
-  warning: false 
+  warning: false
 ---
 
 {{< include src/00_config.qmd >}}
@@ -205,7 +210,9 @@ textInteractive1 = html`${perzentilText} ${textDistributions}`
 ```
 
 
-::: {.colum-body}
+::: {.column-body}
+
+Die nachfolgenden Datenanalysen basieren auf der Studie von @eppel2024simulation zur Simulation von Änderungen des Pensionssystems auf die Höhe der Alterseinkommen und den Gender Pension Gap in Österreich. Die interaktiven Visualisierungen wurden im Rahmen des Folgeprojekts @wifo2024pension entwickelt.
 
 <div class="fold-container">
 <div class="column">
@@ -234,7 +241,9 @@ makeIsotype({ inputData: dataIsotype }).render({ renderer: "svg" })
 makeDumbbell({ inputData: dataDumbbell }).render({ renderer: "svg" })
 ```
 
+::: {.column-margin}
 ${textInteractive1}
+:::
 
 :::
 

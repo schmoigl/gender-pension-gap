@@ -33,14 +33,14 @@ svg.marks {
     // bottom: -10%; /* Optionally move it down to control the bottom cropping */
 }
 
-h1, h2, h3 {
-    color: #be0021;
-    border-bottom: none;
-}
+// h1, h2, h3 {
+//     color: #be0021;
+//     border-bottom: none;
+// }
 
-h1 {
-    margin-bottom: 0;
-}
+// h1 {
+//     margin-bottom: 0;
+// }
 
 h4 {
   font-size: 13px;
@@ -145,15 +145,15 @@ form {
     }
 }
 
-.column-body {
-    background: url(img/struktur-footer.png);
-    // padding: 0em 2em 0 2em;
-    // margin: 0 0 1rem 0;
-}
+// .column-body {
+//     background: url(img/struktur-footer.png);
+//     // padding: 0em 2em 0 2em;
+//     // margin: 0 0 1rem 0;
+// }
 
-.column-margin {
-    margin: 12px 12px 12px 12px;
-}
+// .column-margin {
+//     margin: 12px 12px 12px 12px;
+// }
 
 @media screen and (max-width: 826px) {
     .page-full {

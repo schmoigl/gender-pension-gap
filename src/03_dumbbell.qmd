@@ -254,6 +254,7 @@ makeDumbbell = function({ inputData }) {
       dx: -14,
       align: "right",
       opacity: 0.51,
+      clip: true,
     })
     .transform(
       vl.filter("datum.D != 'Median' && datum.gesl == 'Frauen'")
