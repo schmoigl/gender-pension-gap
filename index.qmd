@@ -236,7 +236,7 @@ perzentilText = html`Sie haben eine Bruttopension von <strong>${germanLocale.for
 ```
 
 ```{ojs}
-textDistributions = html`Etwa <strong>${getCumPerc(radio, "lower")}</strong> aller <strong><span style="color: ${genderColor}">${radio}s</span></strong> erhalten im Status quo eine niedrigere Pension als <strong>${germanLocale.format(",.0f")(range)}</strong> Euro pro Monat. Umgekehrt erhalten <strong>${getCumPerc(radio, "higher")}</strong> aller <strong><span style="color: ${genderColor}">${radio}s</span></strong> mehr Pension.`
+textDistributions = html`Etwa <strong>${getCumPerc(radio, "lower")}</strong> aller <strong><span style="color: ${genderColor}">${radio}s</span></strong> erhalten also eine niedrigere Pension als <strong>${germanLocale.format(",.0f")(range)}</strong> Euro pro Monat. Umgekehrt erhalten <strong>${getCumPerc(radio, "higher")}</strong> aller <strong><span style="color: ${genderColor}">${radio}s</span></strong> mehr Pension.`
 ```
 
 ```{ojs}
