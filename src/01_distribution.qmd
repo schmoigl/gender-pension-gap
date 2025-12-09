@@ -226,7 +226,7 @@ makeDistribution = function({ inputData }) {
       opacity: 0.651,
       clip: true,
       size: 14,
-      y: 26,
+      y: 27,
       dx: -12,
       align: "right",
     })
@@ -265,7 +265,7 @@ makeDistribution = function({ inputData }) {
       opacity: 0.651,
       clip: true,
       size: 14,
-      y: 26,
+      y: 27,
       dx: 12,
       align: "left",
     })

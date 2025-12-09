@@ -144,7 +144,7 @@ form {
 
 .column-margin {
     color: black !important;
-    opacity: 0.651;
+    opacity: 0.811;
     text-align: justify;
     margin-left: 2em;
     font-size: 14px;
@@ -232,6 +232,10 @@ input[type="radio"] {
     cursor: pointer;
     position: relative;
     background: transparent;
+}
+
+label:has(input[type="radio"]) {
+    cursor: pointer;
 }
 
 input[type="radio"][value="0"]:checked + label {
