@@ -288,8 +288,8 @@ makeDumbbell = function({ inputData }) {
         // textGap,
         // textPerc,
         // textArrow,
-        textMedianLabel,
-        textPerzentilLabel,
+        // textMedianLabel,
+        // textPerzentilLabel,
         // text,
       )
 
