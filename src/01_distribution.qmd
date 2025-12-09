@@ -129,7 +129,7 @@ makeDistribution = function({ inputData }) {
   const textGray1 = vl
     .markText({
       opacity: 0.651,
-      size: 13,
+      size: 14,
       y: 50,
       dx: -10,
       align: "right",
@@ -155,7 +155,7 @@ makeDistribution = function({ inputData }) {
   const textGray2 = vl
     .markText({
       // opacity: 0.651,
-      size: 13,
+      size: 14,
       y: 66,
       dx: -10,
       align: "right",
@@ -180,7 +180,7 @@ makeDistribution = function({ inputData }) {
   const textGray3 = vl
     .markText({
       opacity: 0.651,
-      size: 13,
+      size: 14,
       y: 82,
       dx: -10,
       align: "right",
@@ -221,31 +221,11 @@ makeDistribution = function({ inputData }) {
         .value("← " + getCumPerc(radio, "lower")), 
     )
 
-  // const textLeft2 = vl
-  //   .markText({
-  //     opacity: 0.651
-  //     clip: true,
-  //     size: 13,
-  //     y: 42,
-  //     dx: -12,
-  //     align: "right",
-  //   })
-  //   .transform(
-  //     vl.filter("datum.gesl == datum.radio"),
-  //     vl.filter("datum.bin == datum.range"),
-  //   )
-  //   .encode(
-  //     vl.x()
-  //       .fieldQ("bin"),
-  //     vl.text()
-  //       .value("kleiner"), 
-  //   )
-
   const textLeftOther = vl
     .markText({
       opacity: 0.651,
       clip: true,
-      size: 13,
+      size: 14,
       y: 26,
       dx: -12,
       align: "right",
@@ -280,31 +260,11 @@ makeDistribution = function({ inputData }) {
         .value(getCumPerc(radio, "higher") + " →"), 
     )
 
-  // const textRight2 = vl
-  //   .markText({
-  //     opacity: 0.651,
-  //     clip: true,
-  //     size: 13,
-  //     y: 42,
-  //     dx: 12,
-  //     align: "left",
-  //   })
-  //   .transform(
-  //     vl.filter("datum.gesl == datum.radio"),
-  //     vl.filter("datum.bin == datum.range"),
-  //   )
-  //   .encode(
-  //     vl.x()
-  //       .fieldQ("bin"),
-  //     vl.text()
-  //       .value("größer"),
-  //   )
-
   const textRightOther = vl
     .markText({
       opacity: 0.651,
       clip: true,
-      size: 13,
+      size: 14,
       y: 26,
       dx: 12,
       align: "left",
@@ -320,55 +280,11 @@ makeDistribution = function({ inputData }) {
         .value(getCumPerc(notRadio, "higher")), 
     )
 
-  // const textPosition = vl
-  //   .markText({
-  //     clip: true,
-  //     size: 18,
-  //     y: 290,
-  //     dx: 5,
-  //     // angle: -0,
-  //     align: "left",
-  //     strokeWidth: 1.25,
-  //   })
-  //   .transform(
-  //     vl.filter("datum.gesl == datum.radio"),
-  //     vl.filter("datum.bin == datum.range"),
-  //   )
-  //   .encode(
-  //     vl.x()
-  //       .fieldQ("bin"),
-  //     vl.text()
-  //       .value("↙"), 
-  //   )
-
-  // const textPositionWhite = vl
-  //   .markText({
-  //     clip: true,
-  //     size: 18,
-  //     y: 290,
-  //     dx: 5,
-  //     // angle: -0,
-  //     align: "left",
-  //     stroke: "white",
-  //     strokeWidth: 2.75,
-  //     // fontWeight: "bold",
-  //   })
-  //   .transform(
-  //     vl.filter("datum.gesl == datum.radio"),
-  //     vl.filter("datum.bin == datum.range"),
-  //   )
-  //   .encode(
-  //     vl.x()
-  //       .fieldQ("bin"),
-  //     vl.text()
-  //       .value("↙"), 
-  //   )
-
   const textMen = vl
     .markText({
       opacity: radio == "Otto" ? 1 : 0.651,
       clip: true,
-      size: width > 786 ? 13 : 13,
+      size: width > 786 ? 14 : 14,
       y: width > 786 ? 164 : 120,
       align: "center",
     })
@@ -386,7 +302,7 @@ makeDistribution = function({ inputData }) {
     .markText({
       opacity: radio == "Marie" ? 1 : 0.651,
       clip: true,
-      size: width > 786 ? 13 : 13,
+      size: width > 786 ? 14 : 14,
       y: width > 786 ? 90 : 45,
       align: "center",
     })
@@ -412,10 +328,6 @@ makeDistribution = function({ inputData }) {
         rule,
         textLeft,
         textRight,
-        // textLeft2,
-        // textRight2,
-        // textPositionWhite,
-        // textPosition,
         textLeftOther,
         textRightOther,
         textMen,
@@ -434,15 +346,6 @@ makeDistribution = function({ inputData }) {
   return layers
     .height(width > 768 ? 230 : 200)
     .width(makeWidth(width))
-    // .facet({
-    //   field: "variable", 
-    //   type: "nominal", 
-    //   title: null,
-    //   header: { 
-    //     labelFontsize: 15, 
-    //     orient: "top",
-    //   },
-    // })
     .data(inputData)
     .config(config)
 }

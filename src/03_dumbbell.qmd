@@ -156,7 +156,7 @@ makeDumbbell = function({ inputData }) {
     
   const textPerc = vl
     .markText({
-      size: 13,
+      size: 14,
       dx: 52,
       dy: -14,
       align: "right",
@@ -181,7 +181,7 @@ makeDumbbell = function({ inputData }) {
 
   const textGap = vl
     .markText({
-      size: 13,
+      size: 14,
       dx: 52,
       dy: -30,
       align: "right",
@@ -206,7 +206,7 @@ makeDumbbell = function({ inputData }) {
 
   const textArrow = vl
     .markText({
-      size: 13,
+      size: 14,
       dx: -52,
       dy: -30, // rangeRaw < 3000 ? -35 : -40,
       align: "left",
@@ -230,7 +230,7 @@ makeDumbbell = function({ inputData }) {
 
   const textMedianLabel = vl
     .markText({
-      size: 13,
+      size: 14,
       dx: -14,
       align: "right",
       opacity: 0.651,
@@ -249,7 +249,7 @@ makeDumbbell = function({ inputData }) {
 
   const textPerzentilLabel = vl
     .markText({
-      size: 13,
+      size: 14,
       dx: -14,
       align: "right",
       opacity: 0.651,
@@ -273,7 +273,6 @@ makeDumbbell = function({ inputData }) {
         labels,
         points,
         text,
-        //textRel,
         textGap,
         textPerc,
         textArrow,
@@ -284,7 +283,6 @@ makeDumbbell = function({ inputData }) {
         lines,
         labels,
         points,
-        //textRel,
         // textGap,
         // textPerc,
         // textArrow,
@@ -294,17 +292,8 @@ makeDumbbell = function({ inputData }) {
       )
 
   return layers
-    .height(width > 786 ? 140 : 140)
+    .height(width > 786 ? 150 : 150)
     .width(makeWidth(width))
-    // .facet({
-    //   field: "D", 
-    //   type: "nominal", 
-    //   title: null,
-    //   header: { 
-    //     labelFontsize: 15, 
-    //     labelOrient: "top",
-    //   },
-    // })
     .data(inputData)
     .config(config)
 
