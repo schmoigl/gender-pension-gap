@@ -18,8 +18,12 @@ body {
         repeating-radial-gradient(circle at 80% 70%, transparent, transparent 60px, rgba(139,119,101,.004) 60px, rgba(139,119,101,.004) 120px);
 }
 
-:root {
-    --r-selection-background-color: #ffa500; // #4CAF50; // rgb(25, 135, 55);
+::selection {
+    background-color: rgba(255, 165, 0, 0.51);
+}
+
+::-moz-selection {
+    background-color: rgba(255, 165, 0, 0.51);
 }
 
 p {
@@ -162,6 +166,38 @@ form {
     .column-margin {
         display: none;
     }
+}
+
+.citation {
+    font-weight: bold;
+    color: black;
+    display: inline-block;
+    position: relative;
+}
+
+.citation:hover {
+    text-decoration: underline;
+}
+
+.citation a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    position: static;
+}
+
+.citation a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.citation a:hover {
+    text-decoration: none;
 }
 
 #quarto-appendix.default {

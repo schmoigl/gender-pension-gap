@@ -3,7 +3,7 @@ title: 1925 — 2025
 subtitle: Auch heute bekommt <strong><span style="color:#be0021">Marie</span></strong> weniger Pension als <strong><span style="color:#ffa500">Otto</span></strong>
 author:
   - Lukas Schmoigl
-  # - Lydia Grandner
+  - Lydia Grandner
 lang: de
 # filters: [remove_title.lua]
 anchor-sections: false
@@ -183,9 +183,9 @@ secondPercent = radio == "Otto" ? Math.abs(gapRelative) : marieOttoGapPercent
 
 ```{ojs}
 textInteractive2 = radio == "Marie" ?
-  html`Würden Sie ${notRadio == "Otto" ? "ein" : "eine"} <strong><span style="color: ${otherGenderColor}">${notRadio}</span></strong> sein und im <strong>${closestDecileValue}</strong> sein, würden Sie <strong>${germanLocale.format(",.0f")(otherGenderIncome)}</strong> Euro an Pension bekommen. Das sind <strong>${germanLocale.format(",.0f")(gapAbsolute)}</strong> Euro ${gapDirection} (<strong>${germanLocale.format(",.0f")(firstPercent)}%</strong>). Oder anders herum formuliert: <strong><span style="color: ${colors2[0]}">Marie</span></strong> hätte <strong>${germanLocale.format(",.0f")(secondPercent)}%</strong> weniger als <strong><span style="color: ${colors2[1]}">Otto</span></strong>.`
+  html`Würden Sie ${notRadio == "Otto" ? "ein" : "eine"} <strong><span style="color: ${otherGenderColor}">${notRadio}</span></strong> sein und im <strong>${closestDecileValue}</strong>, dann würden Sie <strong>${germanLocale.format(",.0f")(otherGenderIncome)}</strong> Euro an Pension bekommen. Das sind <strong>${germanLocale.format(",.0f")(gapAbsolute)}</strong> Euro ${gapDirection} (<strong>${germanLocale.format(",.0f")(firstPercent)}%</strong>). Oder anders herum formuliert: <strong><span style="color: ${colors2[0]}">Marie</span></strong> hätte <strong>${germanLocale.format(",.0f")(secondPercent)}%</strong> weniger als <strong><span style="color: ${colors2[1]}">Otto</span></strong>.`
   :
-  html`Würden Sie ${notRadio == "Otto" ? "ein" : "eine"} <strong><span style="color: ${otherGenderColor}">${notRadio}</span></strong> sein und im <strong>${closestDecileValue}</strong> sein, würden Sie <strong>${germanLocale.format(",.0f")(otherGenderIncome)}</strong> Euro an Pension bekommen. Das sind <strong>${germanLocale.format(",.0f")(gapAbsolute)}</strong> Euro ${gapDirection} (<strong>${germanLocale.format(",.0f")(firstPercent)}%</strong>).`
+  html`Würden Sie ${notRadio == "Otto" ? "ein" : "eine"} <strong><span style="color: ${otherGenderColor}">${notRadio}</span></strong> sein und im <strong>${closestDecileValue}</strong>, dann würden Sie <strong>${germanLocale.format(",.0f")(otherGenderIncome)}</strong> Euro an Pension bekommen. Das sind <strong>${germanLocale.format(",.0f")(gapAbsolute)}</strong> Euro ${gapDirection} (<strong>${germanLocale.format(",.0f")(firstPercent)}%</strong>).`
 ```
 
 ```{ojs}
@@ -250,7 +250,7 @@ Vor hundert Jahren revolutionierten <strong><span style="color:#be0021">Marie</s
 Die nachfolgenden interaktiven Visualisierungen ermöglichen es, diese Pensionsunterschiede nach Geschlecht zu erkunden und verschiedene Reformszenarien zu vergleichen. In der Tradition der Neuraths wird komplexe Information zugänglich gemacht, um gesellschaftliche Probleme sichtbar zu machen.
 
 ::: {.column-margin}
-Die Daten basieren auf der Studie von @eppel2024simulation zur Simulation von Änderungen des Pensionssystems auf die Höhe der Alterseinkommen und wurden zunächst auch im Rahmen des Folgeprojekts @wifo2024pension entwickelt.
+Die Daten basieren auf der Studie von <strong>Eppel et al.</strong> [-@eppel2024simulation] zur Simulation von Änderungen des Pensionssystems auf die Höhe der Alterseinkommen und wurden zunächst auch im Rahmen des Folgeprojekts <strong>Mayrhuber et al.</strong> [-@wifo2024pension] entwickelt.
 :::
 
 <div class="fold-container">
