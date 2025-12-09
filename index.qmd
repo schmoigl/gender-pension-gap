@@ -245,9 +245,9 @@ textInteractive1 = html`${perzentilText} ${textDistributions}`
 
 ::: {.column-body}
 
-Vor hundert Jahren revolutionierten <strong><span style="color:#be0021">Marie</span></strong> und <strong><span style="color:#ffa500">Otto</span></strong> Neurath am Wiener Gesellschafts- und Wirtschaftsmuseum die Darstellung komplexer sozialer und ökonomischer Zusammenhänge. Mit ihrer Bildstatistik machten sie Verteilungsfragen sichtbar und für alle verständlich. Heute, 2025, zeigen die Visualisierungen: Der Gender Pension Gap besteht weiterhin. <strong><span style="color:#be0021">Marie</span></strong> erhält in Österreich deutlich weniger Pension als <strong><span style="color:#ffa500">Otto</span></strong>.
+Vor hundert Jahren revolutionierten <strong><span style="color:#be0021">Marie</span></strong> und <strong><span style="color:#ffa500">Otto</span></strong> Neurath am Wiener Gesellschafts- und Wirtschaftsmuseum die Darstellung komplexer sozialer und ökonomischer Zusammenhänge. Mit ihrer Bildstatistik haben sie Verteilungsfragen sichtbar und verständlich gemacht. 
 
-Die nachfolgenden interaktiven Visualisierungen ermöglichen es, diese Pensionsunterschiede nach Geschlecht zu erkunden und verschiedene Reformszenarien zu vergleichen. In der Tradition der Neuraths wird komplexe Information zugänglich gemacht, um gesellschaftliche Probleme sichtbar zu machen.
+Heute, 2025, zeigen die Daten: Der Gender Pension Gap besteht weiterhin. <strong><span style="color:#be0021">Marie</span></strong> erhält in Österreich deutlich weniger Pension als <strong><span style="color:#ffa500">Otto</span></strong>. Die nachfolgenden interaktiven Visualisierung ermöglicht es, diese Pensionsunterschiede nach Geschlecht zu erkunden. In der Tradition der Neuraths wird komplexe Information zugänglich gemacht, um gesellschaftliche Probleme sichtbar zu machen und darüber hinaus textlich beschrieben.
 
 ::: {.column-margin}
 Die Daten basieren auf der Studie von <strong>Eppel et al.</strong> [-@eppel2024simulation] zur Simulation von Änderungen des Pensionssystems auf die Höhe der Alterseinkommen und wurden zunächst auch im Rahmen des Folgeprojekts <strong>Mayrhuber et al.</strong> [-@wifo2024pension] entwickelt.
@@ -265,7 +265,7 @@ radio = radioRaw == "Marie" ? "Marie" : "Otto"
 <div class="column">
 
 ```{ojs}
-viewof rangeRaw = Inputs.range([400, 4000], {step: 10, value: 1500, label: "Bruttopension:"})
+viewof rangeRaw = Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension:"})
 range = Math.round(rangeRaw/100)*100
 ```
 
