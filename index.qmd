@@ -257,6 +257,7 @@ Die Daten basieren auf der Studie von <strong>Eppel et al.</strong> [-@eppel2024
 <div class="column">
 
 ```{ojs}
+width
 viewof radioRaw = Inputs.radio(["Marie", "Otto"], {value: "Marie", label: "Geschlecht:"})
 radio = radioRaw == "Marie" ? "Marie" : "Otto"
 ```

@@ -13,9 +13,9 @@ makeDumbbell = function({ inputData }) {
       vl.x()
         .fieldQ("value")
         .axis({
-          title: width > 600 ? "Bruttopension" : null,
-          labels:  width > 600 ? true : false,
-          ticks:  width > 600 ? true : false,
+          title: "Bruttopension",
+          labels:  width > 768 ? true : false,
+          ticks:  width > 768 ? true : false,
           domain: true,
           grid: false,
           domainColor: "black",
@@ -71,9 +71,8 @@ makeDumbbell = function({ inputData }) {
       vl.x()
         .fieldQ("value")
         .axis({
-          title: width > 600 ? "Bruttopension" : null,
-          labels:  width > 600 ? true : false,
-          ticks:  width > 600 ? true : false,
+          labels:  width > 768 ? true : false,
+          ticks:  width > 768 ? true : false,
           domain: true,
           grid: false,
           domainColor: "black",
@@ -106,7 +105,7 @@ makeDumbbell = function({ inputData }) {
         })
         .legend(null),
         // .legend({
-        //   // orient: width > 825 ? "right" : "top",
+        //   // orient: width > 768 ? "right" : "top",
         //   orient: "top",
         //   symbolOpacity: 1,
         //   symbolType: "square",
@@ -268,7 +267,7 @@ makeDumbbell = function({ inputData }) {
         .value("Perzentil"),
     )
 
-    const layers = width > 600 ?
+    const layers = width > 786 ?
       vl.layer(
         lines,
         labels,
@@ -286,16 +285,16 @@ makeDumbbell = function({ inputData }) {
         labels,
         points,
         //textRel,
-        textGap,
-        textPerc,
-        textArrow,
+        // textGap,
+        // textPerc,
+        // textArrow,
         textMedianLabel,
         textPerzentilLabel,
         // text,
       )
 
   return layers
-    .height(width > 600 ? 140 : 140)
+    .height(width > 786 ? 140 : 140)
     .width(makeWidth(width))
     // .facet({
     //   field: "D", 

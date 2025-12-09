@@ -20,8 +20,8 @@ makeDistribution = function({ inputData }) {
           domainWidth: 0.75,
           tickWidth: 0.75,
           labelFlush: false,
-          labels:  width > 825 ? true : false,
-          ticks:  width > 825 ? true : false,
+          labels:  width > 768 ? true : false,
+          ticks:  width > 768 ? true : false,
           tickMinStep: 1000,
         })
         .scale({
@@ -368,8 +368,8 @@ makeDistribution = function({ inputData }) {
     .markText({
       opacity: radio == "Otto" ? 1 : 0.651,
       clip: true,
-      size: width > 600 ? 12 : 12,
-      y: width > 600 ? 168 : 105,
+      size: width > 786 ? 12 : 12,
+      y: width > 786 ? 168 : 120,
       align: "center",
     })
     .data([
@@ -379,19 +379,19 @@ makeDistribution = function({ inputData }) {
       vl.x() 
         .fieldQ("bin"),
       vl.text()
-        .value(width > 600 ? "⤺ Pensionen der Ottos" : ["Pensionen der", "Ottos"]), 
+        .value(width > 786 ? "⤺ Pensionen der Ottos" : ["⤺ Pensionen der", "Ottos"]), 
     )
 
   const textWomen = vl
     .markText({
       opacity: radio == "Marie" ? 1 : 0.651,
       clip: true,
-      size: width > 600 ? 12 : 12,
-      y: width > 600 ? 90 : 35,
+      size: width > 786 ? 12 : 12,
+      y: width > 786 ? 90 : 45,
       align: "center",
     })
     .data([
-      {bin: width > 600 ? 400 : 600}
+      {bin: width > 786 ? 400 : 600}
     ])
     .encode(
       vl.x()
@@ -401,7 +401,7 @@ makeDistribution = function({ inputData }) {
     )
 
 
-    const layers = width > 825 ?
+    const layers = width > 768 ?
       vl.layer(
         ruleGray,
         textGray1,
@@ -432,7 +432,7 @@ makeDistribution = function({ inputData }) {
       )
 
   return layers
-    .height(width > 825 ? 230 : 200)
+    .height(width > 768 ? 230 : 200)
     .width(makeWidth(width))
     // .facet({
     //   field: "variable", 
