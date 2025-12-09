@@ -1,6 +1,6 @@
 
 ```{ojs}
-colors2 = ["#be0021", "#ffa500"]
+colors2 = ["#be0021", "#384a63"]
 
 function makeWidth(inputWidth) {
   const outputWidth = 
