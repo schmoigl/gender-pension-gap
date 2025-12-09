@@ -157,7 +157,7 @@ makeDumbbell = function({ inputData }) {
   const textPerc = vl
     .markText({
       size: 14,
-      dx: 52,
+      dx: 48,
       dy: -14,
       align: "right",
       anchor: "middle",
@@ -167,7 +167,8 @@ makeDumbbell = function({ inputData }) {
     .transform(
       vl.joinaggregate([vl.mean("value").as("midValue")])
         .groupby(["D"]),
-      vl.filter("datum.gesl == 'Marie'")
+      vl.filter("datum.gesl == 'Marie'"),
+      vl.filter("datum.D == 'Median' || (datum.midValue >= 1000 && datum.midValue <= 3500)")
     )
     .encode(
       vl.x()
@@ -182,7 +183,7 @@ makeDumbbell = function({ inputData }) {
   const textGap = vl
     .markText({
       size: 14,
-      dx: 52,
+      dx: 48,
       dy: -30,
       align: "right",
       anchor: "middle",
@@ -192,7 +193,8 @@ makeDumbbell = function({ inputData }) {
     .transform(
       vl.joinaggregate([vl.mean("value").as("midValue")])
         .groupby(["D"]),
-      vl.filter("datum.gesl == 'Marie'")
+      vl.filter("datum.gesl == 'Marie'"),
+      vl.filter("datum.D == 'Median' || (datum.midValue >= 1000 && datum.midValue <= 3500)")
     )
     .encode(
       vl.x()
@@ -207,7 +209,7 @@ makeDumbbell = function({ inputData }) {
   const textArrow = vl
     .markText({
       size: 14,
-      dx: -52,
+      dx: -48,
       dy: -30, // rangeRaw < 3000 ? -35 : -40,
       align: "left",
       anchor: "middle",
@@ -217,7 +219,8 @@ makeDumbbell = function({ inputData }) {
     .transform(
       vl.joinaggregate([vl.mean("value").as("midValue")])
         .groupby(["D"]),
-      vl.filter("datum.gesl == 'Marie'")
+      vl.filter("datum.gesl == 'Marie'"),
+      vl.filter("datum.D == 'Median' || (datum.midValue >= 1000 && datum.midValue <= 3500)")
     )
     .encode(
       vl.x()
