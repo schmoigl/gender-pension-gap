@@ -25,13 +25,13 @@ makeDistribution = function({ inputData }) {
           tickMinStep: 1000,
         })
         .scale({
-          domain: [0, 5000],
+          domain: [-200, 4700],
           nice: false,
         }),
       vl.y()
         .fieldQ("N")
         .scale({
-          domain: [50, 23000],
+          domain: [50, 26000],
           nice: false,
         })
         .axis({
@@ -369,7 +369,7 @@ makeDistribution = function({ inputData }) {
       opacity: radio == "Otto" ? 1 : 0.651,
       clip: true,
       size: width > 600 ? 12 : 12,
-      y: width > 600 ? 190 : 105,
+      y: width > 600 ? 168 : 105,
       align: "center",
     })
     .data([
@@ -379,7 +379,7 @@ makeDistribution = function({ inputData }) {
       vl.x() 
         .fieldQ("bin"),
       vl.text()
-        .value(width > 600 ? "⤺ Ottos Pensionen" : ["⤺ Ottos ", "Pensionen"]), 
+        .value(width > 600 ? "⤺ Pensionen der Ottos" : ["Pensionen der", "Ottos"]), 
     )
 
   const textWomen = vl
@@ -387,7 +387,7 @@ makeDistribution = function({ inputData }) {
       opacity: radio == "Marie" ? 1 : 0.651,
       clip: true,
       size: width > 600 ? 12 : 12,
-      y: width > 600 ? 104 : 35,
+      y: width > 600 ? 90 : 35,
       align: "center",
     })
     .data([
@@ -397,7 +397,7 @@ makeDistribution = function({ inputData }) {
       vl.x()
         .fieldQ("bin"),
       vl.text()
-        .value(["Maries", "Pensionen ↷ "]), 
+        .value(["Pensionen", "der Maries ↷ "]), 
     )
 
 
@@ -432,7 +432,7 @@ makeDistribution = function({ inputData }) {
       )
 
   return layers
-    .height(width > 825 ? 284 : 200)
+    .height(width > 825 ? 230 : 200)
     .width(makeWidth(width))
     // .facet({
     //   field: "variable", 

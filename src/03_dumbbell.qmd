@@ -26,7 +26,7 @@ makeDumbbell = function({ inputData }) {
           tickMinStep: 1000,
         })
         .scale({
-          domain: [0, 5000],
+          domain: [-200, 4700],
           nice: false,
         }),
       vl.xOffset().value(-11),
@@ -84,7 +84,7 @@ makeDumbbell = function({ inputData }) {
           tickMinStep: 1000,
         })
         .scale({
-          domain: [0, 5000],
+          domain: [-200, 4700],
           nice: false,
         }),
       vl.y()

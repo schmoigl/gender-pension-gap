@@ -133,8 +133,8 @@ deciles = decilesMid
   .objects()
 
 dataRule = [
-  {gesl: "Marie", median: 1223, y: 0, y2: 20000},
-  {gesl: "Otto", median: 2286, y: 0, y2: 20000},
+  {gesl: "Marie", median: 1223, y: 0, y2: 21000},
+  {gesl: "Otto", median: 2286, y: 0, y2: 21000},
 ]
 
 medians = aq.from(dataRule)
@@ -183,9 +183,9 @@ secondPercent = radio == "Otto" ? Math.abs(gapRelative) : marieOttoGapPercent
 
 ```{ojs}
 textInteractive2 = radio == "Marie" ?
-  html`Würden Sie ${notRadio == "Otto" ? "ein" : "eine"} <strong><span style="color: ${otherGenderColor}">${notRadio}</span></strong> sein und im <strong>${closestDecileValue}</strong>, dann würden Sie <strong>${germanLocale.format(",.0f")(otherGenderIncome)}</strong> Euro an Pension bekommen. Das sind <strong>${germanLocale.format(",.0f")(gapAbsolute)}</strong> Euro ${gapDirection} (<strong>${germanLocale.format(",.0f")(firstPercent)}%</strong>). Oder anders herum formuliert: <strong><span style="color: ${colors2[0]}">Marie</span></strong> hätte <strong>${germanLocale.format(",.0f")(secondPercent)}%</strong> weniger als <strong><span style="color: ${colors2[1]}">Otto</span></strong>.`
+  html`Würden Sie ${notRadio == "Otto" ? "ein" : "eine"} <strong><span style="color: ${otherGenderColor}">${notRadio}</span></strong> sein und im <strong>${closestDecileValue}</strong>, dann würden Sie <strong>${germanLocale.format(",.0f")(otherGenderIncome)}</strong> Euro an Pension bekommen. Das sind <strong>${germanLocale.format(",.0f")(gapAbsolute)}</strong> Euro ${gapDirection} (<strong>${germanLocale.format(",.0f")(firstPercent)}%</strong>). Oder anders herum formuliert: <strong><span style="color: ${colors2[0]}">Marie</span></strong> hätte <strong>${germanLocale.format(",.0f")(secondPercent)}%</strong> weniger als <strong><span style="color: ${colors2[1]}">Otto</span></strong>. So groß ist also der Gender Pension Gap im <strong>${closestDecileValue}</strong>. Im <strong>Median</strong> beträgt er <strong>47%</strong> oder <strong>1.063</strong> Euro.`
   :
-  html`Würden Sie ${notRadio == "Otto" ? "ein" : "eine"} <strong><span style="color: ${otherGenderColor}">${notRadio}</span></strong> sein und im <strong>${closestDecileValue}</strong>, dann würden Sie <strong>${germanLocale.format(",.0f")(otherGenderIncome)}</strong> Euro an Pension bekommen. Das sind <strong>${germanLocale.format(",.0f")(gapAbsolute)}</strong> Euro ${gapDirection} (<strong>${germanLocale.format(",.0f")(firstPercent)}%</strong>).`
+  html`Würden Sie ${notRadio == "Otto" ? "ein" : "eine"} <strong><span style="color: ${otherGenderColor}">${notRadio}</span></strong> sein und im <strong>${closestDecileValue}</strong>, dann würden Sie <strong>${germanLocale.format(",.0f")(otherGenderIncome)}</strong> Euro an Pension bekommen. Das sind <strong>${germanLocale.format(",.0f")(gapAbsolute)}</strong> Euro ${gapDirection} (<strong>${germanLocale.format(",.0f")(firstPercent)}%</strong>). So groß ist also der Gender Pension Gap im <strong>${closestDecileValue}</strong>. Im <strong>Median</strong> beträgt er <strong>47%</strong> oder <strong>1.063</strong> Euro.`
 ```
 
 ```{ojs}
@@ -265,7 +265,7 @@ radio = radioRaw == "Marie" ? "Marie" : "Otto"
 <div class="column">
 
 ```{ojs}
-viewof rangeRaw = Inputs.range([400, 4000], {step: 50, value: 1500, label: "Bruttopension:"})
+viewof rangeRaw = Inputs.range([200, 4000], {step: 50, value: 1500, label: "Bruttopension:"})
 range = Math.round(rangeRaw/100)*100
 ```
 

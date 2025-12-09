@@ -130,18 +130,6 @@ form {
   }
 }
 
-.fade-element {
-  opacity: 0; /* Start hidden by default */
-  transition: opacity 0.3s ease-in-out; /* Smooth transition for fading */
-  height: 0;
-  overflow: hidden;
-}
-
-.fade-element.active {
-  opacity: 1;
-  height: auto;
-}
-
 .btn.disabled {
   pointer-events: none;
   display: none;
