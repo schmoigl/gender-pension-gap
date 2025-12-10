@@ -18,6 +18,10 @@ body {
         repeating-radial-gradient(circle at 80% 70%, transparent, transparent 60px, rgba(139,119,101,.004) 60px, rgba(139,119,101,.004) 120px);
 }
 
+.tippy-box[data-theme~="quarto"], .tippy-content {
+  display: none;
+}
+
 ::selection {
     background-color: rgba(56, 74, 99, 0.33);
 }
