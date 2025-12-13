@@ -138,6 +138,11 @@ makeDumbbell = function({ inputData }) {
       clip: true,
       align: "center",
     })
+    .transform(
+      vl.joinaggregate([vl.mean("value").as("midValue")])
+        .groupby(["D"]),
+      // vl.filter("datum.gesl == 'Marie' || (datum.midValue >= 800)"),
+    )
     .encode(
       vl.x()
         .fieldQ("value"),
