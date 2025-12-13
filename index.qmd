@@ -232,7 +232,7 @@ otherGenderColor = notRadio == "Otto" ? colors2[1] : colors2[0]
 ```
 
 ```{ojs}
-perzentilText = html`Sie haben eine Bruttopension von <strong>${germanLocale.format(",.0f")(rangeRaw)}</strong> Euro angeben. Ihre Vergleichsgruppe ist deshalb das <strong>${deciles.map(d => d.closestDecileValue)[0]}</strong> (<strong>${closestDecileNumber}%</strong> der <strong><span style="color: ${genderColor}">${radio}s</span></strong> haben eine geringere Pension). Hier beträgt die durchschnittliche Pension <strong>${germanLocale.format(",.0f")(statusIncome)}</strong> Euro.`
+perzentilText = html`Sie haben eine Bruttopension von <strong>${germanLocale.format(",.0f")(rangeRaw)}</strong> Euro angegeben. Ihre Vergleichsgruppe ist deshalb das <strong>${deciles.map(d => d.closestDecileValue)[0]}</strong> (<strong>${closestDecileNumber}%</strong> der <strong><span style="color: ${genderColor}">${radio}s</span></strong> haben eine geringere Pension). Hier beträgt die durchschnittliche Pension <strong>${germanLocale.format(",.0f")(statusIncome)}</strong> Euro.`
 ```
 
 ```{ojs}
