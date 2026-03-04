@@ -22,3 +22,11 @@ households_1_files/
 
 .claude/
 /.luarc.json
+
+# Deployment
+deploy.sh
+
+# Unused assets kept locally
+summary.md
+img/svg/old-man.svg
+img/svg/old-woman.svg

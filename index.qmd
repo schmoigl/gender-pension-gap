@@ -168,7 +168,6 @@ otherGenderIncome = deciles
 ```{ojs}
 gapAbsolute = Math.abs(otherGenderIncome - statusIncome)
 gapRelative = ((otherGenderIncome - statusIncome) / statusIncome) * 100
-gapRelativeReverse = ((otherGenderIncome - statusIncome) / otherGenderIncome) * 100
 gapDirection = otherGenderIncome > statusIncome ? "mehr" : "weniger"
 // For the second sentence, always compare Marie to Otto
 marieIncome = radio == "Marie" ? statusIncome : otherGenderIncome

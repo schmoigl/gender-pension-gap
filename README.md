@@ -6,6 +6,8 @@ Our working version is live under:
 
 [https://data-science.wifo.ac.at/marie-neurath](https://data-science.wifo.ac.at/marie-neurath)
 
+[![Preview](img/screenshot.png)](https://data-science.wifo.ac.at/marie-neurath)
+
 ## About the Prize
 
 - **Main Award:** €3,000
