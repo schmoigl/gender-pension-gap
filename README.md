@@ -2,11 +2,11 @@
 
 An interactive data visualization of the **gender pension gap in Austria**, showing how women's pensions systematically fall below men's across the full distribution — from the median to the extremes. The visualization combines a pension distribution chart, an ISOTYPE-style count graphic, and a decile comparison (dumbbell chart), all based on WIFO microsimulation data.
 
+**Live:** [https://data-science.wifo.ac.at/marie-neurath](https://data-science.wifo.ac.at/marie-neurath)
+
 > Submitted to the [Marie Neurath Prize for Data Visualization 2025](https://wien.arbeiterkammer.at/neurath), awarded by the Austrian Chamber of Labour (Arbeiterkammer Wien).
 
 [![Preview](img/screenshot.png)](https://data-science.wifo.ac.at/marie-neurath)
-
-**Live:** [https://data-science.wifo.ac.at/marie-neurath](https://data-science.wifo.ac.at/marie-neurath)
 
 ## About Marie Neurath
 
