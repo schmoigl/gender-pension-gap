@@ -1,4 +1,4 @@
-# 1925 — 2025: Marie bekommt weniger Pension als Otto
+# Gender Pension Gap in Austria
 
 An interactive data visualization of the **gender pension gap in Austria**, showing how women's pensions systematically fall below men's across the full distribution — from the median to the extremes. The visualization combines a pension distribution chart, an ISOTYPE-style count graphic, and a decile comparison (dumbbell chart), all based on WIFO microsimulation data.
 
