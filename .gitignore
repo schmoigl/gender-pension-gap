@@ -1,32 +1,31 @@
-# R
+
+# ── R ────────────────────────────────────────────────────────────────────────
 .Rhistory
-.vdoc.r
-.Rproj.user
 .RData
 .Ruserdata
+.Rproj.user
+.vdoc.r
 
-# VS Code
-.vscode/
-
-# Quarto
+# ── Quarto ───────────────────────────────────────────────────────────────────
 .quarto
-
-website/
+/.quarto/
+**/*.quarto_ipynb
 site_libs/
+
+# ── Build output ─────────────────────────────────────────────────────────────
+website/
 households_files/
 households_1_files/
 
-/.quarto/
-
-**/*.quarto_ipynb
-
-.claude/
+# ── Editor / tooling ─────────────────────────────────────────────────────────
+.vscode/
 /.luarc.json
+.claude/
 
-# Deployment
+# ── Sensitive / local-only files ─────────────────────────────────────────────
 deploy.sh
-
-# Unused assets kept locally
 summary.md
+
+# ── Assets ───────────────────────────────────────────────────────────────────
 img/svg/old-man.svg
 img/svg/old-woman.svg
